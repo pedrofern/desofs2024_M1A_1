@@ -1,0 +1,98 @@
+@startuml
+title
+EletricGo - Domain Model
+end title
+package "Warehouse Management Aggregate" as wm <<Rectangle>> {
+class Warehouse <<Root>> <<Entity>> {
+- id
+- designation
+}
+
+
+class Address <<value object>> {
+- streetName
+- doorNumber
+- zipCode
+- city
+- country
+}
+class GeographicCoordinates <<value object>> {
+- latitude
+- longitude
+}
+}
+
+package "Logistics Aggregate" as log <<Rectangle>> {
+class Packaging <<Root>> <<Entity>> {
+- packagingId
+- deliveryId
+- truckId
+- loadTime
+- unloadTime
+}
+class Localization <<value object>> {
+- x
+- y
+- z
+}
+}
+package "DeliveryPlan" as dp <<Rectangle>> {
+class Delivery <<Entity>> {
+- id
+- date
+- weight
+- warehouseId
+}
+class Route <<Entity>> {
+- routeId
+- idDepartureWarehouse
+- idArrivalWarehouse
+- distance
+- time
+- energy
+- extraTime
+}
+class DeliveryPlan <<Root>> <<Entity>> {}
+}
+package "Truck Aggregate" as t <<Rectangle>> {
+class Truck <<Root>> <<Entity>> {
+- truckId
+- tare
+- loadCapacity
+- active
+}
+class Battery <<value object>> {
+- maximumBattery
+- autonomy
+- chargingTime
+}
+}
+package "User Aggregate" as u <<Rectangle>> {
+class User <<Root>> <<Entity>> {
+    - username
+    - firstName
+    - lastName
+    - phoneNumber
+    - email
+    - password
+}
+class Role <<Entity>> {
+- roleId
+- roleName
+}
+}
+User "1" -- "1" Role : has >
+Route "*" --- "1" Warehouse : origin >
+Route "*" --- "1" Warehouse : destination >
+Delivery "*" -- "1" Warehouse : destined for >
+DeliveryPlan "1" -- "1..*" Delivery : gives origin to <
+DeliveryPlan "*" --- "1" Truck : executed by >
+DeliveryPlan "*" -- "1..*" Route : constituted/sorted by >
+Warehouse "1" -- "1" Address : has >
+Warehouse "1" -- "1" GeographicCoordinates : has >
+Packaging "1" -- "1" Localization : has >
+Packaging "1" --- "1" Truck : needs >
+Packaging "1" -- "1" Delivery : has >
+Truck "1" -- "1" Battery : has >
+
+@enduml

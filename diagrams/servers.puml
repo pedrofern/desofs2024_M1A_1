@@ -1,0 +1,23 @@
+@startuml Servers
+title Servers
+actor User
+storage "Databases" {
+    component "SQL Server" {
+        database "Database" as bd
+    }
+}
+package "APIs and Webservices" {
+    cloud "Azure App Services" {
+        component "Backend API" as backend
+    }
+}
+package "Single Page Application" {
+    cloud "Google Firebase" {
+        component "ElecticGO" as spa
+    }
+}
+User --> spa
+spa -> backend
+backend ---> bd
+
+@enduml
