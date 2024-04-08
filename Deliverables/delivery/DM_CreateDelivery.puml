@@ -1,0 +1,26 @@
+@startuml delivery
+
+title
+
+Delivery - Domain Model
+
+end title
+
+package "Warehouse Management Aggregate" as wm <<Rectangle>> {
+
+    class Warehouse <<Root>> <<Entity>> {
+        - id
+        - designation
+    }
+
+    class Delivery <<Entity>> {
+        - id
+        - date
+        - weight
+        - warehouseId
+    }
+}
+
+Delivery "*" -- "1" Warehouse : destined for >
+
+@enduml

@@ -1,22 +1,22 @@
 # DESFOS 2024_M1A_1
 
 - Developed by:
-    - 1060503 - Pedro Fernandes    
-    - 1170541 - Alexandra Leite
-    - 1171540 - Fábio Cruz
-    - 1180511 - Vitor Costa
-    - 1191816 - Cristiano Soares
+  - 1060503 - Pedro Fernandes
+  - 1170541 - Alexandra Leite
+  - 1171540 - Fábio Cruz
+  - 1180511 - Vitor Costa
+  - 1191816 - Cristiano Soares
 
-# Table of Contents
+## Table of Contents
 
 - [Introduction](#introduction)
 - [Issue Tracker](#issue-tracker)
 - [Domain Model](#domain-model)
 - [Infrastructure View](#infrastructure-view)
 
-# Introduction
+## Introduction
 
-# Issue Tracker
+## Issue Tracker
 
 We have created the following issues to track the tasks related to the DESFOS project:
 
@@ -27,14 +27,10 @@ We have created the following issues to track the tasks related to the DESFOS pr
 - [#5 Truck documentation](https://github.com/pedrofern/desofs2024_M1A_1/issues/5): Truck documentation
 - [#6 Logistics documentation](https://github.com/pedrofern/desofs2024_M1A_1/issues/6): Logistics documentation
 
-
-
-# Domain Model
+## Domain Model
 
 ![Domain Model](/diagrams/domainModel.png)
 
-
-# Infrastucture View
+## Infrastucture View
 
 ![Servers](/diagrams/servers.png)
-
