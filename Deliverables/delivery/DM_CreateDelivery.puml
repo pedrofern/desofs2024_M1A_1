@@ -1,10 +1,6 @@
 @startuml delivery
 
-title
-
-Delivery - Domain Model
-
-end title
+title Delivery - Domain Model
 
 package "Warehouse Management Aggregate" as wm <<Rectangle>> {
 

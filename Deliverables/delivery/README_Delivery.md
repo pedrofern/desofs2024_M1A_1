@@ -29,7 +29,7 @@ There is a dependency on creating a delivery and getting all warehouses from the
   * Warehouse
 
 * Input data:
-  * Delivery Date
+  * Date
   * Weight
 
 **Output Data:**
@@ -50,9 +50,8 @@ There is a dependency on creating a delivery and getting all warehouses from the
 
 ### 3.1. Sequence Diagram (SD)
 
-![](.svg)
 
-### Systematization
+#### Systematization
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
@@ -62,7 +61,6 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 * DeliveryService
 * CreateDeliveryDTO
-* IDeliveryCreate
 
 ### 4 Tests
 
