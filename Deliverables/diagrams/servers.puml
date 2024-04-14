@@ -13,7 +13,7 @@ package "APIs and Webservices" {
 }
 package "Single Page Application" {
     cloud "Google Firebase" {
-        component "ElecticGO" as spa
+        component "ElectricGO" as spa
     }
 }
 User --> spa

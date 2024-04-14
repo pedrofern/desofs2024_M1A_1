@@ -10,11 +10,24 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Aggregate's Documentation](#aggregate-documentatio)
 - [Issue Tracker](#issue-tracker)
 - [Domain Model](#domain-model)
 - [Infrastructure View](#infrastructure-view)
+- [Data Flow Diagram](#data-flow-diagram)
 
 ## Introduction
+
+
+## Aggregate's Documentation
+
+For each aggregate, a specific analysis and design were performed. On the following pages, it is possible to consult:
+
+- [User Documentation](user/README_User.md)
+- [Warehouse Documentation](warehouse/README_Warehouse.md)
+- [Delivery Documentation](delivery/README_Delivery.md)
+- [Truck Documentation](truck/README_Truck.md)
+- [Logistics Documentation](logistics/README_Logistics.md)
 
 ## Issue Tracker
 
@@ -29,8 +42,16 @@ We have created the following issues to track the tasks related to the DESFOS pr
 
 ## Domain Model
 
-![Domain Model](/diagrams/domainModel.png)
+![Domain Model](diagrams/domainModel.png)
 
 ## Infrastucture View
 
-![Servers](/diagrams/servers.png)
+![Servers](diagrams/servers.png)
+
+## Data Flow Diagram
+
+![Data Flow Diagram](diagrams/dfd.png)
+
+
+
+
