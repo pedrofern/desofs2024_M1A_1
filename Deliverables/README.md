@@ -18,7 +18,6 @@
 
 ## Introduction
 
-
 ## Aggregate's Documentation
 
 For each aggregate, a specific analysis and design were performed. On the following pages, it is possible to consult:
@@ -51,7 +50,3 @@ We have created the following issues to track the tasks related to the DESFOS pr
 ## Data Flow Diagram
 
 ![Data Flow Diagram](diagrams/dfd.png)
-
-
-
-
