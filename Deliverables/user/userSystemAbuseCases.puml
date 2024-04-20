@@ -1,0 +1,52 @@
+@startuml
+
+title
+User Aggregate Abuse (Misuse) Cases
+end title
+
+actor "Attacker" as Attacker #Black
+actor "System" as System #Blue
+
+rectangle "System" as API {
+    usecase "Implement Data Encryption" as DataEncryption #Yellow
+    usecase "Enhance Input Validation" as InputValidation #Yellow
+    usecase "Implement Session Timeout" as SessionTimeout #Yellow
+    usecase "Enforce Least Privilege" as LeastPrivilege #Yellow
+    usecase "User Education on\n Phishing Awareness" as PhishingAwareness #Yellow
+    usecase "Implement Access Controls" as AccessControls #Yellow
+    usecase "Regular Security Patching" as SecurityPatching #Yellow
+    usecase "Unauthorized Access During\n User Registration" as UnauthorizedAccess #Brown
+    usecase "Account Takeover Through\n Session Hijacking" as AccountTakeover #Brown
+    usecase "Data Manipulation Through\n Unauthorized Role Assignment" as DataManipulation #Brown
+    usecase "Service Abuse Through\n Phishing Campaigns" as ServiceAbuse #Brown
+    usecase "Privacy Violation Through\n Insider Monitoring" as PrivacyViolation #Brown
+    usecase "Data Breach Through\n Exploited Vulnerabilities" as DataBreach #Brown
+    usecase "Data Theft" as DataTheft #Brown
+}
+
+System --> DataEncryption : includes
+System --> InputValidation : includes
+System --> SessionTimeout : includes
+System --> LeastPrivilege : includes
+System --> PhishingAwareness : includes
+System --> AccessControls : includes
+System --> SecurityPatching : includes
+
+InputValidation --> UnauthorizedAccess : mitigates
+SessionTimeout --> AccountTakeover: mitigates
+LeastPrivilege --> DataManipulation : mitigates
+PhishingAwareness --> ServiceAbuse : mitigates
+AccessControls --> PrivacyViolation : mitigates
+SecurityPatching --> DataBreach : mitigates
+DataEncryption --> DataTheft : Mitigates
+
+UnauthorizedAccess <-- Attacker
+AccountTakeover <-- Attacker
+DataManipulation <-- Attacker
+ServiceAbuse <-- Attacker
+PrivacyViolation <-- Attacker
+DataBreach <-- Attacker
+DataTheft <-- Attacker
+
+
+@enduml

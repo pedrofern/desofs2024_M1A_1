@@ -22,6 +22,8 @@ Each user will have restrictions, based on roles and each role will give permiss
    1. [Preliminary Software Risk Analysis](#21-preliminary-software-risk-analysis)
    2. [Security Requirements Engineering](#22-security-requirements-engineering)
    3. [Abuse Cases](#23-abuse-cases)
+      1. [Login Abuse Case](#231-login-abuse-case)
+      2. [System User Aggregate Abuse Cases](#232-system-user-aggregate-abuse-cases)
    4. [Functional Security Requirements](#24-functional-security-requirements)
    5. [Non-Functional Security Requirements](#25-non-functional-security-requirements)
    6. [Secure Development Requirements](#26-secure-development-requirements)
@@ -127,7 +129,7 @@ Following established methodologies like STRIDE (Spoofing, Tampering, Repudiatio
 
 These requirements encompass aspects such as authentication mechanisms, access control policies, encryption, and audit trails. They are formalized into a specification that serves as a reference throughout the development process. Validation techniques, including reviews, inspections, and testing, ensure that security requirements effectively address potential risks. Compliance requirements related to industry standards and regulations, such as GDPR and CCPA, are also integrated.
 
-Overall, Security Requirements Engineering ensures that security considerations are systematically addressed from the outset, resulting in the development of secure software solutions that safeguard the user aggregate from threats and vulnerabilities.
+The requirements identified for the user aggregate are explored and detailed in 2.4 and 2.5 chapters.
 
 ## 2.3 Abuse Cases
 
@@ -144,9 +146,44 @@ Abuse cases (also know misused cases) are scenarios that describe how a system c
 | Data Breach Through Exploited Vulnerabilities      | A cybercriminal exploits vulnerabilities in the system to gain unauthorized access to the user aggregate's database, exfiltrating sensitive user data.            | Large volumes of sensitive user data, including usernames, passwords, and payment information, are exposed.                 |
 
 
-We will see in detail a specific use case witch is the common one and it will be done several times in the system, the login process.
+### 2.3.1 Login Abuse Case
+
+> We will see in detail a specific use case witch is the common one and it will be done several times in the system, the login process.
 
 ![Login Abuse Case](loginAbuseCase.png)
+
+> It is possible to see that there are some ways to try to access the system. In this case are considered the following:
+   - **Brute Force Attack**: The attacker tries to guess the user's password by repeatedly attempting different combinations until the correct one is found.
+   - **Credential Stuffing**: The attacker uses stolen credentials from other data breaches to gain unauthorized access to the system.
+
+> To mitigate these threats, the system should implement security measures such as:
+   - **Account Lockout**: After a certain number of failed login attempts, the account should be locked to prevent further unauthorized access.
+   - **Multi-Factor Authentication (MFA)**: Require users to provide an additional authentication factor, such as a one-time code sent to their mobile device, to verify their identity.
+   - **Password Policy**: Enforce strong password policies, including minimum length, complexity requirements, and expiration periods, to prevent easy guessing or reuse of passwords.
+
+### 2.3.2 System User Aggregate Abuse Cases
+
+> As is known, the user aggregate is a critical component of the system, and it is essential to protect it from potential abuse cases.
+
+![Login Abuse Case](userSystemAbuseCases.png)
+
+> Here are many of abuse cases that could affect the user aggregate:
+   - **Implement Data Encryption**: Sensitive user data should be encrypted at rest and in transit to protect against unauthorized access or disclosure.
+   - **Enhance Input Validation**: Implement robust input validation mechanisms to prevent injection attacks, such as SQL injection or cross-site scripting (XSS).
+   - **Implement Session Timeout**: Enforce session timeouts to automatically log out users after a period of inactivity, reducing the risk of session hijacking.
+   - **Enforce Least Privilege**: Apply the principle of least privilege to restrict user access to only the resources and functionalities necessary to perform their tasks.
+   - **User Education and Awareness**: Provide security training and awareness programs for users to educate them about common threats, such as phishing or social engineering attacks.
+   - **Implement Access Controls**: Enforce access controls to ensure that users can only access resources and perform actions that are authorized for their role.
+   - **Regular Security Patching**: Keep software and systems up to date with the latest security patches and updates to address known vulnerabilities and weaknesses.
+
+> To mitigate these threats, the system should implement security measures such as:
+   - **Data Theft**: Implement secure communication channels, such as HTTPS, to protect user credentials during the login process.
+   - **Unauthorized Access**: Implement strong authentication mechanisms, such as multi-factor authentication, to verify user identities and prevent unauthorized access.
+   - **Account Takeover**: Implement secure session management practices, such as session tokens and expiration policies, to prevent session hijacking attacks.
+   - **Data Manipulation**: Implement role-based access control (RBAC) to restrict user permissions and prevent unauthorized role assignments.
+   - **Service Abuse**: Implement email verification or CAPTCHA challenges during the registration process to prevent automated account creation by bots.
+   - **Privacy Violation**: Implement audit logging and monitoring to track user activities and detect unauthorized access to sensitive data.
+   - **Data Breach**: Implement secure coding practices, such as input validation and output encoding, to prevent common vulnerabilities that could be exploited by attackers.
 
 ## 2.4 Functional Security Requirements
 
@@ -215,19 +252,19 @@ These secure development requirements help ensure that applications are develope
 
 Security risk-driven design involves integrating security considerations into the design process to proactively identify and mitigate potential security risks. Here are key aspects:
 
-1. **Threat Modelling**: Conducting threat modelling exercises to identify potential threats, vulnerabilities, and attack vectors that may impact the system. This includes identifying assets, potential attackers, and potential attack scenarios.
+1. **Secure Architecture**: Designing a secure architecture that incorporates security controls and mitigations to address identified security risks. This includes designing secure network architectures, data flow diagrams, and component interactions.
 
-2. **Risk Assessment**: Performing risk assessments to evaluate the likelihood and potential impact of identified security risks. This helps prioritize risks based on their severity and potential consequences.
+2.  **Security by Design**: Embedding security principles and practices into the design process from the outset. This includes considering security requirements during system requirements gathering, architecture design, and implementation phases.
 
-3. **Security Controls Selection**: Selecting appropriate security controls and countermeasures to mitigate identified security risks. This may include implementing technical controls, procedural measures, and security best practices.
+3.  **Security Patterns**: Utilizing security design patterns and best practices to address common security challenges and recurring security requirements. This includes patterns for authentication, access control, data protection, and secure communication.
 
-4. **Secure Architecture**: Designing a secure architecture that incorporates security controls and mitigations to address identified security risks. This includes designing secure network architectures, data flow diagrams, and component interactions.
+4. **Threat Modelling**: Conducting threat modelling exercises to identify potential threats, vulnerabilities, and attack vectors that may impact the system. This includes identifying assets, potential attackers, and potential attack scenarios.
 
-5. **Security Patterns**: Utilizing security design patterns and best practices to address common security challenges and recurring security requirements. This includes patterns for authentication, access control, data protection, and secure communication.
+5.  **Risk Assessment**: Performing risk assessments to evaluate the likelihood and potential impact of identified security risks. This helps prioritize risks based on their severity and potential consequences.
 
 6. **Attack Surface Reduction**: Minimizing the attack surface by reducing the exposure of system components and limiting access to sensitive resources. This includes applying the principle of least privilege, implementing strong authentication and authorization mechanisms, and enforcing strict input validation.
 
-7. **Security by Design**: Embedding security principles and practices into the design process from the outset. This includes considering security requirements during system requirements gathering, architecture design, and implementation phases.
+7. **Security Controls Selection**: Selecting appropriate security controls and countermeasures to mitigate identified security risks. This may include implementing technical controls, procedural measures, and security best practices.
 
 8. **Continuous Improvement**: Continuously evaluating and improving the security posture of the system throughout the design and development lifecycle. This includes conducting regular security reviews, assessments, and audits to identify and address emerging security risks.
 
