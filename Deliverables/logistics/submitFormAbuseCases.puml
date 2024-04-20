@@ -1,0 +1,51 @@
+@startuml
+top to bottom direction
+
+actor "User" as User
+actor "Attacker" as Attacker
+
+usecase "Submit Form Data" as SubmitForm #Green
+
+usecase "Data Injection" as DataInjection #Red
+usecase "Cross-Site Scripting (XSS)" as XSS #Red
+usecase "Cross-Site Request Forgery (CSRF)" as CSRF #Red
+usecase "Brute Force Attacks" as BruteForce #Red
+usecase "Data Exfiltration" as DataExfiltration #Red
+usecase "Session Hijacking" as SessionHijacking #Red
+usecase "Denial of Service (DoS)" as DoS #Red
+usecase "Parameter Tampering" as ParameterTampering #Red
+
+usecase "Authentication" as Authentication #Yellow
+usecase "Authorization" as Authorization #Yellow
+usecase "Input Validation" as InputValidation #Yellow
+usecase "Data Encryption" as DataEncryption #Yellow
+usecase "Session Management" as SessionManagement #Yellow
+usecase "Rate Limiting and CAPTCHA" as RateLimitingAndCaptcha #Yellow
+
+User --> SubmitForm
+Attacker -up-> DataInjection
+Attacker -up-> XSS
+Attacker -up-> CSRF
+Attacker -up-> BruteForce
+Attacker -up-> DataExfiltration
+Attacker -up-> SessionHijacking
+Attacker -up-> DoS
+Attacker -up-> ParameterTampering
+
+SubmitForm --> Authentication
+SubmitForm --> Authorization
+SubmitForm --> InputValidation
+SubmitForm --> DataEncryption
+SubmitForm --> SessionManagement
+SubmitForm --> RateLimitingAndCaptcha
+
+DataInjection -up-> InputValidation
+XSS -up-> InputValidation
+CSRF -up-> Authorization
+BruteForce -up-> Authentication
+DataExfiltration -up-> DataEncryption
+SessionHijacking -up-> SessionManagement
+DoS -up-> RateLimitingAndCaptcha
+ParameterTampering -up-> InputValidation
+
+@enduml

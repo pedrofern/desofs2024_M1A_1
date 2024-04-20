@@ -37,41 +37,41 @@
 
 For this aggregate we have two User Stories:
 
-- As a Logistics Manager I want to create a Logistics Form
+- As a Logistics Manager I want to submit a Logistics Form
 
 - As a logged-in user I want to list the Logistics Forms
 
  
 ## 1.2 Customer Specifications and Clarifications
 
-- The application should provide a user-friendly process for creating a Logistics form.
+- The application should provide a user-friendly process for submiting a Logistics form.
 
-- Only the Logistics Manager should have the authority to create a Form.
+- Only the Logistics Manager should have the authority to submit a Form.
 
 ## 1.3 Acceptance Criteria
  
-- A Logistic Manager should only create a form if there already exists a delivery and a truck in the system.
+- A Logistic Manager should only submit a form if there already exists a delivery and a truck in the system.
 
 - The position of each package in the truck must be unique.
 
 ## 1.4 Found out Dependencies
 
-- The process to create a Logistics Form depends on the authentication system so that only the Logistics Manager can perfrom this action.
+- The process to submit a Logistics Form depends on the authentication system so that only the Logistics Manager can perfrom this action.
 
 - The application depends on database system to store the data that is created.
  
 ## 1.5 Input and Output Data
  
-1. Creating a Logistics Form
+1. Submiting a Logistics Form
     - The input data includes the identification of a delivery, the identification of a truck, the time that takes to load the truck, the time that it takes to unload the truck and the position that each package takes in the truck.
-    - The output data includes a success message in case of sucessful creation of a form and an insucess messsage in case of failed creation.
+    - The output data includes a success message in case of sucessful submition of a form and an insucess messsage in case of failed submition.
 2. Listing Logistics Forms
     - The input data may include the identification of the form.
     - The output data includes the data of the Logistics Forms.
 
 ## 1.6 System Sequence Diagram (SSD)
 
-- Creating a Logistics Form
+- Submiting a Logistics Form
 
 ![SSD1](./ssd1.png)
 
@@ -82,7 +82,7 @@ For this aggregate we have two User Stories:
  
 ## 1.7 API Endpoints
 
-- POST /logitsics/form - Create a Logistics Form
+- POST /logitsics/form - Submit a Logistics Form
 (accessible only by the Logistics Manager)
 - GET /logistics/form - List all Logistics Forms
 - GET /logistics/form/{id} - Get the logistic form by id
@@ -142,6 +142,10 @@ Abuse cases, also known as misuse cases, outline potential scenarios where a sys
      An attacker floods the form submission endpoint with a large volume of requests, overwhelming the system's resources and causing it to become unavailable to legitimate users.
   8. **Parameter Tampering**:
     A user with malicious intent manipulates form parameters, such as changing hidden fields or altering URLs, to bypass security controls or access unauthorized resources.
+
+We will see in detail a specific use case witch is the common one and it will be done several times in the system, the submit Form process.
+
+![Submit Form Abuse Cases](submitFormAbuseCases.png)
  
 ## 2.4 Functional Security Requirements
 
@@ -157,17 +161,15 @@ Functional security requirements specify the security-related functions or featu
     Protect sensitive data (such as medical records) by encrypting it during transmission and storage, using protocols like TLS and encryption algorithms such as AES.
   5. **Session Management**: 
     Securely manage user sessions to prevent session hijacking and ensure confidentiality and integrity, including generating unique session identifiers and implementing session timeouts.
-  6. **Logging and Auditing**: 
-    Keep detailed logs of form submissions, authentication attempts, and security-related events for monitoring, auditing, and forensic analysis.
-  7. **Rate Limiting and CAPTCHA**: 
+  6. **Rate Limiting and CAPTCHA**: 
     Implement mechanisms to limit the rate of form submissions to prevent brute force attacks and distinguish between human users and bots, possibly using CAPTCHA.
-  8. **Error Handling and Reporting**: 
+  7. **Error Handling and Reporting**: 
     Handle errors securely to prevent revealing sensitive information that could aid attackers, ensuring that error messages are generic and do not expose internal details of the system.
-  9. **Secure Configuration Management**: 
+  8. **Secure Configuration Management**: 
     Manage system configurations securely to reduce the attack surface and avoid using default or insecure settings that could be exploited by attackers.
-  10. **Backup**:
+  9. **Backup**:
     The system must have a robust backup mechanism in place to ensure that data related to form submissions is regularly backed up and can be restored in the event of data loss or system failure.
-  11. **Server Clustering**:
+  10. **Server Clustering**:
     The system must be designed with server clustering capabilities to distribute incoming traffic across multiple servers and ensure high availability and fault tolerance.
  
 ## 2.5 Non-Functional Security Requirements
@@ -314,7 +316,23 @@ For the case in mind designing a secure architecture involves considering variou
 
 Threat modeling is a systematic approach to identifying and mitigating potential security threats and vulnerabilities within a software system. It is a proactive technique used by security professionals and developers to anticipate potential attacks and prioritize security measures accordingly.
 
-- **Scope and boundaries**:
+
+**Application Name:** EletricGo.
+
+**Application Version:** 1.0.
+
+**Description:** The application EletricGo is a system created to manage the deliveries of packages through eletric trucks.
+
+**Document Owner:** Cristiano Soares.
+
+**Participants:** 
+  - Pedro Fernandes
+  - Alexandra Leite
+  - Fábio Cruz
+  - Vitor Costa
+  - Cristiano Soares
+
+**Reviewer:** Fábio Cruz.
 
 ## 3.4.2 External Dependencies
 
@@ -334,7 +352,7 @@ Threat modeling is a systematic approach to identifying and mitigating potential
 
 | ID | Name | Description | Trust Level |
 |----|------|-------------|-------------|
-| 1 | Response Data | The backend API endpoint returns a response to the user interface based on the request made by the user. This response may include data related to form creation, validation results, or errors. | (2) Logged-in User (3) Logistics Manager |
+| 1 | Response Data | The backend API endpoint returns a response to the user interface based on the request made by the user. This response may include data related to form submition, validation results, or errors. | (2) Logged-in User (3) Logistics Manager |
 | 2 | Database Response | After interacting with the database to store or retrieve form-related information, the backend API endpoint receives a response indicating the success or failure of the database operation. This response may include status codes, error messages, or retrieved data. | (2) Logged-in User (3) Logistics Manager |
 
 ## 3.4.5.
@@ -355,6 +373,9 @@ Threat modeling is a systematic approach to identifying and mitigating potential
 | 3 | Logistics Manager | Authenticated users with administrative privileges responsible for managing logistics-related tasks and overseeing the application's operation. They have full access to all features, functionalities, and sensitive data within the application. |
 
 ## 3.4.7. Data Flow Diagrams
+
+Data Flow Diagrams (DFDs) are graphical representations of the flow of data within a system. They illustrate how data is input, processed, stored, and output in a system. In the context of our logistics application, DFDs can help visualize the journey of data from the moment a logistics form is created, through its various updates, to its final storage and potential retrieval.
+
 
 ![Data flow diagram](logistics_dfd.png)
  
