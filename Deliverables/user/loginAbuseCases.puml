@@ -1,0 +1,35 @@
+@startuml
+
+title
+Login Abuse (Misuse) Cases
+end title
+
+actor "Attacker" as Attacker #Black
+actor "User" as User #Green
+
+rectangle "System" as System {
+    usecase "Login" as Login #Green
+    usecase "Multi-Factor Authentication (MFA)" as MFA #Yellow
+
+    usecase "Validate failed login attempts" as ValidateAttempts #Yellow
+    usecase "Account Lockout" as AccountLockout #Orange
+
+    usecase "Brute Force Attack" as BruteForceAttack #Brown
+    usecase "Credential Stuffing" as CredentialStuffing #Brown
+}
+
+User --> Login
+User --> MFA
+
+Login --> ValidateAttempts : includes
+Login --> MFA : includes
+
+ValidateAttempts --> AccountLockout : includes
+AccountLockout --> BruteForceAttack : mitigates
+BruteForceAttack <-- Attacker
+CredentialStuffing <-- Attacker
+
+MFA --> ValidateAttempts : includes
+MFA ---> CredentialStuffing : mitigates
+
+@enduml

@@ -16,19 +16,13 @@ entity "Localization" as Localization{
 }
 
 entity "Delivery" as Delivery{
-  + id <<PK>>
-  --
-  + date
-  + weight
-  + warehouseId  
+  + deliveryId <<PK>>
+
 }
 
 entity "Truck" as Truck{
-  + truckId
-  --
-  + tare
-  + loadCapacity
-  + active 
+  + truckId <<PK>>
+
 }
 
 Packaging ||-down-|{ Localization

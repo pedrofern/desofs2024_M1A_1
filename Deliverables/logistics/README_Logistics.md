@@ -105,8 +105,22 @@ Considering the previous model, the logistics aggregate has the following databa
 # 2. Analysis
  
 ## 2.1 Preliminary Software Risk Analysis
+
+In this section, we conduct a preliminary analysis to identify potential risks associated with the software development process. 
+
+Risks can arise from various factors such as technical challenges, project management issues, and external dependencies. 
+
+The aim of this analysis is to proactively identify and prioritize these risks to mitigate their impact on the project. 
+
+We employ techniques such as risk identification, assessment, and mitigation planning to ensure that the project progresses smoothly and delivers the desired outcomes within the defined constraints.
  
 ## 2.2 Security Requirements Engineering
+
+Security requirements engineering involves the process of eliciting, analyzing, specifying, and validating security requirements for a software system. 
+
+In this section, we focus on identifying the security needs of the system, considering factors such as confidentiality, integrity, availability, and accountability. 
+
+We collaborate with stakeholders to understand their security concerns and align the security requirements with the overall project objectives. By applying established methodologies and frameworks, we ensure that the software system is designed and developed with robust security measures to protect against potential threats and vulnerabilities.
  
 ## 2.3 Abuse Cases
 
@@ -210,28 +224,17 @@ Secure development requirements outline the practices and procedures that develo
 # 3. Design
  
 ## 3.1 Security Risk-Driven Design
- 
+
+Security Risk-Driven Design is an approach that prioritizes security considerations throughout the software design process. Instead of treating security as an afterthought, this methodology integrates security measures from the outset, aligning them closely with identified risks. By analyzing potential security threats and vulnerabilities early in the design phase, teams can make informed decisions to mitigate risks effectively.
+
+### Key Components:
+- **Risk Assessment:** Conducting a comprehensive analysis of potential security risks and their potential impact on the software system.
+- **Threat Modeling:** Identifying and prioritizing potential threats to the system, considering various attack vectors and their likelihood.
+- **Security Controls:** Implementing appropriate security controls and countermeasures to mitigate identified risks.
+- **Continuous Monitoring:** Establishing mechanisms for ongoing monitoring and assessment of security posture to detect and respond to emerging threats.
+
+
 ## 3.2 Secure Architecture
- 
-## 3.3 Secure Design Patterns
- 
-## 3.4 Threat Modelling
- 
-## 3.5 Security Test Planning
- 
-## 3.6 Security Architecture Review
-# Analysis
-
-## Preliminary Software Risk Analysis
-
-## Security Requirements Engineering
-
-
-# Design
-
-## Security Risk-Driven Design
-
-## Secure Architecture
 
 For the case in mind designing a secure architecture involves considering various layers and components of the system to ensure the confidentiality, integrity, and availability of sensitive data. Here's a high-level overview of a secure architecture for the form submission system:
 
@@ -264,8 +267,8 @@ For the case in mind designing a secure architecture involves considering variou
 ### Incident Response and Disaster Recovery
 - Develop an incident response plan outlining procedures for detecting, responding to, and recovering from security incidents.
 - Implement disaster recovery measures such as backup and restore procedures, failover mechanisms, and redundancy configurations.
-
-## Secure Design Patterns
+ 
+## 3.3 Secure Design Patterns
 
 1. **Layered Architecture:**
    - Implement a layered architecture with distinct tiers for presentation, business logic, and data access to enforce separation of concerns and minimize the attack surface.
@@ -304,10 +307,59 @@ For the case in mind designing a secure architecture involves considering variou
 
 12. **Fail-Safe Design:**
     - Design the system with fail-safe mechanisms and redundancy configurations to ensure graceful degradation and maintain availability in the event of failures or disruptions.
+ 
+## 3.4 Threat Modelling
+
+## 3.4.1. Threat Model Information
+
+Threat modeling is a systematic approach to identifying and mitigating potential security threats and vulnerabilities within a software system. It is a proactive technique used by security professionals and developers to anticipate potential attacks and prioritize security measures accordingly.
+
+- **Scope and boundaries**:
+
+## 3.4.2 External Dependencies
+
+| ID          | Description|
+|----------------------------|------------|
+| 1 | The database of the application will be a relational database. |
+| 2 | The communication between the frontend and backend will be using RESTful API.|
+
+## 3.4.3. Entry Points
+
+| ID | Name | Description | Trust Level |
+|------|------------|---------|-----------|
+| 1 | UI | Users interact with forms through the user interface, making HTTP requests to the backend API endpoints. | (2) Logged-in User (3) Logistics Manager |
+| 2 | Database Interface | This entry point allows the backend to interact with the database | (2) Logged-in User (3) Logistics Manager | 
+
+## 3.4.4. Exit Points
+
+| ID | Name | Description | Trust Level |
+|----|------|-------------|-------------|
+| 1 | Response Data | The backend API endpoint returns a response to the user interface based on the request made by the user. This response may include data related to form creation, validation results, or errors. | (2) Logged-in User (3) Logistics Manager |
+| 2 | Database Response | After interacting with the database to store or retrieve form-related information, the backend API endpoint receives a response indicating the success or failure of the database operation. This response may include status codes, error messages, or retrieved data. | (2) Logged-in User (3) Logistics Manager |
+
+## 3.4.5.
+
+| ID | Name | Description | Trust Level |
+|----|------|-------------|-------------|
+| 1 | User Data | Personal information of users, including names, email addresses, passwords, and other sensitive data stored in the application's database. | (3) Logistics Manager |
+| 2 | Form Configurations | Configuration settings for forms, including form titles, descriptions, field types, validation rules, and submission settings. | (3) Logistics Manager |
+| 3 | Form Submissions | Data submitted by users through forms, including responses to form fields, uploaded files, and timestamps of submissions. | (3) Logistics Manager |
 
 
-## Threat Modelling
+## 3.4.6. Trust Levels
 
-## Security Test Planning
+| ID | Name | Description |
+|----|------|-------------|
+| 1 | Anonymous Web User | External entities accessing the application without authentication. They have limited access to public resources and functionalities. |
+| 2 | Logged-in User | Authenticated users who have successfully logged into the application. They have access to additional features and functionalities compared to anonymous web users. |
+| 3 | Logistics Manager | Authenticated users with administrative privileges responsible for managing logistics-related tasks and overseeing the application's operation. They have full access to all features, functionalities, and sensitive data within the application. |
 
-## Security Architecture Review
+## 3.4.7. Data Flow Diagrams
+
+![Data flow diagram](logistics_dfd.png)
+ 
+## 3.5 Security Test Planning
+ 
+## 3.6 Security Architecture Review
+
+
