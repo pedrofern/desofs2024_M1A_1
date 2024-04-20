@@ -64,16 +64,12 @@
 
 ### 1.5 Input and Output Data
 
+#### Selected Data
+- Warehouse
+
 #### Input Data
-
-- Selected data:
-    - Delivery Order:
-        - Warehouse
-
-- Input data:
-    - Delivery Order:
-        - Order Date
-        - Weight
+- Order Date
+- Weight
 
 ### 1.6 System Sequence Diagram (SSD)
 
@@ -150,21 +146,7 @@ Considering the previous model, the user aggregate has the following database sc
     - **Mitigation:** Implement comprehensive logging and real-time monitoring systems to track all activities related to file downloads and generate alerts for suspicious actions.
 
 ### 2.2 Security Requirements Engineering
-
-#### Functional security requirements
-
-- **Authentication:** Ensure that all users must undergo strong authentication before accessing the download functionality.
-- **Input validation:** Implement thorough input validation to avoid common vulnerabilities such as SQL injection, cross-site scripting (XSS) and path passing.
-- **Data integrity:** Use checksums or cryptographic hashes to verify the integrity of downloaded files.
-- **Secure data transmission:** All data transmissions must use TLS to protect data in transit.
-
-#### Non-functional security requirements
-
-- **Performance:** Ensure that security measures do not affect system performance.
-- **Scalability:** Design security solutions that keep up with the system as usage patterns evolve.
-- **Reliability:** Implement redundant systems and failover mechanisms to maintain availability even during security incidents.
-- **Maintainability:** Design security features that are easy to update and manage.
-- **Compliance:** Comply with relevant legal and regulatory requirements regarding data protection and privacy, such as GDPR or HIPAA, as applicable to the jurisdiction and nature of the data.
+In the context of security requirements engineering, it is crucial to establish both functional and non-functional requirements that protect the system from identified threats and vulnerabilities. This process involves detailed planning and implementation strategies that align with best security practices and compliance standards.
 
 ### 2.3 Abuse Cases
 
@@ -204,9 +186,60 @@ Considering the previous model, the user aggregate has the following database sc
 
 ### 2.4 Functional Security Requirements
 
+- **Authentication and Authorization:** Ensure robust authentication before allowing file download requests. Utilize multi-factor authentication (MFA) for sensitive file accesses. Enforce strict authorization checks to confirm that the user has the correct permissions to download the requested file.
+
+
+- **Data Validation and Sanitization:** Implement rigorous input validation to prevent injection attacks through download requests, such as SQL injection or command injection. Sanitize file paths to prevent directory traversal or path manipulation attacks.
+
+
+- **Secure File Transmission:** Use TLS (Transport Layer Security) for all file transmissions to ensure that files are encrypted during transit. Apply additional file-level encryption for highly sensitive or confidential files before they are made available for download.
+
+
+- **Audit Trails:** Log all file download activities, including user identification, timestamp, file details, and access location. Ensure that these logs are immutable and securely stored for future audit and incident response purposes.
+
+
+- **Rate Limiting:** Implement rate limiting to prevent abuse of the file download feature, which could lead to Denial of Service (DoS) attacks or system overloads. Adjust rate limits based on user behavior patterns and threat intelligence to dynamically manage load and mitigate potential attacks.
+
+
+- **File Integrity Checks:** Provide checksums or cryptographic hashes for files before download, allowing users to verify the integrity of files post-download. Perform server-side integrity checks before serving the file to detect any unauthorized modifications.
+
 ### 2.5 Non-Functional Security Requirements
 
-### 2.6 Threat Modelling
+- **Performance:** Security mechanisms must not degrade system performance beyond acceptable limits.
+
+
+- **Scalability:** Security architectures must keep pace with system growth without compromising security effectiveness.
+
+
+- **Reliability:** The system must remain available and functional.
+
+
+- **Usability:** Security measures must be implemented in such a way that they do not degrade the usability of the system.
+
+
+- **Compliance:** The system must comply with applicable legal and regulatory requirements relating to security and data protection.
+
+### 2.6 Secure Development Requirements
+
+- **Security Training for Developers:** Conduct regular security training sessions for all developers to keep them updated on the latest security practices and vulnerabilities.
+
+
+- **Secure Coding Standards:** Adhere to industry-standard secure coding guidelines such as OWASP Top 10, CWE/SANS TOP 25, and language-specific best practices.
+
+
+- **Static and Dynamic Analysis Tools:** Use static application security testing (SAST) tools to automatically detect vulnerabilities in code before it is deployed and employ dynamic application security testing (DAST) tools to test running applications for vulnerabilities, with a focus on areas involving file uploads and downloads.
+
+
+- **Third-Party Component Management:** Regularly review and update these components to ensure they are not introducing known vulnerabilities into the application, especially those that affect file handling capabilities.
+
+
+- **Secure Deployment Practices:** Use automated deployment tools that integrate security checks to prevent misconfigurations and vulnerabilities from reaching production environments.
+
+
+- **Incident Response and Patch Management:** Implement a systematic patch management process to quickly deploy fixes for newly discovered vulnerabilities affecting file download features.
+
+
+- **Regular Security Audits:** Conduct regular security audits of the application to assess the effectiveness of implemented security measures.
 
 ## 3. Design
 
