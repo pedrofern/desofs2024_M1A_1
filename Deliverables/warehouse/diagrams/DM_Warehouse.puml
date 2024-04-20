@@ -1,0 +1,30 @@
+@startuml
+title
+EletricGo - Domain Model
+end title
+package "Warehouse Management Aggregate" as wm <<Rectangle>> {
+class Warehouse <<Root>> <<Entity>> {
+- id
+- designation
+}
+
+
+class Address <<value object>> {
+- streetName
+- doorNumber
+- zipCode
+- city
+- country
+}
+class GeographicCoordinates <<value object>> {
+- latitude
+- longitude
+}
+}
+
+
+Warehouse "1" -- "1" Address : has >
+Warehouse "1" -- "1" GeographicCoordinates : has >
+
+
+@enduml
