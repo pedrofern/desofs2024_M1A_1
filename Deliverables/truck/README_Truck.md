@@ -31,43 +31,74 @@
 # 1. Requirements Engineering
  
 ## 1.1 User Stories Description
-- As a System Administrator, I want to be able to create a new truck entry in the system.
-- As a System Administrator, I want to be able to update the details of any truck.
+- As a System Administrator, I want to be able to create a new truck entry in the system, including its battery details.
+- As a System Administrator, I want to be able to update the details of any truck, including its battery details.
 - As a System Administrator, I want to be able to delete any truck from the system.
-- As a Warehouse Manager, I want to be able to view the details of any truck.
-- As a Fleet Manager, I want to be able to create a new truck entry in the system.
-- As a Fleet Manager, I want to be able to update the details of any truck.
+- As a Warehouse Manager, I want to be able to view the details of any truck, including its battery details.
+- As a Fleet Manager, I want to be able to create a new truck entry in the system, including its battery details.
+- As a Fleet Manager, I want to be able to update the details of any truck, including its battery details.
 - As a Fleet Manager, I want to be able to delete any truck from the system.
-- As a Logistics Manager, I want to be able to view the details of any truck.
-- As an Operator, I want to be able to view the details of any truck.
+- As a Logistics Manager, I want to be able to view the details of any truck, including its battery details.
+- As an Operator, I want to be able to view the details of any truck, including its battery details.
 
 ## 1.2 Customer Specifications and Clarifications
-- The system should allow the user to specify the current status of the truck, such as "active" or "inactive".
-- The system should provide a search functionality to find trucks based on their load capacity and autonomy.
-- The user should be able to filter the list of trucks based on their status (active or inactive).
-- The system should provide validation for the input fields to ensure data integrity.
-- The user should be able to sort the list of trucks based on different criteria, such as truckId, load capacity and autonomy.
-- The system should generate a unique identifier for each truck entry.
-- The system should provide an audit trail of all changes made to the truck entries.
+1. **Truck Details**: Each truck in the system should have a unique identifier, tare, load capacity, and an active status. The active status indicates whether the truck is currently in use.
+
+2. **Battery Details**: Each truck is equipped with one battery. The details of each battery, including its maximum capacity, autonomy, and charging time, should be stored in the system.
+
+3. **Truck-Battery Relationship**: The system should maintain the relationship between each truck and its battery. 
+
+4. **Truck Management**: System administrators and fleet managers should be able to create, update, and delete truck entries in the system. Warehouse managers, logistics managers, and operators should be able to view the details of any truck.
+
+5. **Battery Management**: System administrators and fleet managers should also be able to manage the battery details of the trucks when creating or updating a truck entry.
 
 ## 1.3 Acceptance Criteria
-- The system should allow the user to create a new truck entry by sending a POST request to `/trucks`.
-- The system should allow the user to update the details of a specific truck by sending a PUT request to `/trucks/:truckId`.
-- The system should retrieve a list of all trucks in the system by sending a GET request to `/trucks`.
-- The system should retrieve a list of active trucks in the system by sending a GET request to `/trucks/active`.
-- The system should retrieve the details of a specific truck by sending a GET request to `/trucks/:truckId`.
-- The system should validate the input fields to ensure data integrity.
+- The system should allow the user to create a new truck entry, including its battery details, by sending a POST request to `/trucks`.
+- The system should allow the user to update the details of a specific truck, including its battery details, by sending a PUT request to `/trucks/:truckId`.
+- The system should retrieve a list of all trucks in the system, including their battery details, by sending a GET request to `/trucks`.
+- The system should retrieve a list of active trucks in the system, including their battery details, by sending a GET request to `/trucks/active`.
+- The system should retrieve the details of a specific truck, including its battery details, by sending a GET request to `/trucks/:truckId`.
+- The system should validate the input fields to ensure data integrity. This includes the validation of the battery details.
 - The system should generate a unique identifier for each truck entry.
-- The system should provide an audit trail of all changes made to the truck entries.
-- The user should be able to search for trucks based on their load capacity and autonomy.
-- The user should be able to filter the list of trucks based on their status (active or inactive).
-- The user should be able to sort the list of trucks based on different criteria, such as truckId, load capacity, and autonomy.
+- The system should provide an audit trail of all changes made to the truck entries, including changes to the battery details.
+- The user should be able to search for trucks based on their load capacity, autonomy, and battery details.
+- The user should be able to filter the list of trucks based on their status (active or inactive) and battery details.
+- The user should be able to sort the list of trucks based on different criteria, such as truckId, load capacity, autonomy, and battery details.
+
 ## 1.4 Found out Dependencies
- 
+- The truck aggregate depends on the availability of a database management system to store and retrieve truck data.
+- The truck aggregate depends on the authentication and authorization system to enforce access control and security.
+
 ## 1.5 Input and Output Data
- 
+The input and output data for the Truck aggregate are as follows:
+
+### Input Data
+- When creating a new truck entry, the input data should include the truck details such as tare, load capacity, and active status. It should also include the battery details such as maximum capacity, autonomy, and charging time.
+
+### Output Data
+- When retrieving a list of all trucks or a specific truck, the output data should include the truck details and the associated battery details.
+- When creating or updating a truck entry, the output data should include the unique identifier assigned to the truck.
+- When deleting a truck entry, there is no specific output data.
+
+The input and output data should be formatted according to the API specifications and communicated through the appropriate HTTP request methods and response codes.
+
 ## 1.6 System Sequence Diagram (SSD)
- 
+
+### SSD for Use Case 1: Create Truck Entry
+![SSD for Use Case 1](./ssd1.png)
+
+### SSD for Use Case 2: Update Truck Details
+![SSD for Use Case 2](./ssd2.png)
+
+### SSD for Use Case 3: Retrieve All Trucks
+![SSD for Use Case 3](./ssd3.png)
+
+### SSD for Use Case 4: Retrieve Active Trucks
+![SSD for Use Case 4](./ssd4.png)
+
+### SSD for Use Case 5: Retrieve Specific Truck
+![SSD for Use Case 5](./ssd5.png)
+
 ## 1.7 API Endpoints
 The following API endpoints are available for the Truck aggregate:
 
@@ -80,7 +111,12 @@ The following API endpoints are available for the Truck aggregate:
 These endpoints allow users to perform various operations on the truck aggregate, such as creating, updating, and retrieving truck information.
 
 ## 1.8 Database Schema: Relational Model
- 
+The Domain Model for the Truck Aggregate is as follows:
+![Truck Domain Model](./truckDomainModel.png)
+
+Considering the previous model, the Truck Aggregate has the following database schema:
+![Truck Database Model](./truckDatabaseSchema.png)
+
 ## 1.9 Authorization Roles
 The system has the following types of users:
 
@@ -94,6 +130,13 @@ The system has the following types of users:
 
 - **Operator** - This user has limited access to the truck aggregate. They can view details of trucks, but cannot create, update, or delete truck entries.
 
+# 2. Analysis
+Security in Filtering and Searching (Database Queries)
+
+## 2.1 Preliminary Software Risk Analysis
+ 
+## 2.2 Security Requirements Engineering
+ 
 ## 2.3 Abuse Cases
 Abuse cases are scenarios where the system can be intentionally misused or exploited. Here are some abuse cases for the Truck aggregate:
 
@@ -107,6 +150,16 @@ Abuse cases are scenarios where the system can be intentionally misused or explo
 8. **Man-in-the-Middle (MitM) Attack**: An attacker intercepts the communication between the truck aggregate and its clients, potentially gaining access to sensitive data.
 
 These abuse cases should be considered during the design and implementation of the truck aggregate to ensure its security and resilience against potential threats.
+ 
+## 2.4 Functional Security Requirements
+ 
+## 2.5 Non-Functional Security Requirements
+ 
+## 2.6 Secure Development Requirements
+ 
+# 3. Design
+ 
+## 3.1 Security Risk-Driven Design
  
 ## 3.2 Secure Architecture
  

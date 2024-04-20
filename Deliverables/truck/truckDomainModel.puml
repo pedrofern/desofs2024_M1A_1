@@ -1,0 +1,23 @@
+@startuml Truck Aggregate
+
+title
+EletricGo - Domain Model
+end title
+
+package "Truck Aggregate" as t <<Rectangle>> {
+class Truck <<Root>> <<Entity>> {
+- truckId
+- tare
+- loadCapacity
+- active
+}
+class Battery <<value object>> {
+- maximumBattery
+- autonomy
+- chargingTime
+}
+}
+
+Truck "1" -- "1" Battery : has >
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml Truck Aggregate
+
+entity "Truck" as truck {
+    + truckId: string <<PK>>
+    --
+    + tare: string
+    + loadCapacity: string
+    + active: boolean
+}
+
+entity "Battery" as battery {
+    + maximumBattery: string
+    + autonomy: string
+    + chargingTime: string
+}
+
+truck ||-right-|{ battery
+
+@enduml

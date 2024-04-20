@@ -1,0 +1,12 @@
+@startuml
+title Truck Aggregate - System Sequence Diagram
+actor "User" as user
+
+user -> TruckController: getTruckById(truckId)
+TruckController -> TruckService: getTruckById(truckId)
+TruckService -> TruckRepository: getTruckById(truckId)
+TruckRepository --> TruckService: truck
+TruckService --> TruckController: truck
+TruckController --> user: truck
+
+@enduml
