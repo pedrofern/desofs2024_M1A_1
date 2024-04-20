@@ -1,0 +1,34 @@
+@startuml
+
+title Delivery Plan Relation Model
+
+entity "DeliveryPlan" {
+    * id INT [PK]
+}
+
+entity "Route" {
+    * routeId INT [PK]
+    * idDepartureWarehouse INT
+    * idArrivalWarehouse INT
+    * distance DOUBLE
+    * time DOUBLE
+    * energy DOUBLE
+    * extraTime DOUBLE
+    --
+    idDepartureWarehouse -> Warehouse
+    idArrivalWarehouse -> Warehouse
+}
+
+entity "Delivery" {
+    * id INT [PK]
+    * date DATETIME
+    * weight DOUBLE
+    * warehouseId INT
+    --
+    warehouseId -> Warehouse
+}
+
+DeliveryPlan ||--o{ Route : "constituted by"
+DeliveryPlan ||--o{ Delivery : "gives origin to"
+
+@enduml

@@ -1,156 +1,142 @@
-# Create a Delivery
+# Software Architectural Analysis and Design of Delivery Aggregate
+
+- This document de describes the architecture of ElectricGo's Delivery aggregate, providing an overview of the design
+  decisions and architectural analysis made during development.
+- Delivery Aggregate is a sub-system developed to manage the delivery of products to customers. It is responsible for
+  managing the delivery process, from the moment the order is placed until the product is delivered to the customer.
+
+## Table of Contents
+
+1. [Requirements Engineering](#1-requirements-engineering)
+    1. [User Stories Description](#11-user-stories-description)
+    2. [Customer Specifications and Clarifications](#12-customer-specifications-and-clarifications)
+    3. [Acceptance Criteria](#13-acceptance-criteria)
+    4. [Found out Dependencies](#14-found-out-dependencies)
+    5. [Input and Output Data](#15-input-and-output-data)
+    6. [System Sequence Diagram (SSD)](#16-system-sequence-diagram-ssd)
+    7. [API Endpoints](#17-api-endpoints)
+    8. [Database Schema](#18-database-schema-relational-model)
+    9. [Authorization Roles](#19-authorization-roles)
+2. [Analysis](#2-analysis)
+    1. [Preliminary Software Risk Analysis](#21-preliminary-software-risk-analysis)
+    2. [Security Requirements Engineering](#22-security-requirements-engineering)
+    3. [Abuse Cases](#23-abuse-cases)
+    4. [Functional Security Requirements](#24-functional-security-requirements)
+    5. [Non-Functional Security Requirements](#25-non-functional-security-requirements)
+    6. [Secure Development Requirements](#26-secure-development-requirements)
+3. [Design](#3-design)
+    1. [Security Risk-Driven Design](#31-security-risk-driven-design)
+    2. [Secure Architecture](#32-secure-architecture)
+    3. [Secure Design Patterns](#33-secure-design-patterns)
+    4. [Threat Modelling](#34-threat-modelling)
+    5. [Security Test Planning](#35-security-test-planning)
+    6. [Security Architecture Review](#36-security-architecture-review)
 
 ## 1. Requirements Engineering
 
-### 1.1. User Story Description
+### 1.1 User Stories Description
 
-**US1** - As a warehouse manager I want to create a delivery.
+- As a Warehouse Manager, I want to be able to register a new delivery order.
+- As a Warehouse Manager, I want to be able to list and update a delivery order.
+- As a Warehouse Manager, I want to be able to download the delivery plan as a PDF.
 
-* Area/Application:
-  * Logistics
+### 1.2 Customer Specifications and Clarifications
 
-### 1.2. Customer Specifications and Clarifications
+- The delivery plan should contain the following information:
+    - Delivery Orders
+    - Routes (already registered in the system)
 
-n/a
+- The delivery order should contain the following information:
+    - Order ID
+    - Order Date
+    - Weight
+    - Warehouse
 
-### 1.3. Acceptance Criteria
+### 1.3 Acceptance Criteria
 
-n/a
+- The delivery order should be successfully registered in the system.
+- The delivery order should be successfully listed and updated in the system.
+- The delivery plan should be successfully downloaded as a PDF if the warehouse manager is logged in.
 
-### 1.4. Found out Dependencies
+### 1.4 Found out Dependencies
 
-There is a dependency on creating a delivery and getting all warehouses from the API, in order to view/search the deliveries and warehouses.
+- The warehouse manager must be logged in to download the delivery order.
+- The warehouses must be registered in the system before a delivery order can be created.
+- The routes must be registered in the system before a delivery plan can be created.
 
 ### 1.5 Input and Output Data
 
-**Input Data:**
+#### Input Data
 
-* Selected data:
-  * Warehouse
+- Selected data:
+    - Delivery Order:
+        - Warehouse
 
-* Input data:
-  * Date
-  * Weight
-  * Delivery Request File
+- Input data:
+    - Delivery Order:
+        - Order Date
+        - Weight
 
-**Output Data:**
+### 1.6 System Sequence Diagram (SSD)
 
-* The success of the operation
+- Create Delivery
+  ![Level1_ProcessView_CreateDelivery.svg](diagrams/Level1_ProcessView_CreateDelivery.svg)
 
-### 1.6. System Sequence Diagram (SSD)
+- Edit Delivery
+  ![Level1_ProcessView_EditDelivery.svg](diagrams/Level1_ProcessView_EditDelivery.svg)
 
-![SSD_CreateDelivery](SSD_CreateDelivery.png)
+- Get All Deliveries
+  ![Level1_ProcessView_GetAllDeliveries.svg](diagrams/Level1_ProcessView_GetAllDeliveries.svg)
+
+### 1.7 API Endpoints
+
+- GET /deliveries - List all delivery orders
+- POST /deliveries - Create a new delivery order
+- PUT /deliveries/{id} - Update a delivery order
+- DELETE /deliveries/{id} - Delete a delivery order
+- GET /deliveries/plan/{id}/download - Download the delivery plan as a PDF
+
+### 1.8 Database Schema: Relational Model
+
+#### Diagram of the Relational Model
+
+The Domain Model for the Delivery Aggregate is as follows:
+
+![Delivery_Domain_Model.png](diagrams/Delivery_Domain_Model.png)
+
+Considering the previous model, the user aggregate has the following database schema:
+
+![Delivery_Relational_Model.png](diagrams/Delivery_Relational_Model.png)
+
+### 1.9 Authorization Roles
+
+- Warehouse Manager: Access to functionalities related to the management of delivery data.
+- Operator: Access only to the visualization functionalities related to the management of delivery data.
 
 ## 2. Analysis
 
-### 2.1. Relevant Domain Model Excerpt
+### 2.1 Preliminary Software Risk Analysis
 
-![DM_CreateDelivery](DM_CreateDelivery.png)
+### 2.2 Security Requirements Engineering
+
+### 2.3 Abuse Cases
+
+### 2.4 Functional Security Requirements
+
+### 2.5 Non-Functional Security Requirements
+
+### 2.6 Secure Development Requirements
 
 ## 3. Design
 
-### 3.1. Sequence Diagram (SD)
+### 3.1 Security Risk-Driven Design
 
-#### Systematization
+### 3.2 Secure Architecture
 
-According to the taken rationale, the conceptual classes promoted to software classes are:
+### 3.3 Secure Design Patterns
 
-* Delivery
+### 3.4 Threat Modelling
 
-Other software classes (i.e. Pure Fabrication) identified:
+### 3.5 Security Test Planning
 
-* DeliveryService
-* CreateDeliveryDTO
-
-### 4 Tests
-
-n/a
-
-## 5. Implementation
-
-n/a
-
-## 6. Integration and Demo
-
-* It was added a Delivery button to the web app menu, which opens the Deliveries page with a form to create one on the left and the list of the existing deliveries on the right.
-* Upload the delivery request file
-
-## 7. Observations
-
-n/a
-
-## 8. Secure File Handling in EletricGo
-
-### 8.1 Overview
-
-Brief introduction to the secure file handling component, its relevance to the EletricGo system, and how it aligns with SSDLC principles.
-
-### 8.2 SDLC Integration
-
-#### 8.2.1 Analysis/Requirements
-
-Discuss how the file upload and deletion features were analyzed and the security requirements that arose from this analysis.
-
-#### 8.2.2 Design
-
-Outline the design decisions made for file handling, including secure file storage, user interface considerations, and secure access controls.
-
-### 8.3 SSDLC Best Practices
-
-#### 8.3.1 Preliminary Software Risk Analysis
-
-Identify potential risks associated with file handling, such as unauthorized access or data leakage, and the measures taken to mitigate these risks.
-
-#### 8.3.2 Security Requirements Engineering
-
-Detail the security requirements specific to file handling, like encryption of files in transit and at rest, as well as integrity checks.
-
-#### 8.3.3 Secure Design
-
-Describe how security has been embedded into the design of file handling features, including the choice of technologies and protocols.
-
-### 8.4 SSDLC Activities
-
-#### 8.4.1 Cases of Abuse
-
-Enumerate potential abuse cases, such as uploading malicious files or unauthorized deletion, and how the system guards against them.
-
-#### 8.4.2 Functional Security Requirements
-
-List the security functionalities the system provides, such as access controls, audit trails, and secure deletion processes.
-
-#### 8.4.3 Non-Functional Security Requirements
-
-Cover non-functional aspects like performance implications of security measures and system availability.
-
-#### 8.4.4 Secure Development Requirements
-
-Specify coding standards, libraries, and frameworks used to ensure secure development of the file handling features.
-
-#### 8.4.5 Secure Architecture
-
-Discuss the overall architecture of the file handling system, emphasizing components that contribute to security.
-
-#### 8.4.6 Secure Design Patterns
-
-Explain any secure design patterns implemented, such as using a proxy to handle file uploads or sandboxing file storage.
-
-#### 8.4.7 Threat Modeling
-
-Provide an overview of threat modeling conducted, the threats identified, and how the design mitigates these threats.
-
-#### 8.4.8 Security Test Planning
-
-Outline the plan for security testing of file handling features, including both automated and manual testing strategies.
-
-#### 8.4.9 Security Architecture Review
-
-Document any reviews or audits of the file handling architecture, and the outcomes or changes that resulted from them.
-
-### 8.5 Compliance and Standards
-
-Ensure that file handling practices comply with relevant standards and data protection regulations.
-
-### 8.5.1 Testing and Validation
-
-Describe how the file handling security features have been tested and validated against the identified requirements and threats.
+### 3.6 Security Architecture Review
