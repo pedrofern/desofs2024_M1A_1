@@ -1,0 +1,83 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Attacker
+actor WarehouseManager
+
+package "Abuse Cases for Warehouse Management System" {
+    usecase "Data Tampering through API Manipulation" as DT #red
+    usecase "Replay Attacks" as RA #red
+    usecase "Elevation of Privilege" as EP #red
+    usecase "Injection Attacks" as IA #red
+    usecase "Exfiltration of Sensitive Data" as ESD #red
+    usecase "Denial of Service (DoS) on External API" as DoS #red
+    usecase "Insider Threats" as IT #red
+    usecase "Cross-Site Scripting (XSS) via API Responses" as XSS #red
+    usecase "Man-in-the-Middle (MitM) Attacks During API Communication" as MitM #red
+    usecase "API Key Leakage" as AKL #red
+
+    package "Preventive Measures" {
+        usecase "API Data Validation and Sanitization" as ADV #yellow
+        usecase "Rate Limiting and Request Validation" as RLRV #yellow
+        usecase "Strong Authentication and Authorization" as SAA #yellow
+        usecase "Use of TLS/SSL for Secure Communication" as TLS #yellow
+        usecase "Regular Security Audits and Code Reviews" as RSA #yellow
+        usecase "Use of API Gateways and Security Tools" as APIG #yellow
+        usecase "Secure Session Management" as SSM #yellow
+        usecase "Proper Credential Management" as PCM #yellow
+    }
+
+    usecase "Create Warehouse" as CW
+    usecase "Edit Warehouse" as EW
+
+    Attacker --> DT : exploits
+    Attacker --> RA : exploits
+    Attacker --> EP : exploits
+    Attacker --> IA : exploits
+    Attacker --> ESD : exploits
+    Attacker --> DoS : exploits
+    Attacker --> IT : exploits
+    Attacker --> XSS : exploits
+    Attacker --> MitM : exploits
+    Attacker --> AKL : exploits
+
+    DT <-- ADV : mitigates
+    RA <-- RLRV : mitigates
+    EP <-- SAA : mitigates
+    IA <-- ADV : mitigates
+    ESD <-- SSM : mitigates
+    DoS <-- APIG : mitigates
+    IT <-- RSA : mitigates
+    XSS <-- ADV : mitigates
+    MitM <-- TLS : mitigates
+    AKL <-- PCM : mitigates
+
+     ADV <-- CW : applies
+     RLRV <-- CW : applies
+     SAA <-- CW : applies
+     SSM <-- CW : applies
+     APIG <-- CW : applies
+     RSA <-- CW : applies
+     TLS <-- CW : applies
+     PCM <-- CW : applies
+
+     ADV <-- EW : applies
+     RLRV <-- EW : applies
+     SAA <-- EW : applies
+     SSM <-- EW : applies
+     APIG <-- EW : applies
+     RSA <-- EW : applies
+     TLS <-- EW : applies
+     PCM <-- EW : applies
+
+    CW <-- WarehouseManager
+    EW <-- WarehouseManager
+
+
+
+    EW --> ADV
+}
+
+@enduml
