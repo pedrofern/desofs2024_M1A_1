@@ -1,0 +1,15 @@
+@startuml
+
+actor "Logged-In User" as User
+boundary "Logistics Controller" as Controller
+control "Logistics Service" as Service
+database Database as DB
+
+User-> Controller: Request List of Forms
+Controller-> Service: Request List of Forms
+Service -> DB: Get Forms
+DB --> Service: Send Forms
+Service --> Controller: Send Forms
+Controller --> User: Forms
+
+@enduml

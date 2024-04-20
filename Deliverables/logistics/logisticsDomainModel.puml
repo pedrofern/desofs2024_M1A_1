@@ -1,0 +1,40 @@
+@startuml
+title
+EletricGo - Logistics Domain Model
+end title
+
+package "Logistics Aggregate" as logistics<<Rectangle>> {
+class Packaging<<Root>> <<Entity>> {
+    - packagingId
+    - deliveryId
+    - truckId
+    - loadTime
+    - unloadTime
+}
+class Localization<<value object>> {
+- x
+- y
+- z
+}
+}
+
+class Delivery<<Entity>> {
+- id
+- date
+- weight
+- warehouseId  
+}
+
+class Truck<<Root>> <<Entity>> {
+- truckId
+- tare
+- loadCapacity
+- active 
+}
+
+Packaging"1" -down- "1" Localization: has >
+Packaging"1" -left- "1" Delivery: has >
+Packaging"1" -down- "1" Truck: needs >
+
+
+@enduml

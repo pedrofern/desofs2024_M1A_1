@@ -1,0 +1,38 @@
+@startuml
+
+entity "Packaging" as Packaging{
+  + packagingId <<PK>>
+  --
+  + deliveryId
+  + truckId
+  + loadTime
+  + unloadTime
+}
+
+entity "Localization" as Localization{
+  + x
+  + y
+  + z
+}
+
+entity "Delivery" as Delivery{
+  + id <<PK>>
+  --
+  + date
+  + weight
+  + warehouseId  
+}
+
+entity "Truck" as Truck{
+  + truckId
+  --
+  + tare
+  + loadCapacity
+  + active 
+}
+
+Packaging ||-down-|{ Localization
+Packaging ||-left-|| Delivery: deliveryId <<FK>>
+Packaging ||-right-|| Truck: truckId <<FK>>
+
+@enduml

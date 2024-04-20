@@ -1,0 +1,15 @@
+@startuml
+
+actor "Logistics Manager" as LM
+boundary "Logistics Controller" as Controller
+control "Logistics Service" as Service
+database Database as DB
+
+LM -> Controller: Provide data to create a Form
+Controller-> Service: Create Form
+Service -> DB: Post Form
+DB--> Service: Sucess
+Service--> Controller: Sucess
+Controller--> LM: Sucess
+
+@enduml
