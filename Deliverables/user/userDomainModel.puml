@@ -1,0 +1,23 @@
+@startuml
+title
+EletricGo - User Domain Model
+end title
+
+package "User Aggregate" as u <<Rectangle>> {
+class User <<Root>> <<Entity>> {
+    - username
+    - firstName
+    - lastName
+    - phoneNumber
+    - email
+    - password
+}
+class Role <<Entity>> {
+- roleId
+- roleName
+}
+}
+User "1" -right- "1" Role : has >
+
+
+@enduml

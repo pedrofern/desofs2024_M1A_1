@@ -1,0 +1,32 @@
+@startuml
+actor User
+actor Attacker
+actor MaliciousInsider
+actor DisgruntledEmployee
+actor Developer
+actor Cybercriminal
+
+User -- (AccessSystem)
+User -- (ViewUserData)
+User -- (ModifyUserData)
+User -- (DeleteUserData)
+User -- (MakePurchase)
+User -- (ChangeAccountSettings)
+User -- (UseSystemResources)
+User -- (AccessUserDatabase)
+
+Attacker -- (AccessSystem : UnauthorizedAccess)
+Attacker -- (ViewUserData : AccountTakeover)
+Attacker -- (ModifyUserData : AccountHijacking)
+Attacker -- (DeleteUserData : Impersonation)
+
+MaliciousInsider -- (ViewUserData : DataTheft)
+
+DisgruntledEmployee -- (ModifyUserData : DataManipulation)
+
+Developer -- (AccessUserDatabase : PrivacyViolation)
+
+Cybercriminal -- (AccessSystem : DataBreach)
+Cybercriminal -- (DeleteUserData : DataDestruction)
+
+@enduml

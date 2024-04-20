@@ -1,0 +1,21 @@
+@startuml
+
+entity "User" as user {
+  + username: string <<PK>>
+  --
+  + firstName: string
+  + lastName: string
+  + phoneNumber: string
+  + email: string
+  + password: string
+}
+
+entity "Role" as role {
+  + roleId: string <<PK>>
+  --
+  + roleName: string
+}
+
+user -right-|{ role : roleId <<FK>>
+
+@enduml

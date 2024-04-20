@@ -1,0 +1,15 @@
+@startuml
+
+actor "System Administrator" as Admin
+boundary "User Registration Controller" as RegistrationController
+control "User Management Service" as UserService
+
+Admin -> RegistrationController: Provide user details and role
+activate RegistrationController
+RegistrationController -> UserService: Register User
+activate UserService
+UserService --> RegistrationController: User Created Successfully
+deactivate UserService
+deactivate RegistrationController
+
+@enduml

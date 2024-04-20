@@ -28,28 +28,83 @@ Each user will have restrictions, based on roles and each role will give permiss
    2. [Secure Architecture](#32-secure-architecture)
    3. [Secure Design Patterns](#33-secure-design-patterns)
    4. [Threat Modelling](#34-threat-modelling)
+      1. [Threat Model Information](#341-threat-model-information)
+      2. [External Dependencies](#342-external-dependencies)
+      3. [Entry Points](#343-entry-points)
+      4. [Exit Points](#344-exit-points)
+      5. [Assets](#345-assets)
+      6. [Trust Levels](#346-trust-levels)
+      7. [Data Flow Diagrams](#7-data-flow-diagrams)
    5. [Security Test Planning](#35-security-test-planning)
    6. [Security Architecture Review](#36-security-architecture-review)
 
-# 1. Requirements Engineering
+## 1. Requirements Engineering
 
-## 1.1 User Stories Description
+### 1.1 User Stories Description
 
-## 1.2 Customer Specifications and Clarifications
+- As a System Administrator, I want to be able to register new users and assign roles to them.
+- As an existing user, I want to log in to the system with my username and password.
+- As a logged-in user, I want to log out of the system to securely end my session.
 
-## 1.3 Acceptance Criteria
+### 1.2 Customer Specifications and Clarifications
 
-## 1.4 Found out Dependencies
+- The application should provide a user-friendly login process for existing users to access the system securely.
+- After successful login, users should have access to functionalities based on their assigned role.
+- Logging out of the system should terminate the user's session and require re-authentication to access protected resources.
+- Only the System Administrator should have the authority to register new users and assign roles to them.
 
-## 1.5 Input and Output Data
+### 1.3 Acceptance Criteria
 
-## 1.6 System Sequence Diagram (SSD)
+- Users should be able to log in to the system using their registered credentials.
+- After logging in, users should have access to functionalities based on their assigned role.
+- Logging out of the system should terminate the user's session and require re-authentication to access protected resources.
+- New users should not be able to register themselves; registration and role assignment should only be performed by the System Administrator.
 
-## 1.7 API Endpoints
+### 1.4 Found out Dependencies
 
-## 1.8 Database Schema
+- The login and logout functionalities depend on backend services for user authentication and session management.
+- Role assignment depends on user management functionalities, specifically accessible by the System Administrator.
 
-## 1.9 Authorization Roles
+### 1.5 Input and Output Data
+
+- Input data for login includes the user's username and password.
+- Output data includes a success message upon successful login or logout and error messages in case of failures.
+
+### 1.6 System Sequence Diagram (SSD)
+
+- Login / Logout
+
+![SSD1](./ssd1.png)
+
+- User Registration
+
+![SSD2](./ssd2.png)
+
+
+### 1.7 API Endpoints
+
+- POST /user/login - Log in to the system with username and password
+- POST /user/logout - Log out of the system and terminate the session
+- POST /user/register - Register a new user and assign a role (accessible only by the System Administrator)
+- PUT /user/{id}/assign-role - Assign a role to a user (accessible only by the System Administrator)
+
+### 1.8 Database Schema
+
+The Domain Model for the User Aggregate is as follows:
+
+![User Domain Model](./userDomainModel.png)
+
+Considering the previous model, the user aggregate has the following database schema:
+
+![User Database Model](./userDatabaseSchema.png)
+
+### 1.9 Authorization Roles
+
+- System Administrator: Full access to user management functionalities and authority to assign roles to users.
+- Warehouse Manager: Access to functionalities related to warehouse data management and delivery tracking.
+- Fleet Manager: Access to functionalities related to managing truck data and fleet operations.
+- Logistics Manager: Access to functionalities related to route data management and distribution planning.
+- Operator: Restricted access for querying and limited operations within each aggregate, with permissions tailored to their role responsibilities.
 
 
 # 2. Analysis
@@ -76,115 +131,81 @@ Overall, Security Requirements Engineering ensures that security considerations 
 
 Abuse cases are scenarios that describe how a system could be intentionally misused or exploited for malicious purposes. Here are the abuse cases for the user aggregate:
 
-- **Unauthorized Access**: An attacker gains unauthorized access to the system by exploiting weak authentication mechanisms or stealing user credentials. Once inside, the attacker can view, modify, or delete sensitive user data.
+| Breach Type | Description|
+|-------------|------------|
+| **Unauthorized Access** | Attacker gains unauthorized access to the system by exploiting weak authentication mechanisms or stealing user credentials.|
+| **Data Theft**           | Malicious insider steals user data for personal gain or to sell on the black market, exfiltrating sensitive information including PII and financial data.|
+| **Account Takeover**     | Attacker compromises a user's account through methods like phishing or brute-force attacks, gaining control to perform malicious activities.|
+| **Data Manipulation**    | Disgruntled employee intentionally modifies user data to cause confusion or harm, altering profiles, account settings, or transaction records.|
+| **Service Abuse**        | User exploits vulnerabilities to abuse system resources or functionality, such as launching DoS attacks, spamming, or circumventing usage limits.|
+| **Privacy Violation**    | Developer or administrator accesses user data without authorization for personal curiosity or monitoring, violating user privacy and data protection regulations.|
+| **Data Breach**          | Cybercriminal exploits system vulnerabilities to gain access to the user aggregate's database, exfiltrating sensitive user data for identity theft or other malicious activities|
+| **Account Hijacking**    | Attacker gains control over multiple user accounts by exploiting security vulnerabilities, using hijacked accounts for malware spreading, phishing, or fraud.|
+| **Impersonation**        | Attacker impersonates a legitimate user or administrator to gain unauthorized access to the user aggregate, performing restricted actions like viewing sensitive data or modifying settings.|
+| **Data Destruction**     | Malicious actor launches a destructive attack to disrupt operations by deleting or corrupting user data, system files, or critical infrastructure, causing data loss and service downtime.|
 
-- **Data Theft**: A malicious insider with access to the user aggregate intentionally steals user data for personal gain or to sell it on the black market. The attacker may exfiltrate large amounts of sensitive information, including personally identifiable information (PII) and financial data.
 
-- **Account Takeover**: An attacker compromises a user's account through methods such as phishing or brute-force attacks. With control over the account, the attacker can perform various malicious activities, including unauthorized purchases, identity theft, or spreading of misinformation.
-
-- **Data Manipulation**: A disgruntled employee with access to the user aggregate intentionally modifies user data to cause confusion or harm. For example, the employee may alter user profiles, change account settings, or tamper with transaction records.
-
-- **Service Abuse**: A user exploits vulnerabilities in the system to abuse its resources or functionality. This could include launching denial-of-service (DoS) attacks, spamming other users, or circumventing usage limits to gain unfair advantages.
-
-- **Privacy Violation**: A developer or administrator accesses user data without proper authorization for personal curiosity or to monitor the activities of specific users. This breach of privacy undermines user trust and violates data protection regulations.
-
-- **Data Breach**: A cybercriminal exploits vulnerabilities in the system to gain access to the user aggregate's database. The attacker exfiltrates large volumes of sensitive user data, including usernames, passwords, and payment information, for use in identity theft or other malicious activities.
-
-- **Account Hijacking**: An attacker gains control over multiple user accounts by exploiting a security vulnerability in the system. The attacker may use these hijacked accounts to spread malware, launch phishing attacks, or engage in fraudulent activities.
-
-- **Impersonation**: An attacker impersonates a legitimate user or administrator to gain unauthorized access to the user aggregate. By masquerading as an authorized entity, the attacker can perform actions that would otherwise be restricted, such as viewing sensitive data or modifying system settings.
-
-- **Data Destruction**: A malicious actor launches a destructive attack aimed at disrupting the operations of the user aggregate. This could involve deleting or corrupting user data, system files, or critical infrastructure components, leading to data loss and service downtime.
 
 ## 2.4 Functional Security Requirements
 
-1. **User Authentication**: The system must provide mechanisms for authenticating users, including username/password and multi-factor authentication (MFA).
+| Security Requirement | Description|
+|----------------------|------------|
+| **User Authentication** | The system must provide mechanisms for authenticating users, including username/password and multi-factor authentication (MFA).|
+| **Access Control**      | The system must enforce access controls to ensure that only authorized users have access to specific resources or functionalities. This includes role-based access control (RBAC), permissions management, and segregation of duties. |
+| **Encryption**          | The system must support encryption for sensitive data both at rest and in transit. This includes encryption algorithms, key management, and secure communication protocols (e.g., SSL/TLS).|
+| **Audit Logging**       | The system must log relevant security events and user activities for monitoring, auditing, and forensic purposes. This includes logging user logins, access attempts, system changes, and security-related events.|
+| **Session Management**  | The system must manage user sessions securely, including session expiration, session tokens, and preventing session hijacking or fixation attacks.|
+| **Data Integrity**      | The system must ensure the integrity of data by implementing measures to prevent unauthorized modification or tampering. This includes data validation, checksums, digital signatures, and hash functions.|
+| **Secure Configuration** | The system must be configured securely according to best practices and industry standards. This includes hardening of servers, secure configuration of network devices, and regular security assessments.|
+| **Secure APIs**         | If the system exposes APIs (Application Programming Interfaces), they must be designed and implemented securely to prevent API abuse, injection attacks, and unauthorized access.|
+| **Secure File Handling** | The system must handle files securely, including file uploads, downloads, storage, and transmission. This includes validation of file types, malware scanning, and access controls on stored files.|
+| **Error Handling**      | The system must handle errors gracefully and securely, avoiding information leakage that could be exploited by attackers. Error messages should be informative to users but not reveal sensitive system details.|
+| **Secure Communication** | The system must ensure secure communication channels between components, including encryption of network traffic, secure configuration of web servers, and protection against common attacks like man-in-the-middle (MITM).|
+| **Backup and Recovery** | The system must implement secure backup and recovery procedures to protect against data loss, corruption, and ransomware attacks. This includes regular backups, off-site storage, and testing of recovery procedures.|
 
-2. **Access Control**: The system must enforce access controls to ensure that only authorized users have access to specific resources or functionalities. This includes role-based access control (RBAC), permissions management, and segregation of duties.
-
-3. **Encryption**: The system must support encryption for sensitive data both at rest and in transit. This includes encryption algorithms, key management, and secure communication protocols (e.g., SSL/TLS).
-
-4. **Audit Logging**: The system must log relevant security events and user activities for monitoring, auditing, and forensic purposes. This includes logging user logins, access attempts, system changes, and security-related events.
-
-5. **Session Management**: The system must manage user sessions securely, including session expiration, session tokens, and preventing session hijacking or fixation attacks.
-
-6. **Data Integrity**: The system must ensure the integrity of data by implementing measures to prevent unauthorized modification or tampering. This includes data validation, checksums, digital signatures, and hash functions.
-
-7. **Secure Configuration**: The system must be configured securely according to best practices and industry standards. This includes hardening of servers, secure configuration of network devices, and regular security assessments.
-
-8. **Secure APIs**: If the system exposes APIs (Application Programming Interfaces), they must be designed and implemented securely to prevent API abuse, injection attacks, and unauthorized access.
-
-9. **Secure File Handling**: The system must handle files securely, including file uploads, downloads, storage, and transmission. This includes validation of file types, malware scanning, and access controls on stored files.
-
-10. **Error Handling**: The system must handle errors gracefully and securely, avoiding information leakage that could be exploited by attackers. Error messages should be informative to users but not reveal sensitive system details.
-
-11. **Secure Communication**: The system must ensure secure communication channels between components, including encryption of network traffic, secure configuration of web servers, and protection against common attacks like man-in-the-middle (MITM).
-
-12. **Backup and Recovery**: The system must implement secure backup and recovery procedures to protect against data loss, corruption, and ransomware attacks. This includes regular backups, off-site storage, and testing of recovery procedures.
 
 ## 2.5 Non-Functional Security Requirements
 
-1. **Performance**: The system should maintain efficient performance even under high loads or during security-related operations such as encryption and decryption.
+| Security Requirement   | Description|
+|------------------------|------------|
+| **Performance**        | The system should maintain efficient performance even under high loads or during security-related operations such as encryption and decryption|
+| **Scalability**        | The system should be scalable to accommodate increasing user loads and data volumes while maintaining security measures.|
+| **Availability**       | The system should have high availability to ensure continuous access to resources, even in the event of security incidents or attacks.|
+| **Reliability**        | The system should be reliable, ensuring that security mechanisms function correctly and consistently to protect against threats.|
+| **Resilience**         | The system should be resilient to withstand and recover from security breaches or incidents, minimizing the impact on operations and data integrity.|
+| **Compliance**         | The system should comply with relevant security standards, regulations, and industry best practices to ensure legal and regulatory compliance.|
+| **Usability**          | Security features should be designed with usability in mind to minimize user friction while still providing effective protection against threats.|
+| **Interoperability**   | Security measures should be interoperable with other systems and technologies to ensure seamless integration and communication.|
+| **Auditability**       | The system should support auditing and logging capabilities to enable monitoring, analysis, and forensic investigations of security-related events.|
+| **Documentation**      | Comprehensive documentation should be provided for security features, configurations, and procedures to support system administration and compliance efforts.|
+| **Incident Response**  | The system should have established incident response procedures and mechanisms to detect, respond to, and recover from security incidents in a timely and effective manner.|
+| **Training and Awareness** | Regular security training and awareness programs should be conducted for system users, administrators, and other stakeholders to promote a security-conscious culture and enhance security posture.|
 
-2. **Scalability**: The system should be scalable to accommodate increasing user loads and data volumes while maintaining security measures.
-
-3. **Availability**: The system should have high availability to ensure continuous access to resources, even in the event of security incidents or attacks.
-
-4. **Reliability**: The system should be reliable, ensuring that security mechanisms function correctly and consistently to protect against threats.
-
-5. **Resilience**: The system should be resilient to withstand and recover from security breaches or incidents, minimizing the impact on operations and data integrity.
-
-6. **Compliance**: The system should comply with relevant security standards, regulations, and industry best practices to ensure legal and regulatory compliance.
-
-7. **Usability**: Security features should be designed with usability in mind to minimize user friction while still providing effective protection against threats.
-
-8. **Interoperability**: Security measures should be interoperable with other systems and technologies to ensure seamless integration and communication.
-
-9. **Auditability**: The system should support auditing and logging capabilities to enable monitoring, analysis, and forensic investigations of security-related events.
-
-10. **Documentation**: Comprehensive documentation should be provided for security features, configurations, and procedures to support system administration and compliance efforts.
-
-11. **Incident Response**: The system should have established incident response procedures and mechanisms to detect, respond to, and recover from security incidents in a timely and effective manner.
-
-12. **Training and Awareness**: Regular security training and awareness programs should be conducted for system users, administrators, and other stakeholders to promote a security-conscious culture and enhance security posture.
 
 ## 2.6 Secure Development Requirements
 
-1. **Security Training**: Developers should receive regular security training to understand common vulnerabilities, secure coding practices, and threat mitigation techniques.
-
-2. **Secure Coding Standards**: Development teams should adhere to secure coding standards and guidelines, such as OWASP Top 10, CERT Secure Coding Standards, or industry-specific standards.
-
-3. **Input Validation**: All user input should be validated to prevent injection attacks, such as SQL injection, XSS (Cross-Site Scripting), and command injection.
-
-4. **Output Encoding**: Output should be encoded to prevent XSS attacks and ensure that user-supplied data is treated as data, not code.
-
-5. **Authentication and Authorization**: Strong authentication and authorization mechanisms should be implemented to control access to sensitive resources and functionalities.
-
-6. **Session Management**: Secure session management practices should be followed to prevent session fixation, session hijacking, and session replay attacks.
-
-7. **Data Protection**: Sensitive data should be encrypted at rest and in transit using strong encryption algorithms and protocols.
-
-8. **Least Privilege**: Principle of least privilege should be applied to limit user and system privileges to the minimum necessary to perform required tasks.
-
-9. **Secure Configuration**: Systems and components should be securely configured according to best practices and industry standards to reduce the attack surface.
-
-10. **Secure Dependencies**: Third-party dependencies should be regularly updated and vetted for security vulnerabilities to prevent supply chain attacks.
-
-11. **Secure Development Lifecycle**: Security should be integrated throughout the development lifecycle, including requirements, design, coding, testing, and deployment phases.
-
-12. **Security Testing**: Comprehensive security testing, including static analysis, dynamic analysis, and penetration testing, should be conducted to identify and remediate vulnerabilities.
-
-13. **Code Review**: Regular code reviews should be performed to identify security issues, adherence to coding standards, and compliance with security requirements.
-
-14. **Secure Deployment**: Secure deployment practices should be followed to ensure that applications and components are deployed securely and securely configured in production environments.
-
-15. **Incident Response**: Incident response procedures should be in place to detect, respond to, and recover from security incidents in a timely and effective manner.
-
-16. **Secure Communication**: Secure communication channels should be used to protect data in transit, including encryption, authentication, and integrity checks.
-
-17. **Logging and Monitoring**: Comprehensive logging and monitoring should be implemented to detect and investigate security events, anomalies, and suspicious activities.
-
 These secure development requirements help ensure that applications are developed with security in mind from the outset, reducing the risk of security vulnerabilities and improving overall system security.
+
+| Security Practice          | Description|
+|----------------------------|------------|
+| **Security Training**      | Developers should receive regular security training to understand common vulnerabilities, secure coding practices, and threat mitigation techniques.|
+| **Secure Coding Standards**| Development teams should adhere to secure coding standards and guidelines, such as OWASP Top 10, CERT Secure Coding Standards, or industry-specific standards.|
+| **Input Validation**       | All user input should be validated to prevent injection attacks, such as SQL injection, XSS (Cross-Site Scripting), and command injection.|
+| **Output Encoding**        | Output should be encoded to prevent XSS attacks and ensure that user-supplied data is treated as data, not code.|
+| **Authentication and Authorization** | Strong authentication and authorization mechanisms should be implemented to control access to sensitive resources and functionalities.|
+| **Session Management**     | Secure session management practices should be followed to prevent session fixation, session hijacking, and session replay attacks.|
+| **Data Protection**        | Sensitive data should be encrypted at rest and in transit using strong encryption algorithms and protocols.|
+| **Least Privilege**        | Principle of least privilege should be applied to limit user and system privileges to the minimum necessary to perform required tasks.|
+| **Secure Configuration**   | Systems and components should be securely configured according to best practices and industry standards to reduce the attack surface. |
+| **Secure Dependencies**    | Third-party dependencies should be regularly updated and vetted for security vulnerabilities to prevent supply chain attacks.|
+| **Secure Development Lifecycle** | Security should be integrated throughout the development lifecycle, including requirements, design, coding, testing, and deployment phases.|
+| **Security Testing**       | Comprehensive security testing, including static analysis, dynamic analysis, and penetration testing, should be conducted to identify and remediate vulnerabilities.|
+| **Code Review**            | Regular code reviews should be performed to identify security issues, adherence to coding standards, and compliance with security requirements.|
+| **Secure Deployment**      | Secure deployment practices should be followed to ensure that applications and components are deployed securely and securely configured in production environments.|
+| **Incident Response**      | Incident response procedures should be in place to detect, respond to, and recover from security incidents in a timely and effective manner.|
+| **Secure Communication**   | Secure communication channels should be used to protect data in transit, including encryption, authentication, and integrity checks.|
+| **Logging and Monitoring** | Comprehensive logging and monitoring should be implemented to detect and investigate security events, anomalies, and suspicious activities.|
+
 
 # 3. Design
 
@@ -282,48 +303,126 @@ By leveraging these secure design patterns, developers and architects can build 
 
 ## 3.4 Threat Modelling
 
-### 1. Introduction
+## 3.4.1. Threat Model Information
 
-Threat modelling for the user component of the logistics application is essential for ensuring the security and integrity of user data and interactions. By systematically identifying potential threats and vulnerabilities, we can implement appropriate security controls to protect user accounts and sensitive information.
+- **Purpose of the threat model**: 
+  The purpose of this threat model is to identify and assess potential security threats and vulnerabilities associated with the user aggregate of the logistics application. By understanding these threats, we aim to implement appropriate security controls to safeguard user data, ensure user privacy, and maintain the integrity of the application.
 
-### 2. Scope
+- **Scope and boundaries**:
+  - **In-Scope**: 
+    - User authentication and authorization mechanisms.
+    - User account management functionalities such as registration, login, password reset and profile management.
+    - Protection of sensitive user data including personal information, authentication credentials and transaction history.
+    - Interaction with external services and APIs related to user functionalities.
+  - **Out-of-Scope**:
+    - Backend infrastructure components not directly related to user management.
+    - Third-party services or integrations not controlled or managed by the application.
+    - Physical security measures or threats beyond the digital realm.
+
+- **Assumptions and constraints**:
+  - **Assumptions**:
+    - Users will interact with the application using standard web and/or mobile interfaces.
+    - User data will be stored securely and encrypted at rest.
+    - Users will access the application from devices and networks with a reasonable level of security hygiene.
+  - **Constraints**:
+    - Limited resources for implementing security controls.
+    - Compliance requirements such as GDPR, CCPA or other relevant regulations.
+    - Time constraints for threat assessment and mitigation.
+
+- **Team members involved**:
+  - Developers: Provide insights into the implementation details and feasibility of security controls.
+
+
+## 3.4.2. External Dependencies
+- Third-party services or libraries
+- APIs and integrations
+- External systems interacting with the application
+
+## 3.4.3. Entry Points
+- User interfaces (web, mobile, desktop)
+- APIs and web services
+- External devices or sensors
+
+## 3.4.4. Exit Points
+- Data storage systems (databases, file systems)
+- Output channels (API responses, logs)
+- External integrations or services
+
+## 3.4.5. Assets
+- Critical data and information
+- User accounts and credentials
+- Intellectual property and proprietary information
+
+## 3.4.6. Trust Levels
+- Classification of users or entities based on trust levels
+- Differentiation between internal and external actors
+- Trust boundaries and access control policies
+
+## 3.4.7. Data Flow Diagrams
+- Visualization of data flows within the system
+- Identification of data sources, sinks, and processes
+- Mapping of data flows to system components and interactions
+
+
+
+### 3.4.2. Scope
 
 The scope of the threat modelling exercise for the user component of the logistics application includes:
 - User authentication and authorization mechanisms
 - User account management functionalities
 - Protection of sensitive user data (e.g., personal information, authentication credentials)
 
-### 3. Assets
+### 3.4.3. Assets
 
 Assets that need to be protected in the user component of the logistics application include:
 - User account information (e.g., usernames, passwords)
 - Personal and contact information of users
 - Authorization tokens and session identifiers
 
-### 4. Threat Identification
+### 3.4.4. Threats
 
-Potential threats and adversaries targeting the user component of the logistics application include:
-- Unauthorized access attempts by malicious actors
-- Account takeover attacks targeting user accounts
-- Theft of sensitive user information through phishing or social engineering
-- Exploitation of vulnerabilities in authentication mechanisms
+#### Unauthorized Access
+Threat: An attacker gains unauthorized access to user accounts due to weak authentication mechanisms or stolen credentials.
+Mitigation: Implement strong password policies, multi-factor authentication, and secure session management.
 
-### 5. Vulnerability Assessment
+#### Account Hijacking
+Threat: Attackers hijack user accounts by exploiting vulnerabilities in session management or password reset mechanisms.
+Mitigation: Implement secure session handling, enforce password reset procedures, and monitor for suspicious activities.
 
-Potential vulnerabilities in the user component of the logistics application include:
-- Weak password policies allowing for easy brute-force attacks
-- Lack of multi-factor authentication exposing accounts to credential stuffing attacks
-- Insecure storage of user credentials leading to data breaches
-- Lack of proper input validation allowing for injection attacks (e.g., SQL injection, XSS)
+#### Data Breach
+Threat: Sensitive user data, such as personal information or authentication credentials, is exposed due to insecure storage or transmission mechanisms.
+Mitigation: Encrypt sensitive data at rest and in transit, adhere to secure coding practices, and regularly audit data access controls.
 
-### 6. Attack Surface Analysis
+#### Insider Threats
+Threat: Malicious insiders or compromised accounts pose a threat to the confidentiality and integrity of user data.
+Mitigation: Implement role-based access control, conduct regular security awareness training, and monitor user activities for anomalies.
+
+### 3.4.5. Vulnerabilities
+
+#### Injection Attacks
+Vulnerability: Input validation flaws in user input fields could lead to SQL injection or other injection attacks.
+Mitigation: Use parameterized queries, input validation, and output encoding to prevent injection vulnerabilities.
+
+#### Cross-Site Scripting (XSS)
+Vulnerability: Lack of input validation and output encoding in web forms or user-generated content could lead to XSS attacks.
+Mitigation: Implement content security policies, sanitize user input, and encode output to prevent XSS vulnerabilities.
+
+#### Insecure Direct Object References (IDOR)
+Vulnerability: Improper access controls could allow attackers to access unauthorized user data by manipulating object references.
+Mitigation: Implement proper access controls, such as role-based access control (RBAC) or access control lists (ACLs), and validate user permissions before accessing sensitive data.
+
+#### Insufficient Logging and Monitoring
+Vulnerability: Inadequate logging and monitoring make it difficult to detect and respond to security incidents or suspicious activities.
+Mitigation: Implement comprehensive logging of user activities, monitor logs for unusual behaviour, and establish incident response procedures.
+
+### 3.4.6. Attack Surface Analysis
 
 The attack surface of the user component of the logistics application includes:
 - Web interfaces for user authentication and account management
 - Mobile application interfaces for user interaction and data access
 - APIs for user-related functionalities such as user registration and profile management
 
-### 7. Threat Scenarios
+### 3.4.7. Threat Scenarios
 
 Threat scenarios for the user component of the logistics application include:
 - Unauthorized access to user accounts due to weak or compromised passwords
@@ -331,14 +430,14 @@ Threat scenarios for the user component of the logistics application include:
 - Account takeover attacks targeting privileged user accounts
 - Disclosure of sensitive user information due to insufficient access controls
 
-### 8. Risk Assessment
+### 3.4.8. Risk Assessment
 
 Assessment of risks in the user component of the logistics application includes:
 - Likelihood of occurrence based on historical data and threat intelligence
 - Potential impact on user privacy, data confidentiality, and system integrity
 - Prioritization of risks based on severity and potential consequences
 
-### 9. Countermeasure Selection
+### 3.4.9. Countermeasure Selection
 
 Countermeasures to mitigate risks in the user component of the logistics application include:
 - Implementation of strong password policies and multi-factor authentication
@@ -346,7 +445,7 @@ Countermeasures to mitigate risks in the user component of the logistics applica
 - Regular security patches and updates to address known vulnerabilities
 - Implementation of proper input validation and access controls to prevent injection attacks and unauthorized access
 
-### 10. Security Requirements
+### 3.4.10. Security Requirements
 
 Security requirements for the user component of the logistics application include:
 - Use of secure communication protocols (e.g., TLS) to protect user data in transit
@@ -354,7 +453,7 @@ Security requirements for the user component of the logistics application includ
 - Regular security training and awareness programs for users to recognize and report security threats
 - Incident response plan and procedures for addressing security incidents and breaches involving user accounts
 
-### 11. Documentation
+### 3.4.11. Documentation
 
 Documentation for the threat modelling process of the user component of the logistics application includes:
 - Threat models detailing identified threats, vulnerabilities, and risk assessments
@@ -362,7 +461,7 @@ Documentation for the threat modelling process of the user component of the logi
 - Security requirements documentation specifying security controls and implementation guidelines
 - Incident response plan and procedures for responding to security incidents and breaches involving user accounts
 
-### 12. Conclusion
+### 3.4.12. Conclusion
 
 In conclusion, the threat modelling process for the user component of the logistics application provides valuable insights into potential security risks and vulnerabilities. By systematically identifying and addressing these risks, we can enhance the security posture of the system and protect user accounts and sensitive information.
 

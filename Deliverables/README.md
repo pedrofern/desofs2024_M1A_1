@@ -50,7 +50,7 @@ We have created the following issues to track the tasks related to the DESFOS pr
   - **Warehouse Manager** - manages warehouse data and deliveries
   - **Fleet Manager** - manages truck data
   - **Logistics Manager** - manages route data and distribution planning
-Operator - has basic access for querying and limited operations within each aggregate
+  - **Operator** - has basic access for querying and limited operations within each aggregate
 
 ## Infrastucture View
 

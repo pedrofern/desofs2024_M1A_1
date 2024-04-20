@@ -1,0 +1,21 @@
+@startuml
+
+actor User
+boundary "Login Controller" as LoginController
+control "Authentication Service" as AuthService
+
+User -> LoginController: Provide credentials
+activate LoginController
+LoginController -> AuthService: Authenticate credentials
+activate AuthService
+AuthService --> LoginController: Authentication result
+deactivate AuthService
+LoginController --> User: Access Granted
+deactivate LoginController
+
+User -> LoginController: Request logout
+activate LoginController
+LoginController --> User: Logout Successful
+deactivate LoginController
+
+@enduml
