@@ -1,9 +1,7 @@
 # Software Architectural Analysis and Design of Delivery Aggregate
 
-- This document de describes the architecture of ElectricGo's Delivery aggregate, providing an overview of the design
-  decisions and architectural analysis made during development.
-- Delivery Aggregate is a sub-system developed to manage the delivery of products to customers. It is responsible for
-  managing the delivery process, from the moment the order is placed until the product is delivered to the customer.
+- This document de describes the architecture of ElectricGo's Delivery aggregate, providing an overview of the design decisions and architectural analysis made during development.
+- Delivery Aggregate is a sub-system developed to manage the delivery of products to customers. It is responsible for managing the delivery process, from the moment the order is placed until the product is delivered to the customer.
 
 ## Table of Contents
 
@@ -80,13 +78,16 @@
 ### 1.6 System Sequence Diagram (SSD)
 
 - Create Delivery
-  ![Level1_ProcessView_CreateDelivery.svg](diagrams/Level1_ProcessView_CreateDelivery.svg)
+
+![Level1_ProcessView_CreateDelivery.svg](diagrams/Level1_ProcessView_CreateDelivery.svg)
 
 - Edit Delivery
-  ![Level1_ProcessView_EditDelivery.svg](diagrams/Level1_ProcessView_EditDelivery.svg)
+
+![Level1_ProcessView_EditDelivery.svg](diagrams/Level1_ProcessView_EditDelivery.svg)
 
 - Get All Deliveries
-  ![Level1_ProcessView_GetAllDeliveries.svg](diagrams/Level1_ProcessView_GetAllDeliveries.svg)
+
+- ![Level1_ProcessView_GetAllDeliveries.svg](diagrams/Level1_ProcessView_GetAllDeliveries.svg)
 
 ### 1.7 API Endpoints
 
@@ -116,72 +117,96 @@ Considering the previous model, the user aggregate has the following database sc
 ## 2. Analysis
 
 ### 2.1 Preliminary Software Risk Analysis
-- **Risk:** Unauthorized access to sensitive delivery data.
-    - **Mitigation:** Implement strong authentication and authorization checks before allowing access to the download feature.
+
+- **Risk:** Unauthorized access to the download feature.
+    - **Mitigation:** Implement strong, multi-factor authentication and comprehensive authorization checks before allowing access to the download feature.
+
+
+- **Risk:** Insecure file handling leading to path traversal attacks.
+    - **Mitigation:** Enforce strict input validation and file path sanitization to prevent path traversal attacks.
+
+
 - **Risk:** Data corruption during the download process.
-    - **Mitigation:** Implement checksum or similar data integrity checks post-download.
+    - **Mitigation:** Implement checksum validation or similar data integrity checks post-download to ensure file integrity.
+
+
+- **Risk:** Lack of encryption during data transmission.
+    - **Mitigation:** Use TLS encryption for all data transmissions to ensure confidentiality and integrity of data in transit.
+
+
+- **Risk:** Denial of Service (DoS) attacks targeting the files download feature.
+    - **Mitigation:** Employ rate limiting, anomaly detection, and network security solutions to identify and mitigate potential DoS attacks effectively.
+
+
 - **Risk:** PDF generation could expose the system to service disruption attacks.
-    - **Mitigation:** Implement rate limiting and monitoring to detect and prevent abuse.
+    - **Mitigation:** Apply rate limiting, resource allocation limits, and regular monitoring to detect and prevent abuse during PDF generation.
+
+
+- **Risk:** Insecure PDF generation library leading to code execution vulnerabilities.
+    - **Mitigation:** Ensure that the PDF generation library is up-to-date with the latest security patches and perform regular security assessments.
+
+
+- **Risk:** Lack of auditing and monitoring capabilities.
+    - **Mitigation:** Implement comprehensive logging and real-time monitoring systems to track all activities related to file downloads and generate alerts for suspicious actions.
 
 ### 2.2 Security Requirements Engineering
-- **Functional Requirements:**
-    - Authentication must be strictly enforced before accessing the PDF download feature.
-    - Input validation must be performed to avoid injection attacks during PDF generation.
-    - Use of TLS to ensure encryption in transit.
-- **Non-Functional Requirements:**
-    - The system must handle a high number of PDF download requests without degradation in performance.
-    - Ensure data integrity and accuracy during PDF creation.
+
+#### Functional security requirements
+
+- **Authentication:** Ensure that all users must undergo strong authentication before accessing the download functionality.
+- **Input validation:** Implement thorough input validation to avoid common vulnerabilities such as SQL injection, cross-site scripting (XSS) and path passing.
+- **Data integrity:** Use checksums or cryptographic hashes to verify the integrity of downloaded files.
+- **Secure data transmission:** All data transmissions must use TLS to protect data in transit.
+
+#### Non-functional security requirements
+
+- **Performance:** Ensure that security measures do not affect system performance.
+- **Scalability:** Design security solutions that keep up with the system as usage patterns evolve.
+- **Reliability:** Implement redundant systems and failover mechanisms to maintain availability even during security incidents.
+- **Maintainability:** Design security features that are easy to update and manage.
+- **Compliance:** Comply with relevant legal and regulatory requirements regarding data protection and privacy, such as GDPR or HIPAA, as applicable to the jurisdiction and nature of the data.
 
 ### 2.3 Abuse Cases
 
 ![Delivery_Abuse_Case.png](diagrams/Delivery_Abuse_Case.png)
 
-#### Case 1: Unauthorized Access
-- **Description:** An unauthorized user attempts to access the PDF download feature without proper permissions.
-- **Response:** The system should enforce strict authentication and authorization checks, denying access and logging the attempt for security monitoring and analysis.
+#### Case 1: Unauthorized access
+- **Description:** An unauthorized user tries to access the file transfer functionality without the proper permissions.
+- **Response:** The system should apply rigorous authentication and authorization checks, denying access and logging the attempt for security monitoring and analysis.
 
-#### Case 2: Path Traversal Attack
+#### Case 2: Path traversal attack
 - **Description:** An unauthorized user exploits path traversal vulnerabilities to access restricted files.
-- **Response:** Implement robust input validation to sanitize file paths and prevent directory traversal. Ensure that user inputs cannot alter file paths.
+- **Response:** Implement robust input validation to sanitize file paths and prevent directory traversal, ensuring that user inputs cannot alter file paths.
 
-#### Case 3: Downloading Sensitive Information
-- **Description:** An unauthorized user downloads sensitive information exploiting security flaws.
+#### Case 3: Downloading confidential information
+- **Description:** An unauthorized user downloads sensitive information by exploiting security flaws.
 - **Response:** Apply encryption to sensitive data and use secure access controls to ensure that only authorized personnel can access sensitive information.
 
-#### Case 4: Denial of Downloading Files
-- **Description:** An unauthorized user denies having downloaded files, exploiting a lack of auditing.
+#### Case 4: Denial of file download
+- **Description:** An unauthorized user denies having downloaded files, exploiting the lack of auditing.
 - **Response:** Implement comprehensive logging and auditing mechanisms that capture all download activities with user identifiers and timestamps.
 
-#### Case 5: Manipulating Download Requests
-- **Description:** An attacker manipulates the request for downloading to cause harm or gain unauthorized access.
-- **Response:** Use parameterized queries and routinely update and patch systems to prevent manipulation of requests.
+#### Case 5: Manipulation of download requests
+- **Description:** An attacker manipulates the download request to cause damage or gain unauthorized access.
+- **Response:** Use parameterized queries and regularly update and patch systems to prevent request manipulation.
 
-#### Case 6: Overloading the System
-- **Description:** An attacker sends a massive amount of download requests to overload the system (DoS attack).
+#### Case 6: System overload
+- **Description:** An attacker sends a large number of download requests to overload the system (DoS attack).
 - **Response:** Implement rate limiting and anomaly detection to identify and mitigate potential DoS attacks.
 
-#### Case 7: Malicious File Upload and Download
-- **Description:** An attacker uploads malicious files and encourages others to download them, spreading malware.
-- **Response:** Scan all uploaded files for malware and block downloads of identified malicious files. Educate users about the risks of downloading unknown files.
-
-#### Case 8: Bypassing Security Controls
+#### Case 7: Bypassing security controls
 - **Description:** An attacker bypasses security controls to download unauthorized files.
 - **Response:** Regularly review and update security controls. Employ a layered security approach to reduce the risk of unauthorized access.
 
-#### Case 9: Exploiting PDF Generation Vulnerabilities
+#### Case 8: Exploitation of PDF generation vulnerabilities
 - **Description:** An attacker exploits vulnerabilities in the PDF generation process to execute malicious code.
-- **Response:** Ensure that the PDF generation library is up to date with all security patches applied. Use sandboxing if available to isolate the PDF generation process.
+- **Response:** Ensure that the PDF generation library is up-to-date with all applied security patches. Use sandboxing, if available, to isolate the PDF generation process.
 
 ### 2.4 Functional Security Requirements
-- Implement role-based access control for the download functionality to ensure only authorized users can download the delivery plans.
-- Log all access attempts to the PDF download feature for audit and monitoring purposes.
 
 ### 2.5 Non-Functional Security Requirements
-- The PDF download service must be capable of handling a high volume of requests efficiently to prevent DoS attacks.
-- The system should ensure the integrity and confidentiality of the data during the PDF creation and download process.
 
 ### 2.6 Threat Modelling
-
 
 ## 3. Design
 

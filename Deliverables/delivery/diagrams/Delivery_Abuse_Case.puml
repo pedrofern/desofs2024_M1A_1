@@ -1,27 +1,62 @@
 @startuml
 
-title Abuse Cases for File Download Feature
-
-' Define actors
 actor "Warehouse Manager" as WM
-actor "Unauthorized User" as UU
 actor "Attacker" as A
 
-' Define system
+' Define system boundary
 rectangle System {
-  usecase "Download PDF" as DP
+    usecase "Download the PDF file" as FILE #darkgreen
+
+    usecase "tries unauthorized access" as V1 #darkred
+    usecase "uses path traversal" as V2 #darkred
+    usecase "downloads sensitive info" as V3 #darkred
+    usecase "denies downloading files" as V4 #darkred
+    usecase "manipulates request" as V5 #darkred
+    usecase "overloads system (DoS)" as V6 #darkred
+    usecase "bypasses security controls" as V7 #darkred
+    usecase "exploits PDF vulnerabilities" as V8 #darkred
+
+    usecase "Enforce authentication and authorization" as S1 #yellow
+    usecase "Input validation and sanitization" as S2 #yellow
+    usecase "Encryption of sensitive data" as S3 #yellow
+    usecase "Comprehensive logging and auditing" as S4 #yellow
+    usecase "Use parameterized queries" as S5 #yellow
+    usecase "Implement rate limiting" as S6 #yellow
+    usecase "Regular security reviews and updates" as S7 #yellow
+    usecase "Update and patch PDF library" as S8 #yellow
 }
 
-WM -down-> DP : "accesses download with permissions"
-UU -right-> DP : "accesses download without permissions"
-UU -right-> DP : "uses path traversal to access restricted files"
-UU -right-> DP : "downloads sensitive information through security flaws"
-UU -right-> DP : "denies downloading files exploiting lack of auditing"
+' Actions and interactions
+WM -down-> FILE : "Downloads PDF with permission"
 
-A -left-> DP : "attempts to manipulate request"
-A -left-> DP : "overloads system with massive download requests"
-A -left-> DP : "uploads and encourages downloading of malicious files"
-A -left-> DP : "bypasses security controls to download unauthorized files"
-A -left-> DP : "exploits PDF generation vulnerabilities"
+' Connecting security measures to the download usecase
+FILE .down.> S1 : "applies"
+FILE .down.> S2 : "applies"
+FILE .down.> S3 : "applies"
+FILE .down.> S4 : "applies"
+FILE .down.> S5 : "applies"
+FILE .down.> S6 : "applies"
+FILE .down.> S7 : "applies"
+FILE .down.> S8 : "applies"
+
+' Abuse cases actions and mitigations
+A .up.> V1 : "attempts"
+A .up.> V2 : "exploits"
+A .up.> V3 : "exploits"
+A .up.> V4 : "exploits"
+A .up.> V5 : "exploits"
+A .up.> V6 : "exploits"
+A .up.> V7 : "exploits"
+A .up.> V8 : "exploits"
+
+' Connecting mitigations to vulnerabilities
+S1 .down.> V1 : "mitigates"
+S2 .down.> V2 : "mitigates"
+S3 .down.> V3 : "mitigates"
+S4 .down.> V4 : "mitigates"
+S5 .down.> V5 : "mitigates"
+S6 .down.> V6 : "mitigates"
+S7 .down.> V7 : "mitigates"
+S8 .down.> V8 : "mitigates"
 
 @enduml
