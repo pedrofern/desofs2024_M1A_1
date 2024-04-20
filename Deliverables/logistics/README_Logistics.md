@@ -179,7 +179,7 @@ Non-functional security requirements specify the attributes of a system that are
   1. **Performance**:
     The system should handle form submissions efficiently, even under peak loads, to prevent denial of service attacks and ensure responsiveness to user interactions.
   2. **Scalability**:
-    The system should be capable of scaling horizontally or vertically to accommodate increases in user traffic and form submissions without sacrificing security or performance.
+    The system should be designed to scale effectively as the number of users and form submissions increases, ensuring that performance and security are maintained.
   3. **Availability**:
     The system should maintain high availability to ensure that users can access form submission functionality whenever needed, minimizing downtime and service disruptions.
   4. **Reliability**:
@@ -190,11 +190,9 @@ Non-functional security requirements specify the attributes of a system that are
     The system should comply with relevant regulations and standards governing data privacy and security, such as GDPR, HIPAA, and PCI DSS, to protect users' sensitive information and avoid legal liabilities.
   7. **Usability**:
     The system should be user-friendly, with intuitive form layouts and clear instructions, to facilitate easy and error-free submission of information by users.
-  8. **Scalability**:
-    The system should be designed to scale effectively as the number of users and form submissions increases, ensuring that performance and security are maintained.
-  9. **Auditability**:
+  8. **Auditability**:
     The system should support auditing capabilities to track and monitor user activities, form submissions, and security-related events for compliance, troubleshooting, and forensic analysis purposes.
-  10. **Redundancy and Disaster Recovery**:
+  9. **Redundancy and Disaster Recovery**:
     The system should incorporate redundancy and disaster recovery measures to ensure data integrity and availability in the event of hardware failures, natural disasters, or other catastrophic events.
 
  
@@ -355,7 +353,7 @@ Threat modeling is a systematic approach to identifying and mitigating potential
 | 1 | Response Data | The backend API endpoint returns a response to the user interface based on the request made by the user. This response may include data related to form submition, validation results, or errors. | (2) Logged-in User (3) Logistics Manager |
 | 2 | Database Response | After interacting with the database to store or retrieve form-related information, the backend API endpoint receives a response indicating the success or failure of the database operation. This response may include status codes, error messages, or retrieved data. | (2) Logged-in User (3) Logistics Manager |
 
-## 3.4.5.
+## 3.4.5. Assets
 
 | ID | Name | Description | Trust Level |
 |----|------|-------------|-------------|
@@ -376,8 +374,94 @@ Threat modeling is a systematic approach to identifying and mitigating potential
 
 Data Flow Diagrams (DFDs) are graphical representations of the flow of data within a system. They illustrate how data is input, processed, stored, and output in a system. In the context of our logistics application, DFDs can help visualize the journey of data from the moment a logistics form is created, through its various updates, to its final storage and potential retrieval.
 
-
 ![Data flow diagram](logistics_dfd.png)
+
+## 3.4.8. Threat Analysis
+
+| Category       | Property           | Violated Description |
+|--------|--------------|--------------|
+| Spoofing (S)   | Authentication  | **User Credential Theft**: Attackers may attempt to steal user credentials by spoofing login forms or tricking users into entering their credentials on malicious websites. |
+|                |                    | **IP Spoofing**: Attackers may spoof IP addresses to bypass IP-based access controls and submit forms from unauthorized locations.                                  |
+| Tampering (T)  | Integrity          | **Data Manipulation**: Attackers may tamper with form data, such as modifying hidden fields or intercepting and modifying data in transit, to manipulate system behavior or submit unauthorized requests. |
+|                |                    | **Parameter Tampering**: Attackers may tamper with form parameters to bypass validation checks or gain unauthorized access to sensitive resources.                     |
+| Repudiation (R)| Nonrepudiation     | **False Submission Denial**: Users may deny submitting certain forms or actions, leading to difficulties in tracing and resolving disputes over the authenticity of submitted data. |
+|                |                    | **Transaction Disputes**: Users may repudiate form submissions, claiming that they did not initiate certain transactions, leading to disputes and challenges in establishing accountability. |
+| Information disclosure (I)    | Confidentiality    | **Sensitive Data Exposure**: Attackers may exploit vulnerabilities in form processing to disclose sensitive information entered by users, such as personal information, payment details, or confidential documents. |
+|                |                    | **Error Message Disclosure**: Insecure error handling may reveal sensitive information in error messages, aiding attackers in crafting targeted attacks or exploiting system vulnerabilities. |
+| Denial of service (D)    | Availability       | **Form Flooding**: Attackers may flood form submission endpoints with a large volume of requests, overwhelming system resources and causing denial of service to legitimate users. |
+|                |                    | **Resource Exhaustion**: Attackers may exploit vulnerabilities to exhaust system resources, such as memory or CPU, leading to degradation or unavailability of form submission services. |
+| Elevation of privilege (E)  | Authorization     | **Session Hijacking**: Attackers may hijack user sessions to gain unauthorized access to form submission functionalities and perform actions on behalf of legitimate users. |
+|                |                    | **Unauthorized Access**: Exploitation of vulnerabilities may allow attackers to elevate their privileges and gain access to administrative features or sensitive form submission functionalities. |
+
+Below it shows us the Attack Tree of compromising form security.
+
+![Attack Tree](submitFormAttackTree.png)
+
+
+## 3.4.9. Ranking of Threats
+
+1. **Injection Attacks**:
+   - Damage potential: Loss of data integrity, unauthorized access to sensitive information (8)
+   - Reproducibility: Highly reproducible, common attack vector (9)
+   - Exploitability: Relatively easy to exploit with knowledge of SQL or scripting languages (8)
+   - Affected users: Potentially affects all users interacting with the form (9)
+   - Discoverability: Easily discoverable by attackers through automated tools or manual inspection (8)
+   - Overall DREAD score: (8 + 9 + 8 + 9 + 8) / 5 = 8.4
+
+2. **Authentication Attacks**:
+   - Damage potential: Compromise of user accounts, unauthorized access to sensitive resources (7)
+   - Reproducibility: Moderately reproducible, requires knowledge of authentication mechanisms (7)
+   - Exploitability: Requires knowledge of authentication vulnerabilities, social engineering, or brute force attacks (7)
+   - Affected users: Affects users with accounts on the system (8)
+   - Discoverability: Can be discovered through reconnaissance or targeted attacks (7)
+   - Overall DREAD score: (7 + 7 + 7 + 8 + 7) / 5 = 7.2
+
+3. **Session Attacks**:
+   - Damage potential: Compromise of user sessions, unauthorized access to user accounts and sensitive data (8)
+   - Reproducibility: Highly reproducible, common attack vector (9)
+   - Exploitability: Requires knowledge of session management vulnerabilities and techniques (7)
+   - Affected users: Affects users with active sessions (8)
+   - Discoverability: Can be discovered through reconnaissance or monitoring network traffic (8)
+   - Overall DREAD score: (8 + 9 + 7 + 8 + 8) / 5 = 8
+
+4. **Data Theft**:
+   - Damage potential: Loss of sensitive data, breach of confidentiality (9)
+   - Reproducibility: Highly reproducible, common attack vector (9)
+   - Exploitability: Requires knowledge of data handling vulnerabilities or social engineering (8)
+   - Affected users: Affects users whose data is stored or transmitted through the form (9)
+   - Discoverability: Can be discovered through monitoring or auditing (8)
+   - Overall DREAD score: (9 + 9 + 8 + 9 + 8) / 5 = 8.6
+
+5. **Denial of Service**:
+   - Damage potential: Disruption of service, loss of availability (8)
+   - Reproducibility: Highly reproducible, common attack vector (9)
+   - Exploitability: Requires knowledge of denial of service techniques or tools (7)
+   - Affected users: Affects all users trying to access the form or system (9)
+   - Discoverability: Can be discovered through monitoring or experiencing service disruptions (8)
+   - Overall DREAD score: (8 + 9 + 7 + 9 + 8) / 5 = 8.2
+
+
+## 3.4.10 Qualitative Risk Model
+
+1. **Injection Attacks**:
+   - Likelihood of occurrence: High, as injection attacks can often be exploited remotely and automated (e.g., SQL injection).
+   - Potential impact: Significant, as successful injection attacks can lead to data breaches, system compromise, and financial losses.
+
+2. **Authentication Attacks**:
+   - Likelihood of occurrence: Moderate to high, depending on the strength of authentication mechanisms and user awareness.
+   - Potential impact: Moderate to significant, as compromised user accounts can lead to unauthorized access, data breaches, and reputational damage.
+
+3. **Session Attacks**:
+   - Likelihood of occurrence: Moderate, as session attacks may require specific vulnerabilities in session management.
+   - Potential impact: Moderate, as compromised sessions can lead to unauthorized access to user accounts and sensitive data.
+
+4. **Data Theft**:
+   - Likelihood of occurrence: Moderate to high, as data theft can occur through various means such as exploitation of vulnerabilities or social engineering attacks.
+   - Potential impact: Significant, as loss of sensitive data can result in regulatory fines, legal liabilities, reputational damage, and financial losses.
+
+5. **Denial of Service**:
+   - Likelihood of occurrence: Moderate to high, as denial of service attacks can be launched remotely and may exploit vulnerabilities in the system's infrastructure.
+   - Potential impact: Significant, as service disruptions can lead to loss of revenue, reputational damage, and customer dissatisfaction.
  
 ## 3.5 Security Test Planning
  

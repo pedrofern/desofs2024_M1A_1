@@ -1,0 +1,50 @@
+@startuml
+skinparam node {
+    Shape circle
+    BackgroundColor LightBlue
+    BorderColor Navy
+    BorderThickness 1
+    FontStyle Bold
+}
+skinparam leaf {
+    Shape circle
+    BackgroundColor LightGreen
+    BorderColor Green
+    BorderThickness 1
+    FontStyle Bold
+}
+
+node "Compromise Form Security"
+node "Injection Attacks"
+node "SQL Injection"
+node "Cross-Site Scripting (XSS)"
+node "Authentication Attacks"
+node "Credential Stuffing"
+node "Brute Force Attacks"
+node "Session Attacks"
+node "Session Fixation"
+node "Session Hijacking"
+node "Data Theft"
+node "Data Exfiltration"
+node "Parameter Tampering"
+node "Denial of Service"
+node "Form Flooding"
+node "Resource Exhaustion"
+
+"Compromise Form Security" --> "Injection Attacks"
+"Compromise Form Security" --> "Authentication Attacks"
+"Compromise Form Security" --> "Session Attacks"
+"Compromise Form Security" --> "Data Theft"
+"Compromise Form Security" --> "Denial of Service"
+
+"Injection Attacks" --> "SQL Injection"
+"Injection Attacks" --> "Cross-Site Scripting (XSS)"
+"Authentication Attacks" --> "Credential Stuffing"
+"Authentication Attacks" --> "Brute Force Attacks"
+"Session Attacks" --> "Session Fixation"
+"Session Attacks" --> "Session Hijacking"
+"Data Theft" --> "Data Exfiltration"
+"Data Theft" --> "Parameter Tampering"
+"Denial of Service" --> "Form Flooding"
+"Denial of Service" --> "Resource Exhaustion"
+@enduml
