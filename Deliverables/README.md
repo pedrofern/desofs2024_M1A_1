@@ -43,6 +43,15 @@ We have created the following issues to track the tasks related to the DESFOS pr
 
 ![Domain Model](diagrams/domainModel.png)
 
+### Users
+
+- The system will have the following types of users:
+  - **System Administrator** - manages user accounts and permissions
+  - **Warehouse Manager** - manages warehouse data and deliveries
+  - **Fleet Manager** - manages truck data
+  - **Logistics Manager** - manages route data and distribution planning
+Operator - has basic access for querying and limited operations within each aggregate
+
 ## Infrastucture View
 
 ![Servers](diagrams/servers.png)
