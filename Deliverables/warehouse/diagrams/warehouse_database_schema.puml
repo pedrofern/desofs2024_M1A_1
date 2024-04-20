@@ -21,7 +21,7 @@ entity "GeographicCoordinates" {
     * Longitude : double
 }
 
-"Warehouse" ||--o{ "Address" : "has"
-"Warehouse" ||--o{ "GeographicCoordinates" : "has"
+"Warehouse" ||--|{ "Address" : "has"
+"Warehouse" ||--|{ "GeographicCoordinates" : "has"
 
 @enduml
