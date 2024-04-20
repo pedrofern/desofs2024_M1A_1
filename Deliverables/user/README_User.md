@@ -342,6 +342,9 @@ By leveraging these secure design patterns, developers and architects can build 
 
 ## 3.4 Threat Modelling
 
+Threat modelling is a methodical way of finding and addressing possible security risks and weaknesses in software. It includes studying the system's structure, data flow, and possible points of attack to determine its vulnerabilities to security breaches.
+
+
 ## 3.4.1. Threat Model Information
 
 - **Purpose of the threat model**: 
@@ -373,19 +376,35 @@ By leveraging these secure design patterns, developers and architects can build 
 
 
 ## 3.4.2. External Dependencies
-- Third-party services or libraries
-- APIs and integrations
-- External systems interacting with the application
+
+|ID | Description|
+|---|------------|
+| 1 | The database will be a relational database. |
+| 2 | The communication between the frontend and backend will be using RESTful API.|
+| 3 | Authentication library like JWT or OAuth will integrated.|
+| 4 | Libraries for encryption proposes like Bcrypt for password hashing and validation.|
+| 5 | External media APIs for enabling social logins like Google.|
+| 6 | Biometric devices for user authentication. |
 
 ## 3.4.3. Entry Points
-- User interfaces (web, mobile, desktop)
-- APIs and web services
-- External devices or sensors
+
+|ID | Name | Description | Trust Level |
+|---|------|-------------|-------------|
+| 1 | HTTPS Port | Users interact with a initial web form through the user interface, making HTTP requests to the backend API endpoints. | (1) Anonymous Web User (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 2 | Login Page | Logistics, fleet and warehouse managers, operators and system administrator interact with a initial web form through the user interface, making HTTP requests to the backend API endpoints. | (1) Anonymous Web User (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 3 | Profile page | All authenticated users have access to view their profile. | (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 4 | External APIs | Integration with external APIs such as social media APIs for authentication | (1) Anonymous Web User (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 5 | Database Interface | This entry point allows the backend to interact with the database | (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 6 | Register page | This entry point allows system administrator register a user into the system | (6) System Administrator |
 
 ## 3.4.4. Exit Points
-- Data storage systems (databases, file systems)
-- Output channels (API responses, logs)
-- External integrations or services
+
+| ID | Name | Description | Trust Level |
+|----|------|-------------|-------------|
+| 1 | Response Data | The backend API endpoint returns a response to the user interface based on the request made by the user. This response may include user data or authentication tokens. | (1) Anonymous Web User (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 2 | Database Response | After interacting with the database to store or retrieve user-related information, the backend API endpoint receives a response indicating the success or failure of the database operation. This response may include status codes, error messages or retrieved data. | (1) Anonymous Web User (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 3 | Email Notifications | System-generated email notifications sent to users, containing sensitive information like account details or transaction confirmations. Without proper security, these emails risk interception or manipulation, leading to information disclosure or account takeover. | External APIs (Entry Point 4) |
+| 4 | Logging Activity | Logged events of user activity, system errors or security events. These logs are crucial for auditing, troubleshooting and security monitoring purposes.  | (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
 
 ## 3.4.5. Assets
 - Critical data and information
@@ -393,116 +412,20 @@ By leveraging these secure design patterns, developers and architects can build 
 - Intellectual property and proprietary information
 
 ## 3.4.6. Trust Levels
-- Classification of users or entities based on trust levels
-- Differentiation between internal and external actors
-- Trust boundaries and access control policies
+
+| ID| Name | Description |
+|---|------|-------------|
+| 1 | Anonymous Web User | External entities accessing the application without authentication. They have limited access to public resources and functionalities. |
+| 2 | Operator | Authenticated users who have successfully logged into the application. They have basic access for querying and limited operations within each aggregate. |
+| 3 | Logistics Manager | Authenticated users with administrative privileges responsible for managing route data and distribution planning and overseeing the application's operation. |
+| 4 | Fleet Manager | Authenticated users with administrative privileges responsible for managing truck data and overseeing the application's operation. |
+| 5 | Warehouse Manager | Authenticated users with administrative privileges responsible for managing warehouse data and deliveries and overseeing the application's operation. |
+| 6 | System Administrator | Authenticated users with all privileges. Is responsible for managing user accounts and role permissions. |
 
 ## 3.4.7. Data Flow Diagrams
-- Visualization of data flows within the system
-- Identification of data sources, sinks, and processes
-- Mapping of data flows to system components and interactions
 
 
 
-### 3.4.2. Scope
-
-The scope of the threat modelling exercise for the user component of the logistics application includes:
-- User authentication and authorization mechanisms
-- User account management functionalities
-- Protection of sensitive user data (e.g., personal information, authentication credentials)
-
-### 3.4.3. Assets
-
-Assets that need to be protected in the user component of the logistics application include:
-- User account information (e.g., usernames, passwords)
-- Personal and contact information of users
-- Authorization tokens and session identifiers
-
-### 3.4.4. Threats
-
-#### Unauthorized Access
-Threat: An attacker gains unauthorized access to user accounts due to weak authentication mechanisms or stolen credentials.
-Mitigation: Implement strong password policies, multi-factor authentication, and secure session management.
-
-#### Account Hijacking
-Threat: Attackers hijack user accounts by exploiting vulnerabilities in session management or password reset mechanisms.
-Mitigation: Implement secure session handling, enforce password reset procedures, and monitor for suspicious activities.
-
-#### Data Breach
-Threat: Sensitive user data, such as personal information or authentication credentials, is exposed due to insecure storage or transmission mechanisms.
-Mitigation: Encrypt sensitive data at rest and in transit, adhere to secure coding practices, and regularly audit data access controls.
-
-#### Insider Threats
-Threat: Malicious insiders or compromised accounts pose a threat to the confidentiality and integrity of user data.
-Mitigation: Implement role-based access control, conduct regular security awareness training, and monitor user activities for anomalies.
-
-### 3.4.5. Vulnerabilities
-
-#### Injection Attacks
-Vulnerability: Input validation flaws in user input fields could lead to SQL injection or other injection attacks.
-Mitigation: Use parameterized queries, input validation, and output encoding to prevent injection vulnerabilities.
-
-#### Cross-Site Scripting (XSS)
-Vulnerability: Lack of input validation and output encoding in web forms or user-generated content could lead to XSS attacks.
-Mitigation: Implement content security policies, sanitize user input, and encode output to prevent XSS vulnerabilities.
-
-#### Insecure Direct Object References (IDOR)
-Vulnerability: Improper access controls could allow attackers to access unauthorized user data by manipulating object references.
-Mitigation: Implement proper access controls, such as role-based access control (RBAC) or access control lists (ACLs), and validate user permissions before accessing sensitive data.
-
-#### Insufficient Logging and Monitoring
-Vulnerability: Inadequate logging and monitoring make it difficult to detect and respond to security incidents or suspicious activities.
-Mitigation: Implement comprehensive logging of user activities, monitor logs for unusual behaviour, and establish incident response procedures.
-
-### 3.4.6. Attack Surface Analysis
-
-The attack surface of the user component of the logistics application includes:
-- Web interfaces for user authentication and account management
-- Mobile application interfaces for user interaction and data access
-- APIs for user-related functionalities such as user registration and profile management
-
-### 3.4.7. Threat Scenarios
-
-Threat scenarios for the user component of the logistics application include:
-- Unauthorized access to user accounts due to weak or compromised passwords
-- Theft of user credentials through phishing emails or fake login pages
-- Account takeover attacks targeting privileged user accounts
-- Disclosure of sensitive user information due to insufficient access controls
-
-### 3.4.8. Risk Assessment
-
-Assessment of risks in the user component of the logistics application includes:
-- Likelihood of occurrence based on historical data and threat intelligence
-- Potential impact on user privacy, data confidentiality, and system integrity
-- Prioritization of risks based on severity and potential consequences
-
-### 3.4.9. Countermeasure Selection
-
-Countermeasures to mitigate risks in the user component of the logistics application include:
-- Implementation of strong password policies and multi-factor authentication
-- Encryption of sensitive user data both at rest and in transit
-- Regular security patches and updates to address known vulnerabilities
-- Implementation of proper input validation and access controls to prevent injection attacks and unauthorized access
-
-### 3.4.10. Security Requirements
-
-Security requirements for the user component of the logistics application include:
-- Use of secure communication protocols (e.g., TLS) to protect user data in transit
-- Logging and monitoring of user activities to detect and respond to suspicious behaviour
-- Regular security training and awareness programs for users to recognize and report security threats
-- Incident response plan and procedures for addressing security incidents and breaches involving user accounts
-
-### 3.4.11. Documentation
-
-Documentation for the threat modelling process of the user component of the logistics application includes:
-- Threat models detailing identified threats, vulnerabilities, and risk assessments
-- Risk assessment reports outlining prioritized risks and recommended countermeasures
-- Security requirements documentation specifying security controls and implementation guidelines
-- Incident response plan and procedures for responding to security incidents and breaches involving user accounts
-
-### 3.4.12. Conclusion
-
-In conclusion, the threat modelling process for the user component of the logistics application provides valuable insights into potential security risks and vulnerabilities. By systematically identifying and addressing these risks, we can enhance the security posture of the system and protect user accounts and sensitive information.
 
 
 ## 3.5 Security Test Planning
