@@ -3,12 +3,25 @@
 entity "Warehouse" {
     * id : number
     * Designation : varchar(255)
-    Street : varchar(255)
-    City : varchar(255)
-    State : varchar(255)
-    Zip Code : varchar(255)
-    Latitude : double
-    Longitude : double
+    * AddressId : number
+    * GeographicCoordinatesId : number
 }
+
+entity "Address" {
+    * AddressId : number
+    * Street : varchar(255)
+    * City : varchar(255)
+    * State : varchar(255)
+    * Zip Code : varchar(255)
+}
+
+entity "GeographicCoordinates" {
+    * GeographicCoordinatesId : number
+    * Latitude : double
+    * Longitude : double
+}
+
+"Warehouse" ||--o{ "Address" : "has"
+"Warehouse" ||--o{ "GeographicCoordinates" : "has"
 
 @enduml
