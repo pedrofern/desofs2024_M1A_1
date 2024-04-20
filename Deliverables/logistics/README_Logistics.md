@@ -441,7 +441,7 @@ Below it shows us the Attack Tree of compromising form security.
    - Overall DREAD score: (8 + 9 + 7 + 9 + 8) / 5 = 8.2
 
 
-## 3.4.10 Qualitative Risk Model
+## 3.4.10. Qualitative Risk Model
 
 1. **Injection Attacks**:
    - Likelihood of occurrence: High, as injection attacks can often be exploited remotely and automated (e.g., SQL injection).
@@ -463,8 +463,118 @@ Below it shows us the Attack Tree of compromising form security.
    - Likelihood of occurrence: Moderate to high, as denial of service attacks can be launched remotely and may exploit vulnerabilities in the system's infrastructure.
    - Potential impact: Significant, as service disruptions can lead to loss of revenue, reputational damage, and customer dissatisfaction.
  
+
+## 3.4.11. Mitigation and Countermeasures
+
+### Spoofing:
+- **Threat**: Spoofing involves an attacker impersonating a legitimate user to gain unauthorized access or submit malicious data.
+- **Mitigation Techniques**:
+  1. **Appropriate authentication**: Implement robust authentication mechanisms such as CAPTCHA, reCAPTCHA, or multi-factor authentication to verify the identity of form submitters.
+  2. **Protect secret data**: Encrypt sensitive data such as user credentials or session tokens to prevent unauthorized access or spoofing.
+  3. **Don’t store secrets**: Avoid storing sensitive information in form fields or hidden inputs, especially in plaintext, to minimize the risk of data exposure.
+
+### Tampering:
+- **Threat**: Tampering involves unauthorized modification of data submitted through forms, leading to integrity breaches or manipulation of system behavior.
+- **Mitigation Techniques**:
+  1. **Appropriate authentication**: Ensure that only authenticated users have permission to modify form data.
+  2. **Hashes**: Implement hashing techniques to create checksums of form data, detecting any modifications during transmission or processing.
+  3. **MACs (Message Authentication Codes)**: Apply MACs to validate the integrity and authenticity of form submissions, ensuring that data has not been tampered with.
+  4. **Tamper-resistant protocols**: Use secure communication protocols such as HTTPS to protect form submissions from tampering during transmission over the network.
+
+### Repudiation:
+- **Threat**: Repudiation involves a user denying their actions, leading to disputes over the authenticity of form submissions.
+- **Mitigation Techniques**:
+  1. **Logging and Auditing**: Keep detailed logs of form submissions, including user actions and timestamps, to provide evidence in case of disputes.
+  2. **Digital Signatures**: Implement digital signatures or non-repudiation mechanisms to ensure that form submissions are securely authenticated and verified.
+
+### Information Disclosure:
+- **Threat**: Information disclosure occurs when sensitive data entered into forms is exposed to unauthorized users.
+- **Mitigation Techniques**:
+  1. **Input Validation**: Implement strict input validation to filter out malicious data and prevent common attacks such as SQL injection or cross-site scripting.
+  2. **Data Encryption**: Encrypt sensitive information entered into forms during transmission and storage to protect it from unauthorized access.
+  3. **Access Controls**: Enforce access controls to restrict who can view or access certain form submissions, ensuring that only authorized users can access sensitive data.
+
+### Denial of Service:
+- **Threat**: Denial of service attacks aim to disrupt the availability of form submission services, rendering them inaccessible to legitimate users.
+- **Mitigation Techniques**:
+  1. **Rate Limiting**: Implement rate-limiting mechanisms to prevent excessive form submissions from overwhelming the system.
+  2. **Resource Scaling**: Scale resources such as servers or bandwidth to handle increased traffic during peak periods or in response to DoS attacks.
+  3. **DDoS Protection**: Use DDoS protection services or appliances to mitigate the impact of distributed denial of service attacks on form submission services.
+
+### Elevation of Privilege:
+- **Threat**: Elevation of privilege involves attackers gaining unauthorized access to privileged features or functionalities within the form submission system.
+- **Mitigation Techniques**:
+  1. **Access Controls**: Implement role-based access controls to restrict user privileges and permissions, ensuring that users only have access to the functionalities necessary for their roles.
+  2. **Session Management**: Securely manage user sessions to prevent session hijacking or unauthorized access to privileged features.
+  3. **Input Validation**: Validate and sanitize input data to prevent privilege escalation attacks through injection vulnerabilities.
+
+
 ## 3.5 Security Test Planning
  
+## Security Test Planning
+
+### Objective:
+The objective of security testing for the form submission system is to identify and mitigate vulnerabilities that could compromise the confidentiality, integrity, and availability of data entered into forms.
+
+### Scope:
+The security test will focus on evaluating the security measures implemented within the form submission system, including authentication mechanisms, data validation procedures, encryption protocols, access controls, and resilience against common attacks such as SQL injection, cross-site scripting (XSS), and brute force attacks.
+
+### Testing Approach:
+The testing approach will involve a combination of automated and manual techniques to comprehensively assess the security posture of the form submission system. This will include:
+
+1. **Automated Vulnerability Scanning**: Utilize automated scanning tools such as Burp Suite, OWASP ZAP, or Nessus to identify common security vulnerabilities such as injection flaws, broken authentication, and sensitive data exposure.
+
+2. **Penetration Testing**: Conduct manual penetration testing to simulate real-world attack scenarios and identify potential weaknesses in the form submission system. This will involve attempting to bypass authentication controls, manipulate form data, and exploit vulnerabilities to gain unauthorized access.
+
+3. **Security Code Review**: Perform a thorough review of the source code underlying the form submission system to identify potential security flaws such as insecure coding practices, improper input validation, or lack of error handling.
+
+4. **User Access Controls Testing**: Evaluate the effectiveness of access controls implemented within the system by attempting to access restricted functionalities or sensitive data without proper authorization.
+
+5. **Session Management Testing**: Assess the resilience of session management mechanisms to prevent session fixation, session hijacking, or session replay attacks.
+
+6. **Data Encryption Assessment**: Verify the adequacy of data encryption protocols used to protect sensitive information entered into forms during transmission and storage.
+
+7. **Social Engineering Testing**: Conduct simulated social engineering attacks to assess the susceptibility of users to phishing attempts, credential theft, or other manipulative techniques.
+
+### Deliverables:
+Upon completion of the security testing, the following deliverables will be provided:
+
+- Comprehensive security assessment report detailing 
+
+
 ## 3.6 Security Architecture Review
 
+## Security Architecture Review
+
+### Objective:
+The objective of the security architecture review is to assess the design and implementation of security controls within the form submission system to ensure they align with industry best practices and adequately protect against potential threats.
+
+### Scope:
+The security architecture review will focus on examining the architectural components and security features implemented within the form submission system. This includes evaluating authentication mechanisms, access controls, data validation procedures, encryption protocols, logging and monitoring capabilities, and resilience against common security threats such as injection attacks, session hijacking, and data breaches.
+
+### Review Process:
+The review process will involve a systematic examination of the following aspects of the security architecture:
+
+1. **Authentication and Authorization**: Evaluate the mechanisms used for user authentication and authorization, including password policies, multi-factor authentication, and role-based access controls.
+
+2. **Data Validation and Sanitization**: Assess the effectiveness of input validation and data sanitization techniques to prevent injection attacks such as SQL injection, cross-site scripting (XSS), and command injection.
+
+3. **Encryption and Data Protection**: Review the encryption protocols and mechanisms employed to protect sensitive data at rest and in transit, including the use of SSL/TLS for secure communication and encryption algorithms for data storage.
+
+4. **Access Controls and Privilege Management**: Examine the implementation of access controls to restrict user access to sensitive functionalities and data, and evaluate the management of user privileges to prevent unauthorized escalation of privileges.
+
+5. **Logging and Monitoring**: Analyze the logging and monitoring capabilities of the system to detect and respond to security incidents, including the logging of user activities, system events, and security-related alerts.
+
+6. **Resilience Against Common Attacks**: Assess the resilience of the system against common security threats such as brute force attacks, session fixation, and cross-site request forgery (CSRF), and evaluate the effectiveness of countermeasures implemented to mitigate these threats.
+
+### Recommendations:
+Based on the findings of the security architecture review, recommendations will be provided to enhance the security posture of the form submission system. These recommendations may include:
+
+- Implementing additional security controls to address identified vulnerabilities and weaknesses.
+- Enhancing existing security features to improve resilience against emerging threats.
+- Updating security policies and procedures to ensure compliance with industry standards and regulatory requirements.
+- Providing training and awareness programs for system administrators and users to promote security best practices and mitigate human-related risks.
+
+### Conclusion:
+The security architecture review aims to provide insights into the strengths and weaknesses of the security architecture of the form submission system and to guide efforts towards enhancing its security posture. By proactively addressing security concerns and implementing recommended improvements, the organization can better protect sensitive data and mitigate the risks associated with form submission functionalities.
 
