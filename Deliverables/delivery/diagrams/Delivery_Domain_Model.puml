@@ -1,0 +1,32 @@
+@startuml
+
+title Delivery Plan Domain Model
+
+package "Delivery Aggregate" {
+
+    entity "DeliveryPlan" as DeliveryPlan {
+      * id : int
+    }
+
+    entity "Route" as Route {
+      * routeId
+      * idDepartureWarehouse
+      * idArrivalWarehouse
+      * distance
+      * time
+      * energy
+      * extraTime
+    }
+
+    entity "Delivery" as Delivery {
+      * id
+      * date
+      * weight
+      * warehouseId
+    }
+
+    DeliveryPlan "1" o-- "1..*" Route : constituted
+    DeliveryPlan "1" o-- "1..*" Delivery : gives origin to
+}
+
+@enduml
