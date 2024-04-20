@@ -1,0 +1,14 @@
+@startuml
+
+entity "Warehouse" {
+    * id : number
+    * Designation : varchar(255)
+    Street : varchar(255)
+    City : varchar(255)
+    State : varchar(255)
+    Zip Code : varchar(255)
+    Latitude : double
+    Longitude : double
+}
+
+@enduml
