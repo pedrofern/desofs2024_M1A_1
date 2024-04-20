@@ -59,3 +59,38 @@ Operator - has basic access for querying and limited operations within each aggr
 ## Data Flow Diagram
 
 ![Data Flow Diagram](diagrams/dfd.png)
+
+
+# Glossary
+
+**Terms, Expressions and Acronyms (TEA) organized alphabetically.**
+
+| **_TEA_** (EN)                     | **_TEA_** (PT)              | **_Description_** (EN)                                                                                                      |                                       
+|:-----------------------------------|:----------------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| Address                            | Morada                      | The particulars of the place where a store or a warehouse is situated.                                                      |
+| Autonomy                           | Autonomia                   | Truck range with full load capacity and fully charged electric batteries.                                                   |
+| Battery Capacity                   | Capacidade da bateria       | Maximum load of the truck's electric battery pack, energy stored in the batteries.                                          |
+| Charging Time                      | Tempo de Carregamento       | Fast charging time of the truck's batteries.                                                                                |
+| Date                               | Data                        | Date of delivery.                                                                                                           |
+| Delivery                           | Entrega                     | Transportation of goods from the warehouse to a other warehouse.                                                            |
+| Delivery Plan                      | Plano de entrega            | Document with a set of routes where it contains the various deliveries for the trucks to follow.                            |
+| Distribution Requirements Planning | Planeamento de distribuição | Process with the objective of serving the various orders placed by the stores without running out or overstocking products. |
+| Electric Truck                     | Camião Elétrico             | Type of truck used in this company.                                                                                         |
+| EletricGo                          | EletricGo                   | A system for planning distribution of deliveries between warehouses using a fleet of electric vehicles.                     |
+| FM                                 | FM                          | Fleet manager                                                                                                               |
+| Geographic Coordinates             | Coordenadas Geográficas     | Location system used to locate stores and warehouses, used for deliveries.                                                  |
+| ID                                 | Identificador               | Delivery identifier                                                                                                         |
+| LM                                 | LM                          | Logistics manager                                                                                                           |
+| Load Capacity                      | Capacidade de carga         | The mass that can be carried on the truck.                                                                                  |
+| Load Time                          | Tempo de Carga              | Time to place delivery on truck in minutes.                                                                                 |
+| Logistics                          | Logística                   | A set of methods and means, designed to deliver the right products, to the right place, at the right time.                  |
+| Route                              | Rota                        | Paths taken by trucks in the deliveries. It contains a starting point and an ending point.                                  |
+| Store                              | Loja                        | Place where the products are sold. Each store contains a warehouse.                                                         |
+| Tare                               | Tara                        | Weight of the truck without load.                                                                                           |
+| Truck                              | Camião                      | Vehicle used for deliveries.                                                                                                |
+| Unload Time                        | Tempo de Descarga           | Time to remove delivery from truck in minutes.                                                                              |
+| Warehouse                          | Armazém                     | Place where the products will be delivered.                                                                                 |
+| Warehouse ID                       | Identificador do Armazém    | Warehouse to make the delivery, store identifier.                                                                           |
+| Warehouse Management               | Gestão de armazéns          | Warehouse management is directly related to the process of transferring products to the end customers.                      |
+| WM                                 | WM                          | Warehouse manager                                                                                                           |
+| Weight                             | Peso                        | Mass of the delivery associated to the weight of the products to deliver.                                                   |
