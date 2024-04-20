@@ -8,6 +8,8 @@ entity "User" as user {
   + phoneNumber: string
   + email: string
   + password: string
+  + isLocked: boolean
+  + lastUpdated: date
 }
 
 entity "Role" as role {

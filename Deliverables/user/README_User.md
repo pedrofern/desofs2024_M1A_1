@@ -1,3 +1,5 @@
+[Clixk here to show global document](../README.md)
+
 # Software Architectural Analysis and Design of User Aggregate
 
 - This document describes the architecture of EletricGo's User aggregate, providing an overview of the design decisions and architectural analysis made during development.
@@ -129,22 +131,22 @@ Overall, Security Requirements Engineering ensures that security considerations 
 
 ## 2.3 Abuse Cases
 
-Abuse cases are scenarios that describe how a system could be intentionally misused or exploited for malicious purposes. Here are the abuse cases for the user aggregate:
+Abuse cases (also know misused cases) are scenarios that describe how a system could be intentionally misused or exploited for malicious purposes. Here are the abuse cases for the user aggregate:
 
-| Breach Type | Description|
-|-------------|------------|
-| **Unauthorized Access** | Attacker gains unauthorized access to the system by exploiting weak authentication mechanisms or stealing user credentials.|
-| **Data Theft**           | Malicious insider steals user data for personal gain or to sell on the black market, exfiltrating sensitive information including PII and financial data.|
-| **Account Takeover**     | Attacker compromises a user's account through methods like phishing or brute-force attacks, gaining control to perform malicious activities.|
-| **Data Manipulation**    | Disgruntled employee intentionally modifies user data to cause confusion or harm, altering profiles, account settings, or transaction records.|
-| **Service Abuse**        | User exploits vulnerabilities to abuse system resources or functionality, such as launching DoS attacks, spamming, or circumventing usage limits.|
-| **Privacy Violation**    | Developer or administrator accesses user data without authorization for personal curiosity or monitoring, violating user privacy and data protection regulations.|
-| **Data Breach**          | Cybercriminal exploits system vulnerabilities to gain access to the user aggregate's database, exfiltrating sensitive user data for identity theft or other malicious activities|
-| **Account Hijacking**    | Attacker gains control over multiple user accounts by exploiting security vulnerabilities, using hijacked accounts for malware spreading, phishing, or fraud.|
-| **Impersonation**        | Attacker impersonates a legitimate user or administrator to gain unauthorized access to the user aggregate, performing restricted actions like viewing sensitive data or modifying settings.|
-| **Data Destruction**     | Malicious actor launches a destructive attack to disrupt operations by deleting or corrupting user data, system files, or critical infrastructure, causing data loss and service downtime.|
+| Abuse Case | Description | Impact |
+|-------------|-------------|--------|
+| **Data Theft During User Login**                       | A malicious insider intercepts login credentials during the authentication process and steals user data for personal gain.                                         | The insider extract sensitive information, compromising user privacy and security.                                       |
+| Unauthorized Access During User Registration       | An attacker exploits a vulnerability in the user registration process to gain unauthorized access to the system before proper authentication is established.   | The attacker gains access to sensitive user data or system resources before they should be allowed.                          |
+| Account Takeover Through Session Hijacking         | An attacker hijacks a user's session after successful login, gaining control over the account to perform malicious activities.                                     | The attacker can impersonate the legitimate user, access sensitive information, or perform unauthorized actions.            |
+| Data Manipulation Through Unauthorized Role Assignment | A disgruntled employee with elevated privileges assigns unauthorized roles to user accounts, granting them access to sensitive functionalities.                 | The employee can manipulate user data, alter account settings, or perform actions causing confusion or harm.                |
+| Service Abuse Through Phishing Campaigns           | An attacker launches a phishing campaign targeting system users, tricking them into divulging their credentials or personal information.                           | The attacker abuses system resources or compromises user accounts, leading to unauthorized access or data theft.            |
+| Privacy Violation Through Insider Monitoring       | A developer or administrator accesses user data without authorization for personal curiosity or monitoring, violating user privacy and data protection regulations. | User trust is undermined, and sensitive information is exposed, potentially leading to legal and regulatory consequences. |
+| Data Breach Through Exploited Vulnerabilities      | A cybercriminal exploits vulnerabilities in the system to gain unauthorized access to the user aggregate's database, exfiltrating sensitive user data.            | Large volumes of sensitive user data, including usernames, passwords, and payment information, are exposed.                 |
 
 
+We will see in detail a specific use case witch is the common one and it will be done several times in the system, the login process.
+
+![Login Abuse Case](loginAbuseCase.png)
 
 ## 2.4 Functional Security Requirements
 
