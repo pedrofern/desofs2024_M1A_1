@@ -1,81 +1,119 @@
-# Create Truck
+# Software Architectural Analysis and Design of Truck Aggregate
+- This document describes the architecture of EletricGo's Truck aggregate, providing an overview of the design decisions and architectural analysis made during development.
+- Truck Aggregate is a sub-system developed to provide transportation services using electric trucks.
+ 
+# Table of Contents
+1. [Requirements Engineering](#1-requirements-engineering)
+   1. [User Stories Description](#11-user-stories-description)
+   2. [Customer Specifications and Clarifications](#12-customer-specifications-and-clarifications)
+   3. [Acceptance Criteria](#13-acceptance-criteria)
+   4. [Found out Dependencies](#14-found-out-dependencies)
+   5. [Input and Output Data](#15-input-and-output-data)
+   6. [System Sequence Diagram (SSD)](#16-system-sequence-diagram-ssd)
+   7. [API Endpoints](#17-api-endpoints)
+   8. [Database Schema](#18-database-schema)
+   9. [Authorization Roles](#19-authorization-roles)
+2. [Analysis](#2-analysis)
+   1. [Preliminary Software Risk Analysis](#21-preliminary-software-risk-analysis)
+   2. [Security Requirements Engineering](#22-security-requirements-engineering)
+   3. [Abuse Cases](#23-abuse-cases)
+   4. [Functional Security Requirements](#24-functional-security-requirements)
+   5. [Non-Functional Security Requirements](#25-non-functional-security-requirements)
+   6. [Secure Development Requirements](#26-secure-development-requirements)
+3. [Design](#3-design)
+   1. [Security Risk-Driven Design](#31-security-risk-driven-design)
+   2. [Secure Architecture](#32-secure-architecture)
+   3. [Secure Design Patterns](#33-secure-design-patterns)
+   4. [Threat Modelling](#34-threat-modelling)
+   5. [Security Test Planning](#35-security-test-planning)
+   6. [Security Architecture Review](#36-security-architecture-review)
+ 
+# 1. Requirements Engineering
+ 
+## 1.1 User Stories Description
+- As a System Administrator, I want to be able to create a new truck entry in the system.
+- As a System Administrator, I want to be able to update the details of any truck.
+- As a System Administrator, I want to be able to delete any truck from the system.
+- As a Warehouse Manager, I want to be able to view the details of any truck.
+- As a Fleet Manager, I want to be able to create a new truck entry in the system.
+- As a Fleet Manager, I want to be able to update the details of any truck.
+- As a Fleet Manager, I want to be able to delete any truck from the system.
+- As a Logistics Manager, I want to be able to view the details of any truck.
+- As an Operator, I want to be able to view the details of any truck.
 
-## 1. Requirements Engineering
+## 1.2 Customer Specifications and Clarifications
+- The system should allow the user to specify the current status of the truck, such as "active" or "inactive".
+- The system should provide a search functionality to find trucks based on their load capacity and autonomy.
+- The user should be able to filter the list of trucks based on their status (active or inactive).
+- The system should provide validation for the input fields to ensure data integrity.
+- The user should be able to sort the list of trucks based on different criteria, such as truckId, load capacity and autonomy.
+- The system should generate a unique identifier for each truck entry.
+- The system should provide an audit trail of all changes made to the truck entries.
 
-### 1.1. User Story Description
+## 1.3 Acceptance Criteria
+- The system should allow the user to create a new truck entry by sending a POST request to `/trucks`.
+- The system should allow the user to update the details of a specific truck by sending a PUT request to `/trucks/:truckId`.
+- The system should retrieve a list of all trucks in the system by sending a GET request to `/trucks`.
+- The system should retrieve a list of active trucks in the system by sending a GET request to `/trucks/active`.
+- The system should retrieve the details of a specific truck by sending a GET request to `/trucks/:truckId`.
+- The system should validate the input fields to ensure data integrity.
+- The system should generate a unique identifier for each truck entry.
+- The system should provide an audit trail of all changes made to the truck entries.
+- The user should be able to search for trucks based on their load capacity and autonomy.
+- The user should be able to filter the list of trucks based on their status (active or inactive).
+- The user should be able to sort the list of trucks based on different criteria, such as truckId, load capacity, and autonomy.
+## 1.4 Found out Dependencies
+ 
+## 1.5 Input and Output Data
+ 
+## 1.6 System Sequence Diagram (SSD)
+ 
+## 1.7 API Endpoints
+The following API endpoints are available for the Truck aggregate:
 
-**US1** - As a warehouse manager I want to create a delivery.
+- `POST /trucks`: Creates a new truck entry in the system.
+- `PUT /trucks/:truckId`: Updates the details of a specific truck.
+- `GET /trucks`: Retrieves a list of all trucks in the system.
+- `GET /trucks/active`: Retrieves a list of active trucks in the system.
+- `GET /trucks/:truckId`: Retrieves the details of a specific truck.
 
-* Area/Application:
-  * Logistics
+These endpoints allow users to perform various operations on the truck aggregate, such as creating, updating, and retrieving truck information.
 
-### 1.2. Customer Specifications and Clarifications
+## 1.8 Database Schema: Relational Model
+ 
+## 1.9 Authorization Roles
+The system has the following types of users:
 
-n/a
+- **System Administrator** - This user has full access to the truck aggregate. They can create, update, delete, and view details of any truck in the system.
 
-### 1.3. Acceptance Criteria
+- **Warehouse Manager** - This user has limited access to the truck aggregate. They can view details of trucks, but cannot create, update, or delete truck entries.
 
-n/a
+- **Fleet Manager** - This user has full access to the truck aggregate. They can create, update, delete, and view details of any truck in the system.
 
-### 1.4. Found out Dependencies
+- **Logistics Manager** - This user has limited access to the truck aggregate. They can view details of trucks, but cannot create, update, or delete truck entries.
 
-There is a dependency on creating a delivery and getting all warehouses from the API, in order to view/search the deliveries and warehouses.
+- **Operator** - This user has limited access to the truck aggregate. They can view details of trucks, but cannot create, update, or delete truck entries.
 
-### 1.5 Input and Output Data
+## 2.3 Abuse Cases
+Abuse cases are scenarios where the system can be intentionally misused or exploited. Here are some abuse cases for the Truck aggregate:
 
-**Input Data:**
+1. **Unauthorized Access**: An attacker tries to access the truck aggregate API endpoints without proper authentication or authorization.
+2. **Injection Attacks**: An attacker attempts to inject malicious code or SQL queries through the input fields of the truck aggregate.
+3. **Denial of Service (DoS)**: An attacker floods the truck aggregate with a high volume of requests, causing the system to become unresponsive or crash.
+4. **Data Tampering**: An attacker modifies the data of a truck entry, leading to incorrect information being displayed or processed.
+5. **Elevation of Privilege**: An unauthorized user tries to gain elevated privileges by exploiting vulnerabilities in the truck aggregate.
+6. **Cross-Site Scripting (XSS)**: An attacker injects malicious scripts into the truck aggregate, which are then executed by other users' browsers.
+7. **Information Disclosure**: A user gains access to sensitive information, such as truck details or API endpoints, that they are not authorized to view.
+8. **Man-in-the-Middle (MitM) Attack**: An attacker intercepts the communication between the truck aggregate and its clients, potentially gaining access to sensitive data.
 
-* Selected data:
-  * Warehouse
-
-* Input data:
-  * Delivery Date
-  * Weight
-
-**Output Data:**
-
-* The success of the operation
-
-### 1.6. System Sequence Diagram (SSD)
-
-![SSD_CreateDelivery](SSD_CreateDelivery.png)
-
-## 2. Analysis
-
-### 2.1. Relevant Domain Model Excerpt
-
-![DM_CreateDelivery](DM_CreateDelivery.png)
-
-## 3. Design
-
-### 3.1. Sequence Diagram (SD)
-
-![](.svg)
-
-### Systematization
-
-According to the taken rationale, the conceptual classes promoted to software classes are:
-
-* Delivery
-
-Other software classes (i.e. Pure Fabrication) identified:
-
-* DeliveryService
-* CreateDeliveryDTO
-* IDeliveryCreate
-
-### 4 Tests
-
-n/a
-
-## 5. Implementation
-
-n/a
-
-## 6. Integration and Demo
-
-* It was added a Delivery button to the web app menu, which opens the Deliveries page with a form to create one on the left and the list of the existing deliveries on the right.
-
-## 7. Observations
-
-n/a
+These abuse cases should be considered during the design and implementation of the truck aggregate to ensure its security and resilience against potential threats.
+ 
+## 3.2 Secure Architecture
+ 
+## 3.3 Secure Design Patterns
+ 
+## 3.4 Threat Modelling
+ 
+## 3.5 Security Test Planning
+ 
+## 3.6 Security Architecture Review
