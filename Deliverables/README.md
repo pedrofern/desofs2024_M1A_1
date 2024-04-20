@@ -18,6 +18,18 @@
 
 ## Introduction
 
+The main objective of this document is to present da Analysis and Design of the DESFOS project. This project is a system for planning distribution of deliveries between warehouses using a fleet of electric vehicles.
+
+This means that we will demonstrate the first two (of six) phases of Software Development Life Cycle (SDLC):
+
+![SDLC](diagrams/sdlc.png)
+
+The first phase is the **Analysis** phase, where we will analyze the requirements and constraints of the system. The second phase is the **Design** phase, where we will design the system's architecture and components. 
+
+One of the goals is to focus on security, so we adopt the Secure Software Development Life Cycle (SSDLC). The following image represent all stages of this process and we will demonstrate specifically the first two stages:
+
+![SDLC](diagrams/ssdlc.png)
+
 ## Aggregate's Documentation
 
 For each aggregate, a specific analysis and design were performed. On the following pages, it is possible to consult:
