@@ -74,11 +74,11 @@
 
 - Update Warehouse
 
-![SSD1](./diagrams/Level1_ProcessView_EditWarehouse.svg)
+![SSD2](./diagrams/Level1_ProcessView_EditWarehouse.svg)
 
 - Get All Warehouses
 
-![SSD1](./diagrams/Level1_ProcessView_GetAllWarehouse.svg)
+![SSD3](./diagrams/Level1_ProcessView_GetAllWarehouse.svg)
 
 ## 1.7 API Endpoints
 
