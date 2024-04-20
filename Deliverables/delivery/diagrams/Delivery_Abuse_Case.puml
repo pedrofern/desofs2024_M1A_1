@@ -1,0 +1,27 @@
+@startuml
+
+title Abuse Cases for File Download Feature
+
+' Define actors
+actor "Warehouse Manager" as WM
+actor "Unauthorized User" as UU
+actor "Attacker" as A
+
+' Define system
+rectangle System {
+  usecase "Download PDF" as DP
+}
+
+WM -down-> DP : "accesses download with permissions"
+UU -right-> DP : "accesses download without permissions"
+UU -right-> DP : "uses path traversal to access restricted files"
+UU -right-> DP : "downloads sensitive information through security flaws"
+UU -right-> DP : "denies downloading files exploiting lack of auditing"
+
+A -left-> DP : "attempts to manipulate request"
+A -left-> DP : "overloads system with massive download requests"
+A -left-> DP : "uploads and encourages downloading of malicious files"
+A -left-> DP : "bypasses security controls to download unauthorized files"
+A -left-> DP : "exploits PDF generation vulnerabilities"
+
+@enduml
