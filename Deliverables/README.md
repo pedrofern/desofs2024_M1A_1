@@ -13,8 +13,13 @@
 - [Aggregate's Documentation](#aggregate-documentatio)
 - [Issue Tracker](#issue-tracker)
 - [Domain Model](#domain-model)
+- [Logical View](#logical-view)
 - [Infrastructure View](#infrastructure-view)
+- [Physical View](#physical-view)
 - [Data Flow Diagram](#data-flow-diagram)
+- [Application Security Verification Standard (ASVS) Checklist](#application-security-verification-standard-asvs-checklist)
+- [Glossary](#glossary)
+
 
 ## Introduction
 
@@ -64,6 +69,9 @@ We have created the following issues to track the tasks related to the DESFOS pr
   - **Logistics Manager** - manages route data and distribution planning
   - **Operator** - has basic access for querying and limited operations within each aggregate
 
+## Logical View
+
+
 ## Infrastucture View
 
 ![Infrastucture View](diagrams/servers.png)
@@ -77,7 +85,11 @@ We have created the following issues to track the tasks related to the DESFOS pr
 ![Data Flow Diagram](diagrams/dfd.png)
 
 
-# Glossary
+## Application Security Verification Standard (ASVS) Checklist
+
+In terms of security we followed the Application Security Verification Standard (ASVS) checklist. The following file shows the ASVS requirements: [ASVS Check List](./diagrams/v4-ASVS-checklist-en.xlsx)
+
+## Glossary
 
 **Terms, Expressions and Acronyms (TEA) organized alphabetically.**
 
