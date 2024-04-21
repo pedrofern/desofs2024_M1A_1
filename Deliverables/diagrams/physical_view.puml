@@ -1,0 +1,17 @@
+@startuml Physical View
+title Physical View
+
+node "Physical Server" {
+    
+    component "Backend API" as backend
+    component "ElectricGO" as spa    
+    spa --right--> backend : HTTPS
+    
+}
+
+node "Database Server" {
+    database "Database" as bd
+}
+
+backend --right--> bd : HTTPS
+@enduml

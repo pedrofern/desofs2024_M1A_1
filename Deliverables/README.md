@@ -66,7 +66,11 @@ We have created the following issues to track the tasks related to the DESFOS pr
 
 ## Infrastucture View
 
-![Servers](diagrams/servers.png)
+![Infrastucture View](diagrams/servers.png)
+
+## Physical View
+
+![Physical View](diagrams/physical_view.png)
 
 ## Data Flow Diagram
 

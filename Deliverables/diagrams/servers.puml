@@ -16,8 +16,8 @@ package "Single Page Application" {
         component "ElectricGO" as spa
     }
 }
-User --> spa
-spa -> backend
-backend ---> bd
+User --right--> spa
+spa --right--> backend : HTTPS
+backend --right--> bd : HTTPS
 
 @enduml
