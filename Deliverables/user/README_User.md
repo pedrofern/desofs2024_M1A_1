@@ -43,7 +43,18 @@ Each user will have restrictions, based on roles and each role will give permiss
       9. [Ranking of Threats](#349-ranking-of-threats)
       10. [Qualitative Risk Model](#3410-qualitative-risk-model)
    5. [Security Test Planning](#35-security-test-planning)
+      1. [Objective](#351-objective)
+      2. [Scope](#352-scope)
+      3. [Methodology](#353-methodology)
+      4. [Test Scenarios](#354-test-scenarios)
+      5. [Deliverables](#355-deliverables)
    6. [Security Architecture Review](#36-security-architecture-review)
+      1. [Objectives](#361-objectives)
+      2. [Components to Review](#362-components-to-review)
+      3. [Review Process](#363-review-process)
+      4. [Deliverables](#364-deliverables)
+
+
 
 ## 1. Requirements Engineering
 
@@ -670,4 +681,80 @@ In the table bellow, we summarize the risk assessment for each threat based on t
 
 ## 3.5 Security Test Planning
 
+### 3.5.1. Objective
+- Identify and mitigate security vulnerabilities related to user authentication, access control, data handling, and user management.
+- Ensure compliance with security best practices and regulatory requirements.
+- Validate the effectiveness of security controls implemented for user-related functionalities.
+
+### 3.5.2. Scope
+The security testing will cover the following aspects related to the users aggregate:
+- User authentication mechanisms, including login, password management and session handling.
+- Access control mechanisms to ensure that users have appropriate permissions and restrictions.
+- User profile management functionalities, including registration, profile updates and password recovery.
+- Security controls related to user data handling, such as encryption, integrity protection and secure transmission.
+
+### 3.5.3. Methodology
+The security testing will employ a combination of automated tools and manual techniques, including:
+- Automated vulnerability scanning to identify common security flaws such as injection vulnerabilities, cross-site scripting (XSS) and insecure configurations.
+- Manual penetration testing to identify complex security vulnerabilities and validate the effectiveness of security controls.
+- Code review and static analysis to identify potential security weaknesses in the source code related to user functionalities.
+- Dynamic analysis of user interactions with the application to identify security risks and vulnerabilities.
+
+### 3.5.4. Test Scenarios
+The following test scenarios will be executed as part of the security testing:
+1. **User Authentication Testing:**
+   - Verify that strong password policies are enforced, including minimum password length and complexity requirements.
+   - Test for account lockout mechanisms after multiple failed login attempts.
+   - Validate the effectiveness of multi-factor authentication (MFA) in enhancing security.
+2. **Access Control Testing:**
+   - Test access controls to ensure that users can only access authorized resources and functionalities.
+   - Verify that sensitive operations require appropriate permissions and that unauthorized access attempts are blocked.
+3. **User Profile Management Testing:**
+   - Test user registration process for security vulnerabilities such as injection attacks and account enumeration.
+   - Verify that users can update their profiles securely and that sensitive information is protected.
+   - Test password recovery mechanisms for security and usability.
+4. **Data Handling Testing:**
+   - Test encryption mechanisms for user data at rest and in transit.
+   - Verify data integrity measures such as checksums and digital signatures.
+   - Test for proper access controls and authorization checks when accessing user data.
+
+### 3.5.5. Deliverables
+- A comprehensive report will be generated, detailing the findings of the security testing, including identified vulnerabilities, their severity levels, and recommendations for remediation. The report will be shared with the development team and stakeholders for review and action.
+
+- The security testing activities will be conducted over a specified period, with regular updates provided to stakeholders on progress and any emerging issues. The timeline for testing will be determined based on the complexity of the application and the scope of testing required.
+
+- The security testing will require access to testing environments, tools, and skilled security professionals with expertise in penetration testing, secure coding practices, and security assessment methodologies.
+
+- By conducting thorough security testing of the users aggregate, we aim to identify and address potential security vulnerabilities proactively, thereby enhancing the overall security posture of the system and mitigating risks associated with user-related functionalities.
+
 ## 3.6 Security Architecture Review
+
+### 3.6.1 Objectives
+- Evaluate the effectiveness of security controls in place to protect user-related functionalities.
+- Identify any design flaws or weaknesses in the security architecture that could expose the system to potential threats.
+- Ensure alignment with security best practices and compliance requirements.
+
+### 3.6.2 Components to Review
+The security architecture review will assess the following components related to the user aggregate:
+1. User authentication mechanisms, including login processes and password management.
+2. Access control mechanisms governing user permissions and privileges.
+3. User profile management functionalities, such as registration, profile updates and password recovery.
+4. Security measures for handling user data, including encryption, data integrity and secure transmission.
+
+### 3.6.3 Review Process
+The review process will involve the following steps:
+1. **Documentation Review:** Examine design documents, architecture diagrams and security requirements to understand the intended security architecture.
+2. **Interviews:** Conduct interviews with key stakeholders, including developers, architects and security professionals, to gather insights into the security design and implementation.
+3. **Technical Analysis:** Perform a technical analysis of the implemented security controls, including code review, configuration assessment and testing of security features.
+4. **Threat Modelling:** Conduct threat modelling exercises to identify potential threats and vulnerabilities specific to the user aggregate.
+5. **Risk Assessment:** Evaluate the identified security risks and prioritize them based on severity and potential impact on the system.
+6. **Recommendations:** Provide recommendations for improving the security architecture, including mitigating identified risks and enhancing overall security posture.
+
+### 3.6.4 Deliverables
+- A detailed report will be generated, summarizing the findings of the security architecture review, including identified strengths, weaknesses, and recommendations for improvement. The report will be shared with relevant stakeholders for review and action.
+
+- The security architecture review will be conducted over a defined period, with milestones established for each phase of the review process. The timeline will be determined based on the complexity of the system and the scope of the review.
+
+- The review will require access to documentation, source code, and development environments, as well as the expertise of security professionals experienced in security architecture reviews and threat modelling.
+
+- The security architecture review aims to enhance the overall security posture of the user aggregate by identifying and addressing potential security weaknesses and ensuring alignment with security best practices and standards.
