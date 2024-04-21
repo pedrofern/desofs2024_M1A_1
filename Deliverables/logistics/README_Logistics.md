@@ -87,7 +87,7 @@ For this aggregate we have two User Stories:
 - GET /logistics/form - List all Logistics Forms
 - GET /logistics/form/{id} - Get the logistic form by id
  
-## 1.8 Database Schema: modelo relacional
+## 1.8 Database Schema: 
 
 The Domain Model for the Logistics Aggregate is as follows:
 
