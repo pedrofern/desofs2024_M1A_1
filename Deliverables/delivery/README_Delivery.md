@@ -83,7 +83,7 @@
 
 - Get All Deliveries
 
-- ![Level1_ProcessView_GetAllDeliveries.svg](diagrams/Level1_ProcessView_GetAllDeliveries.svg)
+![Level1_ProcessView_GetAllDeliveries.svg](diagrams/Level1_ProcessView_GetAllDeliveries.svg)
 
 ### 1.7 API Endpoints
 
@@ -338,88 +338,187 @@ Data Flow Diagrams (DFDs) are graphical representations of the flow of data with
 
 #### 3.4.9. Ranking of Threats
 
-# Ranking of Threats
+1. Man-in-the-Middle (MitM) Attack During Download
+   - **Damage Potential**: High - File replaced with malware, potential system compromise (9)
+   - **Reproducibility**: High - MitM attacks are common and often replicable (8)
+   - **Exploitability**: Moderate - Requires some knowledge and access to the network between the user and the server (7)
+   - **Affected Users**: High - All users during the download can be affected (8)
+   - **Discoverability**: Moderate - Can be detected with adequate network security tools (6)
+   - **Overall DREAD Score**: (9+8+7+8+6) / 5 = 7.6
 
-## 1. Man-in-the-Middle (MitM) Attack During Download
-- **Damage Potential**: High - File replaced with malware, potential system compromise (9)
-- **Reproducibility**: High - MitM attacks are common and often replicable (8)
-- **Exploitability**: Moderate - Requires some knowledge and access to the network between the user and the server (7)
-- **Affected Users**: High - All users during the download can be affected (8)
-- **Discoverability**: Moderate - Can be detected with adequate network security tools (6)
-- **Overall DREAD Score**: (9+8+7+8+6) / 5 = 7.6
+2. File Corruption Due to Network Failures
+   - **Damage Potential**: Moderate - Damaged or incomplete files (6)
+   - **Reproducibility**: Variable - Dependent on network quality and external conditions (5)
+   - **Exploitability**: Low - Generally not a malicious action, more circumstantial (3)
+   - **Affected Users**: Medium - Users in unstable network conditions are more affected (6)
+   - **Discoverability**: Low - May not be immediately apparent without file integrity checks (4)
+   - **Overall DREAD Score**: (6+5+3+6+4) / 5 = 4.8
 
-## 2. File Corruption Due to Network Failures
-- **Damage Potential**: Moderate - Damaged or incomplete files (6)
-- **Reproducibility**: Variable - Dependent on network quality and external conditions (5)
-- **Exploitability**: Low - Generally not a malicious action, more circumstantial (3)
-- **Affected Users**: Medium - Users in unstable network conditions are more affected (6)
-- **Discoverability**: Low - May not be immediately apparent without file integrity checks (4)
-- **Overall DREAD Score**: (6+5+3+6+4) / 5 = 4.8
+3. Malicious Code Injection on the Download Server
+   - **Damage Potential**: High - Execution of malicious code, significant potential impact on the user's system and data (9)
+   - **Reproducibility**: High - Once the server is compromised, multiple downloads can be affected (8)
+   - **Exploitability**: Medium - Requires access to the server, which can be challenging (7)
+   - **Affected Users**: High - All users downloading files from the compromised server (9)
+   - **Discoverability**: Medium - May be difficult to detect until the malware is activated (6)
+   - **Overall DREAD Score**: (9+8+7+9+6) / 5 = 7.8
 
-## 3. Malicious Code Injection on the Download Server
-- **Damage Potential**: High - Execution of malicious code, significant potential impact on the user's system and data (9)
-- **Reproducibility**: High - Once the server is compromised, multiple downloads can be affected (8)
-- **Exploitability**: Medium - Requires access to the server, which can be challenging (7)
-- **Affected Users**: High - All users downloading files from the compromised server (9)
-- **Discoverability**: Medium - May be difficult to detect until the malware is activated (6)
-- **Overall DREAD Score**: (9+8+7+9+6) / 5 = 7.8
+#### 3.4.10. Qualitative Risk Model
 
-## 3.4.10. Qualitative Risk Model
+1. **API Impersonation**
+   - **Likelihood**: High due to the possibility of remote setup and automation.
+   - **Impact**: Moderate as it involves data manipulation but lacks direct system control.
+   - **Risk Score**: 7 x 6 = 42
 
-### Introduction
-This section details the risk assessment for security threats associated with interactions with public APIs, analyzing each threat based on its likelihood of occurrence and potential impact. This provides a qualitative risk value that aids in prioritizing mitigation efforts.
+2. **Endpoint Spoofing**
+   - **Likelihood**: Moderate, depends on the ability to manipulate DNS or intercept traffic.
+   - **Impact**: High due to the potential for significant data theft and malware spread.
+   - **Risk Score**: 6 x 8 = 48
 
-### Risk Assessment
+3. **Data Interception and Modification**
+   - **Likelihood**: Moderate, especially if data is transmitted without robust encryption.
+   - **Impact**: High as it directly affects the integrity and confidentiality of data.
+   - **Risk Score**: 6 x 8 = 48
 
-| Threat                   | Likelihood of Occurrence           | Potential Impact                | Risk Score |
-|--------------------------|------------------------------------|---------------------------------|------------|
-| **API Impersonation**    | High (Remote exploit, no auth needed, automatable) | Moderate (Data manipulation, no system control) | 7 x 6 = 42 |
-| **Endpoint Spoofing**    | Moderate (Remote exploit, DNS manipulation) | High (Data theft, malware distribution) | 6 x 8 = 48 |
-| **Data Interception and Modification** | Moderate (Remote data interception, some technical setup) | High (Data integrity and confidentiality compromise) | 6 x 8 = 48 |
-| **Parameter Injection**  | Moderate (Remote exploitation, requires API knowledge) | High (Can alter system behavior, access restricted data) | 6 x 7 = 42 |
-| **Request Denial**       | High (Remote and automatable, no auth needed) | Moderate (Service disruption, impacts user access) | 8 x 6 = 48 |
-| **Log Tampering**        | Moderate (Requires access to log systems, some setup) | High (Erase evidence, complicates forensic analysis) | 6 x 8 = 48 |
-| **Sensitive Data Leaks** | High (Remote exploit, weak data protections) | High (Major confidentiality breaches, regulatory impact) | 8 x 9 = 72 |
+4. **Parameter Injection**
+   - **Likelihood**: Moderate, requires specific knowledge about the API and its parameters.
+   - **Impact**: High, could lead to unauthorized actions or access to sensitive data.
+   - **Risk Score**: 6 x 7 = 42
 
-### Detailed Risk Analysis
+5. **Request Denial**
+   - **Likelihood**: High, easily automated and executed remotely without authentication.
+   - **Impact**: Moderate, mainly affects service availability and user access.
+   - **Risk Score**: 8 x 6 = 48
 
-#### 1. **API Impersonation**
-- **Likelihood**: High due to the possibility of remote setup and automation.
-- **Impact**: Moderate as it involves data manipulation but lacks direct system control.
-- **Risk Score**: 42
+6. **Log Tampering**
+   - **Likelihood**: Moderate, requires access but can be critical if achieved.
+   - **Impact**: High, erases activity evidence and hampers security audits.
+   - **Risk Score**: 6 x 8 = 48
 
-#### 2. **Endpoint Spoofing**
-- **Likelihood**: Moderate, depends on the ability to manipulate DNS or intercept traffic.
-- **Impact**: High due to the potential for significant data theft and malware spread.
-- **Risk Score**: 48
+7. **Sensitive Data Leaks**
+   - **Likelihood**: High, particularly with inadequate data protections.
+   - **Impact**: High, significant confidentiality breaches and regulatory implications.
+   - **Risk Score**: 8 x 9 = 72
 
-#### 3. **Data Interception and Modification**
-- **Likelihood**: Moderate, especially if data is transmitted without robust encryption.
-- **Impact**: High as it directly affects the integrity and confidentiality of data.
-- **Risk Score**: 48
+#### 3.4.11. Mitigation and Countermeasures
 
-#### 4. **Parameter Injection**
-- **Likelihood**: Moderate, requires specific knowledge about the API and its parameters.
-- **Impact**: High, could lead to unauthorized actions or access to sensitive data.
-- **Risk Score**: 42
+1. Spoofing
+- **Threat**: Impersonation of legitimate users or services to gain unauthorized access.
+- **Mitigation Techniques**:
+    1. **Strong Authentication**: Implement Multi-Factor Authentication (MFA) using industry-standard protocols such as OAuth2 and OpenID Connect to robustly verify user identities.
+    2. **Credential Security**: Utilize encryption for storing sensitive data like API keys and tokens. Implement secure secret management systems that rotate secrets periodically.
+    3. **Endpoint Verification**: Regularly verify and authenticate API endpoints using certificate pinning to prevent spoofing through fake certificates.
 
-#### 5. **Request Denial**
-- **Likelihood**: High, easily automated and executed remotely without authentication.
-- **Impact**: Moderate, mainly affects service availability and user access.
-- **Risk Score**: 48
+2. Tampering
+- **Threat**: Unauthorized alteration of data in transit or at rest, leading to data integrity issues.
+- **Mitigation Techniques**:
+    1. **Data Integrity Protocols**: Use HTTPS and TLS for data in transit and employ cryptographic techniques like hashes and MACs for verifying data integrity.
+    2. **Authorization Controls**: Enforce strict authorization checks using role-based access controls (RBAC) to ensure only authorized users can alter data.
+    3. **Immutable Logs**: Implement immutable logging mechanisms to preserve the integrity of data logs, preventing tampering.
 
-#### 6. **Log Tampering**
-- **Likelihood**: Moderate, requires access but can be critical if achieved.
-- **Impact**: High, erases activity evidence and hampers security audits.
-- **Risk Score**: 48
+3. Repudiation
+- **Threat**: Users deny performing actions, complicating audit and accountability.
+- **Mitigation Techniques**:
+    1. **Non-repudiation with Digital Signatures**: Use digital signatures to ensure actions cannot be repudiated, providing cryptographic proof of origin and authenticity.
+    2. **Comprehensive Auditing**: Deploy extensive logging and monitoring that includes detailed timestamps and user actions to support forensic activities and dispute resolution.
 
-#### 7. **Sensitive Data Leaks**
-- **Likelihood**: High, particularly with inadequate data protections.
-- **Impact**: High, significant confidentiality breaches and regulatory implications.
-- **Risk Score**: 72
+4. Information Disclosure
+- **Threat**: Exposure of sensitive information to unauthorized parties.
+- **Mitigation Techniques**:
+    1. **Encryption Everywhere**: Implement end-to-end encryption for data at rest and in transit using AES-256 or similar strong encryption standards.
+    2. **Least Privilege Access**: Apply the principle of least privilege across all systems and services to minimize access to sensitive information.
+    3. **Data Masking**: Use data masking and redaction techniques to protect sensitive information displayed in user interfaces or logs.
 
-This structured risk model helps prioritize which threats require immediate attention based on their potential to impact the system and the likelihood of their occurrence.
+5. Denial of Service (DoS)
+- **Threat**: Service availability is compromised by overwhelming the system with excessive requests.
+- **Mitigation Techniques**:
+    1. **Traffic Management**: Implement rate limiting and request throttling to control the load on the application servers.
+    2. **Advanced Monitoring**: Utilize advanced network monitoring tools to detect early signs of DoS attacks and automate responses.
+    3. **Resilient Architecture**: Design the system architecture to automatically scale and distribute loads across multiple resources to mitigate the impact of DoS attacks.
+
+6. Elevation of Privilege
+- **Threat**: Attackers gain higher access levels than intended, enabling unauthorized actions.
+- **Mitigation Techniques**:
+    1. **Enforced Access Controls**: Strengthen security by implementing dynamic access controls that adjust based on context and risk assessments.
+    2. **Continuous Security Audits**: Regularly audit security configurations and access rights to identify and rectify excessive permissions or configuration errors.
+    3. **Patch Management**: Keep all systems updated with the latest security patches to close vulnerabilities that could be exploited for privilege escalation.
 
 ### 3.5 Security Test Planning
 
+#### Objectives
+- Verify that the security measures implemented are functioning as intended.
+- Identify any security vulnerabilities within the application.
+- Ensure that the application meets all relevant security standards and regulations.
+
+#### Test Scope
+- **Application Layer**: Testing all endpoints for proper authentication, authorization, input validation, and session management.
+- **Network Layer**: Ensuring data is transmitted securely across networks and that the application is resilient against network attacks.
+- **Data Storage**: Verifying encryption of sensitive data at rest and ensuring that data integrity and access controls are enforced.
+
+#### Testing Strategies
+
+* Automated Security Testing
+  - **Static Application Security Testing (SAST)**: Automated tools will analyze the source code to detect security vulnerabilities without executing the program.
+  - **Dynamic Application Security Testing (DAST)**: Automated tools will test the running application to find vulnerabilities that are visible while the application is in operation.
+
+* Manual Security Testing
+  - **Penetration Testing**: Skilled security professionals will simulate attacks to identify and exploit vulnerabilities in the application.
+  - **Code Review**: Security experts will manually review the application's source code for security weaknesses and deviations from best practices.
+
+#### Testing Tools
+- **Static Analysis Tools**: Such as SonarQube, Fortify, and Checkmarx.
+- **Dynamic Analysis Tools**: Such as OWASP ZAP, Burp Suite, and Nessus.
+- **Penetration Testing Tools**: Such as Metasploit, Kali Linux toolsets, and custom scripts.
+
+#### Test Cases
+- **SQL Injection**: Attempt to inject SQL commands into input fields to test for improper input handling.
+- **Cross-Site Scripting (XSS)**: Inject scripts into web pages to test for script handling and output encoding.
+- **Authentication Bypass**: Try to access application resources without proper credentials to test the effectiveness of authentication mechanisms.
+- **Data Encryption**: Verify that sensitive data is encrypted using the correct algorithms and keys.
+
+#### Test Schedule
+- **Initial Testing**: Conducted at the completion of major development milestones.
+- **Regression Testing**: Performed after each update or patch to ensure new vulnerabilities have not been introduced.
+- **Continuous Testing**: Automated tests will run continuously during development to identify and resolve issues as they arise.
+
+#### Reporting and Remediation
+- **Vulnerability Reports**: All findings from security tests will be documented in detailed reports outlining the nature of the vulnerability, its potential impact, and recommended remedial actions.
+- **Remediation Plan**: A prioritized action plan for addressing identified vulnerabilities will be developed and implemented.
+- **Follow-up Testing**: Tests will be repeated post-remediation to ensure vulnerabilities have been effectively resolved.
+
 ### 3.6 Security Architecture Review
+
+#### Objectives
+- Ensure the architecture adheres to best security practices and aligns with the overall security strategy.
+- Identify potential security issues in the architectural design and development practices.
+- Provide actionable recommendations to enhance the security posture of the application.
+
+#### Scope
+- **Review of architectural design**: Evaluating the overall structure and components of the application for security implications.
+- **Assessment of security controls**: Checking the effectiveness and adequacy of the implemented security controls.
+- **Validation of data flow diagrams**: Ensuring that data flows securely between components and that data protection measures are adequately applied.
+
+#### Methodology
+    
+Document Review
+- **Architecture diagrams**: Analyze all architectural diagrams for potential security flaws and vulnerabilities.
+- **Security policies and standards**: Ensure that the architecture complies with relevant security policies and standards.
+
+Interviews
+- **Development team**: Discuss the security considerations that influenced the architectural decisions.
+- **Security team**: Gather insights on the perceived security risks and the rationale behind specific security measures.
+
+Automated and Manual Checks
+- **Static analysis of architecture**: Use tools to perform static analysis on the architectural components.
+- **Manual inspection**: Conduct a thorough manual inspection of the architecture to identify any discrepancies that automated tools might miss.
+
+#### Key Areas of Focus
+- **Component Security**: Ensure that each component is designed with security in mind and is capable of resisting attacks.
+- **Threat Modeling**: Revisit and update threat models to reflect the current understanding of potential threats.
+- **Secure Communication**: Verify that all communication channels are secured with appropriate encryption and authentication mechanisms.
+- **Access Controls**: Assess the implementation and effectiveness of access controls throughout the system.
+- **Data Security**: Review how data is stored, processed, and transmitted to ensure it is protected against unauthorized access and leaks.
+
+#### Reporting and Recommendations
+- **Findings Report**: Document all findings from the security architecture review, categorizing them by risk level.
+- **Recommendations**: Provide specific, actionable recommendations for addressing each identified issue.
+- **Implementation Plan**: Develop a timeline and strategy for implementing the recommended changes.
