@@ -190,21 +190,35 @@ Abuse cases (also know misused cases) are scenarios that describe how a system c
 
 ## 2.4 Functional Security Requirements
 
-| Security Requirement | Description|
-|----------------------|------------|
-| **User Authentication** | The system must provide mechanisms for authenticating users, including username/password and multi-factor authentication (MFA).|
-| **Access Control**      | The system must enforce access controls to ensure that only authorized users have access to specific resources or functionalities. This includes role-based access control (RBAC), permissions management, and segregation of duties. |
-| **Encryption**          | The system must support encryption for sensitive data both at rest and in transit. This includes encryption algorithms, key management, and secure communication protocols (e.g., SSL/TLS).|
-| **Audit Logging**       | The system must log relevant security events and user activities for monitoring, auditing, and forensic purposes. This includes logging user logins, access attempts, system changes, and security-related events.|
-| **Session Management**  | The system must manage user sessions securely, including session expiration, session tokens, and preventing session hijacking or fixation attacks.|
-| **Data Integrity**      | The system must ensure the integrity of data by implementing measures to prevent unauthorized modification or tampering. This includes data validation, checksums, digital signatures, and hash functions.|
-| **Secure Configuration** | The system must be configured securely according to best practices and industry standards. This includes hardening of servers, secure configuration of network devices, and regular security assessments.|
-| **Secure APIs**         | If the system exposes APIs (Application Programming Interfaces), they must be designed and implemented securely to prevent API abuse, injection attacks, and unauthorized access.|
-| **Secure File Handling** | The system must handle files securely, including file uploads, downloads, storage, and transmission. This includes validation of file types, malware scanning, and access controls on stored files.|
-| **Error Handling**      | The system must handle errors gracefully and securely, avoiding information leakage that could be exploited by attackers. Error messages should be informative to users but not reveal sensitive system details.|
-| **Secure Communication** | The system must ensure secure communication channels between components, including encryption of network traffic, secure configuration of web servers, and protection against common attacks like man-in-the-middle (MITM).|
-| **Backup and Recovery** | The system must implement secure backup and recovery procedures to protect against data loss, corruption, and ransomware attacks. This includes regular backups, off-site storage, and testing of recovery procedures.|
+Here's the corrected table with all the functional security requirements for user management, including the requirement for passwords to be at least 12 characters long:
 
+| Security Requirement             | Description                                                                                                                                                 |
+|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **User Authentication**          | The system must provide mechanisms for authenticating users, including username/password and multi-factor authentication (MFA).                              |
+| **Access Control**               | The system must enforce access controls to ensure that only authorized users have access to specific resources or functionalities. This includes role-based access control (RBAC), permissions management, and segregation of duties. |
+| **Encryption**                   | The system must support encryption for sensitive data both at rest and in transit. This includes encryption algorithms, key management, and secure communication protocols (e.g., SSL/TLS).|
+| **Audit Logging**                | The system must log relevant security events and user activities for monitoring, auditing, and forensic purposes. This includes logging user logins, access attempts, system changes, and security-related events.|
+| **Session Management**           | The system must manage user sessions securely, including session expiration, session tokens, and preventing session hijacking or fixation attacks.                |
+| **Data Integrity**               | The system must ensure the integrity of data by implementing measures to prevent unauthorized modification or tampering. This includes data validation, checksums, digital signatures, and hash functions.|
+| **Secure Configuration**         | The system must be configured securely according to best practices and industry standards. This includes hardening of servers, secure configuration of network devices, and regular security assessments.|
+| **Secure APIs**                  | If the system exposes APIs (Application Programming Interfaces), they must be designed and implemented securely to prevent API abuse, injection attacks, and unauthorized access. |
+| **Secure File Handling**         | The system must handle files securely, including file uploads, downloads, storage, and transmission. This includes validation of file types, malware scanning, and access controls on stored files.|
+| **Error Handling**               | The system must handle errors gracefully and securely, avoiding information leakage that could be exploited by attackers. Error messages should be informative to users but not reveal sensitive system details.|
+| **Secure Communication**         | The system must ensure secure communication channels between components, including encryption of network traffic, secure configuration of web servers, and protection against common attacks like man-in-the-middle (MITM).|
+| **Backup and Recovery**          | The system must implement secure backup and recovery procedures to protect against data loss, corruption, and ransomware attacks. This includes regular backups, off-site storage, and testing of recovery procedures.|
+| **User Registration**            | The system must allow users to register securely, including validation of user-provided information, such as email addresses, and prevention of automated bots. |
+| **Password Complexity**          | User passwords must meet complexity requirements, such as including a combination of uppercase and lowercase letters, numbers, and special characters.       |
+| **Password Expiry**              | The system must enforce password expiry policies to ensure that users periodically change their passwords and enhance security.                              |
+| **Account Lockout**              | The system must implement account lockout mechanisms to temporarily lock user accounts after a specified number of failed login attempts.                      |
+| **Password History**             | The system must prevent users from reusing previous passwords to enhance security and prevent password cycling.                                             |
+| **Multi-Factor Authentication (MFA)** | The system should provide support for multi-factor authentication methods, such as SMS codes, authenticator apps, or hardware tokens, to add an extra layer of security. |
+| **User Profile Management**      | Users should be able to manage their profile securely, including updating personal information, changing passwords, and configuring security settings.       |
+| **User Deactivation**            | Administrators should have the ability to deactivate or suspend user accounts temporarily when necessary, such as in cases of suspicious activity or non-compliance. |
+| **User Role Assignment**         | Administrators should be able to assign appropriate roles and permissions to users based on their responsibilities and access requirements.                    |
+| **User Activity Monitoring**     | The system should log and monitor user activities, such as login attempts, password changes, and profile modifications, for security and compliance purposes.    |
+| **User Session Revocation**      | Administrators should have the capability to revoke or terminate user sessions remotely, especially in cases of suspected unauthorized access or compromised accounts. |
+| **Password Recovery**            | The system should provide secure mechanisms for users to recover or reset forgotten passwords, such as email-based password reset links or security questions.    |
+| **Password Length**              | User passwords must be at least 12 characters long to enhance security and prevent brute-force attacks.                                                      |
 
 ## 2.5 Non-Functional Security Requirements
 
