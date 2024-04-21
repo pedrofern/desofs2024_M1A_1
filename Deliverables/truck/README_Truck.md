@@ -1,3 +1,5 @@
+[Click here to show global document](../README.md)
+
 # Software Architectural Analysis and Design of Truck Aggregate
 - This document describes the architecture of EletricGo's Truck aggregate, providing an overview of the design decisions and architectural analysis made during development.
 - Truck Aggregate is a sub-system developed to provide transportation services using electric trucks.
@@ -21,13 +23,24 @@
    5. [Non-Functional Security Requirements](#25-non-functional-security-requirements)
    6. [Secure Development Requirements](#26-secure-development-requirements)
 3. [Design](#3-design)
-   1. [Security Risk-Driven Design](#31-security-risk-driven-design)
-   2. [Secure Architecture](#32-secure-architecture)
-   3. [Secure Design Patterns](#33-secure-design-patterns)
-   4. [Threat Modelling](#34-threat-modelling)
-   5. [Security Test Planning](#35-security-test-planning)
-   6. [Security Architecture Review](#36-security-architecture-review)
- 
+  1. [Security Risk-Driven Design](#31-security-risk-driven-design)
+  2. [Secure Architecture](#32-secure-architecture)
+  3. [Secure Design Patterns](#33-secure-design-patterns)
+  4. [Threat Modelling](#34-threat-modelling)
+    1. [Threat Model Information](#341-threat-model-information)
+    2. [External Dependencies](#342-external-dependencies)
+    3. [Entry Points](#343-entry-points)
+    4. [Exit Points](#344-exit-points)
+    5. [Assets](#345-assets)
+    6. [Trust Levels](#346-trust-levels)
+    7. [Data Flow Diagrams](#347-data-flow-diagrams)
+    8. [Threat Analysis](#348-threat-analysis)
+    9. [Ranking of Threats](#349-ranking-of-threats)
+    10. [Qualitative Risk Model](#3410-qualitative-risk-model)
+    11. [Mitigation and Countermeasures](#3411-mitigation-and-countermeasures)
+  5. [Security Test Planning](#35-security-test-planning)
+  6. [Security Architecture Review](#36-security-architecture-review)
+
 # 1. Requirements Engineering
  
 ## 1.1 User Stories Description
@@ -384,7 +397,7 @@ Data Flow Diagrams (DFDs) are graphical representations of the flow of data with
 
 Below is the Attack Tree illustrating the compromise of filter and search security.
 
-![Attack Tree][filterAttackTree.png]
+![Attack Tree](filterAttackTree.png)
 
 ### 3.4.9 Ranking of Threats
 1. **Unauthorized Access**:
@@ -538,5 +551,63 @@ Below is the Attack Tree illustrating the compromise of filter and search securi
 4. **Privilege Separation**: Separate privileged and non-privileged functionalities to minimize the impact of privilege escalation. Use techniques such as privilege separation models or privilege separation architectures.
 
 ## 3.5 Security Test Planning
+### Objective
+The objective of the security testing is to identify and mitigate any vulnerabilities or weaknesses in the filtering and searching functionality of the system. This includes ensuring that the system properly handles user input, prevents injection attacks, and protects sensitive information.
+
+### Scope
+The scope of the security testing includes the following areas:
+- **Input validation**: Testing the system's ability to properly validate and sanitize user input to prevent injection attacks.
+- **Filtering functionality**: Testing the system's ability to accurately filter and retrieve data based on user-defined criteria.
+- **Search functionality**: Testing the system's ability to perform efficient and accurate searches based on user input.
+- **Data protection**: Testing the system's ability to protect sensitive information during filtering and searching operations.
+
+### Tests:
+1. **Injection attack testing**:
+  - Test for SQL injection: Attempt to inject SQL statements into the filtering and searching inputs to check if the system properly sanitizes and validates the input.
+  - Test for XSS attacks: Attempt to inject malicious scripts into the filtering and searching inputs to check if the system properly sanitizes and validates the input.
+
+2. **Input validation testing**:
+  - Test for input length limits: Test the system's response when input exceeds the defined length limits.
+  - Test for input format constraints: Test the system's response when input does not meet the defined format constraints.
+
+3. **Filtering functionality testing**:
+  - Test for accurate filtering: Verify that the system accurately filters and retrieves data based on user-defined criteria.
+  - Test for edge cases: Test the system's response when filtering criteria are at the boundaries or outside the expected range.
+
+4. **Search functionality testing**:
+  - Test for accurate search results: Verify that the system returns accurate search results based on user input.
+  - Test for search performance: Test the system's response time for different search scenarios, including large datasets.
+
+5. **Data protection testing**:
+  - Test for sensitive information exposure: Verify that the system properly protects sensitive information during filtering and searching operations.
+  - Test for encryption: Check if the system encrypts sensitive data during filtering and searching operations.
+
+6. **Error handling testing**:
+  - Test for proper error messages: Verify that the system provides clear and informative error messages when errors occur during filtering and searching operations.
+  - Test for error handling: Test the system's response when unexpected errors occur during filtering and searching operations.
 
 ## 3.6 Security Architecture Review
+### Objective
+The objective of the security architecture review is to assess the overall security design and implementation of the system's filtering and searching functionality. This includes evaluating the effectiveness of security controls, identifying potential vulnerabilities, and recommending improvements to enhance the security posture.
+
+### Scope
+The scope of the security architecture review includes the following areas:
+- **System architecture**: Assessing the overall design and structure of the system, including the components involved in filtering and searching.
+- **Data flow**: Analyzing how data is processed and transmitted during filtering and searching operations, including any potential security risks.
+- **Security controls**: Evaluating the effectiveness of security controls implemented to protect against threats and vulnerabilities.
+- **Integration with other components**: Assessing the integration of the filtering and searching functionality with other system components, such as authentication and authorization mechanisms.
+- **Compliance**: Ensuring compliance with relevant security standards, regulations, and best practices.
+
+### Review Process
+The security architecture review for "filtering and searching" typically follows these steps:
+1. **Gather information**: Collect relevant documentation, such as system architecture diagrams, data flow diagrams, and security control specifications.
+2. **Analyze the architecture**: Review the system architecture to understand how the filtering and searching functionality is implemented and integrated with other components.
+3. **Identify potential vulnerabilities**: Identify potential security vulnerabilities or weaknesses in the architecture that could be exploited by attackers.
+4. **Evaluate security controls**: Assess the effectiveness of security controls implemented to protect against identified threats and vulnerabilities.
+5. **Recommend improvements**: Provide recommendations to enhance the security posture of the filtering and searching functionality, including suggestions for additional security controls or architectural changes.
+6. **Document findings**: Document the findings of the security architecture review, including identified vulnerabilities, recommendations, and any compliance gaps.
+7. **Communicate findings**: Present the findings to relevant stakeholders, such as development teams, architects, and management, to ensure awareness and facilitate decision-making.
+8. **Implement recommendations**: Work with the development teams to implement the recommended security improvements based on the findings of the review.
+9. **Validate changes**: Verify that the implemented changes effectively address the identified vulnerabilities and enhance the security of the filtering and searching functionality.
+10. **Monitor and maintain**: Continuously monitor and maintain the security of the filtering and searching functionality, including regular security assessments and updates as needed.
+
