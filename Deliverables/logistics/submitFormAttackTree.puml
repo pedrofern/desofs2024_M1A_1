@@ -1,50 +1,33 @@
 @startuml
-skinparam node {
-    Shape circle
-    BackgroundColor LightBlue
-    BorderColor Navy
-    BorderThickness 1
-    FontStyle Bold
+digraph login_attack{
+
+node1    [shape=box fillcolor=lightblue   style="rounded,filled" label="1:\nData Injection\n\nOR"]
+node11   [shape=box fillcolor=lightyellow style="rounded,filled" label="1.1:\nInjection of Malicious Code\n\nOR"]
+node111  [shape=box fillcolor=lightgray   style="rounded,filled" label="1.1.1:\nAttacker enters malicious \nSQL code in form fields"]
+node112  [shape=box fillcolor=lightgray   style="rounded,filled" label="1.1.2:\nAttacker injects client-side \nscripts into form fields"]
+
+node12   [shape=box fillcolor=lightyellow style="rounded,filled" label="1.2:\nInjection of False Data\n\nOR"]
+node121  [shape=box fillcolor=lightgray   style="rounded,filled" label="1.2.1:\nAttacker modifies form field \nvalues before submission"]
+node122  [shape=box fillcolor=lightgray   style="rounded,filled" label="1.2.2:\nAttacker submits large volumes \nof random or invalid data"]
+
+node13   [shape=box fillcolor=lightyellow style="rounded,filled" label="1.3:\nInjection of Unwanted Content\n\nOR"]
+node131  [shape=box fillcolor=lightgray   style="rounded,filled" label="1.3.1:\nAttacker submits unwanted \ncomments or messages"]
+node132  [shape=box fillcolor=lightgray   style="rounded,filled" label="1.3.2:\nAttacker submits unwanted \nlinks or URLs"]
+
+
+
+node1 -> node11
+node1 -> node12
+node1 -> node13
+
+node11 -> node111
+node11 -> node112
+
+node12 -> node121
+node12 -> node122
+
+node13 -> node131
+node13 -> node132
+
 }
-skinparam leaf {
-    Shape circle
-    BackgroundColor LightGreen
-    BorderColor Green
-    BorderThickness 1
-    FontStyle Bold
-}
-
-node "Compromise Form Security"
-node "Injection Attacks"
-node "SQL Injection"
-node "Cross-Site Scripting (XSS)"
-node "Authentication Attacks"
-node "Credential Stuffing"
-node "Brute Force Attacks"
-node "Session Attacks"
-node "Session Fixation"
-node "Session Hijacking"
-node "Data Theft"
-node "Data Exfiltration"
-node "Parameter Tampering"
-node "Denial of Service"
-node "Form Flooding"
-node "Resource Exhaustion"
-
-"Compromise Form Security" --> "Injection Attacks"
-"Compromise Form Security" --> "Authentication Attacks"
-"Compromise Form Security" --> "Session Attacks"
-"Compromise Form Security" --> "Data Theft"
-"Compromise Form Security" --> "Denial of Service"
-
-"Injection Attacks" --> "SQL Injection"
-"Injection Attacks" --> "Cross-Site Scripting (XSS)"
-"Authentication Attacks" --> "Credential Stuffing"
-"Authentication Attacks" --> "Brute Force Attacks"
-"Session Attacks" --> "Session Fixation"
-"Session Attacks" --> "Session Hijacking"
-"Data Theft" --> "Data Exfiltration"
-"Data Theft" --> "Parameter Tampering"
-"Denial of Service" --> "Form Flooding"
-"Denial of Service" --> "Resource Exhaustion"
 @enduml

@@ -378,7 +378,7 @@ Data Flow Diagrams (DFDs) are graphical representations of the flow of data with
 
 ## 3.4.8. Threat Analysis
 
-| Category       | Property           | Violated Description |
+| Category       | Property Violated          | Description |
 |--------|--------------|--------------|
 | Spoofing (S)   | Authentication  | **User Credential Theft**: Attackers may attempt to steal user credentials by spoofing login forms or tricking users into entering their credentials on malicious websites. |
 |                |                    | **IP Spoofing**: Attackers may spoof IP addresses to bypass IP-based access controls and submit forms from unauthorized locations.                                  |
