@@ -38,7 +38,10 @@ Each user will have restrictions, based on roles and each role will give permiss
       4. [Exit Points](#344-exit-points)
       5. [Assets](#345-assets)
       6. [Trust Levels](#346-trust-levels)
-      7. [Data Flow Diagrams](#7-data-flow-diagrams)
+      7. [Data Flow Diagrams](#347-data-flow-diagrams)
+      8. [Threat Analysis](#348-threat-analysis)
+      9. [Ranking of Threats](#349-ranking-of-threats)
+      10. [Qualitative Risk Model](#3410-qualitative-risk-model)
    5. [Security Test Planning](#35-security-test-planning)
    6. [Security Architecture Review](#36-security-architecture-review)
 
@@ -342,10 +345,27 @@ By leveraging these secure design patterns, developers and architects can build 
 
 ## 3.4 Threat Modelling
 
-Threat modelling is a methodical way of finding and addressing possible security risks and weaknesses in software. It includes studying the system's structure, data flow, and possible points of attack to determine its vulnerabilities to security breaches.
+Threat modelling is a methodical way of finding and addressing possible security risks and weaknesses in software. It includes studying the system's structure, data flow and possible points of attack to determine its vulnerabilities to security breaches.
 
 
 ## 3.4.1. Threat Model Information
+
+> **Application Name:** EletricGo.
+
+> **Application Version:** 1.0.
+
+> **Description:** The application EletricGo is a system created to manage the deliveries of packages through eletric trucks.
+
+> **Document Owner:** Pedro Fernandes.
+
+> **Participants:** 
+  - Pedro Fernandes
+  - Alexandra Leite
+  - Fábio Cruz
+  - Vitor Costa
+  - Cristiano Soares
+
+> **Reviewer:** Vitor Costa.
 
 - **Purpose of the threat model**: 
   The purpose of this threat model is to identify and assess potential security threats and vulnerabilities associated with the user aggregate of the logistics application. By understanding these threats, we aim to implement appropriate security controls to safeguard user data, ensure user privacy, and maintain the integrity of the application.
@@ -371,9 +391,6 @@ Threat modelling is a methodical way of finding and addressing possible security
     - Compliance requirements such as GDPR, CCPA or other relevant regulations.
     - Time constraints for threat assessment and mitigation.
 
-- **Team members involved**:
-  - Developers: Provide insights into the implementation details and feasibility of security controls.
-
 
 ## 3.4.2. External Dependencies
 
@@ -394,7 +411,7 @@ Threat modelling is a methodical way of finding and addressing possible security
 | 2 | Login Page | Logistics, fleet and warehouse managers, operators and system administrator interact with a initial web form through the user interface, making HTTP requests to the backend API endpoints. | (1) Anonymous Web User (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
 | 3 | Profile page | All authenticated users have access to view their profile. | (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
 | 4 | External APIs | Integration with external APIs such as social media APIs for authentication | (1) Anonymous Web User (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
-| 5 | Database Interface | This entry point allows the backend to interact with the database | (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 5 | Database Interface | This entry point allows the backend to interact with the database | (7) Database Read/Write User |
 | 6 | Register page | This entry point allows system administrator register a user into the system | (6) System Administrator |
 
 ## 3.4.4. Exit Points
@@ -403,13 +420,16 @@ Threat modelling is a methodical way of finding and addressing possible security
 |----|------|-------------|-------------|
 | 1 | Response Data | The backend API endpoint returns a response to the user interface based on the request made by the user. This response may include user data or authentication tokens. | (1) Anonymous Web User (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
 | 2 | Database Response | After interacting with the database to store or retrieve user-related information, the backend API endpoint receives a response indicating the success or failure of the database operation. This response may include status codes, error messages or retrieved data. | (1) Anonymous Web User (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
-| 3 | Email Notifications | System-generated email notifications sent to users, containing sensitive information like account details or transaction confirmations. Without proper security, these emails risk interception or manipulation, leading to information disclosure or account takeover. | External APIs (Entry Point 4) |
+| 3 | Email Notifications | System-generated email notifications sent to users, containing sensitive information like account details or transaction confirmations. Without proper security, these emails risk interception or manipulation, leading to information disclosure or account takeover. | (8) Notifier |
 | 4 | Logging Activity | Logged events of user activity, system errors or security events. These logs are crucial for auditing, troubleshooting and security monitoring purposes.  | (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
 
 ## 3.4.5. Assets
-- Critical data and information
-- User accounts and credentials
-- Intellectual property and proprietary information
+
+| ID | Name | Description | Trust Level |
+|----|------|-------------|-------------|
+| 1 | User Data | Personal information of users, including names, email addresses, passwords, and other sensitive data stored in the application's database. | (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 2 | Critical Data | Information of delivery, distribution planning, warehouse and other sensitive data stored in the application's database. | (2) Operator (3) Logistics Manager (4) Fleet Manager (5) Warehouse Manager (6) System Administrator |
+| 3 | Configuration Data | Application configuration settings, including system settings, user permissions and access controls stored in the application's database. | (6) System Administrator |
 
 ## 3.4.6. Trust Levels
 
@@ -421,8 +441,14 @@ Threat modelling is a methodical way of finding and addressing possible security
 | 4 | Fleet Manager | Authenticated users with administrative privileges responsible for managing truck data and overseeing the application's operation. |
 | 5 | Warehouse Manager | Authenticated users with administrative privileges responsible for managing warehouse data and deliveries and overseeing the application's operation. |
 | 6 | System Administrator | Authenticated users with all privileges. Is responsible for managing user accounts and role permissions. |
+| 7 | Database Read/Write User | Specific user for access database management like read and write into database. |
+| 8 | Notifier | Specific user for notifications like sending emails. |
 
 ## 3.4.7. Data Flow Diagrams
+
+Data Flow Diagrams (DFDs) are visual depictions that illustrate how data moves within a system, showcasing its journey from input to processing, storage, and eventual output. In the context of our user aggregate, DFDs are invaluable tools for users to grasp how data flows within the system, starting from initial input such as user registration or login details, progressing through any updates or modifications, and ultimately being stored securely within the system for future access or retrieval as needed.
+
+![Data flow diagram](user_dfd.pnf)
 
 
 
