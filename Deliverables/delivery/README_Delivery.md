@@ -146,7 +146,15 @@ Considering the previous model, the user aggregate has the following database sc
     - **Mitigation:** Implement comprehensive logging and real-time monitoring systems to track all activities related to file downloads and generate alerts for suspicious actions.
 
 ### 2.2 Security Requirements Engineering
-In the context of security requirements engineering, it is crucial to establish both functional and non-functional requirements that protect the system from identified threats and vulnerabilities. This process involves detailed planning and implementation strategies that align with best security practices and compliance standards.
+
+Security requirements engineering is a fundamental process in the software development lifecycle that involves identifying and addressing potential security threats before they can be exploited.
+
+- **Requirement Identification:** Identify potential threats specific to the system's file download functionalities.
+- **Security Risk Assessment:** Perform risk assessments to evaluate the potential impact and likelihood of identified threats.
+- **Definition of Security Controls:** Define specific security controls and measures to address identified risks.
+- **Security Requirements Documentation:** Document all security requirements clearly and concisely.
+- **Integration with Development and Testing:** Use static and dynamic analysis tools that can identify security flaws related to file handling, during the development and testing.
+- **Ongoing Evaluation and Update:** Regularly review and update security requirements to adapt to new threats, technological advances, and changes in business strategy.
 
 ### 2.3 Abuse Cases
 
@@ -186,70 +194,101 @@ In the context of security requirements engineering, it is crucial to establish 
 
 ### 2.4 Functional Security Requirements
 
-- **Authentication and Authorization:** Ensure robust authentication before allowing file download requests. Utilize multi-factor authentication (MFA) for sensitive file accesses. Enforce strict authorization checks to confirm that the user has the correct permissions to download the requested file.
-
-
+- **Authentication and Authorization:** Ensure robust authentication before allowing file download requests. Utilize multi-factor authentication (MFA) for sensitive file accesses.
 - **Data Validation and Sanitization:** Implement rigorous input validation to prevent injection attacks through download requests, such as SQL injection or command injection. Sanitize file paths to prevent directory traversal or path manipulation attacks.
-
-
-- **Secure File Transmission:** Use TLS (Transport Layer Security) for all file transmissions to ensure that files are encrypted during transit. Apply additional file-level encryption for highly sensitive or confidential files before they are made available for download.
-
-
-- **Audit Trails:** Log all file download activities, including user identification, timestamp, file details, and access location. Ensure that these logs are immutable and securely stored for future audit and incident response purposes.
-
-
-- **Rate Limiting:** Implement rate limiting to prevent abuse of the file download feature, which could lead to Denial of Service (DoS) attacks or system overloads. Adjust rate limits based on user behavior patterns and threat intelligence to dynamically manage load and mitigate potential attacks.
-
-
-- **File Integrity Checks:** Provide checksums or cryptographic hashes for files before download, allowing users to verify the integrity of files post-download. Perform server-side integrity checks before serving the file to detect any unauthorized modifications.
+- **Secure File Transmission:** Use TLS (Transport Layer Security) for all file transmissions to ensure that files are encrypted during transit.
+- **Audit Trails:** Log all file download activities, ensuring that these logs are immutable and securely stored.
+- **Rate Limiting:** Implement rate limiting to prevent abuse of the file download feature, which could lead to Denial of Service (DoS) attacks or system overloads.
+- **File Integrity Checks:** Provide checksums or cryptographic hashes for files before download, allowing users to verify the integrity of files post-download.
 
 ### 2.5 Non-Functional Security Requirements
 
 - **Performance:** Security mechanisms must not degrade system performance beyond acceptable limits.
-
-
 - **Scalability:** Security architectures must keep pace with system growth without compromising security effectiveness.
-
-
 - **Reliability:** The system must remain available and functional.
-
-
 - **Usability:** Security measures must be implemented in such a way that they do not degrade the usability of the system.
-
-
 - **Compliance:** The system must comply with applicable legal and regulatory requirements relating to security and data protection.
 
 ### 2.6 Secure Development Requirements
 
-- **Security Training for Developers:** Conduct regular security training sessions for all developers to keep them updated on the latest security practices and vulnerabilities.
+Secure development requirements ensure that security is integrated into the software development lifecycle (SDLC) from the initial design through deployment and maintenance.
 
-
+- **Secure Coding Practices:** Developers follow secure coding guidelines to prevent common vulnerabilities like injection attacks.
 - **Secure Coding Standards:** Adhere to industry-standard secure coding guidelines such as OWASP Top 10, CWE/SANS TOP 25, and language-specific best practices.
-
-
-- **Static and Dynamic Analysis Tools:** Use static application security testing (SAST) tools to automatically detect vulnerabilities in code before it is deployed and employ dynamic application security testing (DAST) tools to test running applications for vulnerabilities, with a focus on areas involving file uploads and downloads.
-
-
-- **Third-Party Component Management:** Regularly review and update these components to ensure they are not introducing known vulnerabilities into the application, especially those that affect file handling capabilities.
-
-
-- **Secure Deployment Practices:** Use automated deployment tools that integrate security checks to prevent misconfigurations and vulnerabilities from reaching production environments.
-
-
-- **Incident Response and Patch Management:** Implement a systematic patch management process to quickly deploy fixes for newly discovered vulnerabilities affecting file download features.
-
-
-- **Regular Security Audits:** Conduct regular security audits of the application to assess the effectiveness of implemented security measures.
+- **Static and Dynamic Analysis Tools:** Using static application security testing (SAST) tools to automatically detect vulnerabilities in code before it is deployed and employ dynamic application security testing (DAST) tools to test running applications for vulnerabilities.
+- **Third-Party Component Management:** Reviewing and update these components to ensure they are not introducing known vulnerabilities into the application.
+- **Secure Deployment Practices:** Using automated deployment tools that integrate security checks to prevent misconfigurations and vulnerabilities from reaching production environments.
+- **Regular Security Audits:** Conducting security audits of the application to assess the effectiveness of implemented security measures.
+- **Incident Response and Patch Management:** Implementing a systematic patch management process to quickly deploy fixes for newly discovered vulnerabilities.
 
 ## 3. Design
 
 ### 3.1 Security Risk-Driven Design
 
+Security risk-oriented design is an approach that integrates security into the architecture design process, directly addressing the risks identified during the security requirements engineering phase.
+
+- **Threat Modeling Integration:** Revising the threat models created during the analysis phase, ensuring that all significant threats have corresponding mitigation strategies.
+- **Design of Secure Architectures:** Design a layered architecture that segregates different areas of the application according to their security needs.
+- **Encryption and Data Protection:** Determining the appropriate encryption standards and protocols. Incorporate encryption into the design for all data, designing the system to enforce strong encryption standards such as AES-256 for file transfers.
+- **Access control mechanisms:** Design fine-grade access control mechanisms that are closely integrated into the system's authentication infrastructure.
+- **Audit trails and monitoring:** Ensure that all file download activities are logged, tamper-resistant, with sufficient detail to identify who downloaded what, when and from where.
+
 ### 3.2 Secure Architecture
+
+Secure architecture involves structuring the system’s components and their interactions to enhance security capabilities while maintaining functionality and performance.
+
+- **Component Isolation:** Using a modular architecture that isolates sensitive components, ensuring that a breach in one area does not compromise the entire system.
+- **Secure Communication Channels:** Designing all communications between components and external systems to occur over secure channels.
+- **Minimal Privilege Access:** Ensuring that components operate with only the permissions necessary for their functionality.
+- **Intrusion Detection and Prevention Systems (IDPS):** Integrating IDPS at strategic points within the architecture to detect and respond to potential security threats in real-time.
+- **Data Encryption and Integrity Checks:** Designing the system to automatically encrypt all stored and transmitted data. Implementing mechanisms such as end-to-end encryption to protect data from the point of origin to the point of consumption.
 
 ### 3.3 Secure Design Patterns
 
+Secure design patterns are proven solutions to common security problems encountered in software design.
+
+- **Authentication Pattern:** Implement the Chain of Responsibility pattern to delegate authentication tasks to the centralized authentication service using OAuth or OpenID Connect.
+- **Proxy Pattern:** Using a proxy to control access to a resource, intercepting and validating requests before they reach the actual resource, adding an extra layer of security for file downloads.
+- **API Security Pattern:** Leverage the API Gateway pattern as a single entry point for API requests. This allows for centralized enforcement of security measures like authentication, authorization, rate limiting, and input validation before requests reach internal services.
+- **Singleton Pattern:** Implement critical security components, like cryptographic engines or security configuration managers, as singletons to ensure controlled access and consistent security configurations across the application.
+- **Secure Logging and Monitoring Pattern:** Implementing the Centralized Logging pattern to capture all relevant events, including user activity, system events, and potential security incidents.
+- **Observer Pattern:** Applying the observer pattern to monitor changes to critical data or configuration and automatically update dependent components in a secure manner.
+
 ### 3.4 Threat Modelling
+
+#### 3.4.1 Threat Model Information
+
+
+
+#### 3.4.2 External Dependencies
+
+- **Centralized Authentication Service (CAS):** A system responsible for user authentication.
+- **Database Management System (DBMS):** A system for storing delivery order data.
+- **Network Infrastructure:** The network components that allow communication between the backend, frontend, and other external systems.
+
+#### 3.4.3 Entry Points
+
+- **API Gateway:** The entry points for API requests to manage deliveries. (Highest Trust)
+- **Web application:** A web interface for warehouse managers to manage deliveries. (Medium Trust - External user interface)
+- **Database Interface:** This entry point allows the backend to interact with the database. (Highest Trust)
+
+#### 3.4.4 Exit Points
+
+- **API Gateway (Highest Trust):** Delivery plan PDFs downloaded by authorized warehouse managers.
+- **Web application (optional) (Medium Trust - External user interface):** Delivery information displayed to authorized users.
+- **Mobile application (optional) (Medium Trust - External user interface):** Delivery information displayed to authorized users.
+
+#### 3.4.5 Assets
+
+- **Delivery Order Data (Highest Trust):** Information about deliveries such as order ID, weight, warehouse location.
+- **User Information (Highest Trust, if stored within Delivery Aggregate):** Warehouse manager and operator credentials.
+- **Delivery Plans (Highest Trust):** Documents containing route and order details, potentially containing sensitive information.
+
+#### 3.4.6 Trust Levels
+
+- **Highest Trust:** Internal systems directly managed by ElectricGo with strong security controls (e.g., secure coding practices, regular security testing).
+- **Medium Trust:** External dependencies with a good reputation for security (e.g., well-established cloud service providers) or authorized users with specific roles (Warehouse Manager, Operator).
+- **Low Trust:** Untrusted external sources or users attempting to access the Delivery Aggregate.
 
 ### 3.5 Security Test Planning
 
