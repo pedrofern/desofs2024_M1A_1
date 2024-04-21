@@ -60,6 +60,17 @@ We have created the following issues to track the tasks related to the DESFOS pr
 
 ![Domain Model](diagrams/domainModel.png)
 
+The image shows a domain model for the ElectricGo system, detailing various aggregates and their relationships:
+
+- DeliveryPlan Aggregate: Central to the model, it has a one-to-many relationship with Route and Delivery, suggesting a single delivery plan consists of multiple routes and deliveries.
+- Route Entity: Contains details such as warehouse IDs, distance, time, energy, and extra time, indicating the specifics of each delivery route.
+- Delivery Entity: Holds information like weight and warehouse ID, likely representing an individual delivery action within a plan.
+- Truck Aggregate: Represents the physical trucks, with attributes like truck ID, tare, load capacity, and status (active/inactive). It is associated with a Battery value object, which details battery capacity, autonomy, and charging time.
+- Warehouse Management Aggregate: Consists of the Warehouse entity, which includes designation and an ID, and is linked to Address and GeographicCoordinates value objects.
+- Logistics Aggregate: Contains Packaging as its root entity, which is linked to Delivery, suggesting it details the packaging involved in deliveries.
+- User Aggregate: Describes user details such as username, first/last name, phone number, email, and password, and has a relationship with the Role entity.
+- Localization Value Object: Found within Logistics, it provides coordinates (x, y, z) for positioning.
+
 ### Users
 
 - The system will have the following types of users:
@@ -71,14 +82,38 @@ We have created the following issues to track the tasks related to the DESFOS pr
 
 ## Logical View
 
+![Logic View](diagrams/logic_view.png)
+
+The image depicts a Level 2 C4 model component diagram for the ElectricGO system. It outlines three key components:
+
+SPA (Single Page Application) – The user interface for client-side interactions.
+Backend API – Serves as the middleman processing business logic, client data requests, and responses.
+SGBD (Database Management System) on a Database Server – Handles data storage and management tasks.
+
+The flow is SPA communicates with the Backend API, which in turn interacts with the Database Server to perform data operations.
 
 ## Infrastucture View
 
 ![Infrastucture View](diagrams/servers.png)
 
+The image is a diagram depicting the architecture of a web application system, divided into three segments:
+
+- Single Page Application: The user interacts with the ElectricGO application, which is hosted on Google Firebase, suggesting the use of Firebase for hosting and possibly other backend services.
+- APIs and Webservices: The application communicates via HTTPS with backend services hosted on Azure App Services, where the Backend API processes requests and performs logic operations.
+- Databases: The Backend API then interacts, also via HTTPS, with a database hosted on SQL Server, indicating that SQL Server is used for data storage and management.
+
+The user icon on the left indicates the entry point of interaction, while the directional arrows suggest the flow of data and requests through the system.
+
 ## Physical View
 
 ![Physical View](diagrams/physical_view.png)
+
+The image displays a diagram illustrating the physical view of a server setup, consisting of two main components:
+
+- Physical Server: Hosts the "ElectricGO" application and a "Backend API", indicating that the server handles both the user-facing application and the backend processes. The connection between ElectricGO and the Backend API is secured with HTTPS, suggesting encryption for secure data transfer.
+- Database Server: Contains a "Database", which the Backend API communicates with, also using HTTPS for secure transactions.
+
+The diagram communicates that there are dedicated servers for the application and database, each responsible for different parts of the system architecture, with secure communication between them.
 
 ## Data Flow Diagram
 

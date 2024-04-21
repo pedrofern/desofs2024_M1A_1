@@ -1,0 +1,14 @@
+@startuml Logic View
+title <<component>> \n <<Context (C4)>> \n ElectricGO
+
+component "<<component>> \n <<Context (C4)>> \n SPA " as SPA
+component "<<component>> \n <<Context (C4)>> \n Backend API " as BackendAPI
+component "<<component>> \n <<Context (C4)>> \n Database Server " as DatabaseServer
+
+API - BackendAPI
+SPA --> API
+
+SGBD - DatabaseServer
+BackendAPI --> SGBD
+
+@enduml
