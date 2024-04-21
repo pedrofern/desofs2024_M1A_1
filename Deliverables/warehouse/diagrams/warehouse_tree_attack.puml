@@ -1,0 +1,26 @@
+@startuml
+skinparam defaultTextAlignment center
+
+
+node "Compromise Data Integrity\nfrom Public API" as root
+node "Intercept API Data" as intercept
+node "Man-in-the-Middle Attack (MitM)" as mitm
+node "Eavesdrop on Unencrypted Traffic" as eavesdrop
+node "Compromise API Endpoint" as compromise
+node "Exploit Vulnerability in API" as exploit_vuln
+node "Brute Force API Key" as brute_force
+node "Inject Malicious Data" as inject
+node "SQL Injection" as sql_inj
+node "XML/JSON Injection" as xml_json_inj
+
+root -- intercept
+root -- compromise
+root -- inject
+intercept -- mitm
+intercept -- eavesdrop
+compromise -- exploit_vuln
+compromise -- brute_force
+inject -- sql_inj
+inject -- xml_json_inj
+
+@enduml
