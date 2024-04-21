@@ -769,7 +769,7 @@
             "id": "a8d6f84d-2d98-41d4-8fe1-9e32ad79b612",
             "data": {
               "type": "tm.Process",
-              "name": "Process",
+              "name": "Backend",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",

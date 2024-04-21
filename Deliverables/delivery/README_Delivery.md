@@ -247,48 +247,92 @@ Secure architecture involves structuring the system’s components and their int
 
 Secure design patterns are proven solutions to common security problems encountered in software design.
 
-- **Authentication Pattern:** Implement the Chain of Responsibility pattern to delegate authentication tasks to the centralized authentication service using OAuth or OpenID Connect.
+- **Authentication Pattern:** Implement the responsibility pattern to delegate authentication tasks to the centralized authentication service using OAuth or OpenID Connect.
 - **Proxy Pattern:** Using a proxy to control access to a resource, intercepting and validating requests before they reach the actual resource, adding an extra layer of security for file downloads.
 - **API Security Pattern:** Leverage the API Gateway pattern as a single entry point for API requests. This allows for centralized enforcement of security measures like authentication, authorization, rate limiting, and input validation before requests reach internal services.
 - **Singleton Pattern:** Implement critical security components, like cryptographic engines or security configuration managers, as singletons to ensure controlled access and consistent security configurations across the application.
-- **Secure Logging and Monitoring Pattern:** Implementing the Centralized Logging pattern to capture all relevant events, including user activity, system events, and potential security incidents.
+- **Logging and Monitoring Pattern:** Implementing the Centralized Logging pattern to capture all relevant events, including user activity, system events, and potential security incidents.
 - **Observer Pattern:** Applying the observer pattern to monitor changes to critical data or configuration and automatically update dependent components in a secure manner.
 
 ### 3.4 Threat Modelling
 
 #### 3.4.1 Threat Model Information
 
+**Application Name:** ElectricGo.
 
+**Application Version:** 1.0.
+
+**Description:** The application ElectricGo is a system created to manage the deliveries of packages through electric trucks.
+
+**Document Owner:** Cristiano Soares
+
+**Participants:**
+
+- Alexandra Leite
+- Cristiano Soares
+- Fábio Cruz
+- Pedro Fernandes
+- Vitor Costa
+
+**Reviewer:** Fábio Cruz
 
 #### 3.4.2 External Dependencies
 
-- **Centralized Authentication Service (CAS):** A system responsible for user authentication.
-- **Database Management System (DBMS):** A system for storing delivery order data.
-- **Network Infrastructure:** The network components that allow communication between the backend, frontend, and other external systems.
+| ID | Description                                                                                                |
+|----|------------------------------------------------------------------------------------------------------------|
+| 1  | A system responsible for user authentication.                                                              |
+| 2  | A system for storing delivery order data.                                                                  |
+| 3  | The network components that allow communication between the backend, frontend, and other external systems. |
 
 #### 3.4.3 Entry Points
 
-- **API Gateway:** The entry points for API requests to manage deliveries. (Highest Trust)
-- **Web application:** A web interface for warehouse managers to manage deliveries. (Medium Trust - External user interface)
-- **Database Interface:** This entry point allows the backend to interact with the database. (Highest Trust)
+| ID | Name               | Description                                                        | Trust Levels                                                                                         |
+|----|--------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| 1  | API Gateway        | The entry points for API requests to manage deliveries.            | (1) Anonymous User (2) User with Valid Login Credentials (3) User with Invalid Login Credentials     |
+| 2  | Web application    | A web interface for warehouse managers to manage deliveries.       | (1) Anonymous Web User (2) User with Valid Login Credentials (3) User with Invalid Login Credentials |
+| 3  | Database Interface | This entry point allows the backend to interact with the database. | (1) Anonymous Web User (2) User with Valid Login Credentials (3) User with Invalid Login Credentials |
 
 #### 3.4.4 Exit Points
 
-- **API Gateway (Highest Trust):** Delivery plan PDFs downloaded by authorized warehouse managers.
-- **Web application (optional) (Medium Trust - External user interface):** Delivery information displayed to authorized users.
-- **Mobile application (optional) (Medium Trust - External user interface):** Delivery information displayed to authorized users.
+| ID | Name               | Description                                                     | Trust Levels                                                                                     |
+|----|--------------------|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| 1  | API Gateway        | Delivery plan PDFs downloaded by authorized warehouse managers. | (1) Anonymous User (2) User with Valid Login Credentials (3) User with Invalid Login Credentials |
+| 2  | Web application    | Delivery information displayed to authorized users.             | (1) Anonymous User (2) User with Valid Login Credentials (3) User with Invalid Login Credentials |
+| 3  | Database Interface | Delivery information displayed to authorized users.             | (1) Anonymous User (2) User with Valid Login Credentials (3) User with Invalid Login Credentials |
 
 #### 3.4.5 Assets
 
-- **Delivery Order Data (Highest Trust):** Information about deliveries such as order ID, weight, warehouse location.
-- **User Information (Highest Trust, if stored within Delivery Aggregate):** Warehouse manager and operator credentials.
-- **Delivery Plans (Highest Trust):** Documents containing route and order details, potentially containing sensitive information.
+| ID | Name                | Description                                                                                 | Trust Levels                                                                                     |
+|----|---------------------|---------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| 1  | Delivery Order Data | Information about deliveries such as order ID, weight, warehouse location.                  | (1) Anonymous User (2) User with Valid Login Credentials (3) User with Invalid Login Credentials |
+| 2  | Delivery Plans      | Documents containing route and order details, potentially containing sensitive information. | (1) Anonymous User (2) User with Valid Login Credentials (3) User with Invalid Login Credentials |
 
 #### 3.4.6 Trust Levels
 
-- **Highest Trust:** Internal systems directly managed by ElectricGo with strong security controls (e.g., secure coding practices, regular security testing).
-- **Medium Trust:** External dependencies with a good reputation for security (e.g., well-established cloud service providers) or authorized users with specific roles (Warehouse Manager, Operator).
-- **Low Trust:** Untrusted external sources or users attempting to access the Delivery Aggregate.
+| ID | Name                                | Description                                                                      |
+|----|-------------------------------------|----------------------------------------------------------------------------------|
+| 1  | Anonymous User                      | Untrusted external sources or users attempting to access the Delivery Aggregate. |
+| 2  | User with Valid Login Credentials   | Authorized users with specific roles (Warehouse Manager, Operator).              |
+| 3  | User with Invalid Login Credentials | Unauthorized users attempting to access the Delivery Aggregate.                  |
+
+#### 3.4.7. Data Flow Diagrams
+
+Data Flow Diagrams (DFDs) are graphical representations of the flow of data within a system. They help identify potential threats and vulnerabilities in the system.
+
+![Delivery_Threat_Modelling.png](diagrams/Delivery_Threat_Modelling.png)
+
+#### 3.4.8. Threat Analysis
+
+**STRIDE Threat Categories**
+
+| Category                   | Property Violated  | Description                                                                                                                      |
+|----------------------------|--------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| **Spoofing**               | Authentication     | Threat action aimed at accessing and using another user's credentials, such as username and password.                            |
+| **Tampering**              | Integrity          | Threat action intending to maliciously change or modify persistent data or data in transit over an open network.                 |
+| **Repudiation**            | Non-Repudiation    | Threat action aimed at performing operations in a system that lacks the ability to trace the operations.                         |
+| **Information Disclosure** | Confidentiality    | Threat action intending to expose data to unauthorized parties, such as reading data one was not granted access to.              |
+| **Denial of Service**      | Availability       | Threat action attempting to deny access to valid users, such as by making a web server temporarily unavailable.                  |
+| **Elevation of Privilege** | Authorization      | Threat action intending to gain privileged access to resources, often to compromise a system or access unauthorized information. |
 
 ### 3.5 Security Test Planning
 
