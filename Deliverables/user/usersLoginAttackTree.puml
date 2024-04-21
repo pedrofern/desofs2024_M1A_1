@@ -1,0 +1,39 @@
+@startuml
+digraph login_attack{
+
+node1    [shape=box fillcolor=lightblue   style="rounded,filled" label="1:\nAcquisition login credentials\n\nAND"]
+node11   [shape=box fillcolor=lightyellow style="rounded,filled" label="1.1:\nAttacker acquires valid username\n\nOR"]
+node111  [shape=box fillcolor=lightgray   style="rounded,filled" label="1.1.1:\nLogin page error\nused to determine validity"]
+node112  [shape=box fillcolor=lightgray   style="rounded,filled" label="1.1.2:\nAttacker gets user\nto disclose it"]
+
+node12   [shape=box fillcolor=lightyellow style="rounded,filled" label="1.2:\nAttacker acquires valid password\n\nOR"]
+node121  [shape=box fillcolor=lightgreen  style="rounded,filled" label="1.2.1:\nBrute-force attack on login page\n\nOR"]
+node1211 [shape=box fillcolor=lightgray   style="rounded,filled" label="1.2.1.1:\nDictionary attack using\ncommon passwords"]
+node1212 [shape=box fillcolor=lightgray   style="rounded,filled" label="1.2.1.2:\nCredential stuffing using\nleaked credentials"]
+
+node122  [shape=box fillcolor=lightgreen  style="rounded,filled" label="1.2.2:\nSocial engineering to obtain password\n\nOR"]
+node1221 [shape=box fillcolor=lightgray   style="rounded,filled" label="1.2.2.1:\nPhishing email asking\nfor credentials"]
+node1222 [shape=box fillcolor=lightgray   style="rounded,filled" label="1.2.2.2:\nGuessing common\npasswords"]
+
+node1223 [shape=box fillcolor=lightgray   style="rounded,filled" label="1.2.2.3:\nShoulder surfing"]
+
+
+
+node1 -> node11
+node1 -> node12
+
+node11 -> node111
+node11 -> node112
+
+node12 -> node121
+node12 -> node122
+
+node122 -> node1221
+node122 -> node1222
+node122 -> node1223
+
+node121 -> node1211
+node121 -> node1212
+
+}
+@enduml

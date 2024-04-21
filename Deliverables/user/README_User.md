@@ -448,9 +448,209 @@ Threat modelling is a methodical way of finding and addressing possible security
 
 Data Flow Diagrams (DFDs) are visual depictions that illustrate how data moves within a system, showcasing its journey from input to processing, storage, and eventual output. In the context of our user aggregate, DFDs are invaluable tools for users to grasp how data flows within the system, starting from initial input such as user registration or login details, progressing through any updates or modifications, and ultimately being stored securely within the system for future access or retrieval as needed.
 
-![Data flow diagram](user_dfd.pnf)
+![Data flow diagram](./users_dfd.png)
+
+## 3.4.8. Threat Analysis
+
+For threat analysis, we will use the STRIDE model to identify potential threats to the user aggregate. STRIDE stands for Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service and Elevation of Privilege.
+
+| Category  | Property | Violated Description |
+|-----------|----------|----------------------|
+| **Spoofing (S)** | **Authentication** | Attackers may attempt to spoof user identities by impersonating legitimate users during the login process. This could involve using stolen credentials, phishing attacks or exploiting weak authentication mechanisms. |
+|                |                    | Attackers may attempt to steal user credentials by spoofing login forms or tricking users into entering their credentials on malicious websites. |
+|                |                    | Attackers may spoof IP addresses to bypass IP-based access controls and submit forms from unauthorized locations.                                  |
+| **Tampering (T)**  | **Data Integrity** | Unauthorized modification of login data during transmission or storage, leading to compromised credentials. This could occur through data interception, man-in-the-middle attacks, or injection vulnerabilities. |
+|                |                    | Attackers may tamper with form data, such as modifying hidden fields or intercepting and modifying data in transit, to manipulate system behaviour or submit unauthorized requests. |
+|                |                    |  Attackers may tamper with form parameters to bypass validation checks or gain unauthorized access to sensitive resources.                     |
+| **Repudiation (R)**| **Non-Repudiation**| Lack of mechanisms to track and verify user login attempts, leading to repudiation of legitimate logins. Without proper logging and auditing, users may deny their login activities, complicating accountability. |
+|                |                    | Users may deny submitting certain forms or actions, leading to difficulties in tracing and resolving disputes over the authenticity of submitted data. |
+|                |                    | Users may repudiate form submissions, claiming that they did not initiate certain transactions, leading to disputes and challenges in establishing accountability. |
+| **Information Disclosure (I)** | **Confidentiality** | Unauthorized access to login credentials or session tokens, resulting in the exposure of sensitive information. This could happen due to weak encryption, insecure storage, or leakage of credentials through various means. |
+|                |                    | Attackers may exploit vulnerabilities in form processing to disclose sensitive information entered by users, such as personal information, payment details, or confidential documents. |
+|                |                    | Insecure error handling may reveal sensitive information in error messages, aiding attackers in crafting targeted attacks or exploiting system vulnerabilities. |
+| **Denial of Service (D)** | **Availability** | Malicious actors may launch denial-of-service (DoS) attacks to overwhelm the login system, rendering it inaccessible. This could result in legitimate users being unable to log in, leading to service disruptions and user frustration. |
+|                |                    |  Attackers may flood form submission endpoints with a large volume of requests, overwhelming system resources and causing denial of service to legitimate users. |
+|                |                    |  Attackers may exploit vulnerabilities to exhaust system resources, such as memory or CPU, leading to degradation or unavailability of form submission services. |
+| **Elevation of Privilege (E)** | **Authorization** | Exploitation of vulnerabilities to gain elevated privileges during the login process, granting unauthorized access. Attackers may bypass authentication controls or manipulate user roles to gain unauthorized access to sensitive resources. |
+|                |                    |  Attackers may hijack user sessions to gain unauthorized access to form submission functionalities and perform actions on behalf of legitimate users. |
+|                |                    | Exploitation of vulnerabilities may allow attackers to elevate their privileges and gain access to administrative features or sensitive form submission functionalities. |
+
+Additionally, there other ways to analyse the threats, like Attack Trees. Attack trees are graphical representations of potential attack scenarios, illustrating how attackers could exploit vulnerabilities to achieve their objectives. By mapping out attack trees, security teams can identify potential threats, assess their severity and prioritize mitigation efforts.
+
+![Attack Tree](usersLoginAttackTree.png)
 
 
+
+## 3.4.9. Ranking of Threats
+
+1. **User Credential Theft**
+- Damage potential: Threat to reputation as legal liability (8)
+- Reproducibility: Fully reproducible (10)
+- Exploitability: Require to be on the same subnet or have compromised a router (7)
+- Affected users: Affects all users (10)
+- Discoverability: Can be found out easily (10)
+- Overall DREAD score for this threat: (8 + 10 + 7 + 10 + 10) / 5 = 9
+
+2. **IP Spoofing**
+- Damage potential: Can lead to unauthorized access and potential data breaches (6)
+- Reproducibility: Fairly reproducible but requires technical knowledge (5)
+- Exploitability: Relatively high, especially if network security measures are weak (8)
+- Affected users: Potentially affects all users accessing the system (7)
+- Discoverability: Can be discovered by analyzing network logs and traffic patterns (4)
+- Overall DREAD score for this threat: (6 + 5 + 8 + 7 + 4) / 5 = 6
+
+3. **Data Manipulation**
+- Damage potential: High, as it can lead to data corruption, unauthorized access, and integrity violations (9)
+- Reproducibility: Moderately reproducible, depending on the attacker's knowledge and access level (6)
+- Exploitability: Requires a certain level of access to the system and knowledge of data structures (8)
+- Affected users: Potentially affects all users relying on the manipulated data (8)
+- Discoverability: May be difficult to detect if proper logging and monitoring mechanisms are not in place (5)
+- Overall DREAD score for this threat: (9 + 6 + 8 + 8 + 5) / 5 = 7.2
+
+4. **Parameter Tampering**
+- Damage potential: Moderate, depending on the context, can lead to unauthorized access or data manipulation (7)
+- Reproducibility: Moderately reproducible, especially if input validation mechanisms are weak (6)
+- Exploitability: Relatively high, as it involves manipulating input parameters of the system (7)
+- Affected users: Potentially affects users interacting with vulnerable input fields (7)
+- Discoverability: Can be discovered through security testing and code review (6)
+- Overall DREAD score for this threat: (7 + 6 + 7 + 7 + 6) / 5 = 6.6
+
+5. **False Submission Denial**
+- Damage potential: Moderate, may lead to confusion or incorrect data processing (6)
+- Reproducibility: Moderately reproducible, especially if the attacker has access to the submission process (6)
+- Exploitability: Moderate, requires knowledge of the submission process and potential vulnerabilities (7)
+- Affected users: Potentially affects users relying on the integrity of submitted data (8)
+- Discoverability: Can be discovered through anomaly detection or user reports (5)
+- Overall DREAD score for this threat: (6 + 6 + 7 + 8 + 5) / 5 = 6.4
+
+6. **Sensitive Data Exposure**
+- Damage potential: High, can lead to privacy breaches and legal consequences (9)
+- Reproducibility: Fairly reproducible, especially if the attacker can exploit vulnerabilities in data handling processes (7)
+- Exploitability: Moderate to high, depending on the security measures in place (8)
+- Affected users: Potentially affects all users whose data is exposed (9)
+- Discoverability: Can be discovered through security testing or incident response activities (6)
+- Overall DREAD score for this threat: (9 + 7 + 8 + 9 + 6) / 5 = 7.8
+
+7. **Error Message Disclosure**
+- Damage potential: Moderate, may lead to information leakage and aid attackers in crafting targeted attacks (7)
+- Reproducibility: Moderately reproducible, especially if error messages are not properly handled (6)
+- Exploitability: Moderate, requires analysis of error messages and understanding of system vulnerabilities (7)
+- Affected users: Potentially affects users who receive error messages from the system (7)
+- Discoverability: Can be discovered through security testing or analysis of system behavior (6)
+- Overall DREAD score for this threat: (7 + 6 + 7 + 7 + 6) / 5 = 6.6
+
+8. **Resource Exhaustion**
+- Damage potential: High, can lead to denial of service and system unavailability (8)
+- Reproducibility: Fully reproducible, especially if the attacker can launch resource-intensive attacks (8)
+- Exploitability: High, as it involves exhausting system resources such as CPU, memory, or bandwidth (9)
+- Affected users: Potentially affects all users trying to access the overwhelmed system (9)
+- Discoverability: Can be discovered through monitoring of system performance and resource usage (6)
+- Overall DREAD score for this threat: (8 + 8 + 9 + 9 + 6) / 5 = 8
+
+9. **Session Hijacking**
+- Damage potential: High, can lead to unauthorized access and identity theft (9)
+- Reproducibility: Fairly reproducible, especially if session management mechanisms are weak (7)
+- Exploitability: High, requires interception or manipulation of session tokens (9)
+- Affected users: Potentially affects all users whose sessions are hijacked (9)
+- Discoverability: Can be discovered through anomaly detection or monitoring of session activity (7)
+- Overall DREAD score for this threat: (9 + 7 + 9 + 9 + 7) / 5 = 8.2
+
+10. **Unauthorized Access**
+- Damage potential: High, can lead to unauthorized access to sensitive data or functionalities (9)
+- Reproducibility: Fairly reproducible, especially if authentication mechanisms are weak (7)
+- Exploitability: High, requires bypassing authentication controls or exploiting vulnerabilities (9)
+- Affected users: Potentially affects all users whose accounts are compromised (9)
+- Discoverability: Can be discovered through security monitoring or incident response activities (8)
+- Overall DREAD score for this threat: (9 + 7 + 9 + 9 + 8) / 5 = 8.4
+
+
+
+## 3.4.10 Qualitative Risk Model
+
+1. **User Credential Theft**:
+   - Likelihood of occurrence: High, as attackers frequently attempt to steal user credentials through various means such as phishing attacks and password cracking.
+   - Potential impact: Severe, as the theft of user credentials can lead to unauthorized access to sensitive information, financial loss, and reputational damage.
+   - Likelihood: 9
+   - Impact: 8
+   - Risk = Likelihood x Impact = 9 x 8 = 72
+
+2. **IP Spoofing**:
+   - Likelihood of occurrence: Moderate, as IP spoofing requires specific technical knowledge and access to certain tools.
+   - Potential impact: Significant, as successful IP spoofing can bypass access controls, leading to unauthorized access and potential data breaches.
+   - Likelihood: 6
+   - Impact: 6
+   - Risk = Likelihood x Impact = 6 x 6 = 36
+
+3. **Data Manipulation**:
+   - Likelihood of occurrence: Moderate, as data manipulation attacks often target vulnerabilities in data processing and storage systems.
+   - Potential impact: Severe, as unauthorized data manipulation can lead to data corruption, integrity breaches, and financial losses.
+   - Likelihood: 7
+   - Impact: 9
+   - Risk = Likelihood x Impact = 7 x 9 = 63
+
+4. **Parameter Tampering**:
+   - Likelihood of occurrence: Moderate, as attackers may attempt to manipulate input parameters to bypass security controls or gain unauthorized access.
+   - Potential impact: Moderate, as successful parameter tampering can lead to data integrity issues, unauthorized access, and service disruptions.
+   - Likelihood: 6
+   - Impact: 7
+   - Risk = Likelihood x Impact = 6 x 7 = 42
+
+5. **False Submission Denial**:
+   - Likelihood of occurrence: Moderate, as attackers may attempt to deny the submission of legitimate forms or transactions.
+   - Potential impact: Moderate, as false submission denial can lead to confusion, delays in processing, and potential loss of business opportunities.
+   - Likelihood: 6
+   - Impact: 6
+   - Risk = Likelihood x Impact = 6 x 6 = 36
+
+6. **Sensitive Data Exposure**:
+   - Likelihood of occurrence: High, as sensitive data exposure vulnerabilities are common in systems that handle confidential information.
+   - Potential impact: Severe, as the exposure of sensitive data can lead to regulatory non-compliance, financial penalties, and reputational damage.
+   - Likelihood: 8
+   - Impact: 9
+   - Risk = Likelihood x Impact = 8 x 9 = 72
+
+7. **Error Message Disclosure**:
+   - Likelihood of occurrence: Moderate, as error message disclosure vulnerabilities may exist due to improper error handling practices.
+   - Potential impact: Moderate, as disclosure of error messages can provide valuable information to attackers and aid in further exploitation of system vulnerabilities.
+   - Likelihood: 6
+   - Impact: 7
+   - Risk = Likelihood x Impact = 6 x 7 = 42
+
+8. **Resource Exhaustion**:
+   - Likelihood of occurrence: High, as resource exhaustion attacks are relatively easy to execute and can target various system resources.
+   - Potential impact: Significant, as resource exhaustion can lead to denial of service, system unavailability, and disruption of business operations.
+   - Likelihood: 8
+   - Impact: 8
+   - Risk = Likelihood x Impact = 8 x 8 = 64
+
+9. **Session Hijacking**:
+   - Likelihood of occurrence: High, as session hijacking attacks target authentication and session management mechanisms.
+   - Potential impact: Severe, as successful session hijacking can lead to unauthorized access to user accounts, data leakage, and identity theft.
+   - Likelihood: 8
+   - Impact: 9
+   - Risk = Likelihood x Impact = 8 x 9 = 72
+
+10. **Unauthorized Access**:
+    - Likelihood of occurrence: High, as unauthorized access attempts are common in systems with weak authentication mechanisms or unpatched vulnerabilities.
+    - Potential impact: Severe, as unauthorized access can lead to data breaches, system compromise, and loss of trust among users and stakeholders.
+    - Likelihood: 8
+    - Impact: 9
+    - Risk = Likelihood x Impact = 8 x 9 = 72
+
+In the table bellow, we summarize the risk assessment for each threat based on the likelihood and impact scores, as well as the overall risk score calculated using the DREAD model.
+
+| Threat                    | Likelihood      | Impact           | Risk   |
+|---------------------------|-----------------|------------------|--------|
+| User Credential Theft     | High (9)        | Severe (8)       | 72     |
+| IP Spoofing               | Moderate (6)    | Significant (6)  | 36     |
+| Data Manipulation         | Moderate (7)    | Severe (9)       | 63     |
+| Parameter Tampering       | Moderate (6)    | Moderate (7)     | 42     |
+| False Submission Denial   | Moderate (6)    | Moderate (6)     | 36     |
+| Sensitive Data Exposure   | High (8)        | Severe (9)       | 72     |
+| Error Message Disclosure  | Moderate (6)    | Moderate (7)     | 42     |
+| Resource Exhaustion       | High (8)        | Significant (8)  | 64     |
+| Session Hijacking         | High (8)        | Severe (9)       | 72     |
+| Unauthorized Access       | High (8)        | Severe (9)       | 72     |
 
 
 
