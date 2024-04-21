@@ -43,7 +43,18 @@ Each user will have restrictions, based on roles and each role will give permiss
       9. [Ranking of Threats](#349-ranking-of-threats)
       10. [Qualitative Risk Model](#3410-qualitative-risk-model)
    5. [Security Test Planning](#35-security-test-planning)
+      1. [Objective](#351-objective)
+      2. [Scope](#352-scope)
+      3. [Methodology](#353-methodology)
+      4. [Test Scenarios](#354-test-scenarios)
+      5. [Deliverables](#355-deliverables)
    6. [Security Architecture Review](#36-security-architecture-review)
+      1. [Objectives](#361-objectives)
+      2. [Components to Review](#362-components-to-review)
+      3. [Review Process](#363-review-process)
+      4. [Deliverables](#364-deliverables)
+
+
 
 ## 1. Requirements Engineering
 
@@ -190,21 +201,35 @@ Abuse cases (also know misused cases) are scenarios that describe how a system c
 
 ## 2.4 Functional Security Requirements
 
-| Security Requirement | Description|
-|----------------------|------------|
-| **User Authentication** | The system must provide mechanisms for authenticating users, including username/password and multi-factor authentication (MFA).|
-| **Access Control**      | The system must enforce access controls to ensure that only authorized users have access to specific resources or functionalities. This includes role-based access control (RBAC), permissions management, and segregation of duties. |
-| **Encryption**          | The system must support encryption for sensitive data both at rest and in transit. This includes encryption algorithms, key management, and secure communication protocols (e.g., SSL/TLS).|
-| **Audit Logging**       | The system must log relevant security events and user activities for monitoring, auditing, and forensic purposes. This includes logging user logins, access attempts, system changes, and security-related events.|
-| **Session Management**  | The system must manage user sessions securely, including session expiration, session tokens, and preventing session hijacking or fixation attacks.|
-| **Data Integrity**      | The system must ensure the integrity of data by implementing measures to prevent unauthorized modification or tampering. This includes data validation, checksums, digital signatures, and hash functions.|
-| **Secure Configuration** | The system must be configured securely according to best practices and industry standards. This includes hardening of servers, secure configuration of network devices, and regular security assessments.|
-| **Secure APIs**         | If the system exposes APIs (Application Programming Interfaces), they must be designed and implemented securely to prevent API abuse, injection attacks, and unauthorized access.|
-| **Secure File Handling** | The system must handle files securely, including file uploads, downloads, storage, and transmission. This includes validation of file types, malware scanning, and access controls on stored files.|
-| **Error Handling**      | The system must handle errors gracefully and securely, avoiding information leakage that could be exploited by attackers. Error messages should be informative to users but not reveal sensitive system details.|
-| **Secure Communication** | The system must ensure secure communication channels between components, including encryption of network traffic, secure configuration of web servers, and protection against common attacks like man-in-the-middle (MITM).|
-| **Backup and Recovery** | The system must implement secure backup and recovery procedures to protect against data loss, corruption, and ransomware attacks. This includes regular backups, off-site storage, and testing of recovery procedures.|
+Here's the corrected table with all the functional security requirements for user management, including the requirement for passwords to be at least 12 characters long:
 
+| Security Requirement             | Description                                                                                                                                                 |
+|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **User Authentication**          | The system must provide mechanisms for authenticating users, including username/password and multi-factor authentication (MFA).                              |
+| **Access Control**               | The system must enforce access controls to ensure that only authorized users have access to specific resources or functionalities. This includes role-based access control (RBAC), permissions management, and segregation of duties. |
+| **Encryption**                   | The system must support encryption for sensitive data both at rest and in transit. This includes encryption algorithms, key management, and secure communication protocols (e.g., SSL/TLS).|
+| **Audit Logging**                | The system must log relevant security events and user activities for monitoring, auditing, and forensic purposes. This includes logging user logins, access attempts, system changes, and security-related events.|
+| **Session Management**           | The system must manage user sessions securely, including session expiration, session tokens, and preventing session hijacking or fixation attacks.                |
+| **Data Integrity**               | The system must ensure the integrity of data by implementing measures to prevent unauthorized modification or tampering. This includes data validation, checksums, digital signatures, and hash functions.|
+| **Secure Configuration**         | The system must be configured securely according to best practices and industry standards. This includes hardening of servers, secure configuration of network devices, and regular security assessments.|
+| **Secure APIs**                  | If the system exposes APIs (Application Programming Interfaces), they must be designed and implemented securely to prevent API abuse, injection attacks, and unauthorized access. |
+| **Secure File Handling**         | The system must handle files securely, including file uploads, downloads, storage, and transmission. This includes validation of file types, malware scanning, and access controls on stored files.|
+| **Error Handling**               | The system must handle errors gracefully and securely, avoiding information leakage that could be exploited by attackers. Error messages should be informative to users but not reveal sensitive system details.|
+| **Secure Communication**         | The system must ensure secure communication channels between components, including encryption of network traffic, secure configuration of web servers, and protection against common attacks like man-in-the-middle (MITM).|
+| **Backup and Recovery**          | The system must implement secure backup and recovery procedures to protect against data loss, corruption, and ransomware attacks. This includes regular backups, off-site storage, and testing of recovery procedures.|
+| **User Registration**            | The system must allow users to register securely, including validation of user-provided information, such as email addresses, and prevention of automated bots. |
+| **Password Complexity**          | User passwords must meet complexity requirements, such as including a combination of uppercase and lowercase letters, numbers, and special characters.       |
+| **Password Expiry**              | The system must enforce password expiry policies to ensure that users periodically change their passwords and enhance security.                              |
+| **Account Lockout**              | The system must implement account lockout mechanisms to temporarily lock user accounts after a specified number of failed login attempts.                      |
+| **Password History**             | The system must prevent users from reusing previous passwords to enhance security and prevent password cycling.                                             |
+| **Multi-Factor Authentication (MFA)** | The system should provide support for multi-factor authentication methods, such as SMS codes, authenticator apps, or hardware tokens, to add an extra layer of security. |
+| **User Profile Management**      | Users should be able to manage their profile securely, including updating personal information, changing passwords, and configuring security settings.       |
+| **User Deactivation**            | Administrators should have the ability to deactivate or suspend user accounts temporarily when necessary, such as in cases of suspicious activity or non-compliance. |
+| **User Role Assignment**         | Administrators should be able to assign appropriate roles and permissions to users based on their responsibilities and access requirements.                    |
+| **User Activity Monitoring**     | The system should log and monitor user activities, such as login attempts, password changes, and profile modifications, for security and compliance purposes.    |
+| **User Session Revocation**      | Administrators should have the capability to revoke or terminate user sessions remotely, especially in cases of suspected unauthorized access or compromised accounts. |
+| **Password Recovery**            | The system should provide secure mechanisms for users to recover or reset forgotten passwords, such as email-based password reset links or security questions.    |
+| **Password Length**              | User passwords must be at least 12 characters long to enhance security and prevent brute-force attacks.                                                      |
 
 ## 2.5 Non-Functional Security Requirements
 
@@ -656,4 +681,80 @@ In the table bellow, we summarize the risk assessment for each threat based on t
 
 ## 3.5 Security Test Planning
 
+### 3.5.1. Objective
+- Identify and mitigate security vulnerabilities related to user authentication, access control, data handling, and user management.
+- Ensure compliance with security best practices and regulatory requirements.
+- Validate the effectiveness of security controls implemented for user-related functionalities.
+
+### 3.5.2. Scope
+The security testing will cover the following aspects related to the users aggregate:
+- User authentication mechanisms, including login, password management and session handling.
+- Access control mechanisms to ensure that users have appropriate permissions and restrictions.
+- User profile management functionalities, including registration, profile updates and password recovery.
+- Security controls related to user data handling, such as encryption, integrity protection and secure transmission.
+
+### 3.5.3. Methodology
+The security testing will employ a combination of automated tools and manual techniques, including:
+- Automated vulnerability scanning to identify common security flaws such as injection vulnerabilities, cross-site scripting (XSS) and insecure configurations.
+- Manual penetration testing to identify complex security vulnerabilities and validate the effectiveness of security controls.
+- Code review and static analysis to identify potential security weaknesses in the source code related to user functionalities.
+- Dynamic analysis of user interactions with the application to identify security risks and vulnerabilities.
+
+### 3.5.4. Test Scenarios
+The following test scenarios will be executed as part of the security testing:
+1. **User Authentication Testing:**
+   - Verify that strong password policies are enforced, including minimum password length and complexity requirements.
+   - Test for account lockout mechanisms after multiple failed login attempts.
+   - Validate the effectiveness of multi-factor authentication (MFA) in enhancing security.
+2. **Access Control Testing:**
+   - Test access controls to ensure that users can only access authorized resources and functionalities.
+   - Verify that sensitive operations require appropriate permissions and that unauthorized access attempts are blocked.
+3. **User Profile Management Testing:**
+   - Test user registration process for security vulnerabilities such as injection attacks and account enumeration.
+   - Verify that users can update their profiles securely and that sensitive information is protected.
+   - Test password recovery mechanisms for security and usability.
+4. **Data Handling Testing:**
+   - Test encryption mechanisms for user data at rest and in transit.
+   - Verify data integrity measures such as checksums and digital signatures.
+   - Test for proper access controls and authorization checks when accessing user data.
+
+### 3.5.5. Deliverables
+- A comprehensive report will be generated, detailing the findings of the security testing, including identified vulnerabilities, their severity levels, and recommendations for remediation. The report will be shared with the development team and stakeholders for review and action.
+
+- The security testing activities will be conducted over a specified period, with regular updates provided to stakeholders on progress and any emerging issues. The timeline for testing will be determined based on the complexity of the application and the scope of testing required.
+
+- The security testing will require access to testing environments, tools, and skilled security professionals with expertise in penetration testing, secure coding practices, and security assessment methodologies.
+
+- By conducting thorough security testing of the users aggregate, we aim to identify and address potential security vulnerabilities proactively, thereby enhancing the overall security posture of the system and mitigating risks associated with user-related functionalities.
+
 ## 3.6 Security Architecture Review
+
+### 3.6.1 Objectives
+- Evaluate the effectiveness of security controls in place to protect user-related functionalities.
+- Identify any design flaws or weaknesses in the security architecture that could expose the system to potential threats.
+- Ensure alignment with security best practices and compliance requirements.
+
+### 3.6.2 Components to Review
+The security architecture review will assess the following components related to the user aggregate:
+1. User authentication mechanisms, including login processes and password management.
+2. Access control mechanisms governing user permissions and privileges.
+3. User profile management functionalities, such as registration, profile updates and password recovery.
+4. Security measures for handling user data, including encryption, data integrity and secure transmission.
+
+### 3.6.3 Review Process
+The review process will involve the following steps:
+1. **Documentation Review:** Examine design documents, architecture diagrams and security requirements to understand the intended security architecture.
+2. **Interviews:** Conduct interviews with key stakeholders, including developers, architects and security professionals, to gather insights into the security design and implementation.
+3. **Technical Analysis:** Perform a technical analysis of the implemented security controls, including code review, configuration assessment and testing of security features.
+4. **Threat Modelling:** Conduct threat modelling exercises to identify potential threats and vulnerabilities specific to the user aggregate.
+5. **Risk Assessment:** Evaluate the identified security risks and prioritize them based on severity and potential impact on the system.
+6. **Recommendations:** Provide recommendations for improving the security architecture, including mitigating identified risks and enhancing overall security posture.
+
+### 3.6.4 Deliverables
+- A detailed report will be generated, summarizing the findings of the security architecture review, including identified strengths, weaknesses, and recommendations for improvement. The report will be shared with relevant stakeholders for review and action.
+
+- The security architecture review will be conducted over a defined period, with milestones established for each phase of the review process. The timeline will be determined based on the complexity of the system and the scope of the review.
+
+- The review will require access to documentation, source code, and development environments, as well as the expertise of security professionals experienced in security architecture reviews and threat modelling.
+
+- The security architecture review aims to enhance the overall security posture of the user aggregate by identifying and addressing potential security weaknesses and ensuring alignment with security best practices and standards.

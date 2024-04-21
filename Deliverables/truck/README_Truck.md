@@ -364,7 +364,7 @@ The threat model information provides an overview of the system and its context,
 ### 3.4.7 Data Flow Diagrams
 Data Flow Diagrams (DFDs) are graphical representations of the flow of data within a system. They provide a visual representation of how data moves through different processes, inputs, outputs, and storage within a system. By analyzing the data flow within the system, you can identify potential security vulnerabilities and design appropriate security controls to mitigate them.
 
-![Truck DFD](truckDFD.png)
+![Filter DFD](filterDFD.png)
 
 ### 3.4.8 Threat Analysis
 | Category       | Property           | Violated Description |
@@ -458,10 +458,7 @@ Below is the Attack Tree illustrating the compromise of filter and search securi
 
 2. **Injection Attacks**:
   - Likelihood of occurrence: Moderate to high, as injection attacks are common and can be automated.
-  - Potential impact: Significant, as successful injection attacks can lead to data corruption, unauthorized access, and system compromise.
-
-3. **Denial of Service (DoS)**:
-  - Likelihood of occurrence: Moderate to high, as DoS attacks can be launched remotely and exploit vulnerabilities in the system's infrastructure.
+  - Potential impact: Significant, as successful injection attacks can lead to data corruption, unauthorized access, and system compromLikelihood of occurrence: Moderate to high, as DoS attacks can be launched remotely and exploit vulnerabilities in the system's infrastructure.
   - Potential impact: Significant, as DoS attacks can result in service disruptions, loss of revenue, and customer dissatisfaction.
 
 4. **Data Tampering**:
@@ -502,20 +499,16 @@ Below is the Attack Tree illustrating the compromise of filter and search securi
 
 3. **Secure Storage**: Store sensitive data in encrypted form to protect it from tampering. Use strong encryption algorithms and ensure that encryption keys are properly managed.
 
-4. **Access Control**: Implement access control mechanisms to restrict unauthorized access to sensitive data. This can include role-based access control, user authentication, and authorization checks.
-
-5. **Secure Communication**: Use secure protocols such as HTTPS to encrypt communication between the client and server, preventing tampering of data in transit.
+4. **Secure Communication**: Use secure protocols such as HTTPS to encrypt communication between the client and server, preventing tampering of data in transit.
 
 #### Repudiation
 1. **Audit Logs**: Implement comprehensive logging of user actions and system events to create an audit trail. This can help in identifying and proving the occurrence of specific actions or events, preventing repudiation.
 
 2. **Digital Signatures**: Use digital signatures to ensure the integrity and authenticity of important system transactions or documents. This can provide evidence of the origin and integrity of the data, preventing repudiation.
 
-3. **Non-repudiation Protocols**: Implement non-repudiation protocols, such as digital certificates or timestamping, to ensure that parties involved in a transaction cannot deny their involvement. This can provide strong evidence in case of disputes or legal proceedings.
+34. **User Accountability**: Implement user authentication mechanisms and enforce accountability for actions performed within the system. This can include strong user identification, access controls, and user activity monitoring.
 
-4. **User Accountability**: Implement user authentication mechanisms and enforce accountability for actions performed within the system. This can include strong user identification, access controls, and user activity monitoring.
-
-5. **Third-party Verification**: Involve trusted third parties, such as auditors or regulators, to independently verify and validate important transactions or system activities. This can provide additional assurance and evidence in case of repudiation claims.
+4. **Third-party Verification**: Involve trusted third parties, such as auditors or regulators, to independently verify and validate important transactions or system activities. This can provide additional assurance and evidence in case of repudiation claims.
 
 #### Information Disclosure
 1. **Sensitive Data Classification**: Classify sensitive information based on its level of confidentiality and implement appropriate access controls to ensure that only authorized users can access the data.
