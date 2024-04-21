@@ -1,4 +1,4 @@
-[Clixk here to show global document](../README.md)
+[Click here to show global document](../README.md)
 
 # Software Architectural Analysis and Design of User Aggregate
 
@@ -521,7 +521,7 @@ Additionally, there other ways to analyse the threats, like Attack Trees. Attack
 - Reproducibility: Fairly reproducible but requires technical knowledge (5)
 - Exploitability: Relatively high, especially if network security measures are weak (8)
 - Affected users: Potentially affects all users accessing the system (7)
-- Discoverability: Can be discovered by analyzing network logs and traffic patterns (4)
+- Discoverability: Can be discovered by analysing network logs and traffic patterns (4)
 - Overall DREAD score for this threat: (6 + 5 + 8 + 7 + 4) / 5 = 6
 
 3. **Data Manipulation**
@@ -561,7 +561,7 @@ Additionally, there other ways to analyse the threats, like Attack Trees. Attack
 - Reproducibility: Moderately reproducible, especially if error messages are not properly handled (6)
 - Exploitability: Moderate, requires analysis of error messages and understanding of system vulnerabilities (7)
 - Affected users: Potentially affects users who receive error messages from the system (7)
-- Discoverability: Can be discovered through security testing or analysis of system behavior (6)
+- Discoverability: Can be discovered through security testing or analysis of system behaviour (6)
 - Overall DREAD score for this threat: (7 + 6 + 7 + 7 + 6) / 5 = 6.6
 
 8. **Resource Exhaustion**
