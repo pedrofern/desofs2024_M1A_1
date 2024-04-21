@@ -185,8 +185,6 @@ Some examples of security requirements for the truck aggregate may include:
 
 8. **Secure Configuration**: The system should be configured securely, following best practices and industry standards, to minimize potential vulnerabilities and ensure a robust security posture.
 
-These are just a few examples of security requirements that should be considered during the security requirements engineering phase. It is important to involve security experts and stakeholders to identify and prioritize the specific security requirements based on the system's context and potential risks.
-
 ## 2.3 Abuse Cases
 Abuse cases are scenarios where the system can be intentionally misused or exploited. Here are some abuse cases for the Truck aggregate:
 

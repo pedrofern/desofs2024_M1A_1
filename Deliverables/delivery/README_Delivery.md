@@ -334,6 +334,92 @@ Data Flow Diagrams (DFDs) are graphical representations of the flow of data with
 | **Denial of Service**      | Availability       | Threat action attempting to deny access to valid users, such as by making a web server temporarily unavailable.                  |
 | **Elevation of Privilege** | Authorization      | Threat action intending to gain privileged access to resources, often to compromise a system or access unauthorized information. |
 
+![Delivery_Attack_Tree.png](diagrams/Delivery_Attack_Tree.png)
+
+#### 3.4.9. Ranking of Threats
+
+# Ranking of Threats
+
+## 1. Man-in-the-Middle (MitM) Attack During Download
+- **Damage Potential**: High - File replaced with malware, potential system compromise (9)
+- **Reproducibility**: High - MitM attacks are common and often replicable (8)
+- **Exploitability**: Moderate - Requires some knowledge and access to the network between the user and the server (7)
+- **Affected Users**: High - All users during the download can be affected (8)
+- **Discoverability**: Moderate - Can be detected with adequate network security tools (6)
+- **Overall DREAD Score**: (9+8+7+8+6) / 5 = 7.6
+
+## 2. File Corruption Due to Network Failures
+- **Damage Potential**: Moderate - Damaged or incomplete files (6)
+- **Reproducibility**: Variable - Dependent on network quality and external conditions (5)
+- **Exploitability**: Low - Generally not a malicious action, more circumstantial (3)
+- **Affected Users**: Medium - Users in unstable network conditions are more affected (6)
+- **Discoverability**: Low - May not be immediately apparent without file integrity checks (4)
+- **Overall DREAD Score**: (6+5+3+6+4) / 5 = 4.8
+
+## 3. Malicious Code Injection on the Download Server
+- **Damage Potential**: High - Execution of malicious code, significant potential impact on the user's system and data (9)
+- **Reproducibility**: High - Once the server is compromised, multiple downloads can be affected (8)
+- **Exploitability**: Medium - Requires access to the server, which can be challenging (7)
+- **Affected Users**: High - All users downloading files from the compromised server (9)
+- **Discoverability**: Medium - May be difficult to detect until the malware is activated (6)
+- **Overall DREAD Score**: (9+8+7+9+6) / 5 = 7.8
+
+## 3.4.10. Qualitative Risk Model
+
+### Introduction
+This section details the risk assessment for security threats associated with interactions with public APIs, analyzing each threat based on its likelihood of occurrence and potential impact. This provides a qualitative risk value that aids in prioritizing mitigation efforts.
+
+### Risk Assessment
+
+| Threat                   | Likelihood of Occurrence           | Potential Impact                | Risk Score |
+|--------------------------|------------------------------------|---------------------------------|------------|
+| **API Impersonation**    | High (Remote exploit, no auth needed, automatable) | Moderate (Data manipulation, no system control) | 7 x 6 = 42 |
+| **Endpoint Spoofing**    | Moderate (Remote exploit, DNS manipulation) | High (Data theft, malware distribution) | 6 x 8 = 48 |
+| **Data Interception and Modification** | Moderate (Remote data interception, some technical setup) | High (Data integrity and confidentiality compromise) | 6 x 8 = 48 |
+| **Parameter Injection**  | Moderate (Remote exploitation, requires API knowledge) | High (Can alter system behavior, access restricted data) | 6 x 7 = 42 |
+| **Request Denial**       | High (Remote and automatable, no auth needed) | Moderate (Service disruption, impacts user access) | 8 x 6 = 48 |
+| **Log Tampering**        | Moderate (Requires access to log systems, some setup) | High (Erase evidence, complicates forensic analysis) | 6 x 8 = 48 |
+| **Sensitive Data Leaks** | High (Remote exploit, weak data protections) | High (Major confidentiality breaches, regulatory impact) | 8 x 9 = 72 |
+
+### Detailed Risk Analysis
+
+#### 1. **API Impersonation**
+- **Likelihood**: High due to the possibility of remote setup and automation.
+- **Impact**: Moderate as it involves data manipulation but lacks direct system control.
+- **Risk Score**: 42
+
+#### 2. **Endpoint Spoofing**
+- **Likelihood**: Moderate, depends on the ability to manipulate DNS or intercept traffic.
+- **Impact**: High due to the potential for significant data theft and malware spread.
+- **Risk Score**: 48
+
+#### 3. **Data Interception and Modification**
+- **Likelihood**: Moderate, especially if data is transmitted without robust encryption.
+- **Impact**: High as it directly affects the integrity and confidentiality of data.
+- **Risk Score**: 48
+
+#### 4. **Parameter Injection**
+- **Likelihood**: Moderate, requires specific knowledge about the API and its parameters.
+- **Impact**: High, could lead to unauthorized actions or access to sensitive data.
+- **Risk Score**: 42
+
+#### 5. **Request Denial**
+- **Likelihood**: High, easily automated and executed remotely without authentication.
+- **Impact**: Moderate, mainly affects service availability and user access.
+- **Risk Score**: 48
+
+#### 6. **Log Tampering**
+- **Likelihood**: Moderate, requires access but can be critical if achieved.
+- **Impact**: High, erases activity evidence and hampers security audits.
+- **Risk Score**: 48
+
+#### 7. **Sensitive Data Leaks**
+- **Likelihood**: High, particularly with inadequate data protections.
+- **Impact**: High, significant confidentiality breaches and regulatory implications.
+- **Risk Score**: 72
+
+This structured risk model helps prioritize which threats require immediate attention based on their potential to impact the system and the likelihood of their occurrence.
+
 ### 3.5 Security Test Planning
 
 ### 3.6 Security Architecture Review

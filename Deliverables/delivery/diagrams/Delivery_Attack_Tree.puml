@@ -1,0 +1,33 @@
+@startuml
+skinparam defaultTextAlignment center
+
+title Threat Analysis Tree
+
+node "1:\nFile Download Corruption" as root
+node "1.1:\nMitM Attack during Download" as mitm_attack
+node "1.1.1:\nFile replaced with malware" as file_malware
+node "1.1.2:\nSensitive data interception" as data_interception
+
+node "1.2:\nNetwork Failures" as network_failures
+node "1.2.1:\nFile partially incomplete" as file_incomplete
+node "1.2.2:\nLoss of time and resources" as loss_resources
+
+node "1.3:\nCode Injection on Download Server" as code_injection
+node "1.3.1:\nExecution of malicious code" as exec_malicious
+node "1.3.2:\nDamaged brand trust" as brand_trust
+
+root -- mitm_attack
+root -- network_failures
+root -- code_injection
+
+mitm_attack -- file_malware
+mitm_attack -- data_interception
+
+network_failures -- file_incomplete
+network_failures -- loss_resources
+
+code_injection -- exec_malicious
+code_injection -- brand_trust
+
+@enduml
+
