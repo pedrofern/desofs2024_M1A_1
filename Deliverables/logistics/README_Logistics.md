@@ -446,23 +446,47 @@ Below it shows us the Attack Tree of compromising form security.
 1. **Injection Attacks**:
    - Likelihood of occurrence: High, as injection attacks can often be exploited remotely and automated (e.g., SQL injection).
    - Potential impact: Significant, as successful injection attacks can lead to data breaches, system compromise, and financial losses.
+   - Likelihood: 8
+   - Impact: 9
+   - Risk = Likelihood x Impact = 8 x 9 = 72
 
 2. **Authentication Attacks**:
    - Likelihood of occurrence: Moderate to high, depending on the strength of authentication mechanisms and user awareness.
    - Potential impact: Moderate to significant, as compromised user accounts can lead to unauthorized access, data breaches, and reputational damage.
+   - Likelihood: 7
+   - Impact: 8
+   - Risk = Likelihood x Impact = 7 x 8 = 56
 
 3. **Session Attacks**:
    - Likelihood of occurrence: Moderate, as session attacks may require specific vulnerabilities in session management.
    - Potential impact: Moderate, as compromised sessions can lead to unauthorized access to user accounts and sensitive data.
+   - Likelihood: 6
+   - Impact: 6
+   - Risk = Likelihood x Impact = 6 x 6 = 36
 
 4. **Data Theft**:
    - Likelihood of occurrence: Moderate to high, as data theft can occur through various means such as exploitation of vulnerabilities or social engineering attacks.
    - Potential impact: Significant, as loss of sensitive data can result in regulatory fines, legal liabilities, reputational damage, and financial losses.
+   - Likelihood: 7
+   - Impact: 9
+   - Risk = Likelihood x Impact = 7 x 9 = 63
 
 5. **Denial of Service**:
    - Likelihood of occurrence: Moderate to high, as denial of service attacks can be launched remotely and may exploit vulnerabilities in the system's infrastructure.
    - Potential impact: Significant, as service disruptions can lead to loss of revenue, reputational damage, and customer dissatisfaction.
- 
+   - Likelihood: 8
+   - Impact: 8
+   - Risk = Likelihood x Impact = 8 x 8 = 64
+
+| Threat                    | Likelihood      | Impact           | Risk   |
+|---------------------------|-----------------|------------------|--------|
+| Injection Attacks         | High (8)        | Significant (9) | 72     |
+| Authentication Attacks    | Moderate to high (7) | Moderate to significant (8) | 56 |
+| Session Attacks           | Moderate (6)    | Moderate (6)     | 36     |
+| Data Theft                | Moderate to high (7) | Significant (9) | 63     |
+| Denial of Service         | Moderate to high (8) | Significant (8) | 64     |
+
+
 
 ## 3.4.11. Mitigation and Countermeasures
 
