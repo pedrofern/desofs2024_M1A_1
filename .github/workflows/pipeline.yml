@@ -43,7 +43,7 @@ jobs:
 
       - name: Check deliverables folder for backend
         run: |
-          if [ ! -d "BackendAPI/Deliverables" ]; then
+          if [ ! -d "Deliverables/BackendAPI" ]; then
             echo "Error: 'Deliverables' folder not found for backend."
             exit 1
           fi
