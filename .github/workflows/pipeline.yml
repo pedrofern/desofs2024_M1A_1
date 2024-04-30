@@ -26,16 +26,14 @@ jobs:
         with:
           node-version: '16'
 
-      # Add other steps for frontend build and tests here
-      # Example:
-      # - name: Install Angular CLI
-      #   run: npm install -g @angular/cli
-      # - name: Install dependencies
-      #   run: npm install
-      # - name: Build Angular project
-      #   run: ng build --prod
-      # - name: Run Angular tests
-      #   run: ng test --watch=false --browsers=ChromeHeadlessNoSandbox
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular project
+        run: ng build --prod
+
+      - name: Run ESLint checks
+        run: npm run lint
 
   build-backend:
     runs-on: ubuntu-latest
@@ -45,7 +43,7 @@ jobs:
 
       - name: Check deliverables folder for backend
         run: |
-          if [ ! -d "Deliverables/BackendAPI" ]; then
+          if [ ! -d "BackendAPI/Deliverables" ]; then
             echo "Error: 'Deliverables' folder not found for backend."
             exit 1
           fi
@@ -56,11 +54,14 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      # Add other steps for backend build and tests here
+      # Add other steps for backend build here
       # Example:
       # - name: Build with Maven
       #   run: mvn clean install -DskipTests
-      # - name: Run Spring Boot tests
-      #   run: mvn test
+
+      - name: Run Spring Boot tests
+        run: |
+          cd BackendAPI
+          mvn test
 
   # Optionally add a deployment job if needed
