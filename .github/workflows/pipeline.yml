@@ -61,7 +61,6 @@ jobs:
 
       - name: Run Spring Boot tests
         run: |
-          cd BackendAPI
           mvn test
 
   # Optionally add a deployment job if needed
