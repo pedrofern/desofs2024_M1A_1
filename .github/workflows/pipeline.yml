@@ -67,15 +67,15 @@ jobs:
  
       - name: Check deliverables folder for frontend
         run: |
-          if [ ! -d "Deliverables/EletricGo" ]; then
-            echo "Error: 'Deliverables/EletricGo' folder not found for frontend."
+          if [ ! -d "Deliverables/EletricGO" ]; then
+            echo "Error: 'Deliverables/EletricGO' folder not found for frontend."
             exit 1
           fi
  
       - name: Clean environment
         run: |
-          rm -rf Deliverables/EletricGo/dist/
-        working-directory: Deliverables/EletricGo
+          rm -rf Deliverables/EletricGO/dist/
+        working-directory: Deliverables/EletricGO
  
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -87,22 +87,22 @@ jobs:
  
       - name: Install dependencies
         run: npm install
-        working-directory: Deliverables/EletricGo
+        working-directory: Deliverables/EletricGO
  
       - name: Build frontend
         run: npm run build -- --prod
-        working-directory: Deliverables/EletricGo
+        working-directory: Deliverables/EletricGO
  
       - name: Lint frontend code
         run: npm run lint
-        working-directory: Deliverables/EletricGo
+        working-directory: Deliverables/EletricGO
  
       - name: Analyze frontend dependencies
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
           unzip dependency-check-6.1.6-release.zip
           ./dependency-check/bin/dependency-check.sh --scan node_modules/ --format HTML --out dependency-report/
-        working-directory: Deliverables/EletricGo
+        working-directory: Deliverables/EletricGO
  
       - name: Archive frontend artifact
         uses: actions/upload-artifact@v2
