@@ -1,0 +1,51 @@
+<div class="centered-content">
+  <div class="model-box has-background-white">
+      <form *ngIf="truck" (ngSubmit)="id ? edit(truckDetailForm) : create(truckDetailForm)" #truckDetailForm="ngForm">
+          <h2>{{!id ? 'Create' : 'Edit'}} Truck {{truck.truckId}}</h2>
+          <div class="form-group" *ngIf="!id">
+            <label for="inputTruckId">Licence Plate</label>
+            <input class="form-control" type="text" [inputMask]="matriculaInputMask" name="inputTruckId" [(ngModel)]="truck.truckId" required ngModel>
+          </div>
+
+          <div class="form-group">
+            <label for="inputTare">Tare</label>
+            <input class="form-control" type="number" name="inputTare" [(ngModel)]="truck.tare" required ngModel>
+          </div>
+
+          <div class="form-group">
+            <label for="inputLoadCapacity">Load Capacity</label>
+            <input class="form-control" type="number" name="inputLoadCapacity" [(ngModel)]="truck.loadCapacity" required ngModel>
+          </div>
+
+          <div class="form-group">
+            <label for="inputMaximumBattery">Maximum Battery</label>
+            <input class="form-control" type="number" name="inputMaximumBattery" [(ngModel)]="truck.maximumBattery" required ngModel>
+          </div>
+
+          <div class="form-group">
+            <label for="inputAutonomy">Autonomy</label>
+            <input class="form-control" type="number" name="inputAutonomy" [(ngModel)]="truck.autonomy" required ngModel>
+          </div>
+
+          <div class="form-group">
+            <label for="inputChargingTime">Charging Time</label>
+            <input class="form-control" type="number" name="inputChargingTime" [(ngModel)]="truck.chargingTime" required ngModel>
+          </div>
+
+          <div class="form-group">
+            <div>Status</div>
+            <mat-slide-toggle color="blue" name="inputActive" [(ngModel)]="truck.active">{{ truck.active ? "Active" : "Inactive" }}</mat-slide-toggle>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-outline-primary" *ngIf="id" [disabled]="!truckDetailForm.form.valid">Save</button>
+            <button type="submit" class="btn btn-outline-primary" *ngIf="!id" [disabled]="!truckDetailForm.form.valid">Create</button>
+            <button type="button" class="btn btn-outline-secondary" routerLink="/trucks">Cancel</button>
+          </div>
+          <div class="d-flex justify-content-center">
+            <div *ngIf="!success && success != null" class="alert alert-danger alert-dismissible fade show" role="alert">{{this.errorMessage}}</div>
+            <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">{{this.successMessage}}</div>
+        </div>
+    </form>
+</div>
+</div>

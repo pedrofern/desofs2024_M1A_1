@@ -1,0 +1,60 @@
+<div class="centered-content">
+    <div class="model-box has-background-white">
+        <form *ngIf="warehouse" (ngSubmit)="id ? edit(warehouseDetailForm) : create(warehouseDetailForm)" #warehouseDetailForm="ngForm">
+            <h2>{{!id ? 'Create' : 'Edit'}} Warehouse {{warehouse.identifier}}</h2>
+            <div class="form-group" *ngIf="!id">
+                <label for="inputPackagingId">Warehouse ID</label>
+                <input class="form-control" type="text" name="inputWarehouseId" [(ngModel)]="warehouse.identifier" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputDesignation">Designation</label>
+                <input class="form-control" type="text" name="inputDesignation" [(ngModel)]="warehouse.designation" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputStreetName">Street Name</label>
+                <input class="form-control" type="text" name="inputStreetName" [(ngModel)]="warehouse.streetName" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputDoorNumber">Door Number</label>
+                <input class="form-control" type="number" name="inputDoorNumber" [(ngModel)]="warehouse.doorNumber" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputCity">City</label>
+                <input class="form-control" type="text" name="inputCity" [(ngModel)]="warehouse.city" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputCountry">Country</label>
+                <input class="form-control" type="text" name="inputCountry" [(ngModel)]="warehouse.country" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputZipCode">Zip Code</label>
+                <input class="form-control" type="text" name="inputZipCode" [(ngModel)]="warehouse.zipCode" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputLatitude">Latitude</label>
+                <input class="form-control" type="number" name="inputLatitude" [(ngModel)]="warehouse.latitude" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputLongitude">Longitude</label>
+                <input class="form-control" type="number" name="inputLongitude" [(ngModel)]="warehouse.longitude" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputHeight">Height</label>
+                <input class="form-control" type="number" name="inputHeight" [(ngModel)]="warehouse.height" required ngModel>
+            </div>
+            <div class="form-group">
+                <div>Status</div>
+                <mat-slide-toggle color="blue" name="inputActive" [(ngModel)]="warehouse.active">{{ warehouse.active ? "Active" : "Inactive" }}</mat-slide-toggle>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-primary" *ngIf="id" [disabled]="!warehouseDetailForm.form.valid">Save</button>
+                <button type="submit" class="btn btn-outline-primary" *ngIf="!id" [disabled]="!warehouseDetailForm.form.valid">Create</button>
+                <button type="button" class="btn btn-outline-secondary" routerLink="/warehouses">Cancel</button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div *ngIf="!success && success != null" class="alert alert-danger alert-dismissible fade show" role="alert">{{this.errorMessage}}</div>
+                <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">{{this.successMessage}}</div>
+            </div>
+        </form>
+    </div>
+</div>

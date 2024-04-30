@@ -1,0 +1,73 @@
+<div class="centered-content">
+    <div class="model-box has-background-white">
+        <div class="title-footer">
+        <h3 class="title has-text-primary">
+            Users
+        </h3>
+        <div class="page-footer">
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="search-box" placeholder="Search" (keyup)="applyFilter($event)">
+            </div>
+            <div style="padding-right: 10px;">
+                <button type="button" class="btn btn-primary btn-sm" routerLink="/users/password">Reset Password</button>
+            </div>
+            <div *ngIf="role === '1'">
+                <button type="button" class="btn btn-primary btn-sm" routerLink="/users/create">Create</button>
+            </div>
+        </div>
+        <mat-table [dataSource]="dataSource" matSort>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+
+        <ng-container matColumnDef="userName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>UserName</mat-header-cell>
+            <mat-cell *matCellDef="let element" >{{ element.userName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>FirstName</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>LastName</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="phoneNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>PhoneNumber</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.phoneNumber }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.roleName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-icon-button routerLink="/users/edit/{{element.email}}">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <div *ngIf="role === '1'">
+                    <button mat-icon-button routerLink="/users/delete/{{element.email}}">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </mat-cell>
+        </ng-container>
+        </mat-table>
+        <mat-paginator
+            [pageSizeOptions]="[10, 20, 30]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+</div>
+

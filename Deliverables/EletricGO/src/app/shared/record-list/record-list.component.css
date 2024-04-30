@@ -1,0 +1,15 @@
+.record-list {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .record-list li {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .record-list li:hover {
+    left: .1em;
+  }

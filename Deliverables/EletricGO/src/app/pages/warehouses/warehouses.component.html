@@ -1,0 +1,132 @@
+<div class="centered-content">
+    <div class="model-box has-background-white">
+        <div class="title-footer">
+            <h3 class="title has-text-primary">
+                Warehouses
+            </h3>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-primary btn-sm" routerLink="/warehouses/create">Create</button>
+        </div>
+        <mat-table [dataSource]="dataSource" matSort (matSortChange)="customSort($event)">
+
+            <ng-container matColumnDef="identifier">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-form-field>
+                    <input matInput type="text" [(ngModel)]="filterIdentifier" (keyup.enter)="updateValue()" placeholder="Warehouse ID">
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" >{{ element.identifier }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="designation_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="filterDesignation" (keyup.enter)="updateValue()" placeholder="Designation">
+                    </mat-form-field>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.designation }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address_streetName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="filterStreetName" (keyup.enter)="updateValue()" placeholder="Street Name">
+                    </mat-form-field>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.streetName }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address_doorNumber">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <mat-form-field>
+                        <input matInput type="number" [(ngModel)]="filterDoorNumber" (keyup.enter)="updateValue()" placeholder="Door Number">
+                    </mat-form-field>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.doorNumber }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address_city">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="filterCity" (keyup.enter)="updateValue()" placeholder="City">
+                    </mat-form-field>
+                </mat-header-cell>                
+                <mat-cell *matCellDef="let element">{{ element.city }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address_country">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="filterCountry" (keyup.enter)="updateValue()" placeholder="Country">
+                    </mat-form-field>
+                </mat-header-cell>                   
+                <mat-cell *matCellDef="let element">{{ element.country }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address_zipCode">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="filterZipCode" (keyup.enter)="updateValue()" placeholder="Zip Code">
+                    </mat-form-field>
+                </mat-header-cell>                 
+                <mat-cell *matCellDef="let element">{{ element.zipCode }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="geographiccoordinates_latitude">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <mat-form-field>
+                        <input matInput type="number" [(ngModel)]="filterLatitude" (keyup.enter)="updateValue()" placeholder="Latitude">
+                    </mat-form-field>
+                </mat-header-cell>                  
+                <mat-cell *matCellDef="let element">{{ element.latitude }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="geographiccoordinates_longitude">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <mat-form-field>
+                        <input matInput type="number" [(ngModel)]="filterLongitude" (keyup.enter)="updateValue()" placeholder="Longitude">
+                    </mat-form-field>
+                </mat-header-cell>                   
+                <mat-cell *matCellDef="let element">{{ element.longitude }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="height">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <mat-form-field>
+                        <input matInput type="number" [(ngModel)]="filterHeight" (keyup.enter)="updateValue()" placeholder="Height">
+                    </mat-form-field>
+                </mat-header-cell>                   
+                <mat-cell *matCellDef="let element">{{ element.height }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="active">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  <mat-form-field>
+                      <input matInput type="text" [(ngModel)]="filterActive" (keyup.enter)="updateValue()" placeholder="Status">
+                  </mat-form-field>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.active ? "Active" : "Inactive" }}</mat-cell>
+              </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button routerLink="/warehouses/edit/{{ element.identifier }}">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+
+        </mat-table>
+        <mat-paginator matPaginator
+            [length]="totalRecords"
+            [pageSizeOptions]="pageSizes"
+            showFirstLastButtons
+            (page)="pageChanged($event)">
+        </mat-paginator>
+    </div>
+</div>

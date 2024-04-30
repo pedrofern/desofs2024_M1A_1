@@ -1,0 +1,6 @@
+<ul class="record-list">
+    <li *ngFor="let record of records">
+        <app-record-list-record [id]="record.id" [description]="record.description" (recordClicked)="onRecordClicked($event)" >
+        </app-record-list-record>
+    </li>    
+</ul>

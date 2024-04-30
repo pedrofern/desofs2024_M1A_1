@@ -1,0 +1,10 @@
+@import '../../../styles.css';
+
+.img-fluid {
+    width: 50%;
+}
+
+.full-back {
+    height: max-content;
+    background-color: #0c1d36;
+}

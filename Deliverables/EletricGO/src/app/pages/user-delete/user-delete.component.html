@@ -1,0 +1,37 @@
+<div class="centered-content">
+    <div class="model-box has-background-white">
+        <form *ngIf="user" (ngSubmit)="delete(userDeleteForm) " #userDeleteForm="ngForm">
+            <h2>Delete User: {{user.email}}</h2>
+            <div>
+                <label for="user-name">Username </label>
+                <input name="username" type="text" placeholder="{{user.userName}}" [(ngModel)]="user.userName" required readonly ngModel />
+
+                <label for="user-phonenumber">Phone Number </label>
+                <input name="phonenumber" type="text" [(ngModel)]="user.phoneNumber" required readonly ngModel />
+
+                <label for="user-firstname">First Name </label>
+                <input name="firstname" type="text" [(ngModel)]="user.firstName" required readonly ngModel />
+
+                <label for="user-lastname">Last Name </label>
+                <input name="lastname" type="text" [(ngModel)]="user.lastName" required readonly ngModel />
+
+                <label for="user-email">Email</label>
+                <input class="email" type="text"  name="email" [(ngModel)]="user.email" required readonly ngModel>
+                
+                <label for="user-role">Role</label>
+                <select name="role" [(ngModel)]="user.role" required disabled="true" ngModel >
+                    <option disabled>Choose the role</option>
+                    <option *ngFor="let role of roles" value="{{role.id}}">{{role.name}}</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-outline-secondary" routerLink="/users">Cancel</button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div *ngIf="!success && success != null" class="alert alert-danger">{{this.errorMessage}}</div>
+                <div *ngIf="success" class="alert alert-success">{{this.successMessage}}</div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="centered-content">
+  <div class="model-box has-background-white">
+      <div class="title-footer">
+      <h3 class="title has-text-primary">
+          Trucks
+      </h3>
+      </div>
+      <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-primary btn-sm" routerLink="/trucks/create">Create</button>
+      </div>
+      <mat-table [dataSource]="dataSource" matSort (matSortChange)="customSort($event)"> 
+          <ng-container matColumnDef="truckId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div matSortHeader>
+                  <mat-form-field>
+                      <input matInput type="text" [(ngModel)]="filterTruckId" (keyup.enter)="updateValue()" placeholder="Licence Plate">
+                  </mat-form-field>
+              </div>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" >{{ element.truckId }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="tare">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-form-field>
+                  <input matInput type="number" [(ngModel)]="filterTare" (keyup.enter)="updateValue()" placeholder="Tare">
+              </mat-form-field>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.tare }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="loadCapacity">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-form-field>
+                  <input matInput type="number" [(ngModel)]="filterLoadCapacity" (keyup.enter)="updateValue()" placeholder="Load Capacity">
+              </mat-form-field>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.loadCapacity }}</mat-cell>     
+          </ng-container>
+
+          <ng-container matColumnDef="maximumBattery">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-form-field>
+                  <input matInput type="number" [(ngModel)]="filterMaximumBattery" (keyup.enter)="updateValue()" placeholder="Battery">
+              </mat-form-field>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.maximumBattery }}</mat-cell> 
+          </ng-container>
+
+          <ng-container matColumnDef="autonomy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-form-field>
+                  <input matInput type="number" [(ngModel)]="filterAutonomy" (keyup.enter)="updateValue()" placeholder="Autonomy">
+              </mat-form-field>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.autonomy }}</mat-cell> 
+          </ng-container>
+
+          <ng-container matColumnDef="chargingTime">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-form-field>
+                  <input matInput type="number" [(ngModel)]="filterChargingTime" (keyup.enter)="updateValue()" placeholder="Charging Time">
+              </mat-form-field>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.chargingTime }}</mat-cell> 
+          </ng-container>
+
+          <ng-container matColumnDef="active">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-form-field>
+                  <input matInput type="text" [(ngModel)]="filterActive" (keyup.enter)="updateValue()" placeholder="Status">
+              </mat-form-field>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.active ? "Active" : "Inactive" }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-icon-button routerLink="/trucks/edit/{{ element.truckId }}">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </mat-cell>
+          </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+        </mat-table>
+        <mat-paginator matPaginator
+            [length]="totalRecords"
+            [pageSizeOptions]="pageSizes"
+            showFirstLastButtons
+            (page)="pageChanged($event)">
+        </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+.custom-paginator {
+    float: right;
+    margin-bottom: 15px;
+}
+
+.custom-paginator > div {
+    padding: 8px;    
+}

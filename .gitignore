@@ -25,3 +25,10 @@ replay_pid*
 
 # IntelliJ IDEA
 .idea/
+
+# Angular
+Deliveries/EletricGO/node_modules/*
+Deliveries/EletricGO/dist/*
+
+# Ignore cache created with the Angular CLI.
+.angular/

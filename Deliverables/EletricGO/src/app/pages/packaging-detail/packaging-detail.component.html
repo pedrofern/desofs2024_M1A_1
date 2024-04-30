@@ -1,0 +1,54 @@
+<div class="centered-content">
+    <div class="model-box has-background-white">
+        <form *ngIf="packaging" (ngSubmit)="id ? edit(packagingDetailForm) : create(packagingDetailForm)" #packagingDetailForm="ngForm">
+            <h2>{{!id ? 'Create' : 'Edit'}} Packaging {{packaging.packagingId}}</h2>
+            <div class="form-group" *ngIf="!id">
+                <label for="inputPackagingId">Packaging ID</label>
+                <input class="form-control" type="text" name="inputPackagingId" [(ngModel)]="packaging.packagingId" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputDeliveries">Delivery</label>
+                <select class="form-control" name="inputDelivery" [(ngModel)]="packaging.deliveryId" required ngModel>
+                    <option disabled>Choose a delivery</option>
+                    <option *ngFor="let delivery of deliveries" value="{{delivery.deliveryIdentifier}}">{{delivery.deliveryIdentifier}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputTruck">Truck</label>
+                <select class="form-control" name="inputTruck" [(ngModel)]="packaging.truckId" required ngModel>
+                    <option disabled>Choose a truck</option>
+                    <option *ngFor="let truck of trucks" value="{{truck.truckId}}">{{truck.truckId}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputX">Position X</label>
+                <input class="form-control" type="number" name="inputX" [(ngModel)]="packaging.x" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputY">Position Y</label>
+                <input class="form-control" type="number" name="inputY" [(ngModel)]="packaging.y" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputZ">Position Z</label>
+                <input class="form-control" type="number" name="inputZ" [(ngModel)]="packaging.z" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputLoadTime">Load Time</label>
+                <input class="form-control" type="number" name="inputLoadTime" [(ngModel)]="packaging.loadTime" required ngModel>
+            </div>
+            <div class="form-group">
+                <label for="inputUnloadTime">Unload Time</label>
+                <input class="form-control" type="number" name="inputUnloadTime" [(ngModel)]="packaging.unloadTime" required ngModel>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-primary" *ngIf="id" [disabled]="!packagingDetailForm.form.valid">Save</button>
+                <button type="submit" class="btn btn-outline-primary" *ngIf="!id" [disabled]="!packagingDetailForm.form.valid">Create</button>
+                <button type="button" class="btn btn-outline-secondary" routerLink="/packagings">Cancel</button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div *ngIf="!success && success != null" class="alert alert-danger alert-dismissible fade show" role="alert">{{this.errorMessage}}</div>
+                <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">{{this.successMessage}}</div>      
+            </div>
+        </form>
+    </div>
+</div>

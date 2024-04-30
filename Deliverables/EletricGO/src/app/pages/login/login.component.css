@@ -1,0 +1,10 @@
+section {
+    min-height: 100%;
+    background: #F5F5F5;
+  }
+  
+  .btn-success {
+    background-color: #1c6cf5 !important;
+    border-color: #1c6cf5
+  }
+  

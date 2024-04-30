@@ -1,0 +1,46 @@
+<div class="flex-box generic-form-component">
+    <div>
+        <h2>Routes</h2>
+        <form #routesForm="ngForm">
+            <div class="form-group">
+                <label for="routeId">Packaging ID</label>
+                <input type="text" class="form-control" name="routeId" [value]="[(this.currentSelectedRoute?.routeId)]" required>
+            </div>
+            <div class="form-group">
+                <label for="inputDelivery">Departure Warehouse</label>
+                <select name="departureWarehouse" class="form-control" [value]="[(this.currentSelectedRoute?.idDepartureWarehouse)]" required>
+                    <option *ngFor="let wh of warehouses" [ngValue]="wh.identifier">{{wh.identifier}} - {{wh.designation}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputTruck">Arrival Warehouse</label>
+                <select name="arrivalWarehouse" class="form-control" [value]="[(this.currentSelectedRoute?.idArrivalWarehouse)]" required>
+                    <option *ngFor="let wh of warehouses" [ngValue]="wh.identifier">{{wh.identifier}} - {{wh.designation}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="distance">Distance</label>
+                <input type="number" class="form-control" name="distance" [value]="[(this.currentSelectedRoute?.distance)]" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="number" class="form-control" name="time" [value]="[(this.currentSelectedRoute?.time)]" required>
+            </div>
+            <div class="form-group">
+                <label for="energy">Energy</label>
+                <input type="number" class="form-control" name="energy" [value]="[(this.currentSelectedRoute?.energy)]" required>
+            </div>
+            <div class="form-group">
+                <label for="extraTime">Extra Time</label>
+                <input type="number" class="form-control" name="extraTime" [value]="[(this.currentSelectedRoute?.extraTime)]" required>
+            </div>
+            <div>
+                <button type="submit" (click)="add(routesForm)">Create</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <h2>List</h2>
+        <app-record-list [records]="this.getRoutesAsGeneralItem()" (recordClicked)="onRecordClicked($event)"></app-record-list>
+    </div>
+</div>

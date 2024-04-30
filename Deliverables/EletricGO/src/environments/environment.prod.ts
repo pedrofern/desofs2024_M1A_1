@@ -1,0 +1,16 @@
+export const environment = {
+  production: true,
+  APIDeliveries: "https://lapr5g79ga.azurewebsites.net/api/deliveries/",
+  APIPlannings: "https://lapr5g79log.azurewebsites.net/api/plannings/",
+  //APICreatePlannings: "http://10.9.23.98:6969/planning",
+  APICreatePlannings: "http://localhost:6969/planning",
+  APIPackagings: "https://lapr5g79log.azurewebsites.net/api/packagings/",
+  APIRoutes: "https://lapr5g79log.azurewebsites.net/api/routes/",
+  APITrucks: "https://lapr5g79log.azurewebsites.net/api/trucks/",
+  APIWarehouses: "https://lapr5g79ga.azurewebsites.net/api/warehouses/",
+  APILogin: "https://lapr5g79log.azurewebsites.net/api/auth/",
+  APIUsers: "https://lapr5g79log.azurewebsites.net/api/users/",
+  APIPassword: "https://lapr5g79log.azurewebsites.net/api/users/password/",
+  APIDeleteUser: "https://lapr5g79log.azurewebsites.net/api/users/cancel/",
+  APIRoles: "https://lapr5g79log.azurewebsites.net/api/roles/",
+};

@@ -1,0 +1,30 @@
+<div class="custom-paginator">    
+
+    <div class="mat-focus-indicator mat-tooltip-trigger mat-paginator-navigation-previous mat-icon-button mat-button-base" aria-label="Previous page" (click)="OnButtonClick(1)">
+        <span class="mat-button-wrapper">
+            <svg viewBox="0 0 24 24" focusable="false" class="mat-paginator-icon">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+            </svg>
+        </span>
+        <span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round" ng-reflect-disabled="true" ng-reflect-centered="true" ng-reflect-trigger="[object HTMLButtonElement]">
+        </span>
+        <span class="mat-button-focus-overlay">
+        </span>
+    </div>
+
+    <span> {{currentShownItems}} / {{totalItems}} </span>
+
+    <div class="mat-focus-indicator mat-tooltip-trigger mat-paginator-navigation-next mat-icon-button mat-button-base" aria-label="Next page" (click)="OnButtonClick(2)">
+        <span class="mat-button-wrapper">
+            <svg viewBox="0 0 24 24" focusable="true" class="mat-paginator-icon">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+            </svg>
+        </span>
+        <span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round" ng-reflect-disabled="true" ng-reflect-centered="true" ng-reflect-trigger="[object HTMLButtonElement]">
+
+        </span>
+        <span class="mat-button-focus-overlay">
+
+        </span>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+@import url(../../../styles.css);
+
+input {
+  display: block;
+  width: 100%;
+  padding: 0.3rem;
+  margin: 0.2rem 0;
+  box-sizing: border-box;
+}
+
+select {
+  display: block;
+  width: 100%;
+  padding: 0.3rem;
+  margin: 0.2rem 0;
+  box-sizing: border-box;
+}
+
+form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+button {
+  min-width: 80px;
+  max-width: 80px;
+  margin-left: 2px;
+  margin-left: 2px;
+  margin-top: 10px;
+}
+
+.alert {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
+
