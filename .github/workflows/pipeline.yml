@@ -44,7 +44,7 @@ jobs:
       - name: Check deliverables folder for backend
         run: |
           if [ ! -d "Deliverables/BackendAPI" ]; then
-            echo "Error: 'Deliverables' folder not found for backend."
+            echo "Error: 'Deliverables/BackendAPI' folder not found for backend."
             exit 1
           fi
 
@@ -61,6 +61,7 @@ jobs:
 
       - name: Run Spring Boot tests
         run: |
+          cd Deliverables/BackendAPI
           mvn test
 
   # Optionally add a deployment job if needed
