@@ -15,7 +15,7 @@
           "options": {
             "allowedCommonJsDependencies": [
               "stats.js"
-           ],
+            ],
             "outputPath": "dist/spa",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -100,11 +100,23 @@
             "scripts": [],
             "codeCoverage": true
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
