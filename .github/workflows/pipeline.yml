@@ -74,7 +74,7 @@ jobs:
       - name: Clean environment
         run: |
           rm -rf Deliverables/frontend/dist/
-        working-directory: Deliverables/frontend
+        working-directory: Deliverables/EletricGo
  
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -86,22 +86,22 @@ jobs:
  
       - name: Install dependencies
         run: npm install
-        working-directory: Deliverables/frontend
+        working-directory: Deliverables/EletricGo
  
       - name: Build frontend
         run: npm run build -- --prod
-        working-directory: Deliverables/frontend
+        working-directory: Deliverables/EletricGo
  
       - name: Lint frontend code
         run: npm run lint
-        working-directory: Deliverables/frontend
+        working-directory: Deliverables/EletricGo
  
       - name: Analyze frontend dependencies
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
           unzip dependency-check-6.1.6-release.zip
           ./dependency-check/bin/dependency-check.sh --scan node_modules/ --format HTML --out dependency-report/
-        working-directory: Deliverables/frontend
+        working-directory: Deliverables/EletricGo
  
       - name: Archive frontend artifact
         uses: actions/upload-artifact@v2
