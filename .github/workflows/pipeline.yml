@@ -1,67 +1,115 @@
 name: CI
-
+ 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
-
+    branches:
+      - main
+ 
 jobs:
-  build-frontend:
+  backend:
+    name: Backend CI
     runs-on: ubuntu-latest
+ 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
+      - name: Checkout repository
+        uses: actions/checkout@v2
+ 
+      - name: Clean environment
+        run: |
+          rm -rf Deliverables/BackendAPI/target/
+        working-directory: Deliverables/BackendAPI
+ 
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+ 
+      - name: Install dependencies
+        run: mvn dependency:go-offline
+        working-directory: Deliverables/BackendAPI
+ 
+      - name: Build backend
+        run: mvn clean package
+        working-directory: Deliverables/BackendAPI
+ 
+      - name: Run backend tests
+        run: mvn test
+        working-directory: Deliverables/BackendAPI
+ 
+      - name: Analyze backend dependencies
+        run: |
+          wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
+          unzip dependency-check-6.1.6-release.zip
+          ./dependency-check/bin/dependency-check.sh --scan target/ --format HTML --out dependency-report/
+        working-directory: Deliverables/BackendAPI
+ 
+      - name: Archive backend artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend-artifact
+          path: target/*.jar
+ 
+      - name: Archive backend dependency report
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend-dependency-report
+          path: dependency-report/
+ 
+  frontend:
+    name: Frontend CI
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+ 
       - name: Check deliverables folder for frontend
         run: |
-          if [ ! -d "Deliverables" ]; then
-            echo "Error: 'Deliverables' folder not found for frontend."
+          if [ ! -d "Deliverables/frontend" ]; then
+            echo "Error: 'Deliverables/frontend' folder not found for frontend."
             exit 1
           fi
-
+ 
+      - name: Clean environment
+        run: |
+          rm -rf Deliverables/frontend/dist/
+        working-directory: Deliverables/frontend
+ 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: '16'
-
+          node-version: '14'
+ 
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+ 
       - name: Install dependencies
         run: npm install
-
-      - name: Build Angular project
-        run: ng build --prod
-
-      - name: Run ESLint checks
+        working-directory: Deliverables/frontend
+ 
+      - name: Build frontend
+        run: npm run build -- --prod
+        working-directory: Deliverables/frontend
+ 
+      - name: Lint frontend code
         run: npm run lint
-
-  build-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Check deliverables folder for backend
+        working-directory: Deliverables/frontend
+ 
+      - name: Analyze frontend dependencies
         run: |
-          if [ ! -d "Deliverables/BackendAPI" ]; then
-            echo "Error: 'Deliverables/BackendAPI' folder not found for backend."
-            exit 1
-          fi
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
+          wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
+          unzip dependency-check-6.1.6-release.zip
+          ./dependency-check/bin/dependency-check.sh --scan node_modules/ --format HTML --out dependency-report/
+        working-directory: Deliverables/frontend
+ 
+      - name: Archive frontend artifact
+        uses: actions/upload-artifact@v2
         with:
-          java-version: '11'
-          distribution: 'adopt'
-
-      # Add other steps for backend build here
-      # Example:
-      # - name: Build with Maven
-      #   run: mvn clean install -DskipTests
-
-      - name: Run Spring Boot tests
-        run: |
-          cd Deliverables/BackendAPI
-          mvn test
-
-  # Optionally add a deployment job if needed
+          name: frontend-artifact
+          path: dist/
+ 
+      - name: Archive frontend dependency report
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-dependency-report
+          path: dependency-report/
