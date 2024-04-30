@@ -25,9 +25,9 @@ export class RouteEditComponent implements OnInit {
     warehouses: Array<IWarehouseDto> = [];
 
     success: boolean | undefined;
-    errorMessage: string = "";
-    successMessage: string = "";
-    id: string = "";
+    errorMessage = "";
+    successMessage = "";
+    id = "";
 
     constructor(
         private route: ActivatedRoute,

@@ -17,7 +17,7 @@ export class RouteMap {
     }
 
     public static toModelList(dtos: RouteDTO[]) : IRoute[] {
-        let list = Array();
+        const list: IRoute[] = [];
 
         dtos.forEach(r => {
             list.push(this.toModel(r));

@@ -9,16 +9,16 @@ import PageChangedEventArgs from './PageChangedEventArgs';
 
 export class PaginatorComponent implements OnInit {
     @Input()
-    currentPage: number = 1;
+    currentPage = 1;
 
     @Input()
-    itemsPerPage: number = 10;
+    itemsPerPage = 10;
 
     @Input()
-    currentShownItems: number = 0;
+    currentShownItems = 0;
 
     @Input()
-    totalItems: number = 0;
+    totalItems = 0;
 
     @Output() 
     PageChanged = new EventEmitter<PageChangedEventArgs>();

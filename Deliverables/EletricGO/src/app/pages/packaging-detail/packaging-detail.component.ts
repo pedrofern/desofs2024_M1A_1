@@ -26,9 +26,9 @@ export class PackagingDetailComponent implements OnInit {
     trucks: Array<ITruck> = [];
 
     success: boolean | undefined;
-    errorMessage: string = "";
-    successMessage: string = "";
-    id: string = "";
+    errorMessage = "";
+    successMessage = "";
+    id = "";
 
     constructor(
         private route: ActivatedRoute,

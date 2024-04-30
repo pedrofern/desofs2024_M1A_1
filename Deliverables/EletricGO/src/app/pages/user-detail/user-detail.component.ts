@@ -20,9 +20,9 @@ export class UserDetailComponent implements OnInit {
     user: IUser | undefined;
     roles: IRoleDTO[] = [];
     success: boolean | undefined;
-    errorMessage: string = "";
-    successMessage: string = "";
-    email: string = '';
+    errorMessage = "";
+    successMessage = "";
+    email = '';
 
     constructor(private route: ActivatedRoute, private userService: UserService, public global: GlobalService) {
     }

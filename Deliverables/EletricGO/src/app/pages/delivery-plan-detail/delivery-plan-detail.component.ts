@@ -19,8 +19,8 @@ export class DeliveryPlanDetailComponent implements OnInit {
     deliveryPlan: ICreateDeliveryPlan | undefined;
     trucks: ITruck[] = [];
     success: boolean | undefined;
-    errorMessage: string = "";
-    successMessage: string = "";
+    errorMessage = "";
+    successMessage = "";
 
     matriculaInputMask = createMask('(A{2}|9{2})-(A{2}|9{2})-(A{2}|9{2})');
 
@@ -48,10 +48,10 @@ export class DeliveryPlanDetailComponent implements OnInit {
     create(form: NgForm) {
         //Validar qual é o formato de data que foi introduzido
         console.log(form.value);
-        var regex_date = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+        const regex_date = /^\d{4}-\d{1,2}-\d{1,2}$/;
         let modifiedDate = form.value.date;
         if (regex_date.test(form.value.date)) {
-            let [year, month, day] = form.value.date.split("-");
+            const [year, month, day] = form.value.date.split("-");
             modifiedDate = day + '-' + month + '-' + year;
         }
 

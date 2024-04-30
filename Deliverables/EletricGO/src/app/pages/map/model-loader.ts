@@ -7,7 +7,7 @@ import {MeshBasicMaterial} from "three";
 
 export class ModelLoader {
 
-    static count: number = 0
+    static count = 0
 
     static truckModel: THREE.Object3D;
     static warehouseModel: THREE.Object3D;

@@ -44,7 +44,7 @@ export class WarehouseService {
   
   /** GET filtered warehouses from the server */
   getFilterWarehouses(filters: any, sortBy: string, sortOrder: string, pageIndex: number, pageSize: number): Observable<IWarehouseDto[]> {
-    let url = `${this.warehousesUrl}filter`;
+    const url = `${this.warehousesUrl}filter`;
     let params = new HttpParams();
   
     // Add the filters to the params object

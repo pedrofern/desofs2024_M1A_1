@@ -13,7 +13,7 @@ export class RoleMap {
     }
 
     public static toModelList(dtos: IRoleDTO[]): IRole[] {
-        const list = Array()
+        const list = []
 
         dtos.forEach(element => {
             list.push(this.toModel(element))
@@ -30,7 +30,7 @@ export class RoleMap {
     }  
     
     public static toDTOList(trucks: IRole[]): IRoleDTO[] {
-        const list = Array()
+        const list = []
 
         trucks.forEach(element => {
             list.push(this.toModel(element))

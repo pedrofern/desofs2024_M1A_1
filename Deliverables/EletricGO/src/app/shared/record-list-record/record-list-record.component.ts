@@ -7,8 +7,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 
 export class RecordListRecordComponent implements OnInit {
-    @Input() id: string = "";
-    @Input() description: string = "";
+    @Input() id = "";
+    @Input() description = "";
 
     @Output() recordClicked = new EventEmitter<string>();
 

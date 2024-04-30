@@ -17,11 +17,11 @@ import {TruckService} from 'src/services/truck.service';
 export class TruckDetailComponent implements OnInit {
     
     truck: ITruck | undefined;
-    id: string = "";
+    id = "";
 
     success: boolean | undefined;
-    errorMessage: string = "";
-    successMessage: string = "";
+    errorMessage = "";
+    successMessage = "";
 
     matriculaInputMask = createMask('(A{2}|9{2})-(A{2}|9{2})-(A{2}|9{2})');
 

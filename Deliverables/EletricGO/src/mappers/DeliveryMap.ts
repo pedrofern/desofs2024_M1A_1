@@ -22,7 +22,7 @@ export class DeliveryMap {
     }
 
     public static toList(dto: IDeliveryDto[]): IDelivery[] {
-        let list = Array()
+        const list: IDelivery[] = []
 
         dto.forEach(element => {
             list.push(this.toModel(element))

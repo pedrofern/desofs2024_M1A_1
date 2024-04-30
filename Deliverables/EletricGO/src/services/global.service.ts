@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 })
 export class GlobalService {
 
-    public isLoggedIn: boolean = false;
+    public isLoggedIn = false;
 
     async updateData(value: boolean) {
         this.isLoggedIn = value;

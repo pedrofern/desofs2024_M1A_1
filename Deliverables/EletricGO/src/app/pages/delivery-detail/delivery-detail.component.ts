@@ -19,9 +19,9 @@ export class DeliveryDetailComponent implements OnInit {
     delivery: IDelivery | undefined;
     warehouses: IWarehouseDto[] = [];
     success: boolean | undefined;
-    errorMessage: string = "";
-    successMessage: string = "";
-    id: number = 0;
+    errorMessage = "";
+    successMessage = "";
+    id = 0;
 
     constructor(
         private route: ActivatedRoute,
@@ -55,10 +55,10 @@ export class DeliveryDetailComponent implements OnInit {
 
     create(form: NgForm) {
         //Validar qual é o formato de data que foi introduzido
-        var regex_date = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+        const regex_date = /^\d{4}-\d{1,2}-\d{1,2}$/;
         let modifiedDate = form.value.deliveryDate;
         if (regex_date.test(form.value.deliveryDate)) {
-            let [year, month, day] = form.value.deliveryDate.split("-");
+            const [year, month, day] = form.value.deliveryDate.split("-");
             modifiedDate = day + '-' + month + '-' + year;
         }
 
@@ -82,10 +82,10 @@ export class DeliveryDetailComponent implements OnInit {
 
     edit(form: NgForm) {
         //Validar qual é o formato de data que foi introduzido
-        var regex_date = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+        const regex_date = /^\d{4}-\d{1,2}-\d{1,2}$/;
         let modifiedDate = form.value.deliveryDate;
         if (regex_date.test(form.value.deliveryDate)) {
-            let [year, month, day] = form.value.deliveryDate.split("-");
+            const [year, month, day] = form.value.deliveryDate.split("-");
             modifiedDate = day + '-' + month + '-' + year;
         }
 

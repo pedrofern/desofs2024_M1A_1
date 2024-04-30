@@ -26,7 +26,7 @@ export class DeliveryPlanMap {
     }
 
     public static toList(dto: IDeliveryPlanDTO[]): IDeliveryPlan[] {
-        let list = Array()
+        const list: IDeliveryPlan[] = []
 
         dto.forEach(element => {
             list.push(this.toModel(element))

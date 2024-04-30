@@ -30,7 +30,7 @@ export class PackagingMap {
     }
 
     public static toList(dto: IPackagingDTO[]): IPackaging[] {
-        let list = Array()
+        const list: IPackaging[] = []
 
         dto.forEach(element => {
             list.push(this.toModel(element))

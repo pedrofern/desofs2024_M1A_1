@@ -19,7 +19,7 @@ export class WarehouseDetailComponent implements OnInit {
     success: boolean | undefined;
     errorMessage = "";
     successMessage = "";
-    id: string = "";
+    id = "";
 
     constructor(
         private route: ActivatedRoute,

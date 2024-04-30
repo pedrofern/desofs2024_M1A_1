@@ -11,7 +11,7 @@ export class Utils {
 
     // Convert the provided coordinates to the globe coordinates
     static convertCoord(long: number, lat: number, alt: number) {
-        let out = new THREE.Vector3();
+        const out = new THREE.Vector3();
         // distribute to sphere
         out.set(
             ((50 + 50) / (8.7613 - 8.2451)) * (long - 8.2451) - 50,
@@ -35,13 +35,13 @@ export class Utils {
 
     static makeTextSprite( message: string, parameters: any)
     {
-        const fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Courier New";
-        const fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 26;
-        const borderThickness = parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] : 4;
-        const borderColor = parameters.hasOwnProperty("borderColor") ?parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
-        const backgroundColor = parameters.hasOwnProperty("backgroundColor") ?parameters["backgroundColor"] : { r:0, g:0, b:255, a:1.0 };
-        const textColor = parameters.hasOwnProperty("textColor") ?parameters["textColor"] : { r:0, g:0, b:0, a:1.0 };
-
+        const fontface = Object.prototype.hasOwnProperty.call(parameters, "fontface") ? parameters["fontface"] : "Courier New";
+        const fontsize = Object.prototype.hasOwnProperty.call(parameters, "fontsize") ? parameters["fontsize"] : 26;
+        const borderThickness = Object.prototype.hasOwnProperty.call(parameters, "borderThickness") ? parameters["borderThickness"] : 4;
+        const borderColor = Object.prototype.hasOwnProperty.call(parameters, "borderColor") ? parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
+        const backgroundColor = Object.prototype.hasOwnProperty.call(parameters, "backgroundColor") ? parameters["backgroundColor"] : { r:0, g:0, b:255, a:1.0 };
+        const textColor = Object.prototype.hasOwnProperty.call(parameters, "textColor") ? parameters["textColor"] : { r:0, g:0, b:0, a:1.0 };
+    
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
         context!.font = "Bold " + fontsize + "px " + fontface;

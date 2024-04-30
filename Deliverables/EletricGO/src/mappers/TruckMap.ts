@@ -16,7 +16,7 @@ export class TruckMap {
     }
 
     public static toModelList(dtos: ITruckDTO[]): ITruck[] {
-        const list = Array()
+        const list: ITruck[] = []
 
         dtos.forEach(element => {
             list.push(this.toModel(element))
@@ -38,7 +38,7 @@ export class TruckMap {
     }  
     
     public static toDTOList(trucks: ITruck[]): ITruckDTO[] {
-        const list = Array()
+        const list: ITruck[] = []
 
         trucks.forEach(element => {
             list.push(this.toModel(element))

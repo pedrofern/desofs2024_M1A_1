@@ -33,7 +33,7 @@ describe('LoginService', () => {
   //Test validateLogin on Service
   it('should return expected validateLogin (HttpClient called once)', () => {
 
-    let createLogin: ILogin = {email: 'teste@isep.ipp.pt', password: '123'}
+    const createLogin: ILogin = {email: 'teste@isep.ipp.pt', password: '123'}
 
     // Make an HTTP POST request
     loginService.validateLogin(createLogin).subscribe(data =>
@@ -59,7 +59,7 @@ describe('LoginService', () => {
 
   //Test validateLoginGoogle on Service
   it('should return expected validateLoginGoogle (HttpClient called once)', () => {
-    let token = 'qweerty123'
+    const token = 'qweerty123'
 
     // Make an HTTP POST request
     loginService.validateLoginGoogle(token).subscribe(data =>
@@ -85,7 +85,7 @@ describe('LoginService', () => {
 
   //Test validateLoginGoogle on Service
   it('should return expected getRoleByUser (HttpClient called once)', () => {
-    let roleId = '1'
+    const roleId = '1'
 
     // Make an HTTP POST request
     loginService.getRoleByUser(roleId).subscribe(data =>

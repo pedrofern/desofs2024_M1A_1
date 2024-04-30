@@ -17,10 +17,10 @@ export class UserPasswordComponent {
 
     role: string | undefined;
     success: boolean | undefined;
-    errorMessage: string = "";
-    successMessage: string = "";
-    email: string = '';
-    password: string = '';
+    errorMessage = "";
+    successMessage = "";
+    email = '';
+    password = '';
 
     constructor(private route: ActivatedRoute, private userService: UserService, private cookieService: CookieService, public global: GlobalService) {
     }

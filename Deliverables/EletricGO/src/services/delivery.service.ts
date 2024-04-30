@@ -34,7 +34,7 @@ export class DeliveryService {
 
 /** GET filtered deliveries from the server */
 getFilterDeliveries(filters: any, sortBy: string, sortOrder: string, pageIndex: number, pageSize: number): Observable<IDeliveryDto[]> {
-  let url = this.deliveriesUrl + 'Filter/';
+  const url = this.deliveriesUrl + 'Filter/';
   let params = new HttpParams();
 
   // Add the filters to the params object

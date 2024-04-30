@@ -57,7 +57,7 @@ export class RoutesComponent implements OnInit {
   }
 
   getRoutesAsGeneralItem(): GeneralItemDTO[] {
-    let returnValue: GeneralItemDTO[] = [];
+    const returnValue: GeneralItemDTO[] = [];
 
     this.routes.forEach(r => {
       returnValue.push({

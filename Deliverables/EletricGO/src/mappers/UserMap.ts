@@ -22,7 +22,7 @@ export class UserMap {
     }
 
     public static toModelList(dtos: IUserDTO[]): IUser[] {
-        const list = Array()
+        const list: IUser[] = []
 
         dtos.forEach(element => {
             list.push(this.toModel(element))
@@ -46,7 +46,7 @@ export class UserMap {
     }  
     
     public static toDTOList(trucks: IUser[]): IUserDTO[] {
-        const list = Array()
+        const list: IUserDTO[] = []
 
         trucks.forEach(element => {
             list.push(this.toModel(element))

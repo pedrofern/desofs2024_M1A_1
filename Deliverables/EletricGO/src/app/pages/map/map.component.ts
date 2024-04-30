@@ -14,7 +14,7 @@ import {Roads} from "./roads";
 import {IWarehouseDto} from "../../../dtos/warehouse/IWarehouseDto";
 import {WarehouseService} from "../../../services/warehouse.service";
 import {fogData, roadData, truckData} from "./default-data";
-import {Color, Mesh, Object3D, SpotLight, Vector3} from "three";
+import {Color, Object3D, SpotLight, Vector3} from "three";
 import {AudioLoader} from "./audio-loader";
 import {degToRad} from "three/src/math/MathUtils";
 import { GlobalService } from 'src/services/global.service';
@@ -71,19 +71,16 @@ export class MapComponent implements OnInit {
         const animate = () => {
             const dt = this.clock.getDelta();
 
-            const truck = ModelLoader.truckModel
-            this.truck.model = truck
-            this.truck.rightLightModel = this.scene?.getObjectByName("truckRightLight")!
-            this.truck.leftLightModel = this.scene?.getObjectByName("truckLeftLight")!
-            this.truck.brakeLightModel = this.scene?.getObjectByName("truckBrakeLight")!
-            const front = this.scene?.getObjectByName("truckFront")!
-
-            const realWorldFrontPosition = front.getWorldPosition(new Vector3())
+            const truck = ModelLoader.truckModel;
+            this.truck.model = truck;
+            this.truck.rightLightModel = this.scene?.getObjectByName("truckRightLight");
+            this.truck.leftLightModel = this.scene?.getObjectByName("truckLeftLight");
+            this.truck.brakeLightModel = this.scene?.getObjectByName("truckBrakeLight");
 
             const acceleration = this.truck.acceleration * dt;
-            const reversingAcceleration = acceleration/2;
-            const breakDeacceleration = acceleration*3;
-            const normalDeacceleration = acceleration/2.5;
+            const reversingAcceleration = acceleration / 2;
+            const breakDeacceleration = acceleration * 3;
+            const normalDeacceleration = acceleration / 2.5;
 
             if(this.truck.keyStates.space && this.truck.originWarehouse != undefined) {
                 truckData.maxTurning = 25
@@ -97,7 +94,7 @@ export class MapComponent implements OnInit {
                 const destinationWarehouse = this.scene?.getObjectByName(truckData.automaticMovementWarehouses[i])
                 const connectionToDestination = this.scene?.getObjectByName(this.truck.originWarehouse.name + "-" + truckData.automaticMovementWarehouses[i])
 
-                let rotation = Utils.getOrientation(this.truck.originWarehouse, destinationWarehouse!)
+                const rotation = Utils.getOrientation(this.truck.originWarehouse, destinationWarehouse!)
                 const truckAngle = Utils.getOrientation(this.truck.originWarehouse, truck)
                 const angleDifference =  Math.abs(truckAngle - connectionToDestination!.rotation.y)
 
@@ -173,9 +170,9 @@ export class MapComponent implements OnInit {
                 }
             }
 
-            let yCoveredDistance = 0
-            let coveredDistance = this.truck.speed * dt;
-            let directionIncrement = this.truck.turningSpeed * dt;
+            const yCoveredDistance = 0
+            const coveredDistance = this.truck.speed * dt;
+            const directionIncrement = this.truck.turningSpeed * dt;
 
             if (this.truck.keyStates.left) { // The player is turning left
                 if(this.truck.wheelDirection <= this.truck.maxTurning)
@@ -193,8 +190,8 @@ export class MapComponent implements OnInit {
                 this.truck.direction = this.truck.direction + this.truck.wheelDirection*this.truck.speed*0.028;
             }
 
-            let direction = THREE.MathUtils.degToRad(this.truck.direction);
-            let wheelDirection = THREE.MathUtils.degToRad(this.truck.wheelDirection);
+            const direction = THREE.MathUtils.degToRad(this.truck.direction);
+            const wheelDirection = THREE.MathUtils.degToRad(this.truck.wheelDirection);
 
             const newPosition = new THREE.Vector3(
                 -coveredDistance * Math.sin(direction),
@@ -245,7 +242,7 @@ export class MapComponent implements OnInit {
         const onKeyChange = (event: KeyboardEvent, pressed: boolean) => {
             if(event.code.startsWith("Digit")) {
                 if (pressed) {
-                    let d = Number.parseInt(event.code.replace("Digit", ""))
+                    const d = Number.parseInt(event.code.replace("Digit", ""))
                     const warehouse = this.scene!.getObjectByName(this.warehouses[d].designation) as THREE.Object3D;
                     Cameras.focusIn(warehouse)
                 } else {
@@ -296,11 +293,11 @@ export class MapComponent implements OnInit {
 
         /* Create the Scene */
         this.scene = new THREE.Scene();
-        let screenWidth = UserInterface.getWidth();
-        let screenHeight = UserInterface.getHeight();
+        const screenWidth = UserInterface.getWidth();
+        const screenHeight = UserInterface.getHeight();
 
         /* Create the Renderer */
-        let renderCanvas = document.getElementById('renderCanvas');
+        const renderCanvas = document.getElementById('renderCanvas');
         this.renderer = new THREE.WebGLRenderer({
             canvas: renderCanvas!,
             alpha: false,    // transparent background
