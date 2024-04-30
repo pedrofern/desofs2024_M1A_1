@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import pt.isep.desofs.m1a.g1.exception.InvalidPhoneNumberFormatException;
+
 public class PhoneNumberTest {
 
 	@Test
@@ -17,20 +19,20 @@ public class PhoneNumberTest {
 	@Test
 	public void testInvalidPhoneNumber() {
 		String invalidPhoneNumber = "invalid";
-		assertThrows(IllegalArgumentException.class, () -> new PhoneNumber(invalidPhoneNumber));
+		assertThrows(InvalidPhoneNumberFormatException.class, () -> new PhoneNumber(invalidPhoneNumber));
 	}
 
 	@Test
 	public void testNullPhoneNumber() {
 		String nullPhoneNumber = null;
-		assertThrows(IllegalArgumentException.class, () -> new PhoneNumber(nullPhoneNumber));
+		assertThrows(InvalidPhoneNumberFormatException.class, () -> new PhoneNumber(nullPhoneNumber));
 	}
 
 	@Test
-    public void testPhoneNumberWithPlusOnly() {
-        String phoneNumberWithPlusOnly = "+";
-        assertThrows(IllegalArgumentException.class, () -> new PhoneNumber(phoneNumberWithPlusOnly));
-    }
+	public void testPhoneNumberWithPlusOnly() {
+		String phoneNumberWithPlusOnly = "+";
+		assertThrows(InvalidPhoneNumberFormatException.class, () -> new PhoneNumber(phoneNumberWithPlusOnly));
+	}
 
 	@Test
 	public void testPhoneNumberWithMaxAllowedLength() {
@@ -42,7 +44,7 @@ public class PhoneNumberTest {
 	@Test
 	public void testPhoneNumberExceedsMaxLength() {
 		String phoneNumberExceedsMaxLength = "+123456789012345678901";
-		assertThrows(IllegalArgumentException.class, () -> new PhoneNumber(phoneNumberExceedsMaxLength));
+		assertThrows(InvalidPhoneNumberFormatException.class, () -> new PhoneNumber(phoneNumberExceedsMaxLength));
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import pt.isep.desofs.m1a.g1.exception.InvalidNameFormatException;
 
 @Getter
 @EqualsAndHashCode
@@ -14,7 +15,7 @@ public class Name {
 
 	public Name(String value) {
 		if (!isValid(value)) {
-			throw new IllegalArgumentException("Invalid name format.");
+			throw new InvalidNameFormatException("Invalid name format.");
 		}
 		this.value = value;
 	}
@@ -22,4 +23,5 @@ public class Name {
 	private static boolean isValid(String name) {
 		return name != null && NAME_PATTERN.matcher(name).matches();
 	}
+
 }

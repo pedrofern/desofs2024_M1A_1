@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import pt.isep.desofs.m1a.g1.exception.InvalidEmailFormatException;
 
 @Getter
 @EqualsAndHashCode
@@ -14,7 +15,7 @@ public class Email {
 
 	public Email(String value) {
 		if (!isValid(value)) {
-			throw new IllegalArgumentException("Invalid email format.");
+			throw new InvalidEmailFormatException("Invalid email format.");
 		}
 		this.value = value;
 	}

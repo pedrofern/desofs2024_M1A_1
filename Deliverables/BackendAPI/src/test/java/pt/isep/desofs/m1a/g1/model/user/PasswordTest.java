@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import pt.isep.desofs.m1a.g1.exception.InvalidPasswordFormatException;
+import pt.isep.desofs.m1a.g1.exception.PasswordAlreadyReadException;
+
 public class PasswordTest {
 
 	@Test
@@ -17,13 +20,13 @@ public class PasswordTest {
 	@Test
 	public void testInvalidPassword() {
 		String invalidPassword = "invalidpassword";
-		assertThrows(IllegalArgumentException.class, () -> new Password(invalidPassword));
+		assertThrows(InvalidPasswordFormatException.class, () -> new Password(invalidPassword));
 	}
 
 	@Test
 	public void testNullPassword() {
 		String nullPassword = null;
-		assertThrows(IllegalArgumentException.class, () -> new Password(nullPassword));
+		assertThrows(InvalidPasswordFormatException.class, () -> new Password(nullPassword));
 	}
 
 	@Test
@@ -43,7 +46,7 @@ public class PasswordTest {
 	@Test
 	public void testPasswordExceedsMaxLength() {
 		String passwordExceedsMaxLength = "Test@12345678901234567890";
-		assertThrows(IllegalArgumentException.class, () -> new Password(passwordExceedsMaxLength));
+		assertThrows(InvalidPasswordFormatException.class, () -> new Password(passwordExceedsMaxLength));
 	}
 
 	@Test
@@ -51,7 +54,7 @@ public class PasswordTest {
 		String validPassword = "Test@1234";
 		Password password = new Password(validPassword);
 		assertEquals(validPassword, password.getValue());
-		assertThrows(IllegalStateException.class, () -> password.getValue());
+		assertThrows(PasswordAlreadyReadException.class, () -> password.getValue());
 	}
 
 }

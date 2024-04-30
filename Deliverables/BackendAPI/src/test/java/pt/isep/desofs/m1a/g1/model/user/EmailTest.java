@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import pt.isep.desofs.m1a.g1.exception.InvalidEmailFormatException;
+
 public class EmailTest {
 
     @Test
@@ -17,13 +19,13 @@ public class EmailTest {
     @Test
     public void testInvalidEmail() {
         String invalidEmail = "invalid-email";
-        assertThrows(IllegalArgumentException.class, () -> new Email(invalidEmail));
+        assertThrows(InvalidEmailFormatException.class, () -> new Email(invalidEmail));
     }
     
     @Test
     public void testNullEmail() {
         String nullEmail = null;
-        assertThrows(IllegalArgumentException.class, () -> new Email(nullEmail));
+        assertThrows(InvalidEmailFormatException.class, () -> new Email(nullEmail));
     }
     
 }

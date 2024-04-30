@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import pt.isep.desofs.m1a.g1.exception.InvalidPhoneNumberFormatException;
 
 @Getter
 @EqualsAndHashCode
@@ -17,7 +18,7 @@ public class PhoneNumber {
 
 	public PhoneNumber(String value) {
 		if (!isValid(value)) {
-			throw new IllegalArgumentException("Invalid phone number format.");
+			throw new InvalidPhoneNumberFormatException("Invalid phone number format.");
 		}
 		this.value = value;
 	}
