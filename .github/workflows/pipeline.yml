@@ -67,14 +67,14 @@ jobs:
  
       - name: Check deliverables folder for frontend
         run: |
-          if [ ! -d "Deliverables/frontend" ]; then
-            echo "Error: 'Deliverables/frontend' folder not found for frontend."
+          if [ ! -d "Deliverables/EletricGo" ]; then
+            echo "Error: 'Deliverables/EletricGo' folder not found for frontend."
             exit 1
           fi
  
       - name: Clean environment
         run: |
-          rm -rf Deliverables/frontend/dist/
+          rm -rf Deliverables/EletricGo/dist/
         working-directory: Deliverables/EletricGo
  
       - name: Setup Node.js
