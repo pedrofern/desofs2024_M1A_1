@@ -11,10 +11,10 @@ public class RoleTest {
 
     @Test
     public void testSystemAdminRoleAuthorities() {
-        Role role = Role.SYSTEM_ADMIN;
+        Role role = Role.ADMIN;
         List<SimpleGrantedAuthority> authorities = role.getAuthorities();
         assertEquals(1, authorities.size());
-        assertEquals("ROLE_SYSTEM_ADMIN", authorities.get(0).getAuthority());
+        assertEquals("ROLE_ADMIN", authorities.get(0).getAuthority());
     }
 
     @Test

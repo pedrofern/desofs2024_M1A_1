@@ -10,7 +10,7 @@ import pt.isep.desofs.m1a.g1.exception.InvalidRoleFormatException;
 @RequiredArgsConstructor
 public enum Role {
 
-	SYSTEM_ADMIN("ADMIN"), WAREHOUSE_MANAGER("WAREHOUSE_MANAGER"), FLEET_MANAGER("FLEET_MANAGER"),
+	ADMIN("ADMIN"), WAREHOUSE_MANAGER("WAREHOUSE_MANAGER"), FLEET_MANAGER("FLEET_MANAGER"),
 	LOGISTICS_MANAGER("LOGISTICS_MANAGER"), OPERATOR("OPERATOR");
 
 	public List<SimpleGrantedAuthority> getAuthorities() {

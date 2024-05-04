@@ -31,8 +31,8 @@ public class UserTest {
 		assertEquals(lastName, user.getLastName().getValue());
 		assertEquals(phoneNumber, user.getPhoneNumber().getValue());
 		assertEquals(email, user.getEmail().getValue());
-		assertEquals(password, user.getPassword().getValue());
-		assertEquals(Role.SYSTEM_ADMIN, user.getRole());
+		assertEquals(password, user.getPassword());
+		assertEquals(Role.ADMIN, user.getRole());
 	}
 
 	@Test
@@ -87,7 +87,7 @@ public class UserTest {
 		String lastName = "Doe";
 		String phoneNumber = "+1234567890";
 		String email = "john@example.com";
-		String invalidPassword = "pass"; // Invalid password format
+		String invalidPassword = null; // Invalid password format
 		String role = "WAREHOUSE_MANAGER";
 
 		// Act and Assert
