@@ -21,4 +21,28 @@ public final class Packaging {
         this.unloadTime = new Time(unloadTime);
         this.localization = new Localization(x,y,z);
     }
+
+    public long getPackagingId() {
+        return packagingId;
+    }
+
+    public long getDeliveryId() {
+        return deliveryId;
+    }
+
+    public long getTruckId() {
+        return truckId;
+    }
+
+    public Time getLoadTime() {
+        return loadTime;
+    }
+
+    public Time getUnloadTime() {
+        return unloadTime;
+    }
+
+    public Localization getLocalization() {
+        return localization;
+    }
 }

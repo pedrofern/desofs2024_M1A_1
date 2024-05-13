@@ -87,7 +87,11 @@ jobs:
  
       - name: Install dependencies
         run: npm install
-        working-directory: Deliverables/EletricGO
+        working-directory: Deliverables/EletricGO 
+
+      - name: Run tests
+        run: ng test
+        working-directory: Deliverables/EletricGO 
  
       - name: Build frontend
         run: npm run prod
