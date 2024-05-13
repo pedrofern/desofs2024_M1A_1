@@ -2,7 +2,7 @@ package pt.isep.desofs.m1a.g1.model.logistics;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import pt.isep.desofs.m1a.g1.exception.InvalidEmailFormatException;
+import pt.isep.desofs.m1a.g1.exception.InvalidTimeFormatException;
 
 import java.util.regex.Pattern;
 
@@ -16,7 +16,7 @@ public class Time {
 
     public Time(String value) {
         if (!isValid(value)) {
-            throw new InvalidEmailFormatException("Invalid time format.");
+            throw new InvalidTimeFormatException("Invalid time format.");
         }
         this.value = value;
     }
