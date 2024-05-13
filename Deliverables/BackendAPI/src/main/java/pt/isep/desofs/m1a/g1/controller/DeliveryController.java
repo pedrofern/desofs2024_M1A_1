@@ -13,7 +13,7 @@ import java.util.List;
 
 @Tag(name = "Delivery")
 @RestController
-@RequestMapping("/api/deliveries")
+@RequestMapping("/api/v1/deliveries")
 public class DeliveryController {
 
     private final DeliveryServiceImpl deliveryServiceImpl;
