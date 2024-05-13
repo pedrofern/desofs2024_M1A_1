@@ -90,7 +90,7 @@ jobs:
         working-directory: Deliverables/EletricGO 
 
       - name: Run tests
-        run: ng test
+        run: npm run test-no-browser
         working-directory: Deliverables/EletricGO 
  
       - name: Build frontend
