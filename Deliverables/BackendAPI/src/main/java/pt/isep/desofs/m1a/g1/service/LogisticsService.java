@@ -12,5 +12,5 @@ public interface LogisticsService {
 
     List<Packaging> getAllPackaging();
 
-    Packaging getPackagingById(long id);
+    Packaging getPackagingById(String id);
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SubmitLogisticsForm {
 
-    private long packagingId;
+    private String packagingId;
     private long deliveryId;
     private long truckId;
     private String loadTime;

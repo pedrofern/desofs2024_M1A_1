@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface PackagingJpaRepo extends JpaRepository<PackagingJpa, UUID> {
 
-    PackagingJpa findByPackagingId(long packagingId);
+    PackagingJpa findByPackagingId(String packagingId);
 
     List<PackagingJpa> findByDeliveryId(long deliveryId);
 }

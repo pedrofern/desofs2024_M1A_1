@@ -32,7 +32,7 @@ public class LogisticsController {
 
     //Get the packaging by id
     @GetMapping("/{id}")
-    public ResponseEntity<Packaging> getPackagingById(@PathVariable long id) {
+    public ResponseEntity<Packaging> getPackagingById(@PathVariable String id) {
         return ResponseEntity.ok(logisticsService.getPackagingById(id));
     }
 

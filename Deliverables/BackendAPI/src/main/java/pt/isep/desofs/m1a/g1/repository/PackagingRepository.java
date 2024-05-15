@@ -12,7 +12,7 @@ public interface PackagingRepository {
 
     void save(Packaging user);
 
-    Optional<Packaging> findByPackagingId(long id);
+    Optional<Packaging> findByPackagingId(String id);
 
     List<Packaging> findByDeliveryId(long deliveryId);
 }

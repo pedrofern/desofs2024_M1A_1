@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PackagingDto {
 
-    private long packagingId;
+    private String packagingId;
     private long deliveryId;
     private long truckId;
     private String loadTime;

@@ -14,7 +14,7 @@ public class PackagingJpa {
     @Id
     @GeneratedValue
     private UUID id;
-    private long packagingId;
+    private String packagingId;
     private long deliveryId;
     private long truckId;
     private String loadTime;

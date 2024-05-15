@@ -22,12 +22,12 @@ public class TruckBootstrapper implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // truck
-        if (truckRepo.findById("truckId1").isEmpty()) {
-            Battery battery = new Battery(100.0, 200.0, 1.5);
-            batteryRepo.save(battery);
-
-            Truck truck = new Truck("truckId1", 2000.0, 10000.0, true, battery);
-            truckRepo.save(truck);
-        }
+//        if (truckRepo.findById("truckId1").isEmpty()) {
+//            Battery battery = new Battery(100.0, 200.0, 1.5);
+//            batteryRepo.save(battery);
+//
+//            Truck truck = new Truck("truckId1", 2000.0, 10000.0, true, battery);
+//            truckRepo.save(truck);
+//        }
     }
 }

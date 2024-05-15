@@ -24,7 +24,7 @@ public class PackagingJpaRepositoryImpl implements PackagingRepository {
     private PackagingJpaMapper mapper = PackagingJpaMapper.INSTANCE;
 
     @Override
-    public Optional<Packaging> findByPackagingId(long id) {
+    public Optional<Packaging> findByPackagingId(String id) {
 
         PackagingJpa p = repo.findByPackagingId(id);
         if (p != null) {
