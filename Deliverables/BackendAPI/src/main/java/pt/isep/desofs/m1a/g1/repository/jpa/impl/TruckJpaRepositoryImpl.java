@@ -9,7 +9,9 @@ import pt.isep.desofs.m1a.g1.repository.jpa.TruckJpaRepo;
 import pt.isep.desofs.m1a.g1.repository.jpa.mapper.TruckJpaMapper;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.TruckJpa;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 @Profile("jpa")
@@ -21,14 +23,29 @@ public class TruckJpaRepositoryImpl implements TruckRepository {
     private TruckJpaMapper mapper = TruckJpaMapper.INSTANCE;
 
     @Override
-    public Optional<Truck> findById(String id) {
-        Optional<TruckJpa> opt = repo.findById(id);
-        return opt.map(mapper::toDomainModel);
+    public Truck findByTruckId(Long id) {
+        Optional<TruckJpa> opt = repo.findByTruckId(id);
+        return opt.map(mapper::toDomainModel).orElse(null);
     }
 
     @Override
     public Truck save(Truck truck) {
         TruckJpa savedTruck = repo.save(mapper.toDatabaseEntity(truck));
         return mapper.toDomainModel(savedTruck);
+    }
+
+    @Override
+    public List<Truck> findAll() {
+        return repo.findAll().stream()
+                .map(mapper::toDomainModel)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Truck> findAllActive() {
+        return repo.findAll().stream()
+                .filter(TruckJpa::isActive)
+                .map(mapper::toDomainModel)
+                .collect(Collectors.toList());
     }
 }

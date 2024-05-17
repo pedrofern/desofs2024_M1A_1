@@ -1,12 +1,12 @@
 package pt.isep.desofs.m1a.g1.repository;
 
+import org.springframework.stereotype.Repository;
 import pt.isep.desofs.m1a.g1.model.truck.Battery;
 
-import java.util.Optional;
-
+@Repository
 public interface BatteryRepository {
 
     Battery save(Battery battery);
 
-    Optional<Battery> findById(String id);
+    Battery findByBatteryId(long batteryId);
 }

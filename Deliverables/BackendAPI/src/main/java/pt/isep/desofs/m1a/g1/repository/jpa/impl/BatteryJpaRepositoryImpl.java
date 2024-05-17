@@ -21,14 +21,14 @@ public class BatteryJpaRepositoryImpl implements BatteryRepository {
     private BatteryJpaMapper mapper = BatteryJpaMapper.INSTANCE;
 
     @Override
-    public Optional<Battery> findById(String id) {
-        Optional<BatteryJpa> opt = repo.findById(id);
-        return opt.map(mapper::toDomainModel);
-    }
-
-    @Override
     public Battery save(Battery battery) {
         BatteryJpa savedBattery = repo.save(mapper.toDatabaseEntity(battery));
         return mapper.toDomainModel(savedBattery);
+    }
+
+    @Override
+    public Battery findByBatteryId(long batteryId) {
+        Optional<BatteryJpa> opt = repo.findByBatteryId(batteryId);
+        return opt.map(mapper::toDomainModel).orElse(null);
     }
 }

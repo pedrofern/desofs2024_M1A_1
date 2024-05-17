@@ -7,12 +7,13 @@ import lombok.Data;
 
 import java.util.UUID;
 
-@Data
 @Entity
+@Data
 public class BatteryJpa {
     @Id
     @GeneratedValue
-    private String id;
+    private UUID id;
+    private long batteryId;
     private double maximumBattery;
     private double autonomy;
     private double chargingTime;

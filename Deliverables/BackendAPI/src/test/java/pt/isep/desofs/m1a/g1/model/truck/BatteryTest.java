@@ -12,7 +12,7 @@ public class BatteryTest {
         double autonomy = 12.0;
         int chargingTime = 100;
 
-        Battery battery = new Battery(maximumBattery, autonomy, chargingTime);
+        Battery battery = new Battery(321, maximumBattery, autonomy, chargingTime);
 
         assertEquals(maximumBattery, battery.getMaximumBattery());
         assertEquals(autonomy, battery.getAutonomy());

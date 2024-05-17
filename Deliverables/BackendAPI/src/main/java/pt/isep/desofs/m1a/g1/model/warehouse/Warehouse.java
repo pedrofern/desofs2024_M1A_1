@@ -1,10 +1,12 @@
 package pt.isep.desofs.m1a.g1.model.warehouse;
 
 import lombok.Getter;
+import lombok.Setter;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.DeliveryJpa;
 import java.util.List;
 
 @Getter
+@Setter
 public class Warehouse {
 
     private static final long serialVersionUID = -4261322957656549155L;
@@ -16,6 +18,8 @@ public class Warehouse {
     private boolean active;
     private List<DeliveryJpa> deliveries;
 
+    public Warehouse() {
+    }
     public Warehouse(Long identifier, String designation, String streetName, int doorNumber, String city, String country, String zipCode, double latitude, double longitude, boolean active) {
         this.identifier = identifier;
         this.designation = designation;

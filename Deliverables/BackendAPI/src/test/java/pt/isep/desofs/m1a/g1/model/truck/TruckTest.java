@@ -8,11 +8,11 @@ public class TruckTest {
 
     @Test
     public void testConstructor() {
-        String truckId = "123";
+        long truckId = 123;
         double tare = 1000.0;
         double loadCapacity = 2000.0;
         boolean active = true;
-        Battery battery = new Battery(100.0, 100.0, 100);
+        Battery battery = new Battery(321, 100.0, 100.0, 100);
 
         Truck truck = new Truck(truckId, tare, loadCapacity, active, battery);
 
