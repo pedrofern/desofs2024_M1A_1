@@ -25,7 +25,7 @@ public class WarehouseJpa {
     private String streetName;
 
     @Column(nullable = false)
-    private int doorNumber;
+    private String doorNumber;
 
     @Column(nullable = false)
     private String city;

@@ -7,9 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class WarehouseDto {
+public class UpdateWarehouseDto {
 
-    private Long identifier;
     private String designation;
     private String streetName;
     private String doorNumber;

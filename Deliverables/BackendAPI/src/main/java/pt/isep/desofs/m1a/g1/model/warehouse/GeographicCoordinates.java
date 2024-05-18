@@ -9,8 +9,8 @@ import pt.isep.desofs.m1a.g1.exception.InvalidLongitudeFormatException;
 @EqualsAndHashCode
 public class GeographicCoordinates {
 
-    private final double latitude;
-    private final double longitude;
+    private double latitude;
+    private double longitude;
 
     public GeographicCoordinates(double latitude, double longitude) {
         if (!isValidLatitude(latitude)) {
@@ -20,6 +20,14 @@ public class GeographicCoordinates {
             throw new InvalidLongitudeFormatException("Invalid geographic coordinates.");
         }
         this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public void changeLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void changeLongitude(double longitude) {
         this.longitude = longitude;
     }
 

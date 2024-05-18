@@ -7,14 +7,14 @@ import pt.isep.desofs.m1a.g1.exception.InvalidAddressException;
 @Getter
 @EqualsAndHashCode
 public class Address {
-    private final String streetName;
-    private final int doorNumber;
-    private final String city;
-    private final String country;
-    private final String zipCode;
+    private String streetName;
+    private String doorNumber;
+    private String city;
+    private String country;
+    private String zipCode;
 
-    public Address(String streetName, int doorNumber, String city, String country, String zipCode) {
-        if (!isValid(streetName, doorNumber, city, country, zipCode)) {
+    public Address(String streetName, String doorNumber, String city, String country, String zipCode) {
+        if (!isValid(streetName, doorNumber, city, country)) {
             throw new InvalidAddressException("Invalid address.");
         }
         this.streetName = streetName;
@@ -24,7 +24,27 @@ public class Address {
         this.zipCode = zipCode;
     }
 
-    private static boolean isValid(String streetName, int doorNumber, String city, String country, String zipCode) {
-        return streetName != null && doorNumber >= 0 && city != null && country != null && zipCode != null;
+    public void changeStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public void changeDoorNumber(String doorNumber) {
+        this.doorNumber = doorNumber;
+    }
+
+    public void changeCity(String city) {
+        this.city = city;
+    }
+
+    public void changeCountry(String country) {
+        this.country = country;
+    }
+
+    public void changeZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    private static boolean isValid(String streetName, String doorNumber, String city, String country) {
+        return streetName != null && doorNumber != null && city != null && country != null;
     }
 }
