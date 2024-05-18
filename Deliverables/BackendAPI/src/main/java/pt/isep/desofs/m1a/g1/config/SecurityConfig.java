@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import pt.isep.desofs.m1a.g1.model.user.Role;
 
@@ -23,42 +24,33 @@ import pt.isep.desofs.m1a.g1.model.user.Role;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-	private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
-            "/v2/api-docs",
-            "/v3/api-docs",
-            "/v3/api-docs/**",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui/**",
-            "/webjars/**",
-            "/swagger-ui.html"};
-    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
-//    private final LogoutHandler logoutHandler;
+	private static final String[] WHITE_LIST_URL = { "/api/v1/user/login" };
+	private static final String[] ADMIN_LIST_URL = { "/api/v1/user/register", "/api/v1/user/**/assign-role" };
+	private static final String[] ALL_USERS_LIST_URL = { "/api/v1/logistics/**", "/api/v1/trucks/**",
+			"/api/v1/deliveries/**", "/api/v1/warehouses/**" };
+	private final JwtAuthenticationFilter jwtAuthFilter;
+	private final AuthenticationProvider authenticationProvider;
+	private final LogoutHandler logoutHandler;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req ->
-                        req.requestMatchers(WHITE_LIST_URL)
-                                .permitAll()
-                                .requestMatchers("/api/v1/management/**").hasAnyRole(Role.ADMIN.getName())
-                                .anyRequest()
-                                .authenticated()
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout(logout ->
-                        logout.logoutUrl("/api/v1/auth/logout")
-//                                .addLogoutHandler(logoutHandler)
-                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-                )
-        ;
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(AbstractHttpConfigurer::disable)
+				.authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL).permitAll()
+						// All authenticated users can access these endpoints
+						.requestMatchers(ALL_USERS_LIST_URL)
+						.hasAnyRole(Role.ADMIN.getName(), Role.WAREHOUSE_MANAGER.getName(),
+								Role.FLEET_MANAGER.getName(), Role.LOGISTICS_MANAGER.getName(), Role.OPERATOR.getName())
+						// Only ADMIN can access these endpoints
+						.requestMatchers(ADMIN_LIST_URL).hasAnyRole(Role.ADMIN.getName()).anyRequest().authenticated())
+				.sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+				.authenticationProvider(authenticationProvider)
+				.exceptionHandling(e -> e.authenticationEntryPoint((request, response, authException) -> response
+						.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage())))
+				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+				.logout(logout -> logout.logoutUrl("/api/v1/user/logout").addLogoutHandler(logoutHandler)
+						.logoutSuccessHandler(
+								(request, response, authentication) -> SecurityContextHolder.clearContext()));
 
-        return http.build();
-    }
+		return http.build();
+	}
 }

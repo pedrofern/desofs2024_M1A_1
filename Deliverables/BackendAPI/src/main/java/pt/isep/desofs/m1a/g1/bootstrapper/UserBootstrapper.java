@@ -21,12 +21,46 @@ public class UserBootstrapper implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		// admin
 		if (userRepo.findByEmail("admin@isep.pt").isEmpty()) {
-			User admin = new User("First Name", "Last Name", "+3519123456789", "admin@isep.pt",
+			User admin = new User("Admin Name", "Admin Name", "+3519123456789", "admin@isep.pt",
 					encoder.encode("Admin@123"), "ADMIN");
 
 			userRepo.save(admin);
 		}
+
+		// warehouse
+		if (userRepo.findByEmail("warehouse@isep.pt").isEmpty()) {
+			User warehouse = new User("Warehouse Name", "Warehouse Name", "+3519123456789", "warehouse@isep.pt",
+					encoder.encode("Warehouse@123"), "WAREHOUSE_MANAGER");
+
+			userRepo.save(warehouse);
+		}
+
+		// fleet
+		if (userRepo.findByEmail("fleet@isep.pt").isEmpty()) {
+			User fleet = new User("Fleet Name", "Fleet Name", "+3519123456789", "fleet@isep.pt",
+					encoder.encode("Fleet@123"), "FLEET_MANAGER");
+
+			userRepo.save(fleet);
+		}
+
+		// logistics
+		if (userRepo.findByEmail("logistics@isep.pt").isEmpty()) {
+			User logistics = new User("Logistics Name", "Logistics Name", "+3519123456789", "logistics@isep.pt",
+					encoder.encode("Logistics@123"), "LOGISTICS_MANAGER");
+
+			userRepo.save(logistics);
+		}
+
+		// operator
+		if (userRepo.findByEmail("operator@isep.pt").isEmpty()) {
+			User operator = new User("Operator Name", "Operator Name", "+3519123456789", "operator@isep.pt",
+					encoder.encode("Operator@123"), "OPERATOR");
+
+			userRepo.save(operator);
+		}
+
 	}
 }

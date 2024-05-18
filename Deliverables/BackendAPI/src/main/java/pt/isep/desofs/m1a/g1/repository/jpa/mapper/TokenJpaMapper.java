@@ -23,6 +23,7 @@ public interface TokenJpaMapper {
 
 	TokenJpa toDatabaseEntity(Token token);
 
+	@Mapping(target = "user", ignore = true)
 	Token toDomainModel(TokenJpa token);
 
 	List<TokenJpa> toDatabaseEntity(List<Token> token);

@@ -19,13 +19,13 @@ public class LogisticsController {
     @Autowired
     private LogisticsService logisticsService;
 
-    @PostMapping("/")
+    @PostMapping
     public void submitForm(@RequestBody SubmitLogisticsForm request) {
         logisticsService.submitForm(request);
     }
 
     //Get all the packaging
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<Packaging>> getAllPackaging() {
         return ResponseEntity.ok(logisticsService.getAllPackaging());
     }

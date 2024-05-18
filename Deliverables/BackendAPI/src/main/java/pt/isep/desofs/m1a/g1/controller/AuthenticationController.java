@@ -19,14 +19,14 @@ import pt.isep.desofs.m1a.g1.service.AuthenticationService;
 
 @Tag(name = "Authentication")
 @RestController
-@RequestMapping(path = "/api/v1/auth")
+@RequestMapping(path = "/api/v1/user")
 public class AuthenticationController<service> {
 
 	@Autowired
 	private AuthenticationService authenticationService;
 
-	@PostMapping("/authenticate")
-	public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+	@PostMapping("/login")
+	public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
 		return ResponseEntity.ok(authenticationService.authenticate(request));
 	}
 
