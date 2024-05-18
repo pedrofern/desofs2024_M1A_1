@@ -57,6 +57,9 @@ We have created the following issues to track the tasks related to the DESFOS pr
 
 ## Build and Deploy Process
 
+
+Dependabot is enabled to keep the dependencies up to date.
+
  
 
 ## Frontend

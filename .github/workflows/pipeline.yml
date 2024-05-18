@@ -34,9 +34,16 @@ jobs:
         run: mvn clean package
         working-directory: Deliverables/BackendAPI
 
-      - name: Run backend tests
-        run: mvn test
+      - name: Run backend tests and generate coverage report
+        run: mvn test jacoco:report
         working-directory: Deliverables/BackendAPI
+
+      - name: Archive backend test coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend-test-coverage
+          path: Deliverables/BackendAPI/target/site/jacoco
+          if-no-files-found: warn  
 
       - name: Analyze backend dependencies
         run: |
@@ -91,9 +98,16 @@ jobs:
         run: npm install
         working-directory: Deliverables/EletricGO 
 
-      - name: Run tests
+      - name: Run frontend tests and generate coverage report
         run: npm run test-no-browser
         working-directory: Deliverables/EletricGO 
+      
+      - name: Archive frontend test coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-test-coverage
+          path: Deliverables/EletricGO/coverage
+          if-no-files-found: warn
 
       - name: Build frontend
         run: npm run prod
