@@ -1,90 +1,101 @@
 name: CI
- 
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
- 
+
 jobs:
   backend:
     name: Backend CI
     runs-on: ubuntu-latest
- 
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
- 
+
       - name: Clean environment
         run: |
           rm -rf Deliverables/BackendAPI/target/
         working-directory: Deliverables/BackendAPI
- 
+
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           java-version: '17'
           distribution: 'adopt'
- 
+
       - name: Install dependencies
         run: mvn dependency:go-offline
         working-directory: Deliverables/BackendAPI
- 
+
       - name: Build backend
         run: mvn clean package
         working-directory: Deliverables/BackendAPI
- 
+
       - name: Run backend tests
         run: mvn test
         working-directory: Deliverables/BackendAPI
- 
+
       - name: Analyze backend dependencies
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
           unzip dependency-check-6.1.6-release.zip
           ./dependency-check/bin/dependency-check.sh --scan target/ --format HTML --out dependency-report/
         working-directory: Deliverables/BackendAPI
- 
+
+      # Add debugging steps here to verify files and directories
+      - name: List target directory
+        run: ls -R target/
+        working-directory: Deliverables/BackendAPI
+
+      - name: List dependency-report directory
+        run: ls -R dependency-report/
+        working-directory: Deliverables/BackendAPI
+
       - name: Archive backend artifact
         uses: actions/upload-artifact@v2
         with:
           name: backend-artifact
-          path: target/*.jar
- 
+          path: Deliverables/BackendAPI/target/*.jar
+          if-no-files-found: warn
+
       - name: Archive backend dependency report
         uses: actions/upload-artifact@v2
         with:
           name: backend-dependency-report
-          path: dependency-report/
- 
+          path: Deliverables/BackendAPI/dependency-report/
+          if-no-files-found: warn
+
   frontend:
     name: Frontend CI
     runs-on: ubuntu-latest
- 
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
- 
+
       - name: Check deliverables folder for frontend
         run: |
           if [ ! -d "Deliverables/EletricGO" ]; then
             echo "Error: 'Deliverables/EletricGO' folder not found for frontend."
             exit 1
           fi
- 
+
       - name: Clean environment
         run: |
           rm -rf Deliverables/EletricGO/dist/
         working-directory: Deliverables/EletricGO
- 
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20'
- 
+
       - name: Install Angular CLI
         run: npm install -g @angular/cli
- 
+
       - name: Install dependencies
         run: npm install
         working-directory: Deliverables/EletricGO 
@@ -92,30 +103,68 @@ jobs:
       - name: Run tests
         run: npm run test-no-browser
         working-directory: Deliverables/EletricGO 
- 
+
       - name: Build frontend
         run: npm run prod
         working-directory: Deliverables/EletricGO
- 
+
       - name: Lint frontend code
         run: npm run lint
         working-directory: Deliverables/EletricGO
- 
+
       - name: Analyze frontend dependencies
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
           unzip dependency-check-6.1.6-release.zip
           ./dependency-check/bin/dependency-check.sh --scan node_modules/ --format HTML --out dependency-report/
         working-directory: Deliverables/EletricGO
- 
+
+      # Add debugging steps here to verify files and directories
+      - name: List dist directory
+        run: ls -R dist/
+        working-directory: Deliverables/EletricGO
+
+      - name: List dependency-report directory
+        run: ls -R dependency-report/
+        working-directory: Deliverables/EletricGO
+
       - name: Archive frontend artifact
         uses: actions/upload-artifact@v2
         with:
           name: frontend-artifact
-          path: dist/
- 
+          path: Deliverables/EletricGO/dist/
+          if-no-files-found: warn
+
       - name: Archive frontend dependency report
         uses: actions/upload-artifact@v2
         with:
           name: frontend-dependency-report
-          path: dependency-report/
+          path: Deliverables/EletricGO/dependency-report/
+          if-no-files-found: warn
+
+  deploy-reports:
+    name: Deploy Reports
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download backend dependency report
+        uses: actions/download-artifact@v2
+        with:
+          name: backend-dependency-report
+          path: reports/backend
+
+      - name: Download frontend dependency report
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-dependency-report
+          path: reports/frontend
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: reports
