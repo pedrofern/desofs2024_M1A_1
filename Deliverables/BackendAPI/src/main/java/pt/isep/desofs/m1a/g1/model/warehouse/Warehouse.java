@@ -18,16 +18,6 @@ public class Warehouse {
     private boolean active;
     private List<DeliveryJpa> deliveries;
 
-    public Warehouse() {
-    }
-    public Warehouse(Long identifier, String designation, String streetName, int doorNumber, String city, String country, String zipCode, double latitude, double longitude, boolean active) {
-        this.identifier = identifier;
-        this.designation = designation;
-        this.address = new Address(streetName, doorNumber, city, country, zipCode);
-        this.geographicCoordinates = new GeographicCoordinates(latitude, longitude);
-        this.active = active;
-    }
-
     public Warehouse(Long identifier, String designation, String streetName, int doorNumber, String city, String country, String zipCode, double latitude, double longitude, boolean active, List<DeliveryJpa> deliveries) {
         this.identifier = identifier;
         this.designation = designation;
