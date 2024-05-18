@@ -34,7 +34,15 @@ public class UserJpaRepositoryImpl implements UserRepository {
 
 	@Override
 	public User save(User user) {
-		UserJpa savedUser = repo.save(mapper.toDatabaseEntity(user));
+		UserJpa userToSave = null;
+		Optional<UserJpa> opt = repo.findByEmail(user.getUsername());
+		if (opt.isPresent()) {
+			userToSave = opt.get();
+			mapper.updateUserJpa(userToSave, user);
+		} else {
+			userToSave = mapper.toDatabaseEntity(user);
+		}
+		UserJpa savedUser = repo.save(userToSave);
 		return mapper.toDomainModel(savedUser);
 	}
 

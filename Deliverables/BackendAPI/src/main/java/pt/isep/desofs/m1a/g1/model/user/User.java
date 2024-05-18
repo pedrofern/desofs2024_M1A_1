@@ -65,5 +65,9 @@ public final class User implements UserDetails {
 	public String getPassword() {
 		return this.password.getValue();
 	}
+	
+	public void assignNewRole(String role) {
+		this.role = Role.fromName(role);
+	}
 
 }

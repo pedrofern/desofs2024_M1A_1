@@ -25,7 +25,7 @@ import pt.isep.desofs.m1a.g1.model.user.Role;
 public class SecurityConfig {
 
 	private static final String[] WHITE_LIST_URL = { "/api/v1/user/login" };
-	private static final String[] ADMIN_LIST_URL = { "/api/v1/user/register", "/api/v1/user/**/assign-role" };
+	private static final String[] ADMIN_LIST_URL = { "/api/v1/user/register", "/api/v1/user/*/assign-role" };
 	private static final String[] ALL_USERS_LIST_URL = { "/api/v1/logistics/**", "/api/v1/trucks/**",
 			"/api/v1/deliveries/**", "/api/v1/warehouses/**" };
 	private final JwtAuthenticationFilter jwtAuthFilter;
@@ -44,12 +44,16 @@ public class SecurityConfig {
 						.requestMatchers(ADMIN_LIST_URL).hasAnyRole(Role.ADMIN.getName()).anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
 				.authenticationProvider(authenticationProvider)
-				.exceptionHandling(e -> e.authenticationEntryPoint((request, response, authException) -> response
-						.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage())))
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 				.logout(logout -> logout.logoutUrl("/api/v1/user/logout").addLogoutHandler(logoutHandler)
 						.logoutSuccessHandler(
-								(request, response, authentication) -> SecurityContextHolder.clearContext()));
+								(request, response, authentication) -> SecurityContextHolder.clearContext()))
+				.exceptionHandling(e -> e
+						.authenticationEntryPoint((request, response, authException) -> response
+								.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage()))
+						.accessDeniedHandler((request, response, accessDeniedException) -> {
+							response.sendError(HttpServletResponse.SC_UNAUTHORIZED, accessDeniedException.getMessage());
+						}));
 
 		return http.build();
 	}
