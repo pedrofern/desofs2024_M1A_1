@@ -1,4 +1,4 @@
-@import '../../../styles.css';
+@import url('../../../styles.css');
 
 .img-fluid {
     width: 50%;
