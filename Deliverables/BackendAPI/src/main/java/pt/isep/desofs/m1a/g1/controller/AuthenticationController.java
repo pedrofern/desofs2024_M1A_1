@@ -13,7 +13,7 @@ import pt.isep.desofs.m1a.g1.service.AuthenticationService;
 
 @Tag(name = "Authentication")
 @RestController
-public class AuthenticationController<service> {
+public class AuthenticationController {
 
 	@Autowired
 	private AuthenticationService authenticationService;

@@ -36,7 +36,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testConstructor_InvalidName() {
+	public void testConstructorInvalidName() {
 		// Arrange
 		String firstName = "John";
 		String lastName = null;
@@ -51,7 +51,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testConstructor_InvalidEmail() {
+	public void testConstructorInvalidEmail() {
 		// Arrange
 		String firstName = "John";
 		String lastName = "Doe";
@@ -66,7 +66,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testConstructor_InvalidPhoneNumber() {
+	public void testConstructorInvalidPhoneNumber() {
 		// Arrange
 		String firstName = "John";
 		String lastName = "Doe";
@@ -81,7 +81,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testConstructor_InvalidPassword() {
+	public void testConstructorInvalidPassword() {
 		// Arrange
 		String firstName = "John";
 		String lastName = "Doe";
@@ -96,7 +96,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testConstructor_InvalidRole() {
+	public void testConstructorInvalidRole() {
 		// Arrange
 		String firstName = "John";
 		String lastName = "Doe";
