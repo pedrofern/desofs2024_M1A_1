@@ -1,0 +1,62 @@
+@startuml
+title GitHub Actions CI/CD Workflow
+
+start
+:Developer triggers workflow (Push/Dispatch);
+
+fork
+    partition "Backend CI" {
+        :Checkout repository;
+        :Clean environment;
+        :Set up JDK;
+        :Install dependencies;
+        :Build backend;
+        :Run backend tests;
+        :Generate coverage report;
+        :Analyze dependencies;
+        :Archive backend artifact;
+        :Archive backend dependency report;
+    }
+    fork
+        partition "Deploy Reports" {
+            :Download backend dependency report;
+            :Deploy backend reports to GitHub Pages;
+        }
+    fork again
+        partition "Build Docker Images" {
+            :Build backend Docker image;
+            :Push backend Docker image;
+        }
+    end fork
+fork again
+    partition "Frontend CI" {
+        :Checkout repository;
+        :Check deliverables folder for frontend;
+        :Clean environment;
+        :Setup Node.js;
+        :Install Angular CLI;
+        :Install dependencies;
+        :Run frontend tests;
+        :Generate coverage report;
+        :Build frontend;
+        :Lint frontend code;
+        :Analyze dependencies;
+        :Archive frontend artifact;
+        :Archive frontend dependency report;
+    }
+    fork
+        partition "Deploy Reports" {
+            :Download frontend dependency report;
+            :Deploy frontend reports to GitHub Pages;
+        }
+    fork again
+        partition "Build Docker Images" {
+            :Build frontend Docker image;
+            :Push frontend Docker image;
+        }
+    end fork
+end fork
+
+
+stop
+@enduml
