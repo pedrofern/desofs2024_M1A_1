@@ -7,18 +7,9 @@ on:
       - main
 
 jobs:
-  checkout-backend:
-    name: Checkout Backend Repository
+  backend-build:
+    name: Backend Build
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-  backend-clean:
-    name: Clean Backend Environment
-    runs-on: ubuntu-latest
-    needs: checkout-backend
 
     steps:
       - name: Checkout repository
@@ -28,15 +19,6 @@ jobs:
         run: |
           rm -rf Deliverables/BackendAPI/target/
         working-directory: Deliverables/BackendAPI
-
-  backend-build:
-    name: Build Backend
-    runs-on: ubuntu-latest
-    needs: backend-clean
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -102,123 +84,6 @@ jobs:
           path: Deliverables/BackendAPI/dependency-report/
           if-no-files-found: warn
 
-  checkout-frontend:
-    name: Checkout Frontend Repository
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-  frontend-clean:
-    name: Clean Frontend Environment
-    runs-on: ubuntu-latest
-    needs: checkout-frontend
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Check deliverables folder for frontend
-        run: |
-          if [ ! -d "Deliverables/EletricGO" ]; then
-            echo "Error: 'Deliverables/EletricGO' folder not found for frontend."
-            exit 1
-          fi
-
-      - name: Clean environment
-        run: |
-          rm -rf Deliverables/EletricGO/dist/
-        working-directory: Deliverables/EletricGO
-
-  frontend-setup:
-    name: Setup Frontend Environment
-    runs-on: ubuntu-latest
-    needs: frontend-clean
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-
-      - name: Install dependencies
-        run: npm install
-        working-directory: Deliverables/EletricGO
-
-  frontend-test:
-    name: Test Frontend and Generate Coverage Report
-    runs-on: ubuntu-latest
-    needs: frontend-setup
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run frontend tests and generate coverage report
-        run: npm run test-no-browser
-        working-directory: Deliverables/EletricGO
-
-      - name: Archive frontend test coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: frontend-test-coverage
-          path: Deliverables/EletricGO/coverage
-          if-no-files-found: warn
-
-      - name: Send coverage report to Codacy
-        env:
-          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        run: |
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
-          -r Deliverables/EletricGO/coverage/lcov.info
-
-  frontend-build:
-    name: Build Frontend
-    runs-on: ubuntu-latest
-    needs: frontend-setup
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Build frontend
-        run: npm run prod
-        working-directory: Deliverables/EletricGO
-
-      - name: Lint frontend code
-        run: npm run lint
-        working-directory: Deliverables/EletricGO
-
-  frontend-dependency-check:
-    name: Analyze Frontend Dependencies
-    runs-on: ubuntu-latest
-    needs: frontend-build
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Analyze frontend dependencies
-        run: |
-          wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
-          unzip dependency-check-6.1.6-release.zip
-          ./dependency-check/bin/dependency-check.sh --scan node_modules/ --format HTML --out dependency-report/
-        working-directory: Deliverables/EletricGO
-
-      - name: Archive frontend dependency report
-        uses: actions/upload-artifact@v2
-        with:
-          name: frontend-dependency-report
-          path: Deliverables/EletricGO/dependency-report/
-          if-no-files-found: warn
-
   deploy-backend-reports:
     name: Deploy Backend Reports
     runs-on: ubuntu-latest
@@ -244,7 +109,97 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: reports/backend
+          publish_dir: reports/backend        
+
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check deliverables folder for frontend
+        run: |
+          if [ ! -d "Deliverables/EletricGO" ]; then
+            echo "Error: 'Deliverables/EletricGO' folder not found for frontend."
+            exit 1
+          fi
+
+      - name: Clean environment
+        run: |
+          rm -rf Deliverables/EletricGO/dist/
+        working-directory: Deliverables/EletricGO
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: Deliverables/EletricGO
+
+      - name: Build frontend
+        run: npm run prod
+        working-directory: Deliverables/EletricGO
+
+  frontend-test:
+    name: Test Frontend and Generate Coverage Report
+    runs-on: ubuntu-latest
+    needs: frontend-build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run frontend tests and generate coverage report
+        run: npm run test-no-browser
+        working-directory: Deliverables/EletricGO
+
+      - name: Archive frontend test coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-test-coverage
+          path: Deliverables/EletricGO/coverage
+          if-no-files-found: warn
+
+      - name: Send coverage report to Codacy
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
+          -r Deliverables/EletricGO/coverage/lcov.info
+
+      - name: Lint frontend code
+        run: npm run lint
+        working-directory: Deliverables/EletricGO    
+
+  frontend-dependency-check:
+    name: Analyze Frontend Dependencies
+    runs-on: ubuntu-latest
+    needs: frontend-build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Analyze frontend dependencies
+        run: |
+          wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
+          unzip dependency-check-6.1.6-release.zip
+          ./dependency-check/bin/dependency-check.sh --scan node_modules/ --format HTML --out dependency-report/
+        working-directory: Deliverables/EletricGO
+
+      - name: Archive frontend dependency report
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-dependency-report
+          path: Deliverables/EletricGO/dependency-report/
+          if-no-files-found: warn
 
   deploy-frontend-reports:
     name: Deploy Frontend Reports
