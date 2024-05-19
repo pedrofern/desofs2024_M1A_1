@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface DeliveryService {
     List<DeliveryDTO> findAllDeliveries();
-    DeliveryDTO findDeliveryByIdentifier(Long identifier) throws NotFoundException;
+    DeliveryDTO findDeliveryByDeliveryId(Long deliveryId) throws NotFoundException;
     DeliveryDTO createDelivery(CreateDeliveryDTO deliveryDTO);
-    DeliveryDTO updateDelivery(Long identifier, DeliveryDTO deliveryDTO) throws NotFoundException;
-    void deleteDelivery(Long identifier) throws NotFoundException;
+    DeliveryDTO updateDelivery(Long deliveryId, DeliveryDTO deliveryDTO) throws NotFoundException;
+    void deleteDelivery(Long deliveryId) throws NotFoundException;
 }

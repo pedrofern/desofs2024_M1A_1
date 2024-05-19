@@ -37,7 +37,7 @@ public class DeliveryController {
     @GetMapping("/{identifier}")
     public ResponseEntity<DeliveryDTO> getDeliveryById(@PathVariable Long identifier) {
         try {
-            DeliveryDTO delivery = deliveryServiceImpl.findDeliveryByIdentifier(identifier);
+            DeliveryDTO delivery = deliveryServiceImpl.findDeliveryByDeliveryId(identifier);
             return ResponseEntity.ok(delivery);
         } catch (NotFoundException e) {
             return ResponseEntity.notFound().build();
