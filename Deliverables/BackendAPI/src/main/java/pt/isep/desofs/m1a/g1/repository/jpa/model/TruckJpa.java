@@ -19,4 +19,5 @@ public class TruckJpa {
     @OneToOne(cascade = CascadeType.ALL)
     private BatteryJpa battery;
 
+
 }

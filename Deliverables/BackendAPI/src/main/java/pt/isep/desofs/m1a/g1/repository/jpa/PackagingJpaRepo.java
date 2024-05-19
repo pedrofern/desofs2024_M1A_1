@@ -1,6 +1,7 @@
 package pt.isep.desofs.m1a.g1.repository.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import pt.isep.desofs.m1a.g1.repository.jpa.model.DeliveryJpa;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.PackagingJpa;
 
 import java.util.List;
@@ -11,5 +12,5 @@ public interface PackagingJpaRepo extends JpaRepository<PackagingJpa, UUID> {
 
     PackagingJpa findByPackagingId(String packagingId);
 
-    List<PackagingJpa> findByDeliveryId(long deliveryId);
+    List<PackagingJpa> findByDelivery_DeliveryId(long deliveryId);
 }

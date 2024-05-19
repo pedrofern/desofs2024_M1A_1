@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.owasp.encoder.Encode;
 import org.springframework.stereotype.Service;
 import pt.isep.desofs.m1a.g1.bean.SubmitLogisticsForm;
+import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.model.logistics.Localization;
 import pt.isep.desofs.m1a.g1.model.logistics.Packaging;
 import pt.isep.desofs.m1a.g1.model.logistics.Time;
+import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 import pt.isep.desofs.m1a.g1.repository.PackagingRepository;
 import pt.isep.desofs.m1a.g1.service.LogisticsService;
 
@@ -21,6 +23,8 @@ public class LogisticsServiceImpl implements LogisticsService {
 
     private final PackagingRepository packagingRepo;
 
+    private final DeliveryRepository deliveryRepo;
+
     @Override
     public void submitForm(SubmitLogisticsForm request) {
 
@@ -34,7 +38,8 @@ public class LogisticsServiceImpl implements LogisticsService {
         if (p.isPresent()) {
             throw new IllegalArgumentException("PackagingId already exists");
         }
-        List<Packaging> packagesByDelivery = packagingRepo.findByDeliveryId(request.getDeliveryId());
+        Delivery delivery = deliveryRepo.findByDeliveryId(request.getDeliveryId());
+        List<Packaging> packagesByDelivery = packagingRepo.findByDelivery(delivery);
         for (Packaging packageDelivery : packagesByDelivery) {
             if (packageDelivery.getLocalization().equals(localization) && packageDelivery.getTruckId() == request.getTruckId()) {
                 throw new IllegalArgumentException("Localization and TruckId are not unique for the given deliveryId");

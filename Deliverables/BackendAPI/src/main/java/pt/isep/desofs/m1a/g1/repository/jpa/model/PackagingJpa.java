@@ -1,9 +1,8 @@
 package pt.isep.desofs.m1a.g1.repository.jpa.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 
 import java.util.UUID;
 
@@ -15,8 +14,12 @@ public class PackagingJpa {
     @GeneratedValue
     private UUID id;
     private String packagingId;
-    private long deliveryId;
-    private long truckId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_id")
+    private DeliveryJpa delivery;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "truck_id")
+    private TruckJpa truck;
     private String loadTime;
     private String unloadTime;
     private int x;

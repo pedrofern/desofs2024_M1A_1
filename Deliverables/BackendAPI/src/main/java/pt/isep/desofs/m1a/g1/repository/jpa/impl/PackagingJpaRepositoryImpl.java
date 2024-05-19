@@ -1,13 +1,24 @@
 package pt.isep.desofs.m1a.g1.repository.jpa.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
+import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.model.logistics.Packaging;
+import pt.isep.desofs.m1a.g1.model.truck.Truck;
+import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 import pt.isep.desofs.m1a.g1.repository.PackagingRepository;
+import pt.isep.desofs.m1a.g1.repository.TruckRepository;
+import pt.isep.desofs.m1a.g1.repository.jpa.DeliveryJpaRepo;
 import pt.isep.desofs.m1a.g1.repository.jpa.PackagingJpaRepo;
+import pt.isep.desofs.m1a.g1.repository.jpa.TruckJpaRepo;
+import pt.isep.desofs.m1a.g1.repository.jpa.mapper.DeliveryJpaMapper;
 import pt.isep.desofs.m1a.g1.repository.jpa.mapper.PackagingJpaMapper;
+import pt.isep.desofs.m1a.g1.repository.jpa.mapper.TruckJpaMapper;
+import pt.isep.desofs.m1a.g1.repository.jpa.model.DeliveryJpa;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.PackagingJpa;
+import pt.isep.desofs.m1a.g1.repository.jpa.model.TruckJpa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +34,16 @@ public class PackagingJpaRepositoryImpl implements PackagingRepository {
 
     private PackagingJpaMapper mapper = PackagingJpaMapper.INSTANCE;
 
+    private DeliveryJpaMapper deliveryJpaMapper = DeliveryJpaMapper.INSTANCE;
+
+    private TruckJpaMapper truckJpaMapper = TruckJpaMapper.INSTANCE;
+
+    @Autowired
+    private DeliveryJpaRepo deliveryRepository;
+
+    @Autowired
+    private TruckJpaRepo truckRepository;
+
     @Override
     public Optional<Packaging> findByPackagingId(String id) {
 
@@ -34,9 +55,8 @@ public class PackagingJpaRepositoryImpl implements PackagingRepository {
     }
 
     @Override
-    public List<Packaging> findByDeliveryId(long deliveryId) {
-
-            List<PackagingJpa> packagingJpaList = repo.findByDeliveryId(deliveryId);
+    public List<Packaging> findByDelivery(Delivery delivery) {
+            List<PackagingJpa> packagingJpaList = repo.findByDelivery_DeliveryId(delivery.getDeliveryId());
             if (!packagingJpaList.isEmpty()) {
                 return packagingJpaList.stream()
                         .map(mapper::toDomainModel)
@@ -59,6 +79,17 @@ public class PackagingJpaRepositoryImpl implements PackagingRepository {
 
     @Override
     public void save(Packaging packaging) {
-        PackagingJpa savedPackaging = repo.save(mapper.toDatabaseEntity(packaging));
+        Optional<DeliveryJpa> deliveryJpa =deliveryRepository.findByDeliveryId(packaging.getDeliveryId());
+        if (deliveryJpa.isEmpty()) {
+            throw new IllegalArgumentException("Delivery not found with identifier: " + packaging.getDeliveryId());
+        }
+        Optional<TruckJpa> truckJpa = truckRepository.findByTruckId(packaging.getTruckId());
+        if (truckJpa.isEmpty()){
+            throw new IllegalArgumentException("Truck not found with identifier: " + packaging.getTruckId());
+        }
+        PackagingJpa packagingJpa = mapper.toDatabaseEntity(packaging);
+        packagingJpa.setDelivery(deliveryJpa.get());
+        packagingJpa.setTruck(truckJpa.get());
+        repo.save(packagingJpa);
     }
 }

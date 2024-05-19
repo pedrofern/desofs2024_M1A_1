@@ -23,30 +23,6 @@ public final class Packaging {
         this.localization = new Localization(x,y,z);
     }
 
-    public String getPackagingId() {
-        return packagingId;
-    }
-
-    public long getDeliveryId() {
-        return deliveryId;
-    }
-
-    public long getTruckId() {
-        return truckId;
-    }
-
-    public Time getLoadTime() {
-        return loadTime;
-    }
-
-    public Time getUnloadTime() {
-        return unloadTime;
-    }
-
-    public Localization getLocalization() {
-        return localization;
-    }
-
     public String sanitizeInput(String input) {
 
         // Replace characters that may be interpreted as HTML or JavaScript with their HTML entity equivalents

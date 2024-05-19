@@ -25,4 +25,5 @@ public class DeliveryJpa {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "warehouseId")
     private WarehouseJpa warehouse;
+
 }
