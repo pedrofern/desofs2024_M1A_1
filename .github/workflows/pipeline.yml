@@ -223,8 +223,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:latest .
-        working-directory: Deliverables/BackendAPI
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:latest -f Deliverables/BackendAPI/Dockerfile Deliverables/BackendAPI
 
       - name: Push Docker image
         run: |
@@ -247,8 +246,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest .
-        working-directory: Deliverables/EletricGO
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest -f Deliverables/EletricGO/Dockerfile Deliverables/EletricGO
 
       - name: Push Docker image
         run: |
