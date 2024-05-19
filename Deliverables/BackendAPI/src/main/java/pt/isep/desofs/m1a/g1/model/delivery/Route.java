@@ -16,4 +16,15 @@ public class Route {
     private Double time;
     private Double energy;
     private Double extraTime;
+
+    @Override
+    public String toString() {
+        return "\nrouteId: " + routeId +
+                "\nidDepartureWarehouse:" + idDepartureWarehouse +
+                "\nidArrivalWarehouse:" + idArrivalWarehouse +
+                "\ndistance:" + distance +
+                "\ntime:" + time +
+                "\nenergy:" + energy +
+                "\nextraTime:" + extraTime;
+    }
 }
