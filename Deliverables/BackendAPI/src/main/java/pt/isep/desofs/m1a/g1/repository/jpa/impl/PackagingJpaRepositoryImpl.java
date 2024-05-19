@@ -67,12 +67,14 @@ public class PackagingJpaRepositoryImpl implements PackagingRepository {
 
     @Override
     public List<Packaging> findAll() {
-
+        List<Packaging> list = new ArrayList<>();
         List<PackagingJpa> packagingJpaList = repo.findAll();
         if (!packagingJpaList.isEmpty()) {
-            return packagingJpaList.stream()
-                    .map(mapper::toDomainModel)
-                    .collect(Collectors.toList());
+            for (PackagingJpa packagingJpa : packagingJpaList){
+                Packaging p = new Packaging(packagingJpa.getPackagingId(), packagingJpa.getDelivery().getDeliveryId(), packagingJpa.getTruck().getTruckId(), packagingJpa.getLoadTime(), packagingJpa.getUnloadTime(), packagingJpa.getX(), packagingJpa.getY(), packagingJpa.getZ());
+                list.add(p);
+            }
+            return list;
         }
         return new ArrayList<>();
     }
