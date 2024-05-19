@@ -10,6 +10,7 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Application Security Verification Standard (ASVS) Checklist](#application-security-verification-standard-asvs-checklist)
 - [Issue Tracker](#issue-tracker)
 - [Build and Deploy Process](#build-and-deploy-process)
   - [Continuous Integration (CI)](#continuous-integration-ci)
@@ -40,6 +41,12 @@ The frontend is developed using Angular, the backend is developed using Java and
 Additionally, we are using the GitHub Actions to automate the build and deploy process.
 
 All of the work is tracked in the GitHub Issues.
+
+## Application Security Verification Standard (ASVS) Checklist
+
+In terms of security we followed the Application Security Verification Standard (ASVS) checklist.
+
+The following file shows the ASVS requirements: [ASVS Check List](v4-ASVS-checklist-en_sprint_1.xlsx)
 
 ## Issue Tracker
 
