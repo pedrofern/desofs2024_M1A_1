@@ -16,7 +16,7 @@ export class UserService {
   private usersUrl = environment.APIUsers;  // URL to web api
   private usersPasswordUrl = environment.APIPassword;  // URL to web api
   private deleteUserUrl = environment.APIDeleteUser;  // URL to web api
-  private loginUrl = environment.APILogin;  // URL to web api
+  private loginUrl = environment.APIUsers;  // URL to web api
   private rolesUrl = environment.APIRoles;  // URL to web api
 
   httpOptions = {

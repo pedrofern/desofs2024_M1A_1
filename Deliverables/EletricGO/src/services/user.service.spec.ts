@@ -44,7 +44,7 @@ describe('UserService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APILogin + 'signup');
+    const req = httpTestingController.expectOne(environment.APIUsers + 'signup');
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('POST');

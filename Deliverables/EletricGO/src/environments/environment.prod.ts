@@ -8,7 +8,6 @@ export const environment = {
   APIRoutes: "https://desofs2024_m1a.azurewebsites.net/api/routes/",
   APITrucks: "https://desofs2024_m1a.azurewebsites.net/api/trucks/",
   APIWarehouses: "https://desofs2024_m1a.azurewebsites.net/api/warehouses/",
-  APILogin: "https://desofs2024_m1a.azurewebsites.net/api/auth/",
   APIUsers: "https://desofs2024_m1a.azurewebsites.net/api/users/",
   APIPassword: "https://desofs2024_m1a.azurewebsites.net/api/users/password/",
   APIDeleteUser: "https://desofs2024_m1a.azurewebsites.net/api/users/cancel/",

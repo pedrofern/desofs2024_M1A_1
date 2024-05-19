@@ -44,7 +44,7 @@ describe('LoginService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APILogin+'signin');
+    const req = httpTestingController.expectOne(environment.APIUsers+'signin');
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('POST');
@@ -70,7 +70,7 @@ describe('LoginService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APILogin+'loginGoogle/'+token);
+    const req = httpTestingController.expectOne(environment.APIUsers+'loginGoogle/'+token);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');
@@ -96,7 +96,7 @@ describe('LoginService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APILogin+ 'roleByUser/' + roleId);
+    const req = httpTestingController.expectOne(environment.APIUsers+ 'roleByUser/' + roleId);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');
