@@ -60,7 +60,11 @@ We have created the following issues to track the tasks related to the DESFOS pr
 
 Dependabot is enabled to keep the dependencies up to date.
 
- 
+
+> Codacy is enabled to keep the code quality in check.
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/65b4c2ec5835498eb2463147b77be122)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 
 ## Frontend
 

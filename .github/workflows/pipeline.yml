@@ -44,6 +44,13 @@ jobs:
           name: backend-test-coverage
           path: Deliverables/BackendAPI/target/site/jacoco
           if-no-files-found: warn  
+      
+      - name: Send coverage report to Codacy
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
+          -r Deliverables/BackendAPI/target/site/jacoco/jacoco.xml
 
       - name: Analyze backend dependencies
         run: |
@@ -109,6 +116,12 @@ jobs:
           path: Deliverables/EletricGO/coverage
           if-no-files-found: warn
 
+      - name: Send coverage report to Codacy
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run: |
+          npx codacy-coverage -r Deliverables/EletricGO/coverage/lcov.info
+          
       - name: Build frontend
         run: npm run prod
         working-directory: Deliverables/EletricGO
