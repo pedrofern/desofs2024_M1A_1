@@ -11,7 +11,7 @@ RUN npm install
 
 # Copie o código fonte e construa a aplicação
 COPY . .
-RUN ng build --prod
+RUN npm run prod
 
 # Use uma imagem base do Nginx para servir a aplicação
 FROM nginx:alpine
