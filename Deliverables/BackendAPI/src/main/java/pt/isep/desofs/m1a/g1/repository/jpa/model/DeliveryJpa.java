@@ -22,8 +22,7 @@ public class DeliveryJpa {
     @Column(nullable = false)
     private Double weight;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "warehouseId")
     private WarehouseJpa warehouse;
-
 }

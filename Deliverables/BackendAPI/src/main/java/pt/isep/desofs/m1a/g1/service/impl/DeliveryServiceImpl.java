@@ -26,7 +26,8 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public List<DeliveryDTO> findAllDeliveries() {
-        return deliveryRepository.findAll().stream()
+        List<Delivery> deliveries = deliveryRepository.findAll();
+        return deliveries.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
