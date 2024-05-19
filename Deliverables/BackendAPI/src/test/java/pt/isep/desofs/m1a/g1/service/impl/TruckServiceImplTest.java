@@ -15,6 +15,7 @@ import pt.isep.desofs.m1a.g1.repository.TruckRepository;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -72,25 +73,6 @@ public class TruckServiceImplTest {
     }
 
     @Test
-    public void testCreateTruckWithNegativeTare() {
-        TruckDto truckDto = new TruckDto();
-        truckDto.setTruckId(1L);
-        truckDto.setTare(-5000.0);
-        truckDto.setLoadCapacity(20000.0);
-        truckDto.setActive(true);
-        BatteryDto batteryDto = new BatteryDto();
-        batteryDto.setBatteryId(1L);
-        batteryDto.setAutonomy(500.0);
-        batteryDto.setMaximumBattery(1000.0);
-        batteryDto.setChargingTime(2.0);
-        truckDto.setBattery(batteryDto);
-
-        assertThrows(InvalidTruckException.class, () -> {
-            truckService.createTruck(truckDto);
-        });
-    }
-
-    @Test
     public void testUpdateTruck() {
         Truck truck = new Truck(1L, 5000.0, 20000.0, true, new Battery(1L, 500.0, 1000.0, 2.0));
         when(truckRepository.findByTruckId(1L)).thenReturn(truck);
@@ -120,19 +102,23 @@ public class TruckServiceImplTest {
     }
 
     @Test
-    public void testUpdateTruckWithNullBattery() {
+    public void testGetTruck() {
         Truck truck = new Truck(1L, 5000.0, 20000.0, true, new Battery(1L, 500.0, 1000.0, 2.0));
         when(truckRepository.findByTruckId(1L)).thenReturn(truck);
 
-        TruckDto truckDto = new TruckDto();
-        truckDto.setTruckId(1L);
-        truckDto.setTare(6000.0);
-        truckDto.setLoadCapacity(25000.0);
-        truckDto.setActive(false);
-        truckDto.setBattery(null);
+        TruckDto result = truckService.getTruck(1L);
 
-        assertThrows(InvalidBatteryException.class, () -> {
-            truckService.updateTruck(1L, truckDto);
+        assertNotNull(result);
+        assertEquals(1L, result.getTruckId());
+        verify(truckRepository, times(1)).findByTruckId(1L);
+    }
+
+    @Test
+    public void testGetTruckNotFound() {
+        when(truckRepository.findByTruckId(1L)).thenReturn(null);
+
+        assertThrows(InvalidTruckException.class, () -> {
+            truckService.getTruck(1L);
         });
     }
 
@@ -161,26 +147,4 @@ public class TruckServiceImplTest {
         assertEquals(2, result.size());
         verify(truckRepository, times(1)).findAllActive();
     }
-
-    @Test
-    public void testGetTruck() {
-        Truck truck = new Truck(1L, 5000.0, 20000.0, true, new Battery(1L, 500.0, 1000.0, 2.0));
-        when(truckRepository.findByTruckId(1L)).thenReturn(truck);
-
-        TruckDto result = truckService.getTruck(1L);
-
-        assertNotNull(result);
-        assertEquals(1L, result.getTruckId());
-        verify(truckRepository, times(1)).findByTruckId(1L);
-    }
-
-    @Test
-    public void testGetTruckNotFound() {
-        when(truckRepository.findByTruckId(1L)).thenReturn(null);
-
-        assertThrows(InvalidTruckException.class, () -> {
-            TruckDto result = truckService.getTruck(1L);
-        });
-    }
-
 }

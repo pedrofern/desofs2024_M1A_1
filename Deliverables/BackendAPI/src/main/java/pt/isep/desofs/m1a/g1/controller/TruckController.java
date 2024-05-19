@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pt.isep.desofs.m1a.g1.config.InputSanitizer;
 import pt.isep.desofs.m1a.g1.dto.TruckDto;
+import pt.isep.desofs.m1a.g1.exception.InvalidTruckException;
 import pt.isep.desofs.m1a.g1.service.TruckService;
 
 import java.util.List;
@@ -47,4 +49,5 @@ public class TruckController {
         TruckDto truck = truckService.getTruck(truckId);
         return new ResponseEntity<>(truck, HttpStatus.OK);
     }
+
 }
