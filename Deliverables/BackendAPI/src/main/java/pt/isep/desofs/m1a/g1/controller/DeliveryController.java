@@ -17,6 +17,7 @@ import pt.isep.desofs.m1a.g1.service.impl.DeliveryServiceImpl;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Tag(name = "Delivery")
 @RestController
@@ -31,6 +32,8 @@ public class DeliveryController {
 
     @Autowired
     private PdfService pdfService;
+
+    Logger logger = Logger.getLogger(DeliveryController.class.getName());
 
     @Autowired
     public DeliveryController(DeliveryServiceImpl deliveryServiceImpl) {
