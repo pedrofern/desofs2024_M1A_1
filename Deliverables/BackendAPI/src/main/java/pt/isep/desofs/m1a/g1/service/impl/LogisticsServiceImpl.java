@@ -25,14 +25,10 @@ public class LogisticsServiceImpl implements LogisticsService {
     public void submitForm(SubmitLogisticsForm request) {
 
         // Sanitize input
-        String lt = sanitizeInput(request.getLoadTime());
-        String ut = sanitizeInput(request.getUnloadTime());
-
-        Time loadTime = new Time(lt);
-        Time unloadTime = new Time(ut);
+        String packagingId = sanitizeInput(request.getPackagingId());
 
         Localization localization = new Localization(request.getX(), request.getY(), request.getZ());
-        Packaging packaging = new Packaging(request.getPackagingId(), request.getDeliveryId(), request.getTruckId(), loadTime.getValue(), unloadTime.getValue(), localization.getX(), localization.getY(), localization.getZ());
+        Packaging packaging = new Packaging(packagingId, request.getDeliveryId(), request.getTruckId(), request.getLoadTime(), request.getUnloadTime(), localization.getX(), localization.getY(), localization.getZ());
 
         Optional<Packaging> p = packagingRepo.findByPackagingId(request.getPackagingId());
         if (p.isPresent()) {

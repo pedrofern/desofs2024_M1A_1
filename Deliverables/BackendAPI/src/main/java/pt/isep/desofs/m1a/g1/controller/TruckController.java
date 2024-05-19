@@ -1,5 +1,6 @@
 package pt.isep.desofs.m1a.g1.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +10,9 @@ import pt.isep.desofs.m1a.g1.service.TruckService;
 
 import java.util.List;
 
+@Tag(name = "Trucks")
 @RestController
-@RequestMapping("/trucks")
+@RequestMapping(path = "/api/v1/trucks")
 public class TruckController {
 
     @Autowired
