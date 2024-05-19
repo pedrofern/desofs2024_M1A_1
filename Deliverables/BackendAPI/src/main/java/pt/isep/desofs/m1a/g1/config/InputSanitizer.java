@@ -1,5 +1,6 @@
 package pt.isep.desofs.m1a.g1.config;
 
+import org.owasp.encoder.Encode;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
 
@@ -51,5 +52,19 @@ public class InputSanitizer {
         }
 
         return false;
+    }
+
+    public static String sanitizeInputForScripts(String input) {
+
+        // Replace characters that may be interpreted as HTML or JavaScript with their HTML entity equivalents
+        input = input.replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll("\"", "&quot;")
+                .replaceAll("'", "&#39;")
+                .replaceAll("script", "&#115cript");
+
+        return Encode.forHtml(input);
+
     }
 }

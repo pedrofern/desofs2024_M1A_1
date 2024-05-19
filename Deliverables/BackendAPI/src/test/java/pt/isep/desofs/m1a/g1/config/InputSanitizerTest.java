@@ -66,4 +66,11 @@ public class InputSanitizerTest {
         String input = "This is a select few items.";
         assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
+
+    @Test
+    public void testSanitizeInputForScripts() {
+        String input = "<script>alert('Hello');</script>";
+        String expectedOutput = "&amp;lt;&amp;#115cript&amp;gt;alert(&amp;#39;Hello&amp;#39;);&amp;lt;/&amp;#115cript&amp;gt;";
+        assertEquals(expectedOutput, InputSanitizer.sanitizeInputForScripts(input));
+    }
 }

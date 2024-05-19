@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.owasp.encoder.Encode;
 import org.springframework.stereotype.Service;
 import pt.isep.desofs.m1a.g1.bean.SubmitLogisticsForm;
+import pt.isep.desofs.m1a.g1.config.InputSanitizer;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.model.logistics.Localization;
 import pt.isep.desofs.m1a.g1.model.logistics.Packaging;
@@ -29,7 +30,7 @@ public class LogisticsServiceImpl implements LogisticsService {
     public void submitForm(SubmitLogisticsForm request) {
 
         // Sanitize input
-        String packagingId = sanitizeInput(request.getPackagingId());
+        String packagingId = InputSanitizer.sanitizeInputForScripts(request.getPackagingId());
 
         Localization localization = new Localization(request.getX(), request.getY(), request.getZ());
         Packaging packaging = new Packaging(packagingId, request.getDeliveryId(), request.getTruckId(), request.getLoadTime(), request.getUnloadTime(), localization.getX(), localization.getY(), localization.getZ());
@@ -57,20 +58,6 @@ public class LogisticsServiceImpl implements LogisticsService {
     //Get the packaging by id
     public Packaging getPackagingById(String id) {
         return packagingRepo.findByPackagingId(id).orElseThrow();
-    }
-
-    public String sanitizeInput(String input) {
-
-        // Replace characters that may be interpreted as HTML or JavaScript with their HTML entity equivalents
-        input = input.replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll("\"", "&quot;")
-                .replaceAll("'", "&#39;")
-                .replaceAll("script", "&#115cript");
-
-        return Encode.forHtml(input);
-
     }
 
 
