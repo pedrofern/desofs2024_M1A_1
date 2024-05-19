@@ -27,9 +27,8 @@ public class RouteJpaRepositoryImpl implements RouteRepository {
     private final RouteJpaMapper mapper = RouteJpaMapper.INSTANCE;
 
     @Override
-    public Route findByRouteId(Long routeId) {
-        Optional<RouteJpa> routeJpa = repo.findByRouteId(routeId);
-        return routeJpa.map(mapper::routeJpaToRoute).orElse(null);
+    public int count() {
+        return repo.findAll().size();
     }
 
     @Override
