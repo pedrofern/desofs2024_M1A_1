@@ -14,6 +14,7 @@ import pt.isep.desofs.m1a.g1.service.LogisticsService;
 import pt.isep.desofs.m1a.g1.service.WarehouseService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Profile("bootstrap")
@@ -27,7 +28,11 @@ public class WarehouseBootstrapper implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        CreateWarehouseDto createWarehouseDto = new CreateWarehouseDto(1, "Warehouse 1", 41.14961, -8.61099);
-        warehouseService.createWarehouse(createWarehouseDto);
+        List<Warehouse> warehouses = warehouseRepo.findAll();
+        if (warehouses.isEmpty()) {
+            CreateWarehouseDto createWarehouseDto = new CreateWarehouseDto(1, "Warehouse 1", 41.35741780756182, -8.562390204464108);
+            warehouseService.createWarehouse(createWarehouseDto);
+        }
+
     }
 }

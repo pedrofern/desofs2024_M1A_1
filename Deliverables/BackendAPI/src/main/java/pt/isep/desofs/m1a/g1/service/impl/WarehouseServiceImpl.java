@@ -38,12 +38,7 @@ public class WarehouseServiceImpl implements WarehouseService {
             throw new InvalidLocalizationFormatException("Invalid localization!");
         }
 
-        Delivery delivery = deliveryRepository.findByIdentifier(1L);
-        List<Delivery> deliveries = new ArrayList<>();
-        deliveries.add(delivery);
-
-
-        Warehouse warehouse = convertToEntity(warehouseDto, response, deliveries);
+        Warehouse warehouse = convertToEntity(warehouseDto, response);
         warehouse = warehouseRepository.save(warehouse);
         return convertToDto(warehouse);
     }
@@ -84,10 +79,10 @@ public class WarehouseServiceImpl implements WarehouseService {
                 .collect(Collectors.toList());
     }
 
-    private Warehouse convertToEntity(CreateWarehouseDto warehouseDto, GeolocalizacaoResponseDTO response, List<Delivery> deliveries) {
+    private Warehouse convertToEntity(CreateWarehouseDto warehouseDto, GeolocalizacaoResponseDTO response) {
         return new Warehouse(warehouseDto.getIdentifier(), warehouseDto.getDesignation(), response.getRua(), response.getN_porta(),
-                response.getFreguesia(),response.getDistrito(), "4410-123", warehouseDto.getLatitude(),
-                warehouseDto.getLongitude(), true, null);
+                response.getFreguesia(),response.getDistrito(), response.getCP() == null ? "4420-123" : response.getCP(), warehouseDto.getLatitude(),
+                warehouseDto.getLongitude(), true);
     }
 
     private WarehouseDto convertToDto(Warehouse warehouse) {

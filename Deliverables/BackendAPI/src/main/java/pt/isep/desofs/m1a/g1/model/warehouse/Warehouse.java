@@ -15,15 +15,13 @@ public class Warehouse {
     private Address address;
     private GeographicCoordinates geographicCoordinates;
     private boolean active;
-    private List<Delivery> deliveries;
 
-    public Warehouse(Long identifier, String designation, String streetName, String doorNumber, String city, String country, String zipCode, double latitude, double longitude, boolean active, List<Delivery> deliveries) {
+    public Warehouse(Long identifier, String designation, String streetName, String doorNumber, String city, String country, String zipCode, double latitude, double longitude, boolean active) {
         this.identifier = identifier;
         this.designation = designation;
         this.address = new Address(streetName, doorNumber, city, country, zipCode);
         this.geographicCoordinates = new GeographicCoordinates(latitude, longitude);
         this.active = active;
-        this.deliveries = deliveries;
     }
 
     public Long getIdentifier() {
@@ -44,10 +42,6 @@ public class Warehouse {
 
     public boolean isActive() {
         return this.active;
-    }
-
-    public List<Delivery> getDeliveries() {
-        return this.deliveries;
     }
 
     public void changeDesignation(String designation) {

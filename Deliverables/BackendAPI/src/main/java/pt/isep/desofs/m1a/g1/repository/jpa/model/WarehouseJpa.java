@@ -45,9 +45,6 @@ public class WarehouseJpa {
     @Column(nullable = false)
     private boolean active;
 
-    @OneToMany(mappedBy = "id")
-    private List<DeliveryJpa> deliveries;
-
     public WarehouseJpa() {
         this.id = UUID.randomUUID();
     }
