@@ -45,12 +45,11 @@ public class AuthenticationServiceImplTest {
 
     @Test
     public void testAuthenticate() {
-        AuthenticationRequest request = new AuthenticationRequest();
-        String email = "testEmail@batatas.pt";
-		request.setEmail(email);
-        String password = "Pass@1234";
-		request.setPassword(password);
-        User user = new User("testFirstName", "testLastName", "911234567", email, password, "ADMIN");
+    	String email = "testEmail@batatas.pt";
+    	String pass = "Pass@1234";
+        AuthenticationRequest request = new AuthenticationRequest(email,pass);
+        
+        User user = new User("testFirstName", "testLastName", "911234567", email, pass, "ADMIN");
         String jwtToken = "testToken";
         String refreshToken = "refreshToken";
 
@@ -60,7 +59,7 @@ public class AuthenticationServiceImplTest {
 
         authenticationService.authenticate(request);
 
-        verify(authenticationManager, times(1)).authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        verify(authenticationManager, times(1)).authenticate(new UsernamePasswordAuthenticationToken(email, pass));
         verify(userRepository, times(1)).findByEmail(email);
         verify(jwtService, times(1)).generateToken(user);
         verify(jwtService, times(1)).generateRefreshToken(user);
