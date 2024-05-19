@@ -21,6 +21,9 @@ jobs:
     needs: checkout-backend
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Clean environment
         run: |
           rm -rf Deliverables/BackendAPI/target/
@@ -32,6 +35,9 @@ jobs:
     needs: backend-clean
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -52,6 +58,9 @@ jobs:
     needs: backend-build
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Run backend tests and generate coverage report
         run: mvn test jacoco:report
         working-directory: Deliverables/BackendAPI
@@ -76,6 +85,9 @@ jobs:
     needs: backend-build
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Analyze backend dependencies
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
@@ -104,6 +116,9 @@ jobs:
     needs: checkout-frontend
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Check deliverables folder for frontend
         run: |
           if [ ! -d "Deliverables/EletricGO" ]; then
@@ -122,6 +137,9 @@ jobs:
     needs: frontend-clean
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -140,6 +158,9 @@ jobs:
     needs: frontend-setup
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Run frontend tests and generate coverage report
         run: npm run test-no-browser
         working-directory: Deliverables/EletricGO
@@ -164,6 +185,9 @@ jobs:
     needs: frontend-setup
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Build frontend
         run: npm run prod
         working-directory: Deliverables/EletricGO
@@ -178,6 +202,9 @@ jobs:
     needs: frontend-build
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Analyze frontend dependencies
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
