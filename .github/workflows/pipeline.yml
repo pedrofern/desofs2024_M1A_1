@@ -7,19 +7,31 @@ on:
       - main
 
 jobs:
-  backend:
-    name: Backend CI
+  checkout-backend:
+    name: Checkout Backend Repository
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+  backend-clean:
+    name: Clean Backend Environment
+    runs-on: ubuntu-latest
+    needs: checkout-backend
+
+    steps:
       - name: Clean environment
         run: |
           rm -rf Deliverables/BackendAPI/target/
         working-directory: Deliverables/BackendAPI
 
+  backend-build:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    needs: backend-clean
+
+    steps:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -34,6 +46,12 @@ jobs:
         run: mvn clean package
         working-directory: Deliverables/BackendAPI
 
+  backend-test:
+    name: Test Backend and Generate Coverage Report
+    runs-on: ubuntu-latest
+    needs: backend-build
+
+    steps:
       - name: Run backend tests and generate coverage report
         run: mvn test jacoco:report
         working-directory: Deliverables/BackendAPI
@@ -43,8 +61,8 @@ jobs:
         with:
           name: backend-test-coverage
           path: Deliverables/BackendAPI/target/site/jacoco
-          if-no-files-found: warn  
-      
+          if-no-files-found: warn
+
       - name: Send coverage report to Codacy
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
@@ -52,19 +70,18 @@ jobs:
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
           -r Deliverables/BackendAPI/target/site/jacoco/jacoco.xml
 
+  backend-dependency-check:
+    name: Analyze Backend Dependencies
+    runs-on: ubuntu-latest
+    needs: backend-build
+
+    steps:
       - name: Analyze backend dependencies
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
           unzip dependency-check-6.1.6-release.zip
           ./dependency-check/bin/dependency-check.sh --scan target/ --format HTML --out dependency-report/
         working-directory: Deliverables/BackendAPI
-
-      - name: Archive backend artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: backend-artifact
-          path: Deliverables/BackendAPI/target/*.jar
-          if-no-files-found: warn
 
       - name: Archive backend dependency report
         uses: actions/upload-artifact@v2
@@ -73,14 +90,20 @@ jobs:
           path: Deliverables/BackendAPI/dependency-report/
           if-no-files-found: warn
 
-  frontend:
-    name: Frontend CI
+  checkout-frontend:
+    name: Checkout Frontend Repository
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+  frontend-clean:
+    name: Clean Frontend Environment
+    runs-on: ubuntu-latest
+    needs: checkout-frontend
+
+    steps:
       - name: Check deliverables folder for frontend
         run: |
           if [ ! -d "Deliverables/EletricGO" ]; then
@@ -93,6 +116,12 @@ jobs:
           rm -rf Deliverables/EletricGO/dist/
         working-directory: Deliverables/EletricGO
 
+  frontend-setup:
+    name: Setup Frontend Environment
+    runs-on: ubuntu-latest
+    needs: frontend-clean
+
+    steps:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -103,12 +132,18 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: Deliverables/EletricGO 
+        working-directory: Deliverables/EletricGO
 
+  frontend-test:
+    name: Test Frontend and Generate Coverage Report
+    runs-on: ubuntu-latest
+    needs: frontend-setup
+
+    steps:
       - name: Run frontend tests and generate coverage report
         run: npm run test-no-browser
-        working-directory: Deliverables/EletricGO 
-      
+        working-directory: Deliverables/EletricGO
+
       - name: Archive frontend test coverage report
         uses: actions/upload-artifact@v2
         with:
@@ -122,7 +157,13 @@ jobs:
         run: |
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
           -r Deliverables/EletricGO/coverage/lcov.info
-          
+
+  frontend-build:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    needs: frontend-setup
+
+    steps:
       - name: Build frontend
         run: npm run prod
         working-directory: Deliverables/EletricGO
@@ -131,19 +172,18 @@ jobs:
         run: npm run lint
         working-directory: Deliverables/EletricGO
 
+  frontend-dependency-check:
+    name: Analyze Frontend Dependencies
+    runs-on: ubuntu-latest
+    needs: frontend-build
+
+    steps:
       - name: Analyze frontend dependencies
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
           unzip dependency-check-6.1.6-release.zip
           ./dependency-check/bin/dependency-check.sh --scan node_modules/ --format HTML --out dependency-report/
         working-directory: Deliverables/EletricGO
-
-      - name: Archive frontend artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: frontend-artifact
-          path: Deliverables/EletricGO/dist/
-          if-no-files-found: warn
 
       - name: Archive frontend dependency report
         uses: actions/upload-artifact@v2
@@ -152,10 +192,10 @@ jobs:
           path: Deliverables/EletricGO/dependency-report/
           if-no-files-found: warn
 
-  deploy-reports:
-    name: Deploy Reports
+  deploy-backend-reports:
+    name: Deploy Backend Reports
     runs-on: ubuntu-latest
-    needs: [backend, frontend]
+    needs: [backend-test, backend-dependency-check]
 
     steps:
       - name: Checkout repository
@@ -165,16 +205,43 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: backend-dependency-report
-          path: reports/backend
+          path: backend-dependency-report/
+
+      - name: Download backend test coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: backend-test-coverage
+          path: backend-test-coverage/
+
+      - name: Deploy Backend Reports to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: reports/backend
+
+  deploy-frontend-reports:
+    name: Deploy Frontend Reports
+    runs-on: ubuntu-latest
+    needs: [frontend-test, frontend-dependency-check]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Download frontend dependency report
         uses: actions/download-artifact@v2
         with:
           name: frontend-dependency-report
-          path: reports/frontend
+          path: frontend-dependency-report/
 
-      - name: Deploy to GitHub Pages
+      - name: Download frontend test coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-test-coverage
+          path: frontend-test-coverage/
+
+      - name: Deploy Frontend Reports to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: reports
+          publish_dir: reports/frontend
