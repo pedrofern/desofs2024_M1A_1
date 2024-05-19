@@ -3,6 +3,7 @@ package pt.isep.desofs.m1a.g1.repository.jpa.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
+import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 import pt.isep.desofs.m1a.g1.repository.jpa.DeliveryJpaRepo;
@@ -42,7 +43,12 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
 
     @Override
     public Delivery save(Delivery delivery) {
+        Optional<WarehouseJpa> warehouseJpa = wRepo.findByIdentifier(delivery.getWarehouseId());
+        if (warehouseJpa.isEmpty()) {
+            throw new NotFoundException("Warehouse not found with identifier: " + delivery.getWarehouseId());
+        }
         DeliveryJpa deliveryJpa = mapper.deliveryToDeliveryJpa(delivery);
+        deliveryJpa.setWarehouse(warehouseJpa.get());
         DeliveryJpa savedDeliveryJpa = repo.save(deliveryJpa);
         return mapper.deliveryJpaToDelivery(savedDeliveryJpa);
     }
