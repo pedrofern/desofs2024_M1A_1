@@ -7,13 +7,10 @@ import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
-import pt.isep.desofs.m1a.g1.model.warehouse.Warehouse;
 import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
-import pt.isep.desofs.m1a.g1.repository.WarehouseRepository;
 import pt.isep.desofs.m1a.g1.service.DeliveryService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,9 +18,6 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Autowired
     private DeliveryRepository deliveryRepository;
-
-    @Autowired
-    private WarehouseRepository warehouseRepository;
 
     @Autowired
     public DeliveryServiceImpl(DeliveryRepository deliveryRepository) {
@@ -83,6 +77,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         dto.setDeliveryId(delivery.getDeliveryId());
         dto.setDeliveryDate(delivery.getDeliveryDate());
         dto.setWeight(delivery.getWeight());
+        dto.setWarehouseId(delivery.getWarehouseId());
         return dto;
     }
 

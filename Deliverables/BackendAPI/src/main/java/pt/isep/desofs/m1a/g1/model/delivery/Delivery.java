@@ -15,4 +15,12 @@ public class Delivery {
     private LocalDate deliveryDate;
     private Double weight;
     private Long warehouseId;
+
+    @Override
+    public String toString() {
+        return "\ndeliveryId: " + deliveryId +
+                "\ndeliveryDate: " + deliveryDate +
+                "\nweight: " + weight +
+                "\nwarehouseId: " + warehouseId;
+    }
 }

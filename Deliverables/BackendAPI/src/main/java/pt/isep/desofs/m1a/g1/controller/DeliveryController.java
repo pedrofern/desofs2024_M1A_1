@@ -2,14 +2,20 @@ package pt.isep.desofs.m1a.g1.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
+import pt.isep.desofs.m1a.g1.model.delivery.DeliveryPlan;
+import pt.isep.desofs.m1a.g1.service.PdfService;
+import pt.isep.desofs.m1a.g1.service.impl.DeliveryPlanServiceImpl;
 import pt.isep.desofs.m1a.g1.service.impl.DeliveryServiceImpl;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @Tag(name = "Delivery")
@@ -17,7 +23,14 @@ import java.util.List;
 @RequestMapping("/api/v1/deliveries")
 public class DeliveryController {
 
-    private final DeliveryServiceImpl deliveryServiceImpl;
+    @Autowired
+    private DeliveryServiceImpl deliveryServiceImpl;
+
+    @Autowired
+    private DeliveryPlanServiceImpl deliveryPlanService;
+
+    @Autowired
+    private PdfService pdfService;
 
     @Autowired
     public DeliveryController(DeliveryServiceImpl deliveryServiceImpl) {
@@ -77,6 +90,39 @@ public class DeliveryController {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/delivery-plan")
+    public ResponseEntity<DeliveryPlan> getDeliveryPlan(@RequestParam("deliveryId") Long deliveryId, @RequestParam("warehouseId") Long warehouseId) {
+        try {
+            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlanByDeliveryIdAndDeliveryWarehouseId(deliveryId, warehouseId);
+            if (deliveryPlan != null) {
+                return ResponseEntity.ok(deliveryPlan);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @GetMapping("/delivery-plan/pdf")
+    public ResponseEntity<byte[]> getDeliveryPlanPdf(@RequestParam("deliveryId") Long deliveryId, @RequestParam("warehouseId") Long warehouseId) {
+        try {
+            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlanByDeliveryIdAndDeliveryWarehouseId(deliveryId, warehouseId);
+            ByteArrayInputStream bis = pdfService.generateDeliveryPlanPdf(deliveryPlan);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline; filename=deliveryPlan.pdf");
+
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(bis.readAllBytes());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }
