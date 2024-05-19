@@ -119,9 +119,9 @@ jobs:
       - name: Send coverage report to Codacy
         env:
             CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          run: |
-            bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
-            -r Deliverables/EletricGO/coverage/lcov.info
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
+          -r Deliverables/EletricGO/coverage/lcov.info
 
       - name: Build frontend
         run: npm run prod
