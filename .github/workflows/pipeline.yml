@@ -152,10 +152,10 @@ jobs:
           path: Deliverables/EletricGO/dependency-report/
           if-no-files-found: warn
 
-  deploy-reports:
-    name: Deploy Reports
+  deploy-backend-reports:
+    name: Deploy Backend Reports
     runs-on: ubuntu-latest
-    needs: [backend, frontend]
+    needs: [backend]
 
     steps:
       - name: Checkout repository
@@ -165,16 +165,91 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: backend-dependency-report
-          path: reports/backend
+          path: backend-dependency-report/
+
+      - name: Download backend test coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: backend-test-coverage
+          path: backend-test-coverage/
+
+      - name: Deploy Backend Reports to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: reports/backend
+
+  deploy-frontend-reports:
+    name: Deploy Frontend Reports
+    runs-on: ubuntu-latest
+    needs: [frontend]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Download frontend dependency report
         uses: actions/download-artifact@v2
         with:
           name: frontend-dependency-report
-          path: reports/frontend
+          path: frontend-dependency-report/
 
-      - name: Deploy to GitHub Pages
+      - name: Download frontend test coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-test-coverage
+          path: frontend-test-coverage/
+
+      - name: Deploy Frontend Reports to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: reports
+          publish_dir: reports/frontend
+
+  build-backend-docker:
+    name: Build and Push Backend Docker Image
+    runs-on: ubuntu-latest
+    needs: [backend]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:latest .
+        working-directory: Deliverables/BackendAPI
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/backend:latest
+
+  build-frontend-docker:
+    name: Build and Push Frontend Docker Image
+    runs-on: ubuntu-latest
+    needs: [frontend]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest .
+        working-directory: Deliverables/EletricGO
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
