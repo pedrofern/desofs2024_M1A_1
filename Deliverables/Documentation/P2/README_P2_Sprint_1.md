@@ -143,6 +143,7 @@ The frontend is developed using Angular. It is responsible for the user interfac
 
 1. **Node.js**: 20.9.0
 2. **Angular CLI**: 15.0.4
+3. **Install Dependencies**: Run `npm install` to install required dependencies.
 4. **Run Development Server**: Start the application using `ng start`.
 
 ### Testing
@@ -165,19 +166,18 @@ The backend is developed using Java and Spring Boot. It provides RESTful APIs fo
 ### Development Setup
 
 - **JDK**: JDK 17.
+- **Install Dependencies**: Run `mvn clean install` to install required dependencies.
 - **Run Application**: Start the application using `mvn spring-boot:run`.
 
 ### Testing
 
 - **Unit Tests**: Run unit tests using `mvn test jacoco:report`.
+- **Integration Tests**: Run integration tests using the Postman collection file `BackendAPI/EletricGo_BackEnd.postman_collection.json`.
 
 
 
 ## Database
 
 The database is developed using PostgreSQL. It stores all the data related to the DESFOS application, including user data, warehouse information, delivery plans, truck data, and logistics operations.
-
-
-
 
 
