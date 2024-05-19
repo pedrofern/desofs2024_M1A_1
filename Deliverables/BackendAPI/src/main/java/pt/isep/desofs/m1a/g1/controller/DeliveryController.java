@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.service.impl.DeliveryServiceImpl;
@@ -46,7 +47,7 @@ public class DeliveryController {
     }
 
     @PostMapping
-    public ResponseEntity<DeliveryDTO> createDelivery(@RequestBody DeliveryDTO deliveryDTO) {
+    public ResponseEntity<DeliveryDTO> createDelivery(@RequestBody CreateDeliveryDTO deliveryDTO) {
         try {
             DeliveryDTO savedDelivery = deliveryServiceImpl.createDelivery(deliveryDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedDelivery);

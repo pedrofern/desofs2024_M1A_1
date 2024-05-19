@@ -62,5 +62,20 @@ public class UserBootstrapper implements CommandLineRunner {
 			userRepo.save(operator);
 		}
 
+		// admin - Cristiano Soares
+		if (userRepo.findByEmail("1191816@isep.ipp.pt").isEmpty()) {
+			User admin = new User("Cristiano", "Soares", "+351912123123", "1191816@isep.ipp.pt",
+					encoder.encode("Admin@123"), "ADMIN");
+
+			userRepo.save(admin);
+		}
+
+		// admin - Fábio Cruz
+		if (userRepo.findByEmail("1171540@isep.ipp.pt").isEmpty()) {
+			User admin = new User("Fabio", "Cruz", "+351912123123", "1171540@isep.ipp.pt",
+					encoder.encode("Admin@123"), "ADMIN");
+
+			userRepo.save(admin);
+		}
 	}
 }

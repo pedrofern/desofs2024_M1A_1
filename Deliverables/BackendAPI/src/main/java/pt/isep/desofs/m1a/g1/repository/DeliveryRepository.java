@@ -17,4 +17,6 @@ public interface DeliveryRepository {
     boolean existsByIdentifier(Long identifier);
 
     void deleteByIdentifier(Long identifier);
+
+    Long getNextSequenceValue();
 }

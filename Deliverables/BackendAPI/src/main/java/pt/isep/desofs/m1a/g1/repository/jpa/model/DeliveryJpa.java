@@ -14,7 +14,7 @@ public class DeliveryJpa {
     @GeneratedValue
     private UUID id;
 
-    private Long identifier;
+    private Long deliveryId;
 
     @Column(nullable = false)
     private LocalDate deliveryDate;
@@ -22,6 +22,7 @@ public class DeliveryJpa {
     @Column(nullable = false)
     private Double weight;
 
-    @Column(nullable = false, length = 64)
-    private String warehouseId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "warehouseId")
+    private WarehouseJpa warehouse;
 }
