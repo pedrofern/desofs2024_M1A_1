@@ -2,6 +2,7 @@ package pt.isep.desofs.m1a.g1.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.isep.desofs.m1a.g1.config.InputSanitizer;
 import pt.isep.desofs.m1a.g1.dto.BatteryDto;
 import pt.isep.desofs.m1a.g1.dto.TruckDto;
 import pt.isep.desofs.m1a.g1.exception.InvalidBatteryException;
@@ -22,6 +23,7 @@ public class TruckServiceImpl implements TruckService {
 
     @Override
     public TruckDto createTruck(TruckDto truckDto) {
+        validateTruckDto(truckDto);
         if (truckDto.getBattery() == null) {
             throw new InvalidBatteryException("Battery information cannot be null");
         }
@@ -35,6 +37,7 @@ public class TruckServiceImpl implements TruckService {
 
     @Override
     public TruckDto updateTruck(long truckId, TruckDto truckDto) {
+        validateTruckDto(truckDto);
         Truck truck = truckRepository.findByTruckId(truckId);
         if (truck == null) {
             throw new InvalidTruckException("Truck not found");
@@ -70,11 +73,35 @@ public class TruckServiceImpl implements TruckService {
 
     @Override
     public TruckDto getTruck(long truckId) {
+        validateTruckId(truckId);
         Truck truck = truckRepository.findByTruckId(truckId);
         if (truck == null) {
             throw new InvalidTruckException("Truck not found");
         }
         return convertToDto(truck);
+    }
+
+    private void validateTruckId(long truckId) {
+        if (InputSanitizer.containsMaliciousContent(String.valueOf(truckId))) {
+            throw new InvalidTruckException("Truck ID contains potentially malicious content");
+        }
+    }
+
+    private void validateTruckDto(TruckDto truckDto) {
+        if (truckDto.getBattery() == null) {
+            throw new InvalidBatteryException("Battery information cannot be null");
+        }
+        if (truckDto.getTare() < 0) {
+            throw new InvalidTruckException("Tare must be positive");
+        }
+
+        if (InputSanitizer.containsMaliciousContent(String.valueOf(truckDto.getTruckId())) ||
+                InputSanitizer.containsMaliciousContent(String.valueOf(truckDto.getTare())) ||
+                InputSanitizer.containsMaliciousContent(String.valueOf(truckDto.getLoadCapacity())) ||
+                InputSanitizer.containsMaliciousContent(String.valueOf(truckDto.isActive())) ||
+                InputSanitizer.containsMaliciousContent(truckDto.getBattery().toString())) {
+            throw new InvalidTruckException("Request contains potentially malicious content");
+        }
     }
 
     private TruckDto convertToDto(Truck truck) {
