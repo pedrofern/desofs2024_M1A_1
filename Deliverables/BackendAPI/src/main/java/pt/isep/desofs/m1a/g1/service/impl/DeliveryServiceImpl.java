@@ -38,10 +38,10 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public DeliveryDTO findDeliveryByIdentifier(Long identifier) throws NotFoundException {
-        Delivery delivery = deliveryRepository.findByDeliveryId(identifier);
+    public DeliveryDTO findDeliveryByDeliveryId(Long deliveryId) throws NotFoundException {
+        Delivery delivery = deliveryRepository.findByDeliveryId(deliveryId);
         if (delivery == null) {
-            throw new NotFoundException("Delivery not found with identifier: " + identifier);
+            throw new NotFoundException("Delivery not found with identifier: " + deliveryId);
         }
         return convertToDTO(delivery);
     }
@@ -50,10 +50,6 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Transactional
     public DeliveryDTO createDelivery(CreateDeliveryDTO deliveryDTO) {
         Delivery delivery = convertToEntity(deliveryDTO);
-        Optional<Warehouse> warehouse = warehouseRepository.findByIdentifier(delivery.getWarehouseId());
-        if(warehouse.isEmpty()) {
-            throw new NotFoundException("Warehouse not found with identifier: " + delivery.getWarehouseId());
-        }
         delivery.setDeliveryId(deliveryRepository.getNextSequenceValue());
         delivery = deliveryRepository.save(delivery);
         return convertToDTO(delivery);
@@ -61,10 +57,10 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     @Transactional
-    public DeliveryDTO updateDelivery(Long identifier, DeliveryDTO deliveryDTO) throws NotFoundException {
-        Delivery existingDelivery = deliveryRepository.findByDeliveryId(identifier);
+    public DeliveryDTO updateDelivery(Long deliveryId, DeliveryDTO deliveryDTO) throws NotFoundException {
+        Delivery existingDelivery = deliveryRepository.findByDeliveryId(deliveryId);
         if (existingDelivery == null) {
-            throw new NotFoundException("Delivery not found with identifier: " + identifier);
+            throw new NotFoundException("Delivery not found with identifier: " + deliveryId);
         }
         // Update the entity fields here
         existingDelivery.setDeliveryDate(deliveryDTO.getDeliveryDate());
@@ -75,11 +71,11 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     @Transactional
-    public void deleteDelivery(Long identifier) throws NotFoundException {
-        if (!deliveryRepository.existsByIdentifier(identifier)) {
-            throw new NotFoundException("Delivery not found with identifier: " + identifier);
+    public void deleteDelivery(Long deliveryId) throws NotFoundException {
+        if (!deliveryRepository.existsByIdentifier(deliveryId)) {
+            throw new NotFoundException("Delivery not found with identifier: " + deliveryId);
         }
-        deliveryRepository.deleteByIdentifier(identifier);
+        deliveryRepository.deleteByIdentifier(deliveryId);
     }
 
     private DeliveryDTO convertToDTO(Delivery delivery) {

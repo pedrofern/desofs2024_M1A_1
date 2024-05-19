@@ -22,29 +22,21 @@ public class DeliveryBootstrapper implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (repo.findByDeliveryId(1L) == null) {
-            CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now(), 1000.00, 1L);
-            service.createDelivery(d);
-        }
+        if (repo.findAll().size() >= 5) {
+            CreateDeliveryDTO d1 = new CreateDeliveryDTO(LocalDate.now(), 1000.00, 1L);
+            service.createDelivery(d1);
 
-        if (repo.findByDeliveryId(2L) == null) {
-            CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now().plusDays(1), 2000.00, 1L);
-            service.createDelivery(d);
-        }
+            CreateDeliveryDTO d2 = new CreateDeliveryDTO(LocalDate.now().plusDays(1), 2000.00, 1L);
+            service.createDelivery(d2);
 
-        if (repo.findByDeliveryId(3L) == null) {
-            CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now().plusDays(2), 2000.00, 1L);
-            service.createDelivery(d);
-        }
+            CreateDeliveryDTO d3 = new CreateDeliveryDTO(LocalDate.now().plusDays(2), 2000.00, 1L);
+            service.createDelivery(d3);
 
-        if (repo.findByDeliveryId(4L) == null) {
-            CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now().plusDays(3), 3000.00, 1L);
-            service.createDelivery(d);
-        }
+            CreateDeliveryDTO d4 = new CreateDeliveryDTO(LocalDate.now().plusDays(3), 3000.00, 1L);
+            service.createDelivery(d4);
 
-        if (repo.findByDeliveryId(5L) == null) {
-            CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now().plusDays(4), 4000.00, 1L);
-            service.createDelivery(d);
+            CreateDeliveryDTO d5 = new CreateDeliveryDTO(LocalDate.now().plusDays(4), 4000.00, 1L);
+            service.createDelivery(d5);
         }
     }
 }
