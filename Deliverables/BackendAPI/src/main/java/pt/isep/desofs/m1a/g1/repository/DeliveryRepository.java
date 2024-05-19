@@ -19,4 +19,6 @@ public interface DeliveryRepository {
     void deleteByIdentifier(Long identifier);
 
     Long getNextSequenceValue();
+
+    List<Delivery> findByDeliveryIdAndWarehouseId(Long deliveryId, Long warehouseId);
 }

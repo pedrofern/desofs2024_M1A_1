@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
+import pt.isep.desofs.m1a.g1.model.delivery.DeliveryPlan;
+import pt.isep.desofs.m1a.g1.service.impl.DeliveryPlanServiceImpl;
 import pt.isep.desofs.m1a.g1.service.impl.DeliveryServiceImpl;
 
 import java.util.List;
@@ -17,7 +19,11 @@ import java.util.List;
 @RequestMapping("/api/v1/deliveries")
 public class DeliveryController {
 
-    private final DeliveryServiceImpl deliveryServiceImpl;
+    @Autowired
+    private DeliveryServiceImpl deliveryServiceImpl;
+
+    @Autowired
+    private DeliveryPlanServiceImpl deliveryPlanService;
 
     @Autowired
     public DeliveryController(DeliveryServiceImpl deliveryServiceImpl) {
@@ -77,6 +83,20 @@ public class DeliveryController {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/delivery-plan")
+    public ResponseEntity<DeliveryPlan> getDeliveryPlan(@RequestParam("deliveryId") Long deliveryId, @RequestParam("warehouseId") Long warehouseId) {
+        try {
+            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlanByDeliveryIdAndDeliveryWarehouseId(deliveryId, warehouseId);
+            if (deliveryPlan != null) {
+                return ResponseEntity.ok(deliveryPlan);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

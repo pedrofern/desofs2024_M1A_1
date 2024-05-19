@@ -12,6 +12,7 @@ import pt.isep.desofs.m1a.g1.repository.jpa.mapper.RouteJpaMapper;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.RouteJpa;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.WarehouseJpa;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -29,6 +30,13 @@ public class RouteJpaRepositoryImpl implements RouteRepository {
     @Override
     public int count() {
         return repo.findAll().size();
+    }
+
+    @Override
+    public List<Route> findByArrivalWarehouseId(Long warehouseId) {
+        return repo.findByArrivalWarehouse_Identifier(warehouseId).stream()
+                .map(mapper::routeJpaToRoute)
+                .collect(java.util.stream.Collectors.toList());
     }
 
     @Override

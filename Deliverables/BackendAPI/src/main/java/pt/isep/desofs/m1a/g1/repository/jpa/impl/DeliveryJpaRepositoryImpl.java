@@ -67,4 +67,10 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
     public Long getNextSequenceValue() {
         return repo.getNextSequenceValue();
     }
+
+    @Override
+    public List<Delivery> findByDeliveryIdAndWarehouseId(Long deliveryId, Long warehouseId) {
+        List<DeliveryJpa> deliveryJpa = repo.findByDeliveryIdAndWarehouse_Identifier(deliveryId, warehouseId);
+        return deliveryJpa.stream().map(mapper::deliveryJpaToDelivery).collect(Collectors.toList());
+    }
 }
