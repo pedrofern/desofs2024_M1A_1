@@ -22,27 +22,27 @@ public class DeliveryBootstrapper implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (repo.findByIdentifier(1L) == null) {
+        if (repo.findByDeliveryId(1L) == null) {
             CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now(), 1000.00, 1L);
             service.createDelivery(d);
         }
 
-        if (repo.findByIdentifier(2L) == null) {
+        if (repo.findByDeliveryId(2L) == null) {
             CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now().plusDays(1), 2000.00, 1L);
             service.createDelivery(d);
         }
 
-        if (repo.findByIdentifier(3L) == null) {
+        if (repo.findByDeliveryId(3L) == null) {
             CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now().plusDays(2), 2000.00, 1L);
             service.createDelivery(d);
         }
 
-        if (repo.findByIdentifier(4L) == null) {
+        if (repo.findByDeliveryId(4L) == null) {
             CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now().plusDays(3), 3000.00, 1L);
             service.createDelivery(d);
         }
 
-        if (repo.findByIdentifier(5L) == null) {
+        if (repo.findByDeliveryId(5L) == null) {
             CreateDeliveryDTO d = new CreateDeliveryDTO(LocalDate.now().plusDays(4), 4000.00, 1L);
             service.createDelivery(d);
         }

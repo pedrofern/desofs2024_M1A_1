@@ -36,8 +36,8 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public Delivery findByIdentifier(Long identifier) {
-        Optional<DeliveryJpa> deliveryJpa = repo.findByDeliveryId(identifier);
+    public Delivery findByDeliveryId(Long deliveryId) {
+        Optional<DeliveryJpa> deliveryJpa = repo.findByDeliveryId(deliveryId);
         return deliveryJpa.map(mapper::deliveryJpaToDelivery).orElse(null);
     }
 

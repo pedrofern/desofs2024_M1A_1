@@ -10,7 +10,7 @@ public interface DeliveryRepository {
 
     List<Delivery> findAll();
 
-    Delivery findByIdentifier(Long identifier);
+    Delivery findByDeliveryId(Long deliveryId);
 
     Delivery save(Delivery delivery);
 
