@@ -40,10 +40,8 @@ html, body {
 .model-box{
   display: flex;
   flex-direction: column;
-
   width: 100%;
   background: white;
-
   padding-left: 25px;
   padding-right: 25px;
 }

@@ -14,7 +14,7 @@ import { MessageService } from './message.service';
 })
 export class LoginService {
 
-  private loginUrl = environment.APILogin;  // URL to web api
+  private loginUrl = environment.APIUsers;  // URL to web api
 
   private subjectName = new Subject<any>(); //need to create a subject
 
@@ -27,7 +27,7 @@ export class LoginService {
 
   validateLogin(login: ILogin): Observable<IUser> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.post<IUser>(this.loginUrl + 'signin', login, { headers });
+    return this.http.post<IUser>(this.loginUrl + 'login', login, { headers });
   }
 
   validateLoginGoogle(token: string): Observable<IUser> {

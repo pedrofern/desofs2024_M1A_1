@@ -18,8 +18,7 @@ export const environment = {
   APIPackagings: "http://localhost:3000/api/packagings/",
   APIRoutes: "http://localhost:3000/api/routes/",
   APITrucks: "http://localhost:3000/api/trucks/",
-  APILogin: "http://localhost:3000/api/auth/",
-  APIUsers: "http://localhost:3000/api/users/",
+  APIUsers: "http://localhost:3000/api/v1/user/",
   APIPassword: "http://localhost:3000/api/users/password/",
   APIDeleteUser: "http://localhost:3000/api/users/cancel/",
   APIRoles: "http://localhost:3000/api/roles/"

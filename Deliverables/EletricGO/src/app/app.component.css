@@ -28,6 +28,7 @@ a:active {
 mat-sidenav-container, mat-sidenav-content, mat-sidenav, mat-nav-list {
   height: 100%;
 }
+
 mat-sidenav {
   width: 250px;
 }
