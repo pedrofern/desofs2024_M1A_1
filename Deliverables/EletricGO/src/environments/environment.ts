@@ -4,25 +4,17 @@
 
 export const environment = {
   production: false,
-  // APIWarehouses: "http://localhost:5000/api/warehouses/",
-  // APIDeliveries: "http://localhost:5000/api/deliveries/",
-  // APIPlannings: "http://localhost:3000/api/plannings/",
-  // APIPackagings: "http://localhost:3000/api/packagings/",
-  // APIRoutes: "http://localhost:3000/api/routes/",
-  // APITrucks: "http://localhost:3000/api/trucks/",
-  APIWarehouses: "https://desofs2024_m1a.azurewebsites.net/api/warehouses/",
-  APIDeliveries: "https://desofs2024_m1a.azurewebsites.net/api/deliveries/",
-  APIPlannings: "http://localhost:3000/api/plannings/",
-  //APICreatePlannings: "http://10.9.23.98:6969/planning",
-  APICreatePlannings: "http://localhost:6969/planning",
-  APIPackagings: "http://localhost:3000/api/packagings/",
-  APIRoutes: "http://localhost:3000/api/routes/",
-  APITrucks: "http://localhost:3000/api/trucks/",
-  APIUsers: "http://localhost:3000/api/v1/user/",
-  APIPassword: "http://localhost:3000/api/users/password/",
-  APIDeleteUser: "http://localhost:3000/api/users/cancel/",
-  APIRoles: "http://localhost:3000/api/roles/"
-  
+  APIWarehouses: "https://localhost:8080/api/v1/warehouses/",
+  APIDeliveries: "https://localhost:8080/api/v1/deliveries/",
+  APIPlannings: "http://localhost:8080/api/v1/plannings/",
+  APICreatePlannings: "http://localhost:8080/planning",
+  APIPackagings: "http://localhost:8080/api/v1/packagings/",
+  APIRoutes: "http://localhost:8080/api/v1/routes/",
+  APITrucks: "http://localhost:8080/api/v1/trucks/",
+  APIUsers: "http://localhost:8080/api/v1/user/",
+  APIPassword: "http://localhost:8080/api/v1/users/password/",
+  APIDeleteUser: "http://localhost:8080/api/v1/users/cancel/",
+  APIRoles: "http://localhost:8080/api/v1/roles/"
 };
 
 /*
