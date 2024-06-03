@@ -1,0 +1,31 @@
+@startuml
+title Deploy Workflow
+
+start
+
+fork
+    partition "Backend CI" {
+        :Checkout repository;
+        :Clean environment;
+        :Install dependencies;
+        :Build backend;
+        :Archive backend artifact;
+        :Build backend Docker image;
+        :Push backend Docker image;
+    }
+fork again
+    partition "Frontend CI" {
+        :Checkout repository;
+        :Clean environment;
+        :Setup Node.js;
+        :Install Angular CLI;
+        :Install dependencies;
+        :Build frontend;
+        :Archive frontend artifact;
+        :Build frontend Docker image;
+        :Push frontend Docker image;
+    }
+end fork
+
+stop
+@enduml
