@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  APIWarehouses: "https://localhost:8080/api/v1/warehouses/",
-  APIDeliveries: "https://localhost:8080/api/v1/deliveries/",
+  APIWarehouses: "http://localhost:8080/api/v1/warehouses/",
+  APIDeliveries: "http://localhost:8080/api/v1/deliveries/",
   APIPlannings: "http://localhost:8080/api/v1/plannings/",
   APICreatePlannings: "http://localhost:8080/planning",
   APIPackagings: "http://localhost:8080/api/v1/packagings/",
