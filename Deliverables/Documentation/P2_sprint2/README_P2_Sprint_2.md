@@ -75,9 +75,13 @@ We have created the following issues to track the tasks related to the DESFOS pr
 
 ## Build and Deploy Process
 
-We have set up a continuous integration and continuous deployment (CI/CD) pipeline using GitHub Actions. The pipeline is configured to automate the build, test, and deployment processes for both the frontend and backend components of the project.
+We have set up a continuous integration and continuous deployment (CI/CD) pipeline using GitHub Actions. The pipeline is configured to automate the build, test, and 
 
-Here there is a copy of the GitHub Actions Workflow file: [GitHub Actions Pipeline](pipeline.yml)
+Deployment processes for both the frontend and backend components of the project is done when a tag v*.*.* is created.
+
+Here there is a copy of the pipeline files:
+  * CI/CD Build Workflow file: [CI/CD Build Workflow](pipeline.yml)
+  * Deploy Images Release file: [Deploy Images](release.yml)
 
 ### Continuous Integration (CI)
 
@@ -99,12 +103,20 @@ The CD pipeline is triggered after the CI pipeline completes successfully. It in
 
 1. **Download Reports**: Download dependency and coverage reports generated during the CI process.
 2. **Deploy to GitHub Pages**: Deploy reports to GitHub Pages for easy access and review.
-3. **Build Docker Images**: Build Docker images for both backend and frontend.
-4. **Push Docker Images**: Push the Docker images to Docker Hub.
 
-GitHub Actions Workflow diagram:
+CI/CD Build Workflow diagram:
 
-![GitHub Actions Workflow](GitHubActionsWorkflow.png)
+![CI/CD Build Workflow](build.png)
+
+### Deploy Images
+
+1. **Build Docker Images**: Build Docker images for both backend and frontend.
+2. **Push Docker Images**: Push the Docker images to Docker Hub.
+
+Deploy Images Release diagram:
+
+![Deploy Images Release](release.png)
+
 
 ### Automation Tools
 
