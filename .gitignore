@@ -33,4 +33,4 @@ Deliveries/EletricGO/dist/*
 # Ignore cache created with the Angular CLI.
 .angular/
 dist/
-/Deliverables/EletricGO/.vscode
+.vscode
