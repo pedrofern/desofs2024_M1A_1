@@ -4,15 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Delivery {
 
     private Long deliveryId;
-    private LocalDate deliveryDate;
+    private String deliveryDate;
     private Double weight;
     private Long warehouseId;
 

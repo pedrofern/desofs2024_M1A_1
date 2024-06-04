@@ -8,7 +8,6 @@ import { Subject, takeUntil } from 'rxjs';
 import { DeliveryService } from '../../../services/delivery.service';
 import { IDelivery } from 'src/model/IDelivery';
 import { DeliveryMap } from 'src/mappers/DeliveryMap';
-import { upperCase } from 'cypress/types/lodash';
 import { GlobalService } from 'src/services/global.service';
 
 @Component({

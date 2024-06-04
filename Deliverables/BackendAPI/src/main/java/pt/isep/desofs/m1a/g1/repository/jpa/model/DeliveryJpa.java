@@ -17,7 +17,7 @@ public class DeliveryJpa {
     private Long deliveryId;
 
     @Column(nullable = false)
-    private LocalDate deliveryDate;
+    private String deliveryDate;
 
     @Column(nullable = false)
     private Double weight;

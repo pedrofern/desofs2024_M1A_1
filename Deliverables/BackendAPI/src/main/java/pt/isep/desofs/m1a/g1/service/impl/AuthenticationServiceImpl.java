@@ -35,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			var refreshToken = jwtService.generateRefreshToken(user);
 			revokeAllUserTokens(user);
 			saveUserToken(user, jwtToken);
-			return new AuthenticationResponse(jwtToken, refreshToken);
+			return new AuthenticationResponse(jwtToken, refreshToken, user.getEmail().getValue(), user.getRole().getName());
 		} catch (AuthenticationException e) {
 			throw e;
 		}

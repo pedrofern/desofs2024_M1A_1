@@ -56,7 +56,7 @@ public class WarehouseController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<WarehouseDto>> getAllDeliveries() {
         try {
             List<WarehouseDto> warehouses = warehouseService.findAllWarehouses();

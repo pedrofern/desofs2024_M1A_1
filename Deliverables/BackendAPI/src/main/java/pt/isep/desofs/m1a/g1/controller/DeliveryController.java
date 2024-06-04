@@ -2,6 +2,7 @@ package pt.isep.desofs.m1a.g1.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import pt.isep.desofs.m1a.g1.service.impl.DeliveryServiceImpl;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @Tag(name = "Delivery")
@@ -40,10 +42,26 @@ public class DeliveryController {
         this.deliveryServiceImpl = deliveryServiceImpl;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<DeliveryDTO>> getAllDeliveries() {
         try {
-            List<DeliveryDTO> deliveries = deliveryServiceImpl.findAllDeliveries();
+            List<DeliveryDTO> deliveries = deliveryServiceImpl.getAllDeliveries();
+            return ResponseEntity.ok(deliveries);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<DeliveryDTO>> getDeliveries(
+            @RequestParam(defaultValue = "0") int pageIndex,
+            @RequestParam(defaultValue = "5") int pageSize,
+            @RequestParam(defaultValue = "deliveryId") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(required = false) Map<String, String> filters
+    ) {
+        try {
+            List<DeliveryDTO> deliveries = deliveryServiceImpl.getDeliveries(pageIndex, pageSize, sortBy, sortOrder, filters);
             return ResponseEntity.ok(deliveries);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

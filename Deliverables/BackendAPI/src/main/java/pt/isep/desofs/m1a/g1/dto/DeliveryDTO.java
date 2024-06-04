@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class DeliveryDTO {
 
     private Long deliveryId;
-    private LocalDate deliveryDate;
+    private String deliveryDate;
     private Double weight;
     private Long warehouseId;
 }

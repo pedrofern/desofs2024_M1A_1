@@ -2,6 +2,9 @@ package pt.isep.desofs.m1a.g1.repository.jpa.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
@@ -33,6 +36,11 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
         return repo.findAll().stream()
                 .map(mapper::deliveryJpaToDelivery)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<Delivery> findAllWithFilters(Specification<DeliveryJpa> specification, Pageable pageable) {
+        return repo.findAll(specification, pageable).map(mapper::deliveryJpaToDelivery);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 public class CreateDeliveryDTO {
-    private LocalDate deliveryDate;
+    private String deliveryDate;
     private Double weight;
     private Long warehouseId;
 }

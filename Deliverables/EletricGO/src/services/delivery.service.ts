@@ -34,7 +34,7 @@ export class DeliveryService {
 
 /** GET filtered deliveries from the server */
 getFilterDeliveries(filters: any, sortBy: string, sortOrder: string, pageIndex: number, pageSize: number): Observable<IDeliveryDto[]> {
-  const url = this.deliveriesUrl;
+  const url = this.deliveriesUrl + 'filter';
   let params = new HttpParams();
 
   // Add the filters to the params object
@@ -75,7 +75,7 @@ getTotalRecords(): Observable<IDeliveryDto[]> {
 
   /** GET warehouses from the server */
   getWarehouses(): Observable<IWarehouseDto[]> {
-    const url = `${this.warehousesUrl}active`;
+    const url = `${this.warehousesUrl}`;
     return this.http.get<IWarehouseDto[]>(url)
       .pipe(
         tap(_ => this.log('fetched warehouses')),

@@ -13,28 +13,32 @@ import { LoginService } from 'src/services/login.service';
 export class SidenavComponent implements OnInit {
 
   @Output() sidenavClose = new EventEmitter();
-  
+
   title = "ElectricGo";
   role: string | undefined;
-  
+
   constructor(private cookieService: CookieService, private eventService: EventAggregatorService) { }
-  
+
   ngOnInit(): void {
     this.eventService.SideBarRefresh.subscribe((e: EventArgs) => this.onRefresh());
     this.validateRole();
   }
-  
+
   public onSidenavClose = () => {
     this.sidenavClose.emit();
   }
 
   validateRole(): void {
-    if(this.cookieService.get('roleName') === 'Administrator'){
+    if(this.cookieService.get('roleName') === 'ADMIN'){
       this.role = '1';
-    } else if (this.cookieService.get('roleName') === 'Warehouse Manager'){
+    } else if (this.cookieService.get('roleName') === 'WAREHOUSE_MANAGER'){
       this.role = '2';
-    } else if (this.cookieService.get('roleName') === 'Logistics Manager'){
+    } else if (this.cookieService.get('roleName') === 'FLEET_MANAGER'){
       this.role = '3';
+    } else if (this.cookieService.get('roleName') === 'LOGISTICS_MANAGER'){
+        this.role = '4';
+    } else if (this.cookieService.get('roleName') === 'OPERATOR'){
+        this.role = '5';
     }
   }
 

@@ -33,23 +33,23 @@ class DeliveryServiceImplTest {
         MockitoAnnotations.openMocks(this);
 
         delivery = new Delivery();
-        delivery.setDeliveryDate(LocalDate.now());
+        delivery.setDeliveryDate("2024-01-01");
         delivery.setWeight(10.0);
         delivery.setWarehouseId(1L);
 
         deliveryDTO = new DeliveryDTO();
-        deliveryDTO.setDeliveryDate(LocalDate.now());
+        deliveryDTO.setDeliveryDate("2024-01-02");
         deliveryDTO.setWeight(10.0);
         deliveryDTO.setWarehouseId(1L);
 
-        createDeliveryDTO = new CreateDeliveryDTO(LocalDate.now(), 10.0, 1L);
+        createDeliveryDTO = new CreateDeliveryDTO("2024-01-03", 10.0, 1L);
     }
 
     @Test
-    void findAllDeliveries() {
+    void getDeliveries() {
         when(deliveryRepository.findAll()).thenReturn(List.of(delivery));
 
-        List<DeliveryDTO> result = deliveryService.findAllDeliveries();
+        List<DeliveryDTO> result = deliveryService.getAllDeliveries();
 
         assertEquals(1, result.size());
         verify(deliveryRepository, times(1)).findAll();

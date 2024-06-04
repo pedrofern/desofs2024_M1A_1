@@ -10,9 +10,9 @@ class DeliveryTest {
 
     @Test
     void testToString() {
-        Delivery delivery = new Delivery(1L, LocalDate.now(), 10.0, 1L);
+        Delivery delivery = new Delivery(1L, "2024-01-01", 10.0, 1L);
         String expected = "\ndeliveryId: " + 1L +
-                "\ndeliveryDate: " + LocalDate.now() +
+                "\ndeliveryDate: " + "2024-01-01" +
                 "\nweight: " + 10.0 +
                 "\nwarehouseId: " + 1L;
         assertEquals(expected, delivery.toString());
@@ -20,26 +20,25 @@ class DeliveryTest {
 
     @Test
     void getDeliveryId() {
-        Delivery delivery = new Delivery(1L, LocalDate.now(), 10.0, 1L);
+        Delivery delivery = new Delivery(1L, "2024-01-01", 10.0, 1L);
         assertEquals(1L, delivery.getDeliveryId());
     }
 
     @Test
     void getDeliveryDate() {
-        LocalDate date = LocalDate.now();
-        Delivery delivery = new Delivery(1L, date, 10.0, 1L);
-        assertEquals(date, delivery.getDeliveryDate());
+        Delivery delivery = new Delivery(1L, "2024-01-01", 10.0, 1L);
+        assertEquals("2024-01-01", delivery.getDeliveryDate());
     }
 
     @Test
     void getWeight() {
-        Delivery delivery = new Delivery(1L, LocalDate.now(), 10.0, 1L);
+        Delivery delivery = new Delivery(1L, "2024-01-01", 10.0, 1L);
         assertEquals(10.0, delivery.getWeight());
     }
 
     @Test
     void getWarehouseId() {
-        Delivery delivery = new Delivery(1L, LocalDate.now(), 10.0, 1L);
+        Delivery delivery = new Delivery(1L, "2024-01-01", 10.0, 1L);
         assertEquals(1L, delivery.getWarehouseId());
     }
 
@@ -52,10 +51,9 @@ class DeliveryTest {
 
     @Test
     void setDeliveryDate() {
-        LocalDate date = LocalDate.now();
         Delivery delivery = new Delivery();
-        delivery.setDeliveryDate(date);
-        assertEquals(date, delivery.getDeliveryDate());
+        delivery.setDeliveryDate("2024-01-01");
+        assertEquals("2024-01-01", delivery.getDeliveryDate());
     }
 
     @Test
@@ -74,15 +72,15 @@ class DeliveryTest {
 
     @Test
     void testEquals() {
-        Delivery delivery1 = new Delivery(1L, LocalDate.now(), 10.0, 1L);
-        Delivery delivery2 = new Delivery(1L, LocalDate.now(), 10.0, 1L);
+        Delivery delivery1 = new Delivery(1L, "2024-01-01", 10.0, 1L);
+        Delivery delivery2 = new Delivery(1L, "2024-01-01", 10.0, 1L);
         assertTrue(delivery1.equals(delivery2) && delivery2.equals(delivery1));
         assertEquals(delivery1.hashCode(), delivery2.hashCode());
     }
 
     @Test
     void testHashCode() {
-        Delivery delivery = new Delivery(1L, LocalDate.now(), 10.0, 1L);
+        Delivery delivery = new Delivery(1L, "2024-01-01", 10.0, 1L);
         int expectedHash = delivery.hashCode();
         assertEquals(expectedHash, delivery.hashCode());
     }
