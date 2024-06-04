@@ -63,21 +63,19 @@ export class LoginComponent implements OnInit {
   }
 
   validateLogin(form: NgForm) {
-
     if (form.value.email != '' && form.value.password != '') {
-
       this.loginCredentials.email = form.value.email;
       this.loginCredentials.password = form.value.password;
 
       this.loginService.validateLogin(this.loginCredentials)
         .subscribe((data: any) => {
-            this.cookieService.set('access_token', data.token);
-            this.cookieService.set('email', data.email);
-            this.cookieService.set('role', data.roleName);
+            this.cookieService.set('access_token', data.access_token, { path: '/' });
+            this.cookieService.set('email', data.email, { path: '/' });
+            this.cookieService.set('role', data.role, { path: '/' });
             this.eventService.refreshSideBar();
             this.router.navigateByUrl('/');
         }, (error: HttpErrorResponse) => {
-          this.errorMessage = error.error.error;
+          this.errorMessage = error.error.message;
           this.success = false;
         });
     } else {
@@ -90,9 +88,9 @@ export class LoginComponent implements OnInit {
     this.loginService.validateLoginGoogle(response.credential)
         .subscribe((data: any) => {
             this.global.updateData(true);
-            this.cookieService.set('email', data.email);
-            this.cookieService.set('token', response.credential);
-            this.cookieService.set('roleName', data.roleName);
+            this.cookieService.set('access_token', data.access_token, { path: '/' });
+            this.cookieService.set('email', data.email, { path: '/' });
+            this.cookieService.set('role', data.role, { path: '/' });
             this.eventService.refreshSideBar();
             this.router.navigateByUrl('/');
         }, (error: HttpErrorResponse) => {

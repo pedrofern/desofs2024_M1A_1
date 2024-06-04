@@ -1,7 +1,5 @@
 import IRoleDTO from "src/dtos/login/IRoleDTO";
-import ITruckDTO from "src/dtos/truck/ITruckDTO";
 import { IRole } from "src/model/IRole";
-import ITruck from "src/model/ITruck";
 
 export class RoleMap {
 
@@ -13,7 +11,7 @@ export class RoleMap {
     }
 
     public static toModelList(dtos: IRoleDTO[]): IRole[] {
-        const list = []
+        const list: IRole[] = []
 
         dtos.forEach(element => {
             list.push(this.toModel(element))
@@ -27,10 +25,11 @@ export class RoleMap {
             id: role.id,
             name: role.name
         }
-    }  
-    
+    }
+
     public static toDTOList(trucks: IRole[]): IRoleDTO[] {
-        const list = []
+        let list: any[];
+        list = [];
 
         trucks.forEach(element => {
             list.push(this.toModel(element))
