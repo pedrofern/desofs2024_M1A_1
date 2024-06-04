@@ -10,8 +10,8 @@ import {DeliveryService} from 'src/services/delivery.service';
 import {DeliveriesComponent} from './deliveries.component';
 
 const expectedDeliveries: IDeliveryDto[] =
-    [{deliveryIdentifier: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99'},
-        {deliveryIdentifier: 2, deliveryDate: '12-12-2022', weight: 200, warehouseId: 'M98'}];
+    [{deliveryId: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99'},
+        {deliveryId: 2, deliveryDate: '12-12-2022', weight: 200, warehouseId: 'M98'}];
 
 describe('DeliveriesComponent', () => {
     let component: DeliveriesComponent;

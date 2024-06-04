@@ -1,5 +1,5 @@
 export interface IDeliveryDto {
-  deliveryIdentifier: number;
+  deliveryId: number;
   deliveryDate: string;
   weight: number;
   warehouseId: string;

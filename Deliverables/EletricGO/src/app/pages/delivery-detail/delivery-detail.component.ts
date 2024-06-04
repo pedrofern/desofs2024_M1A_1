@@ -90,7 +90,7 @@ export class DeliveryDetailComponent implements OnInit {
         }
 
         this.deliveryService.editDelivery(
-            form.value.deliveryIdentifier,
+            form.value.deliveryId,
             {
                 DeliveryDate: modifiedDate,
                 Weight: form.value.deliveryWeight,
@@ -103,7 +103,7 @@ export class DeliveryDetailComponent implements OnInit {
                 },
                 complete: () => {
                     this.success = true;
-                    this.successMessage = 'The delivery ' + form.value.deliveryIdentifier + ' was updated!'
+                    this.successMessage = 'The delivery ' + form.value.deliveryId + ' was updated!'
                 },
             })
     }

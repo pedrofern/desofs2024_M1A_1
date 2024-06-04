@@ -10,7 +10,7 @@
                 <label for="inputDeliveries">Delivery</label>
                 <select class="form-control" name="inputDelivery" [(ngModel)]="packaging.deliveryId" required ngModel>
                     <option disabled>Choose a delivery</option>
-                    <option *ngFor="let delivery of deliveries" value="{{delivery.deliveryIdentifier}}">{{delivery.deliveryIdentifier}}</option>
+                    <option *ngFor="let delivery of deliveries" value="{{delivery.deliveryId}}">{{delivery.deliveryId}}</option>
                 </select>
             </div>
             <div class="form-group">
@@ -47,7 +47,7 @@
             </div>
             <div class="d-flex justify-content-center">
                 <div *ngIf="!success && success != null" class="alert alert-danger alert-dismissible fade show" role="alert">{{this.errorMessage}}</div>
-                <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">{{this.successMessage}}</div>      
+                <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">{{this.successMessage}}</div>
             </div>
         </form>
     </div>

@@ -1,17 +1,17 @@
 <div class="centered-content">
     <div class="model-box has-background-white">
         <form *ngIf="delivery" (ngSubmit)="id ? edit(deliveryDetailsForm) : create(deliveryDetailsForm)" #deliveryDetailsForm="ngForm">
-            <h2>{{!id ? 'Create' : 'Edit'}} Delivery {{delivery.deliveryIdentifier}}</h2>
+            <h2>{{!id ? 'Create' : 'Edit'}} Delivery {{delivery.deliveryId}}</h2>
             <div>
                 <label for="delivery-id" *ngIf="id">Identifier </label>
-                <input name="deliveryIdentifier" *ngIf="id" [(ngModel)]="delivery.deliveryIdentifier" readonly ngModel />
+                <input name="deliveryId" *ngIf="id" [(ngModel)]="delivery.deliveryId" readonly ngModel />
 
                 <label for="new-delivery-date">Date </label>
                 <input name="deliveryDate" type="text" placeholder="{{delivery.deliveryDate}}" max="2999-12-31" onfocus="(this.type='date')" onblur="(this.type='text')" [(ngModel)]="delivery.deliveryDate" required ngModel />
 
                 <label for="new-Weight">Weight </label>
                 <input name="deliveryWeight" type="number" [(ngModel)]="delivery.weight" required ngModel />
-                
+
                 <label for="new-warehouse-id">Warehouse ID</label>
                 <select name="deliveryWarehouseId" [(ngModel)]="delivery.warehouseId" required ngModel >
                     <option disabled>Choose the warehouse</option>

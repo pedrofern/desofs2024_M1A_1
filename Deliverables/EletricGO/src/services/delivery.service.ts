@@ -34,7 +34,7 @@ export class DeliveryService {
 
 /** GET filtered deliveries from the server */
 getFilterDeliveries(filters: any, sortBy: string, sortOrder: string, pageIndex: number, pageSize: number): Observable<IDeliveryDto[]> {
-  const url = this.deliveriesUrl + 'Filter/';
+  const url = this.deliveriesUrl;
   let params = new HttpParams();
 
   // Add the filters to the params object
@@ -49,7 +49,7 @@ getFilterDeliveries(filters: any, sortBy: string, sortOrder: string, pageIndex: 
     params = params.append('sortBy', sortBy);
     params = params.append('sortOrder', sortOrder.toUpperCase());
   } else {
-    params = params.append('sortBy', 'Id');
+    params = params.append('sortBy', 'deliveryId');
     params = params.append('sortOrder', 'ASC');
   }
 

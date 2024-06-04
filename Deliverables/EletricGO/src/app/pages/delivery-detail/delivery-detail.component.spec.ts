@@ -11,7 +11,7 @@ import {IWarehouseDto} from "../../../dtos/warehouse/IWarehouseDto";
 import {IDeliveryDto} from "../../../dtos/delivery/IDeliveryDto";
 
 const expectedDelivery: IDeliveryDto =
-    {deliveryIdentifier: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99'};
+    {deliveryId: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99'};
 
 const expectedWarehouse: IWarehouseDto[] =
     [{
@@ -52,7 +52,7 @@ describe('DeliveryDetailComponent', () => {
         const params = {
             snapshot: {
                 paramMap: {
-                    get: () => expectedDelivery.deliveryIdentifier
+                    get: () => expectedDelivery.deliveryId
                 },
             },
         }

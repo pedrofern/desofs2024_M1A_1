@@ -9,17 +9,17 @@
             <button type="button" class="btn btn-primary btn-sm" routerLink="/deliveries/create">Create</button>
         </div>
         <mat-table [dataSource]="dataSource" matSort (matSortChange)="customSort($event)">
-            
-            <ng-container matColumnDef="identifier">
+
+            <ng-container matColumnDef="deliveryId">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="number" [(ngModel)]="filterDeliveryId" (keyup.enter)="updateValue()" placeholder="Delivery ID">
                     </mat-form-field>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" >{{ element.deliveryIdentifier }}</mat-cell>
+                <mat-cell *matCellDef="let element" >{{ element.deliveryId }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="DeliveryDate_date">
+            <ng-container matColumnDef="deliveryDate">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="text" [(ngModel)]="filterDeliveryDate" (keyup.enter)="updateValue()" placeholder="Date">
@@ -52,7 +52,7 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button mat-icon-button routerLink="/deliveries/edit/{{element.deliveryIdentifier}}">
+                    <button mat-icon-button routerLink="/deliveries/edit/{{element.deliveryId}}">
                         <mat-icon>edit</mat-icon>
                     </button>
                 </mat-cell>

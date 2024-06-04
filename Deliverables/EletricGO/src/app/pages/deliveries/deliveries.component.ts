@@ -18,7 +18,7 @@ import { GlobalService } from 'src/services/global.service';
 })
 export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
     destroy$: Subject<boolean> = new Subject<boolean>();
-    displayedColumns: string[] = ['identifier', 'DeliveryDate_date', 'weight', 'warehouseId', 'actions'];
+    displayedColumns: string[] = ['deliveryId', 'deliveryDate', 'weight', 'warehouseId', 'actions'];
     deliveries: IDelivery[] = [];
     dataSource = new MatTableDataSource<IDelivery>;
 
@@ -33,7 +33,7 @@ export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
     filterWarehouseId?: string;
 
     filters: any = {
-        deliveryIdentifier: this.filterDeliveryDate,
+        deliveryId: this.filterDeliveryId,
         deliveryDate: this.filterDeliveryDate,
         weight: this.filterWeight,
         warehouseId: this.filterWarehouseId,
@@ -74,7 +74,7 @@ export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     updateValue() {
-        this.filters.deliveryIdentifier = this.filterDeliveryId;
+        this.filters.deliveryId = this.filterDeliveryId;
         this.filters.deliveryDate = this.filterDeliveryDate;
         this.filters.weight = this.filterWeight;
         this.filters.warehouseId = this.filterWarehouseId;

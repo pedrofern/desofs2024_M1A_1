@@ -16,8 +16,8 @@ import {DeliveryService} from "../../../services/delivery.service";
 const expectedPackaging: IPackagingDTO = { packagingId: "P01", deliveryId: "1", truckId: "AA-00-CC", x: 1, y: 2, z: 3, loadTime: 100, unloadTime: 200 }
 
 const expectedDeliveries: IDeliveryDto[] =
-    [{deliveryIdentifier: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99'},
-        {deliveryIdentifier: 2, deliveryDate: '12-12-2022', weight: 200, warehouseId: 'M98'}];
+    [{deliveryId: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99'},
+        {deliveryId: 2, deliveryDate: '12-12-2022', weight: 200, warehouseId: 'M98'}];
 
 const expectedTrucks: ITruckDTO[] =
     [{truckId: 'AA-00-AA', tare: 100, loadCapacity: 100, maximumBattery: 100, autonomy: 100, chargingTime: 100, active: true},

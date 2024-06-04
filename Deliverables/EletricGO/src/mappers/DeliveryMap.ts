@@ -5,7 +5,7 @@ export class DeliveryMap {
 
     public static toModel(dto: IDeliveryDto): IDelivery {
         return {
-            deliveryIdentifier: dto.deliveryIdentifier,
+            deliveryId: dto.deliveryId,
             deliveryDate: dto.deliveryDate,
             weight: dto.weight,
             warehouseId: dto.warehouseId
@@ -14,7 +14,7 @@ export class DeliveryMap {
 
     public static toDTO(model: IDelivery): IDeliveryDto {
         return {
-            deliveryIdentifier: model.deliveryIdentifier,
+            deliveryId: model.deliveryId,
             deliveryDate: model.deliveryDate,
             weight: model.weight,
             warehouseId: model.warehouseId

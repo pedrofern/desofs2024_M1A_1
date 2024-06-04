@@ -86,7 +86,7 @@ describe('DeliveryService', () => {
   //Test GetDelivery on Service
   it('should return expected getDelivery (HttpClient called once)', () => {
     const deliveryId = 1;
-    const expectedDelivery: IDeliveryDto = { deliveryIdentifier: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99' };
+    const expectedDelivery: IDeliveryDto = { deliveryId: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99' };
 
     // Make an HTTP GET request
     deliveryService.getDelivery(deliveryId).subscribe(data =>
@@ -113,8 +113,8 @@ describe('DeliveryService', () => {
   //Test GetDeliveries on Service
   it('should return expected getDeliveries (HttpClient called once)', () => {
     const expectedDelivery: IDeliveryDto[] =
-      [{ deliveryIdentifier: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99' },
-      { deliveryIdentifier: 2, deliveryDate: '12-12-2022', weight: 200, warehouseId: 'M98'  }];
+      [{ deliveryId: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99' },
+      { deliveryId: 2, deliveryDate: '12-12-2022', weight: 200, warehouseId: 'M98'  }];
 
     // Make an HTTP GET request
     deliveryService.getDeliveries().subscribe(data =>
