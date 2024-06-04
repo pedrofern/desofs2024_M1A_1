@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       google.accounts.id.renderButton(
       // @ts-ignore
       document.getElementById("buttonDiv"),
-        { theme: "outline", size: "large", width: "100%" } 
+        { theme: "outline", size: "large", width: "100%" }
       );
       // @ts-ignore
       google.accounts.id.prompt((notification: PromptMomentNotification) => {});
@@ -71,13 +71,13 @@ export class LoginComponent implements OnInit {
 
       this.loginService.validateLogin(this.loginCredentials)
         .subscribe((data: any) => {
-            this.cookieService.set('email', data.userDTO.email);
-            this.cookieService.set('token', data.token);
-            this.cookieService.set('roleName', data.roleName);
+            this.cookieService.set('access_token', data.token);
+            this.cookieService.set('email', data.email);
+            this.cookieService.set('role', data.roleName);
             this.eventService.refreshSideBar();
             this.router.navigateByUrl('/');
         }, (error: HttpErrorResponse) => {
-          this.errorMessage = error.error.errors.message;
+          this.errorMessage = error.error.error;
           this.success = false;
         });
     } else {
