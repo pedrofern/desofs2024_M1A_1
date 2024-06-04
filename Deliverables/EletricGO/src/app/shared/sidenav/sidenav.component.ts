@@ -29,15 +29,15 @@ export class SidenavComponent implements OnInit {
   }
 
   validateRole(): void {
-    if(this.cookieService.get('roleName') === 'ADMIN'){
+    if(this.cookieService.get('role') === 'ADMIN'){
       this.role = '1';
-    } else if (this.cookieService.get('roleName') === 'WAREHOUSE_MANAGER'){
+    } else if (this.cookieService.get('role') === 'WAREHOUSE_MANAGER'){
       this.role = '2';
-    } else if (this.cookieService.get('roleName') === 'FLEET_MANAGER'){
+    } else if (this.cookieService.get('role') === 'FLEET_MANAGER'){
       this.role = '3';
-    } else if (this.cookieService.get('roleName') === 'LOGISTICS_MANAGER'){
+    } else if (this.cookieService.get('role') === 'LOGISTICS_MANAGER'){
         this.role = '4';
-    } else if (this.cookieService.get('roleName') === 'OPERATOR'){
+    } else if (this.cookieService.get('role') === 'OPERATOR'){
         this.role = '5';
     }
   }
