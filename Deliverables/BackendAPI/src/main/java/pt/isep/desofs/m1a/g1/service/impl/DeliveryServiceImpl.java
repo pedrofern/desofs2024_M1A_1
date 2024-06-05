@@ -62,7 +62,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     public DeliveryDTO createDelivery(CreateDeliveryDTO deliveryDTO) {
         Delivery delivery = deliveryDTO.convertToEntity();
         delivery.setDeliveryId(deliveryRepository.getNextSequenceValue());
-        delivery = deliveryRepository.save(delivery);
+        delivery = deliveryRepository.create(delivery);
         return delivery.convertToDTO();
     }
 
@@ -76,7 +76,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         existingDelivery.setDeliveryDate(deliveryDTO.getDeliveryDate());
         existingDelivery.setWeight(deliveryDTO.getWeight());
         existingDelivery.setWarehouseId(deliveryDTO.getWarehouseId());
-        Delivery updatedDelivery = deliveryRepository.save(existingDelivery);
+        Delivery updatedDelivery = deliveryRepository.update(existingDelivery);
         return updatedDelivery.convertToDTO();
     }
 

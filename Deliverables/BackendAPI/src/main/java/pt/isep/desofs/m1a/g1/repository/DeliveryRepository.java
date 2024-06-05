@@ -18,7 +18,9 @@ public interface DeliveryRepository {
 
     Delivery findByDeliveryId(Long deliveryId);
 
-    Delivery save(Delivery delivery);
+    Delivery create(Delivery delivery);
+
+    Delivery update(Delivery delivery);
 
     boolean existsByIdentifier(Long identifier);
 

@@ -53,7 +53,19 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public Delivery save(Delivery delivery) {
+    public Delivery create(Delivery delivery) {
+        Optional<WarehouseJpa> warehouseJpa = wRepo.findByIdentifier(delivery.getWarehouseId());
+        if (warehouseJpa.isEmpty()) {
+            throw new NotFoundException("Warehouse not found with identifier: " + delivery.getWarehouseId());
+        }
+        DeliveryJpa deliveryJpa = mapper.deliveryToDeliveryJpa(delivery);
+        deliveryJpa.setWarehouse(warehouseJpa.get());
+        DeliveryJpa savedDeliveryJpa = repo.save(deliveryJpa);
+        return mapper.deliveryJpaToDelivery(savedDeliveryJpa);
+    }
+
+    @Override
+    public Delivery update(Delivery delivery) {
         Optional<WarehouseJpa> warehouseJpa = wRepo.findByIdentifier(delivery.getWarehouseId());
         if (warehouseJpa.isEmpty()) {
             throw new NotFoundException("Warehouse not found with identifier: " + delivery.getWarehouseId());

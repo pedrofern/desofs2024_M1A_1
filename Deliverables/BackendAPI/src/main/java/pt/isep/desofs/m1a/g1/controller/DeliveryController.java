@@ -77,7 +77,7 @@ public class DeliveryController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<DeliveryDTO> createDelivery(@RequestBody CreateDeliveryDTO deliveryDTO) {
         try {
             DeliveryDTO savedDelivery = deliveryServiceImpl.createDelivery(deliveryDTO);

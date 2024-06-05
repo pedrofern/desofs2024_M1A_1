@@ -68,24 +68,24 @@ class DeliveryServiceImplTest {
 
     @Test
     void createDelivery() {
-        when(deliveryRepository.save(any(Delivery.class))).thenReturn(delivery);
+        when(deliveryRepository.update(any(Delivery.class))).thenReturn(delivery);
 
         DeliveryDTO result = deliveryService.createDelivery(createDeliveryDTO);
 
         assertNotNull(result);
-        verify(deliveryRepository, times(1)).save(any(Delivery.class));
+        verify(deliveryRepository, times(1)).update(any(Delivery.class));
     }
 
     @Test
     void updateDelivery() {
         when(deliveryRepository.findByDeliveryId(anyLong())).thenReturn(delivery);
-        when(deliveryRepository.save(any(Delivery.class))).thenReturn(delivery);
+        when(deliveryRepository.update(any(Delivery.class))).thenReturn(delivery);
 
         DeliveryDTO result = deliveryService.updateDelivery(1L, updateDeliveryDTO);
 
         assertNotNull(result);
         verify(deliveryRepository, times(1)).findByDeliveryId(anyLong());
-        verify(deliveryRepository, times(1)).save(any(Delivery.class));
+        verify(deliveryRepository, times(1)).update(any(Delivery.class));
     }
 
     @Test
