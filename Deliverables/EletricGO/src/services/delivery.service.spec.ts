@@ -153,7 +153,7 @@ describe('DeliveryService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIWarehouses+'active');
+    const req = httpTestingController.expectOne(environment.APIWarehouses);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');

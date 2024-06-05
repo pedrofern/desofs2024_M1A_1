@@ -34,7 +34,7 @@ export class WarehouseService {
 
   /** GET active warehouses from the server */
   getActiveWarehouses(): Observable<IWarehouseDto[]> {
-  const url = `${this.warehousesUrl}active`;
+  const url = `${this.warehousesUrl}`;
     return this.http.get<IWarehouseDto[]>(url)
       .pipe(
         tap(_ => this.log('fetched active warehouses')),
