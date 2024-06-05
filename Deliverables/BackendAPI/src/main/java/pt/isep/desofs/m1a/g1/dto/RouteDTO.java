@@ -1,11 +1,10 @@
 package pt.isep.desofs.m1a.g1.dto;
 
-import lombok.*;
+import lombok.Data;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
 public class RouteDTO {
 
     private Long routeId;
@@ -15,15 +14,4 @@ public class RouteDTO {
     private Double time;
     private Double energy;
     private Double extraTime;
-
-    @Override
-    public String toString() {
-        return "Route " + routeId +
-                "\nDeparture Warehouse: " + idDepartureWarehouse +
-                "\nArrival Warehouse: " + idArrivalWarehouse +
-                "\nDistance: " + distance +
-                "\nTime: " + time +
-                "\nEnergy: " + energy +
-                "\nExtra Time: " + extraTime;
-    }
 }

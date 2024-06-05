@@ -111,9 +111,9 @@ public class DeliveryController {
     }
 
     @GetMapping("/delivery-plan")
-    public ResponseEntity<DeliveryPlan> getDeliveryPlan(@RequestParam("deliveryPlanId") Long deliveryPlanId) {
+    public ResponseEntity<DeliveryPlan> getDeliveryPlan(@RequestParam("deliveryId") Long deliveryId, @RequestParam("warehouseId") Long warehouseId) {
         try {
-            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlan(deliveryPlanId);
+            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlanByDeliveryIdAndDeliveryWarehouseId(deliveryId, warehouseId);
             if (deliveryPlan != null) {
                 return ResponseEntity.ok(deliveryPlan);
             } else {
@@ -125,9 +125,9 @@ public class DeliveryController {
     }
 
     @GetMapping("/delivery-plan/pdf")
-    public ResponseEntity<byte[]> getDeliveryPlanPdf(@RequestParam("deliveryPlanId") Long deliveryPlanId) {
+    public ResponseEntity<byte[]> getDeliveryPlanPdf(@RequestParam("deliveryId") Long deliveryId, @RequestParam("warehouseId") Long warehouseId) {
         try {
-            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlan(deliveryPlanId);
+            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlanByDeliveryIdAndDeliveryWarehouseId(deliveryId, warehouseId);
             ByteArrayInputStream bis = pdfService.generateDeliveryPlanPdf(deliveryPlan);
 
             HttpHeaders headers = new HttpHeaders();

@@ -40,11 +40,6 @@ public class RouteJpaRepositoryImpl implements RouteRepository {
     }
 
     @Override
-    public Route findByRouteId(Long routeId) {
-        return mapper.routeJpaToRoute(repo.findByRouteId(routeId));
-    }
-
-    @Override
     public Route save(Route route) {
         Optional<WarehouseJpa> arrivalWarehouse = wRepo.findByIdentifier(route.getIdArrivalWarehouse());
         if (arrivalWarehouse.isEmpty()) {

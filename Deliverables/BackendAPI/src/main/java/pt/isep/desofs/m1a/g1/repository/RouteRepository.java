@@ -10,8 +10,6 @@ public interface RouteRepository {
 
     Route save(Route delivery);
 
-    Route findByRouteId(Long routeId);
-
     int count();
 
     List<Route> findByArrivalWarehouseId(Long warehouseId);

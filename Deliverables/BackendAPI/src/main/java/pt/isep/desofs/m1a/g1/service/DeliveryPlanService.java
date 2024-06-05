@@ -4,5 +4,5 @@ import pt.isep.desofs.m1a.g1.model.delivery.DeliveryPlan;
 
 public interface DeliveryPlanService {
 
-    DeliveryPlan getDeliveryPlan(Long deliveryPlanId);
+    DeliveryPlan getDeliveryPlanByDeliveryIdAndDeliveryWarehouseId(Long deliveryId, Long warehouseId);
 }

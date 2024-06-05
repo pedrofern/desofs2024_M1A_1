@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 import { takeUntil } from 'rxjs';
 import { Subject } from 'rxjs';

@@ -1,23 +1,14 @@
 package pt.isep.desofs.m1a.g1.dto;
 
-import lombok.*;
+import lombok.Data;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
 public class DeliveryDTO {
 
     private Long deliveryId;
     private String deliveryDate;
     private Double weight;
     private Long warehouseId;
-
-    @Override
-    public String toString() {
-        return "Delivery " + deliveryId +
-                "\nDelivery Date: " + deliveryDate +
-                "\nWeight: " + weight +
-                "\nWarehouse: " + warehouseId;
-    }
 }
