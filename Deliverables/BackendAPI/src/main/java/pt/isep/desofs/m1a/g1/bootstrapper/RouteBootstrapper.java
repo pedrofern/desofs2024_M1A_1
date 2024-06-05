@@ -3,8 +3,10 @@ package pt.isep.desofs.m1a.g1.bootstrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pt.isep.desofs.m1a.g1.model.delivery.Route;
+import pt.isep.desofs.m1a.g1.repository.DeliveryPlanRepository;
 import pt.isep.desofs.m1a.g1.repository.RouteRepository;
 
 import java.util.Arrays;
@@ -12,14 +14,17 @@ import java.util.List;
 
 @Component
 @Profile("bootstrap")
+@Order(5)
 public class RouteBootstrapper implements CommandLineRunner {
 
     @Autowired
     private RouteRepository repo;
 
+    @Autowired
+    private DeliveryPlanRepository deliveryPlanRepo;
+
     @Override
     public void run(String... args) throws Exception {
-
         if (repo.count() == 0) {
             List<Route> routes = Arrays.asList(
                     new Route(1L, 1L, 1L, 120.0, 2.0, 50.0, 0.5),

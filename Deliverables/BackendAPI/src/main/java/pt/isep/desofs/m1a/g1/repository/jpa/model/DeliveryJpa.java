@@ -3,7 +3,6 @@ package pt.isep.desofs.m1a.g1.repository.jpa.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -25,4 +24,8 @@ public class DeliveryJpa {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "warehouseId")
     private WarehouseJpa warehouse;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "deliveryPlanId")
+    private DeliveryPlanJpa deliveryPlan;
 }

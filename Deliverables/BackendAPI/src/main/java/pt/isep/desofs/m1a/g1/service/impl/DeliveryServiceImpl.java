@@ -12,12 +12,12 @@ import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
+import pt.isep.desofs.m1a.g1.model.delivery.DeliveryPlan;
 import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.DeliveryJpa;
 import pt.isep.desofs.m1a.g1.repository.utils.SpecificationHelper;
 import pt.isep.desofs.m1a.g1.service.DeliveryService;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

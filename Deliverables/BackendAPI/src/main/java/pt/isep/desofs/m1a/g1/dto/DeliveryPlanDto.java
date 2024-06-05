@@ -1,6 +1,9 @@
-package pt.isep.desofs.m1a.g1.model.delivery;
+package pt.isep.desofs.m1a.g1.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -8,15 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DeliveryPlan {
+public class DeliveryPlanDto {
 
     private Long deliveryPlanId;
-    private List<Route> routes;
-    private List<Delivery> deliveries;
-
-    public DeliveryPlan (Long deliveryPlanId) {
-        this.deliveryPlanId = deliveryPlanId;
-    }
+    private List<RouteDTO> routes;
+    private List<DeliveryDTO> deliveries;
 
     @Override
     public String toString() {

@@ -13,12 +13,16 @@ public class Delivery {
     private String deliveryDate;
     private Double weight;
     private Long warehouseId;
+    private DeliveryPlan deliveryPlan;
 
-    @Override
-    public String toString() {
-        return "\ndeliveryId: " + deliveryId +
-                "\ndeliveryDate: " + deliveryDate +
-                "\nweight: " + weight +
-                "\nwarehouseId: " + warehouseId;
+    public Delivery(Long deliveryId, String deliveryDate, Double weight, Long warehouseId) {
+        this.deliveryId = deliveryId;
+        this.deliveryDate = deliveryDate;
+        this.weight = weight;
+        this.warehouseId = warehouseId;
+    }
+
+    private void addToDeliveryPlan(DeliveryPlan deliveryPlan) {
+        this.deliveryPlan = deliveryPlan;
     }
 }

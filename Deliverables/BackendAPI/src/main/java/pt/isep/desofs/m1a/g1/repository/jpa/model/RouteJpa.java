@@ -15,11 +15,11 @@ public class RouteJpa {
     @Column(nullable = false, unique = true)
     private Long routeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "departure_warehouseId")
     private WarehouseJpa departureWarehouse;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "arrival_warehouseId")
     private WarehouseJpa arrivalWarehouse;
 
@@ -34,4 +34,8 @@ public class RouteJpa {
 
     @Column(nullable = false)
     private Double extraTime;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "deliveryPlanId")
+    private DeliveryPlanJpa deliveryPlan;
 }

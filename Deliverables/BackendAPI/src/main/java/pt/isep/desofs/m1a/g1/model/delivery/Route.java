@@ -16,15 +16,19 @@ public class Route {
     private Double time;
     private Double energy;
     private Double extraTime;
+    private DeliveryPlan deliveryPlan;
 
-    @Override
-    public String toString() {
-        return "\nrouteId: " + routeId +
-                "\nidDepartureWarehouse:" + idDepartureWarehouse +
-                "\nidArrivalWarehouse:" + idArrivalWarehouse +
-                "\ndistance:" + distance +
-                "\ntime:" + time +
-                "\nenergy:" + energy +
-                "\nextraTime:" + extraTime;
+    public Route(Long routeId, Long idDepartureWarehouse, Long idArrivalWarehouse, Double distance, Double time, Double energy, Double extraTime) {
+        this.routeId = routeId;
+        this.idDepartureWarehouse = idDepartureWarehouse;
+        this.idArrivalWarehouse = idArrivalWarehouse;
+        this.distance = distance;
+        this.time = time;
+        this.energy = energy;
+        this.extraTime = extraTime;
+    }
+
+    private void addToDeliveryPlan(DeliveryPlan deliveryPlan) {
+        this.deliveryPlan = deliveryPlan;
     }
 }

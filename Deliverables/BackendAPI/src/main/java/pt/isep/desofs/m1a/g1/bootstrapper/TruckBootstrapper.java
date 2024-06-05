@@ -3,6 +3,7 @@ package pt.isep.desofs.m1a.g1.bootstrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pt.isep.desofs.m1a.g1.model.truck.Battery;
 import pt.isep.desofs.m1a.g1.model.truck.Truck;
@@ -11,6 +12,7 @@ import pt.isep.desofs.m1a.g1.repository.TruckRepository;
 
 @Component
 @Profile("bootstrap")
+@Order(6)
 public class TruckBootstrapper implements CommandLineRunner {
 
     @Autowired
