@@ -77,8 +77,8 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public List<Delivery> findByDeliveryIdAndWarehouseId(Long deliveryId, Long warehouseId) {
-        List<DeliveryJpa> deliveryJpa = repo.findByDeliveryIdAndWarehouse_Identifier(deliveryId, warehouseId);
+    public List<Delivery> findByDeliveryDateAndWarehouseId(String deliveryDate, Long warehouseId) {
+        List<DeliveryJpa> deliveryJpa = repo.findByDeliveryDateAndWarehouse_Identifier(deliveryDate, warehouseId);
         return deliveryJpa.stream().map(mapper::deliveryJpaToDelivery).collect(Collectors.toList());
     }
 }

@@ -16,7 +16,7 @@ public interface DeliveryJpaRepo extends JpaRepository<DeliveryJpa, UUID>, JpaSp
 
     Optional<DeliveryJpa> findByDeliveryId(Long identifier);
 
-    List<DeliveryJpa> findByDeliveryIdAndWarehouse_Identifier(Long deliveryId, Long warehouseId);
+    List<DeliveryJpa> findByDeliveryDateAndWarehouse_Identifier(String deliveryDate, Long warehouseId);
 
     boolean existsByDeliveryId(Long identifier);
 

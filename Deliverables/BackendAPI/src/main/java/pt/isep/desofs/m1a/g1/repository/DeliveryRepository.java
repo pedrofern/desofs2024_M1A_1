@@ -26,5 +26,5 @@ public interface DeliveryRepository {
 
     Long getNextSequenceValue();
 
-    List<Delivery> findByDeliveryIdAndWarehouseId(Long deliveryId, Long warehouseId);
+    List<Delivery> findByDeliveryDateAndWarehouseId(String deliveryDate, Long warehouseId);
 }

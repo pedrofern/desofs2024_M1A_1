@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 class DeliveryPlanServiceImplTest {
@@ -32,11 +33,11 @@ class DeliveryPlanServiceImplTest {
     }
 
     @Test
-    void getDeliveryPlanByDeliveryIdAndDeliveryWarehouseId() {
-        when(deliveryRepository.findByDeliveryIdAndWarehouseId(anyLong(), anyLong())).thenReturn(List.of());
+    void getDeliveryPlan() {
+        when(deliveryRepository.findByDeliveryDateAndWarehouseId(anyString(), anyLong())).thenReturn(List.of());
         when(routeRepository.findByArrivalWarehouseId(anyLong())).thenReturn(List.of());
 
-        DeliveryPlan result = deliveryPlanService.getDeliveryPlanByDeliveryIdAndDeliveryWarehouseId(100L, 1L);
+        DeliveryPlan result = deliveryPlanService.getDeliveryPlan("2024-01-01", 1L);
         assertNotNull(result);
     }
 }

@@ -24,8 +24,8 @@ public class DeliveryPlanServiceImpl implements DeliveryPlanService {
     private DeliveryRepository deliveryRepository;
 
     @Override
-    public DeliveryPlan getDeliveryPlanByDeliveryIdAndDeliveryWarehouseId(Long deliveryId, Long warehouseId) {
-        List<Delivery> deliveries = deliveryRepository.findByDeliveryIdAndWarehouseId(deliveryId, warehouseId);
+    public DeliveryPlan getDeliveryPlan(String deliveryDate, Long warehouseId) {
+        List<Delivery> deliveries = deliveryRepository.findByDeliveryDateAndWarehouseId(deliveryDate, warehouseId);
         List<Route> routes = routeRepository.findByArrivalWarehouseId(warehouseId);
 
         List<DeliveryDTO> deliveriesDTO = deliveries.stream()
