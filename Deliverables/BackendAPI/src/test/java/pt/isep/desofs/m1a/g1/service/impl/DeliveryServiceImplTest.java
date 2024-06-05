@@ -25,7 +25,6 @@ class DeliveryServiceImplTest {
     private DeliveryServiceImpl deliveryService;
 
     private Delivery delivery;
-    private DeliveryDTO deliveryDTO;
     private UpdateDeliveryDTO updateDeliveryDTO;
     private CreateDeliveryDTO createDeliveryDTO;
 
@@ -38,12 +37,12 @@ class DeliveryServiceImplTest {
         delivery.setWeight(10.0);
         delivery.setWarehouseId(1L);
 
-        deliveryDTO = new DeliveryDTO();
-        deliveryDTO.setDeliveryDate("2024-01-02");
-        deliveryDTO.setWeight(10.0);
-        deliveryDTO.setWarehouseId(1L);
+        updateDeliveryDTO = new UpdateDeliveryDTO();
+        updateDeliveryDTO.setDeliveryDate("2024-01-02");
+        updateDeliveryDTO.setWeight(10.0);
+        updateDeliveryDTO.setWarehouseId(1L);
 
-        createDeliveryDTO = new CreateDeliveryDTO("2024-01-03", 10.0, 1L);
+        createDeliveryDTO = new CreateDeliveryDTO("2024-01-01", 10.0, 1L);
     }
 
     @Test
@@ -68,12 +67,13 @@ class DeliveryServiceImplTest {
 
     @Test
     void createDelivery() {
-        when(deliveryRepository.update(any(Delivery.class))).thenReturn(delivery);
+        Delivery delivery = new Delivery(0L, "2024-01-01", 10.0, 1L);
+        when(deliveryRepository.create(any(Delivery.class))).thenReturn(delivery);
 
         DeliveryDTO result = deliveryService.createDelivery(createDeliveryDTO);
 
         assertNotNull(result);
-        verify(deliveryRepository, times(1)).update(any(Delivery.class));
+        verify(deliveryRepository, times(1)).create(any(Delivery.class));
     }
 
     @Test
