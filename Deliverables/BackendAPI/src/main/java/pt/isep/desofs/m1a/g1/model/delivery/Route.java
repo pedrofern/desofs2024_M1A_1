@@ -3,6 +3,7 @@ package pt.isep.desofs.m1a.g1.model.delivery;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pt.isep.desofs.m1a.g1.dto.RouteDTO;
 
 @Data
 @AllArgsConstructor
@@ -17,14 +18,7 @@ public class Route {
     private Double energy;
     private Double extraTime;
 
-    @Override
-    public String toString() {
-        return "\nrouteId: " + routeId +
-                "\nidDepartureWarehouse:" + idDepartureWarehouse +
-                "\nidArrivalWarehouse:" + idArrivalWarehouse +
-                "\ndistance:" + distance +
-                "\ntime:" + time +
-                "\nenergy:" + energy +
-                "\nextraTime:" + extraTime;
+    public RouteDTO convertToDTO() {
+        return new RouteDTO(routeId, idDepartureWarehouse, idArrivalWarehouse, distance, time, energy, extraTime);
     }
 }

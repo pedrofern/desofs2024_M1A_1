@@ -9,7 +9,7 @@ class RouteTest {
     @Test
     void testToString() {
         Route route = new Route(1L, 1L, 2L, 10.0, 5.0, 2.0, 1.0);
-        String expected = "Route(routeId=1, idDepartureWarehouse=1, idArrivalWarehouse=2, distance=10.0, time=5.0, energy=2.0, extraTime=1.0, deliveryPlan=null)";
+        String expected = "Route(routeId=1, idDepartureWarehouse=1, idArrivalWarehouse=2, distance=10.0, time=5.0, energy=2.0, extraTime=1.0)";
         assertEquals(expected, route.toString());
     }
 

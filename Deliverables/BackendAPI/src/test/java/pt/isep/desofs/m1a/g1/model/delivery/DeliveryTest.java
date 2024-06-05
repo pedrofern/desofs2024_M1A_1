@@ -10,7 +10,7 @@ class DeliveryTest {
     @Test
     void testToString() {
         Delivery delivery = new Delivery(1L, "2024-01-01", 10.0, 1L);
-        String expected = "Delivery(deliveryId=1, deliveryDate=2024-01-01, weight=10.0, warehouseId=1, deliveryPlan=null)";
+        String expected = "Delivery(deliveryId=1, deliveryDate=2024-01-01, weight=10.0, warehouseId=1)";
         assertEquals(expected, delivery.toString());
     }
 

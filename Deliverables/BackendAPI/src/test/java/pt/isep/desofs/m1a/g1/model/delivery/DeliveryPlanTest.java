@@ -1,6 +1,8 @@
 package pt.isep.desofs.m1a.g1.model.delivery;
 
 import org.junit.jupiter.api.Test;
+import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
+import pt.isep.desofs.m1a.g1.dto.RouteDTO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +14,7 @@ class DeliveryPlanTest {
     @Test
     void getRoutes() {
         DeliveryPlan deliveryPlan = new DeliveryPlan();
-        Route route = new Route();
+        RouteDTO route = new RouteDTO();
         deliveryPlan.setRoutes(List.of(route));
         assertEquals(List.of(route), deliveryPlan.getRoutes());
     }
@@ -20,7 +22,7 @@ class DeliveryPlanTest {
     @Test
     void getDeliveries() {
         DeliveryPlan deliveryPlan = new DeliveryPlan();
-        Delivery delivery = new Delivery();
+        DeliveryDTO delivery = new DeliveryDTO();
         deliveryPlan.setDeliveries(List.of(delivery));
         assertEquals(List.of(delivery), deliveryPlan.getDeliveries());
     }
@@ -28,7 +30,7 @@ class DeliveryPlanTest {
     @Test
     void setRoutes() {
         DeliveryPlan deliveryPlan = new DeliveryPlan();
-        Route route = new Route();
+        RouteDTO route = new RouteDTO();
         deliveryPlan.setRoutes(List.of(route));
         assertEquals(List.of(route), deliveryPlan.getRoutes());
     }
@@ -36,7 +38,7 @@ class DeliveryPlanTest {
     @Test
     void setDeliveries() {
         DeliveryPlan deliveryPlan = new DeliveryPlan();
-        Delivery delivery = new Delivery();
+        DeliveryDTO delivery = new DeliveryDTO();
         deliveryPlan.setDeliveries(List.of(delivery));
         assertEquals(List.of(delivery), deliveryPlan.getDeliveries());
     }

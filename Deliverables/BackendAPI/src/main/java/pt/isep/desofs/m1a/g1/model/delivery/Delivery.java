@@ -3,6 +3,7 @@ package pt.isep.desofs.m1a.g1.model.delivery;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 
 @Data
 @NoArgsConstructor
@@ -14,11 +15,7 @@ public class Delivery {
     private Double weight;
     private Long warehouseId;
 
-    @Override
-    public String toString() {
-        return "\ndeliveryId: " + deliveryId +
-                "\ndeliveryDate: " + deliveryDate +
-                "\nweight: " + weight +
-                "\nwarehouseId: " + warehouseId;
+    public DeliveryDTO convertToDTO() {
+        return new DeliveryDTO(deliveryId, deliveryDate, weight, warehouseId);
     }
 }
