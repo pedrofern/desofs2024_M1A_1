@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DeliveriesComponent } from './pages/deliveries/deliveries.component';
@@ -37,6 +37,7 @@ import { UserDetailComponent } from './pages/user-detail/user-detail.component';
 import { UserPasswordComponent } from './pages/user-password/user-password.component';
 import { UserDeleteComponent } from './pages/user-delete/user-delete.component';
 import { EventAggregatorService } from 'src/services/event-aggregator.service';
+import {AuthInterceptor} from "./shared/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { EventAggregatorService } from 'src/services/event-aggregator.service';
   providers:[
     CookieService,
     AuthGuard,
-    EventAggregatorService
+    EventAggregatorService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
