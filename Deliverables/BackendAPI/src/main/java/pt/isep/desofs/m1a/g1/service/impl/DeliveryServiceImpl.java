@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
+import pt.isep.desofs.m1a.g1.dto.UpdateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
@@ -67,16 +68,16 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     @Transactional
-    public DeliveryDTO updateDelivery(Long deliveryId, DeliveryDTO deliveryDTO) throws NotFoundException {
+    public DeliveryDTO updateDelivery(Long deliveryId, UpdateDeliveryDTO deliveryDTO) throws NotFoundException {
         Delivery existingDelivery = deliveryRepository.findByDeliveryId(deliveryId);
         if (existingDelivery == null) {
             throw new NotFoundException("Delivery not found with identifier: " + deliveryId);
         }
-        // Update the entity fields here
         existingDelivery.setDeliveryDate(deliveryDTO.getDeliveryDate());
         existingDelivery.setWeight(deliveryDTO.getWeight());
-        existingDelivery = deliveryRepository.save(existingDelivery);
-        return existingDelivery.convertToDTO();
+        existingDelivery.setWarehouseId(deliveryDTO.getWarehouseId());
+        Delivery updatedDelivery = deliveryRepository.save(existingDelivery);
+        return updatedDelivery.convertToDTO();
     }
 
     @Override

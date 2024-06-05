@@ -1,5 +1,5 @@
 export interface ICreateDeliveryDto {
-  DeliveryDate: string;
-  Weight: number;
-  WarehouseId: string;
+  deliveryDate: string;
+  weight: number;
+  warehouseId: string;
 }

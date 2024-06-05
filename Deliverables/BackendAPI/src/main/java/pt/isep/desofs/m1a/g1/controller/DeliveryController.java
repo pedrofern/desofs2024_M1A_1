@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
+import pt.isep.desofs.m1a.g1.dto.UpdateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.delivery.DeliveryPlan;
 import pt.isep.desofs.m1a.g1.service.PdfService;
@@ -87,7 +88,7 @@ public class DeliveryController {
     }
 
     @PutMapping("/{identifier}")
-    public ResponseEntity<DeliveryDTO> updateDelivery(@PathVariable Long identifier, @RequestBody DeliveryDTO deliveryDTO) {
+    public ResponseEntity<DeliveryDTO> updateDelivery(@PathVariable Long identifier, @RequestBody UpdateDeliveryDTO deliveryDTO) {
         try {
             DeliveryDTO updatedDelivery = deliveryServiceImpl.updateDelivery(identifier, deliveryDTO);
             return ResponseEntity.ok(updatedDelivery);

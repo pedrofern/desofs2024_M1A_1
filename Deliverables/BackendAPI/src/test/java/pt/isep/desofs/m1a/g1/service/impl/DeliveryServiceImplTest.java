@@ -7,10 +7,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
+import pt.isep.desofs.m1a.g1.dto.UpdateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,6 +26,7 @@ class DeliveryServiceImplTest {
 
     private Delivery delivery;
     private DeliveryDTO deliveryDTO;
+    private UpdateDeliveryDTO updateDeliveryDTO;
     private CreateDeliveryDTO createDeliveryDTO;
 
     @BeforeEach
@@ -80,7 +81,7 @@ class DeliveryServiceImplTest {
         when(deliveryRepository.findByDeliveryId(anyLong())).thenReturn(delivery);
         when(deliveryRepository.save(any(Delivery.class))).thenReturn(delivery);
 
-        DeliveryDTO result = deliveryService.updateDelivery(1L, deliveryDTO);
+        DeliveryDTO result = deliveryService.updateDelivery(1L, updateDeliveryDTO);
 
         assertNotNull(result);
         verify(deliveryRepository, times(1)).findByDeliveryId(anyLong());
