@@ -1,20 +1,16 @@
 package pt.isep.desofs.m1a.g1.model.delivery;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DeliveryTest {
 
     @Test
     void testToString() {
         Delivery delivery = new Delivery(1L, "2024-01-01", 10.0, 1L);
-        String expected = "\ndeliveryId: " + 1L +
-                "\ndeliveryDate: " + "2024-01-01" +
-                "\nweight: " + 10.0 +
-                "\nwarehouseId: " + 1L;
+        String expected = "Delivery(deliveryId=1, deliveryDate=2024-01-01, weight=10.0, warehouseId=1, deliveryPlan=null)";
         assertEquals(expected, delivery.toString());
     }
 

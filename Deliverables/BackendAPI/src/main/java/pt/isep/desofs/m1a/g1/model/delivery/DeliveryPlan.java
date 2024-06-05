@@ -8,6 +8,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class DeliveryPlan {
 
     private Long deliveryPlanId;
