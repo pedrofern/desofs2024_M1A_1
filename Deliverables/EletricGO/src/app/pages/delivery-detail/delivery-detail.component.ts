@@ -69,7 +69,7 @@ export class DeliveryDetailComponent implements OnInit {
         })
             .subscribe({
                 error: (error: HttpErrorResponse) => {
-                    this.errorMessage = error.error.errors.message;
+                    this.errorMessage = error.error.message;
                     this.success = false;
                 },
                 complete: () => {
@@ -98,7 +98,7 @@ export class DeliveryDetailComponent implements OnInit {
             })
             .subscribe({
                 error: (error: HttpErrorResponse) => {
-                    this.errorMessage = error.error.errors.message;
+                    this.errorMessage = error.error;
                     this.success = false;
                 },
                 complete: () => {

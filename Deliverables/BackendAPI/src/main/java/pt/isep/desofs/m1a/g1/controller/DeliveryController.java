@@ -2,7 +2,6 @@ package pt.isep.desofs.m1a.g1.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,6 @@ import pt.isep.desofs.m1a.g1.service.impl.DeliveryServiceImpl;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @Tag(name = "Delivery")
 @RestController
@@ -34,8 +32,6 @@ public class DeliveryController {
 
     @Autowired
     private PdfService pdfService;
-
-    Logger logger = Logger.getLogger(DeliveryController.class.getName());
 
     @Autowired
     public DeliveryController(DeliveryServiceImpl deliveryServiceImpl) {

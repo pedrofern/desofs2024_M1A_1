@@ -25,9 +25,7 @@ import { RouteSearchComponent } from './pages/routes/route-search/route-search.c
 import { RouteEditComponent } from './pages/routes/route-edit/route-edit.component';
 import { TruckDetailComponent } from './pages/truck-detail/truck-detail.component';
 import { DeliveryPlanComponent } from './pages/delivery-plan/delivery-plan.component';
-import { DeliveryPlanDetailComponent } from './pages/delivery-plan-detail/delivery-plan-detail.component';
 import { InputMaskModule } from "@ngneat/input-mask";
-import {MatIconModule} from "@angular/material/icon";
 import { PaginatorComponent } from './shared/paginator/paginator.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -38,6 +36,7 @@ import { UserPasswordComponent } from './pages/user-password/user-password.compo
 import { UserDeleteComponent } from './pages/user-delete/user-delete.component';
 import { EventAggregatorService } from 'src/services/event-aggregator.service';
 import {AuthInterceptor} from "./shared/auth.interceptor";
+import {SafeUrlPipe} from "./pages/delivery-plan/safe-url.pipe";
 
 @NgModule({
   declarations: [
@@ -62,7 +61,6 @@ import {AuthInterceptor} from "./shared/auth.interceptor";
     RouteEditComponent,
     TruckDetailComponent,
     DeliveryPlanComponent,
-    DeliveryPlanDetailComponent,
     PaginatorComponent,
     LoginComponent,
     UsersComponent,
@@ -70,16 +68,17 @@ import {AuthInterceptor} from "./shared/auth.interceptor";
     UserPasswordComponent,
     UserDeleteComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    InputMaskModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        InputMaskModule,
+        SafeUrlPipe
+    ],
   providers:[
     CookieService,
     AuthGuard,

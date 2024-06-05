@@ -13,9 +13,7 @@ import {RouteEditComponent} from './pages/routes/route-edit/route-edit.component
 import {MapComponent} from "./pages/map/map.component";
 import {WarehouseDetailComponent} from './pages/warehouse-detail/warehouse-detail.component';
 import {DeliveryPlanComponent} from './pages/delivery-plan/delivery-plan.component';
-import {DeliveryPlanDetailComponent} from './pages/delivery-plan-detail/delivery-plan-detail.component';
 import { LoginComponent } from './pages/login/login.component';
-import { LoginService } from 'src/services/login.service';
 import { AuthGuard } from 'src/services/AuthGuard';
 import { UsersComponent } from './pages/users/users.component';
 import { UserDetailComponent } from './pages/user-detail/user-detail.component';
@@ -29,7 +27,6 @@ const routes: Routes = [
     {path: 'deliveries/edit/:id', component: DeliveryDetailComponent, canActivate: [AuthGuard]},
     {path: 'deliveries/create', component: DeliveryDetailComponent, canActivate: [AuthGuard]},
     {path: 'delivery-plan', component: DeliveryPlanComponent, canActivate: [AuthGuard]},
-    {path: 'delivery-plan-detail/create', component: DeliveryPlanDetailComponent, canActivate: [AuthGuard]},
     {path: 'packagings', component: PackagingsComponent, canActivate: [AuthGuard]},
     {path: 'packagings/edit/:id', component: PackagingDetailComponent, canActivate: [AuthGuard]},
     {path: 'packagings/create', component: PackagingDetailComponent, canActivate: [AuthGuard]},

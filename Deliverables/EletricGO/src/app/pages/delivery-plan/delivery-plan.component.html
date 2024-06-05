@@ -4,69 +4,42 @@
             <h3 class="title has-text-primary">
                 Delivery Plans
             </h3>
-        </div>    
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-primary btn-sm" routerLink="/delivery-plan-detail/create">Create</button>
         </div>
-        <mat-table [dataSource]="dataSource" matSort (matSortChange)="customSort($event)"> 
-            <ng-container matColumnDef="truckId">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>
-                    <div matSortHeader>
-                        <mat-form-field>
-                            <input matInput type="text" [(ngModel)]="filterTruckId" (keyup.enter)="updateValue()" placeholder="Truck ID">
-                        </mat-form-field>
-                    </div>
-                </mat-header-cell>
-                <mat-cell *matCellDef="let element" >{{ element.truckId }}</mat-cell>
-            </ng-container>
-     
-            <ng-container matColumnDef="date">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>
-                    <mat-form-field>
-                        <input matInput type="text" [(ngModel)]="filterDate" (keyup.enter)="updateValue()" placeholder="Date">
-                    </mat-form-field>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let element" >{{ element.date }}</mat-cell>
-        </ng-container>
 
-        <ng-container matColumnDef="deliveriesId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                <mat-form-field>
-                    <input matInput type="number" [(ngModel)]="filterDeliveriesId" (keyup.enter)="updateValue()" placeholder="Deliveries ID">
+        <!-- Form for selecting Delivery and Warehouse -->
+        <form (ngSubmit)="onSubmit()">
+            <div>
+                <label for="delivery">Select Delivery:</label>
+                <mat-form-field appearance="fill">
+                    <mat-label>Delivery</mat-label>
+                    <mat-select [(ngModel)]="selectedDeliveryId" name="deliveryId">
+                        <mat-option *ngFor="let delivery of deliveries" [value]="delivery.deliveryId">{{ delivery.deliveryId }}</mat-option>
+                    </mat-select>
                 </mat-form-field>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.deliveriesId }}</mat-cell>
-        </ng-container>
+            </div>
 
-        <ng-container matColumnDef="paths">
-
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                <mat-form-field>
-                    <input matInput type="text" [(ngModel)]="filterPaths" (keyup.enter)="updateValue()" placeholder="Paths">
+            <div>
+                <label for="warehouse">Select Warehouse:</label>
+                <mat-form-field appearance="fill">
+                    <mat-label>Warehouse</mat-label>
+                    <mat-select [(ngModel)]="selectedWarehouseId" name="warehouseId">
+                        <mat-option *ngFor="let warehouse of warehouses" [value]="warehouse.identifier">{{ warehouse.designation }}</mat-option>
+                    </mat-select>
                 </mat-form-field>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.paths }}</mat-cell>
-        </ng-container>
+            </div>
 
-        <ng-container matColumnDef="cost">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                <mat-form-field>
-                    <input matInput type="number" [(ngModel)]="filterCost" (keyup.enter)="updateValue()" placeholder="Cost">
-                </mat-form-field>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.cost }}</mat-cell>
-        </ng-container>
+            <div>
+                <button mat-raised-button color="primary" type="submit">Preview</button>
+            </div>
+        </form>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
-        
-        </mat-table>
-        <mat-paginator matPaginator
-            [length]="totalRecords"
-            [pageSizeOptions]="pageSizes"
-            showFirstLastButtons
-            (page)="pageChanged($event)">
-        </mat-paginator>
+        <!-- PDF preview section -->
+        <div *ngIf="pdfSrc">
+            <h3>PDF Preview</h3>
+            <iframe [src]="pdfSrc | safeUrl" width="600" height="400"></iframe>
+            <div>
+                <button mat-raised-button color="accent" (click)="downloadPdf()">Download PDF</button>
+            </div>
+        </div>
     </div>
 </div>
-
