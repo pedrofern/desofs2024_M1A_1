@@ -36,7 +36,7 @@ describe('DeliveryService', () => {
     // Make an HTTP POST request
     deliveryService.addDelivery(createDelivery).subscribe(data =>
       // When observable resolves, result should match test data
-      expect(data).equals(expectedDelivery)
+      expect(data).toEqual(expectedDelivery)
     );
 
     // The following `expectOne()` will match the request's URL.
@@ -45,7 +45,7 @@ describe('DeliveryService', () => {
     const req = httpTestingController.expectOne(environment.APIDeliveries);
 
     // Assert that the request is a GET.
-    expect(req.request.method).equals('POST');
+    expect(req.request.method).toEqual('POST');
 
     // Respond with mock data, causing Observable to resolve.
     // Subscribe callback asserts that correct data was returned.
@@ -64,7 +64,7 @@ describe('DeliveryService', () => {
     // Make an HTTP PUT request
     deliveryService.editDelivery(deliveryId, editDelivery).subscribe(data =>
       // When observable resolves, result should match test data
-      expect(data).equals(expectedDelivery)
+      expect(data).toEqual(expectedDelivery)
     );
 
     // The following `expectOne()` will match the request's URL.
@@ -73,7 +73,7 @@ describe('DeliveryService', () => {
     const req = httpTestingController.expectOne(environment.APIDeliveries + deliveryId);
 
     // Assert that the request is a GET.
-    expect(req.request.method).equals('PUT');
+    expect(req.request.method).toEqual('PUT');
 
     // Respond with mock data, causing Observable to resolve.
     // Subscribe callback asserts that correct data was returned.
@@ -91,7 +91,7 @@ describe('DeliveryService', () => {
     // Make an HTTP GET request
     deliveryService.getDelivery(deliveryId).subscribe(data =>
       // When observable resolves, result should match test data
-      expect(data).equals(expectedDelivery)
+      expect(data).toEqual(expectedDelivery)
     );
 
     // The following `expectOne()` will match the request's URL.
@@ -100,7 +100,7 @@ describe('DeliveryService', () => {
     const req = httpTestingController.expectOne(environment.APIDeliveries + deliveryId);
 
     // Assert that the request is a GET.
-    expect(req.request.method).equals('GET');
+    expect(req.request.method).toEqual('GET');
 
     // Respond with mock data, causing Observable to resolve.
     // Subscribe callback asserts that correct data was returned.
@@ -119,7 +119,7 @@ describe('DeliveryService', () => {
     // Make an HTTP GET request
     deliveryService.getDeliveries().subscribe(data =>
       // When observable resolves, result should match test data
-      expect(data).equals(expectedDelivery)
+      expect(data).toEqual(expectedDelivery)
     );
 
     // The following `expectOne()` will match the request's URL.
@@ -128,7 +128,7 @@ describe('DeliveryService', () => {
     const req = httpTestingController.expectOne(environment.APIDeliveries);
 
     // Assert that the request is a GET.
-    expect(req.request.method).equals('GET');
+    expect(req.request.method).toEqual('GET');
 
     // Respond with mock data, causing Observable to resolve.
     // Subscribe callback asserts that correct data was returned.
@@ -147,7 +147,7 @@ describe('DeliveryService', () => {
     // Make an HTTP GET request
     deliveryService.getWarehouses().subscribe(data =>
       // When observable resolves, result should match test data
-      expect(data).equals(expectedWarehouse)
+      expect(data).toEqual(expectedWarehouse)
     );
 
     // The following `expectOne()` will match the request's URL.
@@ -156,7 +156,7 @@ describe('DeliveryService', () => {
     const req = httpTestingController.expectOne(environment.APIWarehouses);
 
     // Assert that the request is a GET.
-    expect(req.request.method).equals('GET');
+    expect(req.request.method).toEqual('GET');
 
     // Respond with mock data, causing Observable to resolve.
     // Subscribe callback asserts that correct data was returned.
