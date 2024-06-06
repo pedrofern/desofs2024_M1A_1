@@ -12,7 +12,7 @@ import pt.isep.desofs.m1a.g1.service.LogisticsService;
 
 @Component
 @Profile("bootstrap")
-@Order(7)
+@Order(6)
 public class LogisticsBootstrapper implements CommandLineRunner {
 
     @Autowired
@@ -25,12 +25,12 @@ public class LogisticsBootstrapper implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // admin
         if (packagingRepo.findByPackagingId("10001").isEmpty()) {
-            SubmitLogisticsForm form = new SubmitLogisticsForm("10001",1L, 123L, "01:00", "01:00", 0, 0, 0);
+            SubmitLogisticsForm form = new SubmitLogisticsForm("10001",23L, 123L, "01:00", "01:00", 0, 0, 0);
 
             logisticsService.submitForm(form);
         }
         if (packagingRepo.findByPackagingId("20002").isEmpty()) {
-            SubmitLogisticsForm form = new SubmitLogisticsForm("20002",1L, 123L, "01:00", "01:00", 1, 0, 0);
+            SubmitLogisticsForm form = new SubmitLogisticsForm("20002",23L, 123L, "01:00", "01:00", 1, 0, 0);
 
             logisticsService.submitForm(form);
         }

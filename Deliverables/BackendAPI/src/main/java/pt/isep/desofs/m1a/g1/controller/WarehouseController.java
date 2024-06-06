@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isep.desofs.m1a.g1.dto.CreateWarehouseDto;
-import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.UpdateWarehouseDto;
 import pt.isep.desofs.m1a.g1.dto.WarehouseDto;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;

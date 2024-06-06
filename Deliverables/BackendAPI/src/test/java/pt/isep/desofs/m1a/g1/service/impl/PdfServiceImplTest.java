@@ -8,6 +8,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import pt.isep.desofs.m1a.g1.bean.*;
+import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
+import pt.isep.desofs.m1a.g1.dto.RouteDTO;
 import pt.isep.desofs.m1a.g1.model.delivery.DeliveryPlan;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.model.delivery.Route;
@@ -39,8 +41,8 @@ class PdfServiceImplTest {
         MockitoAnnotations.openMocks(this);
 
         deliveryPlan = new DeliveryPlan();
-        deliveryPlan.setDeliveries(List.of(new Delivery()));
-        deliveryPlan.setRoutes(List.of(new Route()));
+        deliveryPlan.setDeliveries(List.of(new DeliveryDTO()));
+        deliveryPlan.setRoutes(List.of(new RouteDTO()));
     }
 
     @Test

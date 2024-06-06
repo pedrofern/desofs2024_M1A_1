@@ -24,8 +24,4 @@ public class DeliveryJpa {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "warehouseId")
     private WarehouseJpa warehouse;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "deliveryPlanId")
-    private DeliveryPlanJpa deliveryPlan;
 }

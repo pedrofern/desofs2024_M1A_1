@@ -1,11 +1,12 @@
 package pt.isep.desofs.m1a.g1.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class RouteDTO {
 
     private Long routeId;
@@ -18,12 +19,12 @@ public class RouteDTO {
 
     @Override
     public String toString() {
-        return "Route " + routeId +
-                "\nDeparture Warehouse: " + idDepartureWarehouse +
-                "\nArrival Warehouse: " + idArrivalWarehouse +
-                "\nDistance: " + distance +
-                "\nTime: " + time +
-                "\nEnergy: " + energy +
-                "\nExtra Time: " + extraTime;
+        return "\nRoute " + routeId +
+                "\nDepartureWarehouse:" + idDepartureWarehouse +
+                "\nArrivalWarehouse:" + idArrivalWarehouse +
+                "\nDistance:" + distance +
+                "\nTime:" + time +
+                "\nEnergy:" + energy +
+                "\nExtraTime:" + extraTime;
     }
 }

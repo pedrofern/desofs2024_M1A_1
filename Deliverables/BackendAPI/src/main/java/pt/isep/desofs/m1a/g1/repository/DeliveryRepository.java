@@ -18,7 +18,9 @@ public interface DeliveryRepository {
 
     Delivery findByDeliveryId(Long deliveryId);
 
-    Delivery save(Delivery delivery);
+    Delivery create(Delivery delivery);
+
+    Delivery update(Delivery delivery);
 
     boolean existsByIdentifier(Long identifier);
 
@@ -26,5 +28,5 @@ public interface DeliveryRepository {
 
     Long getNextSequenceValue();
 
-    List<Delivery> findByDeliveryIdAndWarehouseId(Long deliveryId, Long warehouseId);
+    List<Delivery> findByDeliveryDateAndWarehouseId(String deliveryDate, Long warehouseId);
 }

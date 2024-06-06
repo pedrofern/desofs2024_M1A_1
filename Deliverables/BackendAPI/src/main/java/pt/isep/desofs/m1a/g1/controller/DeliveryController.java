@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
+import pt.isep.desofs.m1a.g1.dto.UpdateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.delivery.DeliveryPlan;
 import pt.isep.desofs.m1a.g1.service.PdfService;
@@ -76,7 +77,7 @@ public class DeliveryController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<DeliveryDTO> createDelivery(@RequestBody CreateDeliveryDTO deliveryDTO) {
         try {
             DeliveryDTO savedDelivery = deliveryServiceImpl.createDelivery(deliveryDTO);
@@ -87,7 +88,7 @@ public class DeliveryController {
     }
 
     @PutMapping("/{identifier}")
-    public ResponseEntity<DeliveryDTO> updateDelivery(@PathVariable Long identifier, @RequestBody DeliveryDTO deliveryDTO) {
+    public ResponseEntity<DeliveryDTO> updateDelivery(@PathVariable Long identifier, @RequestBody UpdateDeliveryDTO deliveryDTO) {
         try {
             DeliveryDTO updatedDelivery = deliveryServiceImpl.updateDelivery(identifier, deliveryDTO);
             return ResponseEntity.ok(updatedDelivery);
@@ -111,9 +112,9 @@ public class DeliveryController {
     }
 
     @GetMapping("/delivery-plan")
-    public ResponseEntity<DeliveryPlan> getDeliveryPlan(@RequestParam("deliveryPlanId") Long deliveryPlanId) {
+    public ResponseEntity<DeliveryPlan> getDeliveryPlan(@RequestParam("deliveryDate") String deliveryDate, @RequestParam("warehouseId") Long warehouseId) {
         try {
-            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlan(deliveryPlanId);
+            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlan(deliveryDate, warehouseId);
             if (deliveryPlan != null) {
                 return ResponseEntity.ok(deliveryPlan);
             } else {
@@ -125,9 +126,9 @@ public class DeliveryController {
     }
 
     @GetMapping("/delivery-plan/pdf")
-    public ResponseEntity<byte[]> getDeliveryPlanPdf(@RequestParam("deliveryPlanId") Long deliveryPlanId) {
+    public ResponseEntity<byte[]> getDeliveryPlanPdf(@RequestParam("deliveryDate") String deliveryDate, @RequestParam("warehouseId") Long warehouseId) {
         try {
-            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlan(deliveryPlanId);
+            DeliveryPlan deliveryPlan = deliveryPlanService.getDeliveryPlan(deliveryDate, warehouseId);
             ByteArrayInputStream bis = pdfService.generateDeliveryPlanPdf(deliveryPlan);
 
             HttpHeaders headers = new HttpHeaders();

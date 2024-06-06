@@ -5,7 +5,7 @@ import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MessageService } from './message.service';
 
-import { IRoute } from 'src/model/routes/IRoute';
+import { IRouteDTO } from 'src/model/routes/IRouteDTO';
 
 import { RouteDTO } from 'src/dtos/routes/routeDto';
 import { ICreateRouteDTO } from "src/dtos/routes/ICreateRouteDTO";
@@ -52,12 +52,12 @@ export class RouteService {
     return this.http.get<number>(`${this.requestUrl}/total/get`);
   }
 
-  createRoute(route: IRoute) {
+  createRoute(route: IRouteDTO) {
     const data = RouteMap.toCreationDTO(route);
     return this.http.post<ICreateRouteDTO>(this.requestUrl, data, this.httpOptions);
   }
 
-  updateRoute(id: string, route: IRoute) {
+  updateRoute(id: string, route: IRouteDTO) {
     const data = RouteMap.toUpdateDTO(route);
     return this.http.put<ICreateRouteDTO>(`${this.requestUrl}/${id}`, data, this.httpOptions);
   }

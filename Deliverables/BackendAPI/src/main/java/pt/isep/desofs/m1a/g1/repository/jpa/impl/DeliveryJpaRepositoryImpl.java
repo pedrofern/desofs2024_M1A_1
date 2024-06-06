@@ -13,6 +13,7 @@ import pt.isep.desofs.m1a.g1.repository.jpa.DeliveryJpaRepo;
 import pt.isep.desofs.m1a.g1.repository.jpa.WarehouseJpaRepo;
 import pt.isep.desofs.m1a.g1.repository.jpa.mapper.DeliveryJpaMapper;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.DeliveryJpa;
+import pt.isep.desofs.m1a.g1.repository.jpa.model.UserJpa;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.WarehouseJpa;
 
 import java.util.List;
@@ -30,6 +31,8 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
     private WarehouseJpaRepo wRepo;
 
     private final DeliveryJpaMapper mapper = DeliveryJpaMapper.INSTANCE;
+    @Autowired
+    private DeliveryJpaRepo deliveryJpaRepo;
 
     @Override
     public List<Delivery> findAll() {
@@ -50,7 +53,7 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public Delivery save(Delivery delivery) {
+    public Delivery create(Delivery delivery) {
         Optional<WarehouseJpa> warehouseJpa = wRepo.findByIdentifier(delivery.getWarehouseId());
         if (warehouseJpa.isEmpty()) {
             throw new NotFoundException("Warehouse not found with identifier: " + delivery.getWarehouseId());
@@ -58,6 +61,25 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
         DeliveryJpa deliveryJpa = mapper.deliveryToDeliveryJpa(delivery);
         deliveryJpa.setWarehouse(warehouseJpa.get());
         DeliveryJpa savedDeliveryJpa = repo.save(deliveryJpa);
+        return mapper.deliveryJpaToDelivery(savedDeliveryJpa);
+    }
+
+    @Override
+    public Delivery update(Delivery delivery) {
+        Optional<WarehouseJpa> warehouseJpa = wRepo.findByIdentifier(delivery.getWarehouseId());
+        if (warehouseJpa.isEmpty()) {
+            throw new NotFoundException("Warehouse not found with identifier: " + delivery.getWarehouseId());
+        }
+        Optional<DeliveryJpa> deliveryJpaOptional = deliveryJpaRepo.findByDeliveryId(delivery.getDeliveryId());
+        if (deliveryJpaOptional.isEmpty()) {
+            throw new NotFoundException("Delivery not found with identifier: " + delivery.getDeliveryId());
+        }
+        DeliveryJpa existingDeliveryJpa = deliveryJpaOptional.get();
+        existingDeliveryJpa.setDeliveryDate(delivery.getDeliveryDate());
+        existingDeliveryJpa.setWeight(delivery.getWeight());
+        existingDeliveryJpa.setWarehouse(warehouseJpa.get());
+
+        DeliveryJpa savedDeliveryJpa = repo.save(existingDeliveryJpa);
         return mapper.deliveryJpaToDelivery(savedDeliveryJpa);
     }
 
@@ -77,8 +99,8 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public List<Delivery> findByDeliveryIdAndWarehouseId(Long deliveryId, Long warehouseId) {
-        List<DeliveryJpa> deliveryJpa = repo.findByDeliveryIdAndWarehouse_Identifier(deliveryId, warehouseId);
+    public List<Delivery> findByDeliveryDateAndWarehouseId(String deliveryDate, Long warehouseId) {
+        List<DeliveryJpa> deliveryJpa = repo.findByDeliveryDateAndWarehouse_Identifier(deliveryDate, warehouseId);
         return deliveryJpa.stream().map(mapper::deliveryJpaToDelivery).collect(Collectors.toList());
     }
 }

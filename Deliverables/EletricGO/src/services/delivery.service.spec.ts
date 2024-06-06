@@ -30,8 +30,8 @@ describe('DeliveryService', () => {
   /// Tests begin ///
   //Test AddDelivery on Service
   it('should return expected addDelivery (HttpClient called once)', () => {
-    const createDelivery: ICreateDeliveryDto = { DeliveryDate: '12-12-2022', Weight: 100, WarehouseId: 'M99' };
-    const expectedDelivery: ICreateDeliveryDto = { DeliveryDate: '12-12-2022', Weight: 100, WarehouseId: 'M99' };
+    const createDelivery: ICreateDeliveryDto = { deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99' };
+    const expectedDelivery: ICreateDeliveryDto = { deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99' };
 
     // Make an HTTP POST request
     deliveryService.addDelivery(createDelivery).subscribe(data =>
@@ -57,8 +57,8 @@ describe('DeliveryService', () => {
 
   //Test EditDelivery on Service
   it('should return expected editDelivery (HttpClient called once)', () => {
-    const editDelivery: IUpdateDeliveryDto = { DeliveryDate: '12-12-2022', Weight: 100, WarehouseIdentifier: 'M99' };
-    const expectedDelivery: IUpdateDeliveryDto = { DeliveryDate: '12-12-2022', Weight: 100, WarehouseIdentifier: 'M99' };
+    const editDelivery: IUpdateDeliveryDto = { deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99' };
+    const expectedDelivery: IUpdateDeliveryDto = { deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99' };
     const deliveryId = '1';
 
     // Make an HTTP PUT request

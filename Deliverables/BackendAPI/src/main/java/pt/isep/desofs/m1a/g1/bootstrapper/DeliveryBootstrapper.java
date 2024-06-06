@@ -6,13 +6,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
-import pt.isep.desofs.m1a.g1.repository.DeliveryPlanRepository;
 import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 import pt.isep.desofs.m1a.g1.service.DeliveryService;
 
 @Component
 @Profile("bootstrap")
-@Order(4)
+@Order(5)
 public class DeliveryBootstrapper implements CommandLineRunner {
 
     @Autowired

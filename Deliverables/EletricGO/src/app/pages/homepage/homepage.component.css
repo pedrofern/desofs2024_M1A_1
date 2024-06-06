@@ -5,6 +5,19 @@
 }
 
 .full-back {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: max-content;
     background-color: #0c1d36;
+}
+
+.full-back a {
+    display: inline-block;
+}
+
+.full-back img {
+    max-width: 100%;
+    height: auto;
 }

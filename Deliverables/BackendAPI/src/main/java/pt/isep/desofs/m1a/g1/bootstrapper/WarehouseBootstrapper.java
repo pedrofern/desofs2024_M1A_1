@@ -26,9 +26,9 @@ public class WarehouseBootstrapper implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<Warehouse> warehouses = warehouseRepo.findAll();
-        if (warehouses.size() < 2) {
-            CreateWarehouseDto createWarehouseDto = new CreateWarehouseDto(1, "Warehouse 1", 41.35741780756182, -8.562390204464108);
-            warehouseService.createWarehouse(createWarehouseDto);
+        if (warehouses.isEmpty()) {
+            CreateWarehouseDto createWarehouseDto1 = new CreateWarehouseDto(1, "Warehouse 1", 41.35741780756182, -8.562390204464108);
+            warehouseService.createWarehouse(createWarehouseDto1);
 
             CreateWarehouseDto createWarehouseDto2 = new CreateWarehouseDto(2, "Warehouse 2", 41.35741780756182, -8.562390204464108);
             warehouseService.createWarehouse(createWarehouseDto2);

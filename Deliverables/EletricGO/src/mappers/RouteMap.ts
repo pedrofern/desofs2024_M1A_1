@@ -1,10 +1,10 @@
-import { IRoute } from "src/model/routes/IRoute";
+import { IRouteDTO } from "src/model/routes/IRouteDTO";
 import { RouteDTO } from "src/dtos/routes/routeDto";
 import { ICreateRouteDTO } from "src/dtos/routes/ICreateRouteDTO";
 import { IUpdateRouteDTO } from "src/dtos/routes/IUpdateRouteDTO";
 
 export class RouteMap {
-    public static toModel(dto: RouteDTO) : IRoute {
+    public static toModel(dto: RouteDTO) : IRouteDTO {
         return {
             routeId: dto.routeId,
             idDepartureWarehouse: dto.idDepartureWarehouse,
@@ -16,8 +16,8 @@ export class RouteMap {
         };
     }
 
-    public static toModelList(dtos: RouteDTO[]) : IRoute[] {
-        const list: IRoute[] = [];
+    public static toModelList(dtos: RouteDTO[]) : IRouteDTO[] {
+        const list: IRouteDTO[] = [];
 
         dtos.forEach(r => {
             list.push(this.toModel(r));
@@ -26,7 +26,7 @@ export class RouteMap {
         return list;
     }
 
-    public static toDTO(model: IRoute) : RouteDTO {
+    public static toDTO(model: IRouteDTO) : RouteDTO {
         return {
             routeId: model.routeId,
             idDepartureWarehouse: model.idDepartureWarehouse,
@@ -37,8 +37,8 @@ export class RouteMap {
             extraTime: model.extraTime
         } as RouteDTO;
     }
-    
-    public static toCreationDTO(model: IRoute) : ICreateRouteDTO {
+
+    public static toCreationDTO(model: IRouteDTO) : ICreateRouteDTO {
         return {
             routeId: model.routeId,
             idDepartureWarehouse: model.idDepartureWarehouse,
@@ -49,8 +49,8 @@ export class RouteMap {
             extraTime: model.extraTime
         } as ICreateRouteDTO;
     }
-    
-    public static toUpdateDTO(model: IRoute) : IUpdateRouteDTO {
+
+    public static toUpdateDTO(model: IRouteDTO) : IUpdateRouteDTO {
         return {
             idDepartureWarehouse: model.idDepartureWarehouse,
             idArrivalWarehouse: model.idArrivalWarehouse,

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouteSearchComponent } from './route-search.component';
-import {IRoute} from "../../../../model/routes/IRoute";
+import {IRouteDTO} from "../../../../model/routes/IRouteDTO";
 import {RouteService} from "../../../../services/route.service";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {RoutesComponent} from "../routes.component";
@@ -15,7 +15,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const expectedRoutes: IRoute[] =
+const expectedRoutes: IRouteDTO[] =
     [{ routeId: "PTX1", idDepartureWarehouse: "PT1", idArrivalWarehouse: "PT2", distance: 120, time: 60, energy: 240, extraTime: 5, },
         { routeId: "PTX2", idDepartureWarehouse: "PT2", idArrivalWarehouse: "PT3", distance: 120, time: 60, energy: 240, extraTime: 5}]
 

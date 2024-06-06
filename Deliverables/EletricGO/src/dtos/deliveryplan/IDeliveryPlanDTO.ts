@@ -1,8 +1,7 @@
+import { IRouteDTO } from "../../model/routes/IRouteDTO";
+import { IDeliveryDto } from "../delivery/IDeliveryDto";
+
 export interface IDeliveryPlanDTO {
-  deliveryPlanId: number;
-  truckId: string;
-  date: string;
-  deliveriesId: number[];
-  paths: string[];
-  cost: number;
+    routes: IRouteDTO[];
+    deliveries: IDeliveryDto[];
 }

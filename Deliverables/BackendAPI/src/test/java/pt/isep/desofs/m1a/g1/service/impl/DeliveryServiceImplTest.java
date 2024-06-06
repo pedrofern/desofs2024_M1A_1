@@ -7,10 +7,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
+import pt.isep.desofs.m1a.g1.dto.UpdateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +25,7 @@ class DeliveryServiceImplTest {
     private DeliveryServiceImpl deliveryService;
 
     private Delivery delivery;
-    private DeliveryDTO deliveryDTO;
+    private UpdateDeliveryDTO updateDeliveryDTO;
     private CreateDeliveryDTO createDeliveryDTO;
 
     @BeforeEach
@@ -37,12 +37,12 @@ class DeliveryServiceImplTest {
         delivery.setWeight(10.0);
         delivery.setWarehouseId(1L);
 
-        deliveryDTO = new DeliveryDTO();
-        deliveryDTO.setDeliveryDate("2024-01-02");
-        deliveryDTO.setWeight(10.0);
-        deliveryDTO.setWarehouseId(1L);
+        updateDeliveryDTO = new UpdateDeliveryDTO();
+        updateDeliveryDTO.setDeliveryDate("2024-01-02");
+        updateDeliveryDTO.setWeight(10.0);
+        updateDeliveryDTO.setWarehouseId(1L);
 
-        createDeliveryDTO = new CreateDeliveryDTO("2024-01-03", 10.0, 1L);
+        createDeliveryDTO = new CreateDeliveryDTO("2024-01-01", 10.0, 1L);
     }
 
     @Test
@@ -67,24 +67,25 @@ class DeliveryServiceImplTest {
 
     @Test
     void createDelivery() {
-        when(deliveryRepository.save(any(Delivery.class))).thenReturn(delivery);
+        Delivery delivery = new Delivery(0L, "2024-01-01", 10.0, 1L);
+        when(deliveryRepository.create(any(Delivery.class))).thenReturn(delivery);
 
         DeliveryDTO result = deliveryService.createDelivery(createDeliveryDTO);
 
         assertNotNull(result);
-        verify(deliveryRepository, times(1)).save(any(Delivery.class));
+        verify(deliveryRepository, times(1)).create(any(Delivery.class));
     }
 
     @Test
     void updateDelivery() {
         when(deliveryRepository.findByDeliveryId(anyLong())).thenReturn(delivery);
-        when(deliveryRepository.save(any(Delivery.class))).thenReturn(delivery);
+        when(deliveryRepository.update(any(Delivery.class))).thenReturn(delivery);
 
-        DeliveryDTO result = deliveryService.updateDelivery(1L, deliveryDTO);
+        DeliveryDTO result = deliveryService.updateDelivery(1L, updateDeliveryDTO);
 
         assertNotNull(result);
         verify(deliveryRepository, times(1)).findByDeliveryId(anyLong());
-        verify(deliveryRepository, times(1)).save(any(Delivery.class));
+        verify(deliveryRepository, times(1)).update(any(Delivery.class));
     }
 
     @Test

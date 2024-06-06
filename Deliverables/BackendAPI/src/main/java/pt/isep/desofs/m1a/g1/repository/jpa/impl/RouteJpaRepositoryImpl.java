@@ -34,14 +34,9 @@ public class RouteJpaRepositoryImpl implements RouteRepository {
 
     @Override
     public List<Route> findByArrivalWarehouseId(Long warehouseId) {
-        return repo.findByArrivalWarehouse_Identifier(warehouseId).stream()
+        return repo.findByArrivalWarehouse_IdentifierOrDepartureWarehouse_Identifier(warehouseId, warehouseId).stream()
                 .map(mapper::routeJpaToRoute)
                 .collect(java.util.stream.Collectors.toList());
-    }
-
-    @Override
-    public Route findByRouteId(Long routeId) {
-        return mapper.routeJpaToRoute(repo.findByRouteId(routeId));
     }
 
     @Override

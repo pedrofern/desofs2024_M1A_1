@@ -12,7 +12,7 @@ import pt.isep.desofs.m1a.g1.repository.TruckRepository;
 
 @Component
 @Profile("bootstrap")
-@Order(6)
+@Order(3)
 public class TruckBootstrapper implements CommandLineRunner {
 
     @Autowired

@@ -2,20 +2,15 @@ package pt.isep.desofs.m1a.g1.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.stereotype.Service;
 import pt.isep.desofs.m1a.g1.dto.*;
 import pt.isep.desofs.m1a.g1.exception.InvalidLocalizationFormatException;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
-import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
-import pt.isep.desofs.m1a.g1.model.warehouse.Address;
-import pt.isep.desofs.m1a.g1.model.warehouse.GeographicCoordinates;
 import pt.isep.desofs.m1a.g1.model.warehouse.Warehouse;
 import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 import pt.isep.desofs.m1a.g1.repository.WarehouseRepository;
 import pt.isep.desofs.m1a.g1.service.WarehouseService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,12 +28,13 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public WarehouseDto createWarehouse(CreateWarehouseDto warehouseDto) {
 
+        Warehouse warehouse;
         GeolocalizacaoResponseDTO response = geoService.obterLocalizacao(warehouseDto.getLatitude(), warehouseDto.getLongitude());
         if (response == null) {
-            throw new InvalidLocalizationFormatException("Invalid localization!");
+            warehouse = convertToEntity(warehouseDto);
+        } else {
+            warehouse = convertToEntity(warehouseDto, response);
         }
-
-        Warehouse warehouse = convertToEntity(warehouseDto, response);
         warehouse = warehouseRepository.save(warehouse);
         return convertToDto(warehouse);
     }
@@ -79,9 +75,15 @@ public class WarehouseServiceImpl implements WarehouseService {
                 .collect(Collectors.toList());
     }
 
+    private Warehouse convertToEntity(CreateWarehouseDto warehouseDto) {
+        return new Warehouse(warehouseDto.getIdentifier(), warehouseDto.getDesignation(), "", "",
+                "", "", "", warehouseDto.getLatitude(),
+                warehouseDto.getLongitude(), true);
+    }
+
     private Warehouse convertToEntity(CreateWarehouseDto warehouseDto, GeolocalizacaoResponseDTO response) {
         return new Warehouse(warehouseDto.getIdentifier(), warehouseDto.getDesignation(), response.getRua(), response.getN_porta(),
-                response.getFreguesia(),response.getDistrito(), response.getCP() == null ? "4420-123" : response.getCP(), warehouseDto.getLatitude(),
+                response.getFreguesia(), response.getDistrito(), response.getCP() == null ? "4420-123" : response.getCP(), warehouseDto.getLatitude(),
                 warehouseDto.getLongitude(), true);
     }
 

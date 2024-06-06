@@ -1,11 +1,12 @@
 package pt.isep.desofs.m1a.g1.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class DeliveryDTO {
 
     private Long deliveryId;
@@ -15,7 +16,7 @@ public class DeliveryDTO {
 
     @Override
     public String toString() {
-        return "Delivery " + deliveryId +
+        return "\nDelivery " + deliveryId +
                 "\nDelivery Date: " + deliveryDate +
                 "\nWeight: " + weight +
                 "\nWarehouse: " + warehouseId;

@@ -6,8 +6,8 @@ import {DeliveryService} from '../../../services/delivery.service';
 import {IWarehouseDto} from "../../../dtos/warehouse/IWarehouseDto";
 import {IWarehouse} from 'src/model/IWarehouse';
 import {DeliveryMap} from 'src/mappers/DeliveryMap';
-import { HttpErrorResponse } from '@angular/common/http';
-import { GlobalService } from 'src/services/global.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {GlobalService} from 'src/services/global.service';
 
 @Component({
     selector: 'app-delivery-detail',
@@ -63,9 +63,9 @@ export class DeliveryDetailComponent implements OnInit {
         }
 
         this.deliveryService.addDelivery({
-            DeliveryDate: modifiedDate,
-            Weight: form.value.deliveryWeight,
-            WarehouseId: String(form.value.deliveryWarehouseId)
+            deliveryDate: modifiedDate,
+            weight: form.value.deliveryWeight,
+            warehouseId: String(form.value.deliveryWarehouseId)
         })
             .subscribe({
                 error: (error: HttpErrorResponse) => {
@@ -81,31 +81,29 @@ export class DeliveryDetailComponent implements OnInit {
     }
 
     edit(form: NgForm) {
-        //Validar qual é o formato de data que foi introduzido
         const regex_date = /^\d{4}-\d{1,2}-\d{1,2}$/;
         let modifiedDate = form.value.deliveryDate;
         if (regex_date.test(form.value.deliveryDate)) {
             const [year, month, day] = form.value.deliveryDate.split("-");
-            modifiedDate = day + '-' + month + '-' + year;
+            modifiedDate = `${day}-${month}-${year}`;
         }
 
         this.deliveryService.editDelivery(
             form.value.deliveryId,
             {
-                DeliveryDate: modifiedDate,
-                Weight: form.value.deliveryWeight,
-                WarehouseIdentifier: String(form.value.deliveryWarehouseId)
-            })
-            .subscribe({
-                error: (error: HttpErrorResponse) => {
-                    this.errorMessage = error.error;
-                    this.success = false;
-                },
-                complete: () => {
-                    this.success = true;
-                    this.successMessage = 'The delivery ' + form.value.deliveryId + ' was updated!'
-                },
-            })
+                deliveryDate: modifiedDate,  // ensure correct property name
+                weight: form.value.deliveryWeight,
+                warehouseId: form.value.deliveryWarehouseId // ensure correct property name
+            }
+        ).subscribe({
+            error: (error: HttpErrorResponse) => {
+                this.errorMessage = error.error;
+                this.success = false;
+            },
+            complete: () => {
+                this.success = true;
+                this.successMessage = 'The delivery ' + form.value.deliveryId + ' was updated!'
+            },
+        });
     }
-
 }

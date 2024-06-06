@@ -1,4 +1,4 @@
-export interface IRoute {
+export interface IRouteDTO {
     routeId: string;
     idDepartureWarehouse: string;
     idArrivalWarehouse: string;

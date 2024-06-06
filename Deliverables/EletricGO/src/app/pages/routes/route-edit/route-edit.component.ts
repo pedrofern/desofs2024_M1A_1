@@ -7,7 +7,7 @@ import {RouteMap} from 'src/mappers/RouteMap';
 import {IWarehouseDto} from 'src/dtos/warehouse/IWarehouseDto';
 import {RouteDTO} from 'src/dtos/routes/routeDto';
 
-import {IRoute} from 'src/model/routes/IRoute';
+import {IRouteDTO} from 'src/model/routes/IRouteDTO';
 
 import {RouteService} from 'src/services/route.service';
 import {WarehouseService} from 'src/services/warehouse.service';
@@ -21,7 +21,7 @@ import { GlobalService } from 'src/services/global.service';
 })
 export class RouteEditComponent implements OnInit {
 
-    routeModel: IRoute | undefined;
+    routeModel: IRouteDTO | undefined;
     warehouses: Array<IWarehouseDto> = [];
 
     success: boolean | undefined;
@@ -51,7 +51,7 @@ export class RouteEditComponent implements OnInit {
                 this.routeModel = RouteMap.toModel(r);
             });
         } else {
-            this.routeModel = {} as IRoute;
+            this.routeModel = {} as IRouteDTO;
         }
     }
 

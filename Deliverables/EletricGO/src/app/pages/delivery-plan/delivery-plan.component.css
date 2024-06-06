@@ -1,1 +1,36 @@
 @import url('../../../styles.css');
+
+form {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.alert {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    min-width: 100px;
+    max-width: 100px;
+    margin-left: 2px;
+    margin-top: 10px;
+}
+
+.full-width {
+    width: 50%;
+}

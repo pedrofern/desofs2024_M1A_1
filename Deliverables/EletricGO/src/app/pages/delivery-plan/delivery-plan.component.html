@@ -6,40 +6,115 @@
             </h3>
         </div>
 
-        <!-- Form for selecting Delivery and Warehouse -->
-        <form (ngSubmit)="onSubmit()">
+        <!-- Form for selecting Date and Warehouse -->
+        <form (ngSubmit)="viewPlan()">
             <div>
-                <label for="delivery">Select Delivery:</label>
-                <mat-form-field appearance="fill">
-                    <mat-label>Delivery</mat-label>
-                    <mat-select [(ngModel)]="selectedDeliveryId" name="deliveryId">
-                        <mat-option *ngFor="let delivery of deliveries" [value]="delivery.deliveryId">{{ delivery.deliveryId }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div>
-                <label for="warehouse">Select Warehouse:</label>
-                <mat-form-field appearance="fill">
+                <label for="warehouse"></label>
+                <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Warehouse</mat-label>
                     <mat-select [(ngModel)]="selectedWarehouseId" name="warehouseId">
                         <mat-option *ngFor="let warehouse of warehouses" [value]="warehouse.identifier">{{ warehouse.designation }}</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <label for="deliveryDate"></label>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Delivery Date</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" name="deliveryDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
             </div>
 
             <div>
-                <button mat-raised-button color="primary" type="submit">Preview</button>
+                <button mat-raised-button color="primary" type="submit">View</button>
+                <button mat-raised-button color="accent" type="button" (click)="downloadPdf()">Download PDF</button>
             </div>
         </form>
 
-        <!-- PDF preview section -->
-        <div *ngIf="pdfSrc">
-            <h3>PDF Preview</h3>
-            <iframe [src]="pdfSrc | safeUrl" width="600" height="400"></iframe>
-            <div>
-                <button mat-raised-button color="accent" (click)="downloadPdf()">Download PDF</button>
-            </div>
+        <!-- Table to show the deliveries -->
+        <div *ngIf="deliveries.length > 0">
+            <h3>Deliveries</h3>
+            <table mat-table [dataSource]="deliveries" class="mat-elevation-z8">
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="deliveryId">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.deliveryId}} </td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="deliveryDate">
+                    <th mat-header-cell *matHeaderCellDef> Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.deliveryDate}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef> Weight </th>
+                    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                </ng-container>
+
+                <!-- Warehouse Column -->
+                <ng-container matColumnDef="warehouseId">
+                    <th mat-header-cell *matHeaderCellDef> Warehouse </th>
+                    <td mat-cell *matCellDef="let element"> {{element.warehouseId}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsDeliveries"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsDeliveries;"></tr>
+            </table>
+        </div>
+
+        <!-- Table to show the routes -->
+        <div *ngIf="routes.length > 0">
+            <h3>Routes</h3>
+            <table mat-table [dataSource]="routes" class="mat-elevation-z8">
+
+                <!-- Route ID Column -->
+                <ng-container matColumnDef="routeId">
+                    <th mat-header-cell *matHeaderCellDef> Route ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.routeId}} </td>
+                </ng-container>
+
+                <!-- Departure Warehouse Column -->
+                <ng-container matColumnDef="idDepartureWarehouse">
+                    <th mat-header-cell *matHeaderCellDef> Departure Warehouse </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idDepartureWarehouse}} </td>
+                </ng-container>
+
+                <!-- Arrival Warehouse Column -->
+                <ng-container matColumnDef="idArrivalWarehouse">
+                    <th mat-header-cell *matHeaderCellDef> Arrival Warehouse </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idArrivalWarehouse}} </td>
+                </ng-container>
+
+                <!-- Distance Column -->
+                <ng-container matColumnDef="distance">
+                    <th mat-header-cell *matHeaderCellDef> Distance </th>
+                    <td mat-cell *matCellDef="let element"> {{element.distance}} </td>
+                </ng-container>
+
+                <!-- Time Column -->
+                <ng-container matColumnDef="time">
+                    <th mat-header-cell *matHeaderCellDef> Time </th>
+                    <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+                </ng-container>
+
+                <!-- Energy Column -->
+                <ng-container matColumnDef="energy">
+                    <th mat-header-cell *matHeaderCellDef> Energy </th>
+                    <td mat-cell *matCellDef="let element"> {{element.energy}} </td>
+                </ng-container>
+
+                <!-- Extra Time Column -->
+                <ng-container matColumnDef="extraTime">
+                    <th mat-header-cell *matHeaderCellDef> Extra Time </th>
+                    <td mat-cell *matCellDef="let element"> {{element.extraTime}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsRoutes"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsRoutes;"></tr>
+            </table>
         </div>
     </div>
 </div>

@@ -7,7 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { RouteMap } from 'src/mappers/RouteMap';
 import { IWarehouseDto } from 'src/dtos/warehouse/IWarehouseDto';
 import { RouteDTO } from 'src/dtos/routes/routeDto';
-import { IRoute } from 'src/model/routes/IRoute';
+import { IRouteDTO } from 'src/model/routes/IRouteDTO';
 import { RouteService } from 'src/services/route.service';
 import { WarehouseService } from 'src/services/warehouse.service';
 import { GlobalService } from 'src/services/global.service';
@@ -19,9 +19,9 @@ import { GlobalService } from 'src/services/global.service';
 export class RouteSearchComponent implements OnInit, OnDestroy, AfterViewInit {
     destroy$: Subject<boolean> = new Subject<boolean>();
     displayedColumns: string[] = ['routeId', 'idDepartureWarehouse', 'idArrivalWarehouse', 'distance', 'time', 'energy', 'extraTime', 'actions'];
-    routes: IRoute[] = [];
+    routes: IRouteDTO[] = [];
     warehouses: IWarehouseDto[] = [];
-    dataSource = new MatTableDataSource<IRoute>;
+    dataSource = new MatTableDataSource<IRouteDTO>;
 
     // Pagination
     pageSizes = [5, 10, 20, 100];
