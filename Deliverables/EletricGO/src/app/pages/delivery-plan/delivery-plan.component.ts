@@ -1,12 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
-
-import { takeUntil } from 'rxjs';
-import { Subject } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {takeUntil} from 'rxjs';
+import {Subject} from 'rxjs';
 import {IDeliveryDto} from "../../../dtos/delivery/IDeliveryDto";
 import {IWarehouseDto} from "../../../dtos/warehouse/IWarehouseDto";
 import {DeliveryPlanService} from "../../../services/delivery-plan.service";
+import {IDeliveryPlanDTO} from "../../../dtos/deliveryplan/IDeliveryPlanDTO";
+import {IRouteDTO} from "../../../model/routes/IRouteDTO";
 
 @Component({
     selector: 'app-delivery-plan',
@@ -16,29 +15,22 @@ import {DeliveryPlanService} from "../../../services/delivery-plan.service";
 export class DeliveryPlanComponent implements OnInit {
     deliveries: IDeliveryDto[] = [];
     warehouses: IWarehouseDto[] = [];
+    routes: IRouteDTO[] = [];
 
-    selectedDeliveryId!: number;
     selectedWarehouseId!: number;
-    pdfSrc!: string;
+    selectedDate!: Date;
 
     destroy$: Subject<boolean> = new Subject<boolean>();
+    displayedColumnsDeliveries: string[] = ['deliveryId', 'deliveryDate', 'weight', 'warehouseId'];
+    displayedColumnsRoutes: string[] = ['routeId', 'idDepartureWarehouse', 'idArrivalWarehouse', 'distance', 'time', 'energy', 'extraTime'];
 
     constructor(
-        private deliveryPlanService: DeliveryPlanService,
-        private sanitizer: DomSanitizer,
-    ) {}
-
-    ngOnInit() {
-        this.loadDeliveries();
-        this.loadWarehouses();
+        private deliveryPlanService: DeliveryPlanService
+    ) {
     }
 
-    loadDeliveries() {
-        this.deliveryPlanService.getDeliveries()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((data: IDeliveryDto[]) => {
-                this.deliveries = data;
-            });
+    ngOnInit() {
+        this.loadWarehouses();
     }
 
     loadWarehouses() {
@@ -49,23 +41,24 @@ export class DeliveryPlanComponent implements OnInit {
             });
     }
 
-    onSubmit() {
-        this.deliveryPlanService.downloadPdf(this.selectedDeliveryId, this.selectedWarehouseId)
+    viewPlan() {
+        const formattedDate = this.selectedDate.toISOString().split('T')[0]; // Format date to yyyy-MM-dd
+        this.deliveryPlanService.getDeliveryPlan(formattedDate, this.selectedWarehouseId)
             .pipe(takeUntil(this.destroy$))
-            .subscribe(response => {
-                const file = new Blob([response], { type: 'application/pdf' });
-                const fileURL = URL.createObjectURL(file);
-                this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(fileURL).toString();
+            .subscribe((data: IDeliveryPlanDTO) => {
+                this.deliveries = data.deliveries;
+                this.routes = data.routes;
             }, error => {
-                console.error('Error fetching PDF:', error);
+                console.error('Error fetching delivery plan:', error);
             });
     }
 
     downloadPdf() {
-        this.deliveryPlanService.downloadPdf(this.selectedDeliveryId, this.selectedWarehouseId)
+        const formattedDate = this.selectedDate.toISOString().split('T')[0]; // Format date to yyyy-MM-dd
+        this.deliveryPlanService.downloadPdf(formattedDate, this.selectedWarehouseId)
             .pipe(takeUntil(this.destroy$))
             .subscribe(response => {
-                const file = new Blob([response], { type: 'application/pdf' });
+                const file = new Blob([response], {type: 'application/pdf'});
                 const fileURL = URL.createObjectURL(file);
                 const a = document.createElement('a');
                 a.href = fileURL;

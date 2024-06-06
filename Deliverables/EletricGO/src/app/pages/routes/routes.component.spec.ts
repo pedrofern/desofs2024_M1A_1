@@ -6,7 +6,7 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {WarehouseService} from "../../../services/warehouse.service";
 import {WarehousesComponent} from "../warehouses/warehouses.component";
 import {of} from "rxjs";
-import {IRoute} from "../../../model/routes/IRoute";
+import {IRouteDTO} from "../../../model/routes/IRouteDTO";
 import {RouteService} from "../../../services/route.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterTestingModule} from "@angular/router/testing";
@@ -17,7 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GeneralItemDTO } from 'src/dtos/shared/generalItemDto';
 
-const expectedRoutes: IRoute[] =
+const expectedRoutes: IRouteDTO[] =
     [{ routeId: "PTX1", idDepartureWarehouse: "PT1", idArrivalWarehouse: "PT2", distance: 120, time: 60, energy: 240, extraTime: 5, },
         { routeId: "PTX2", idDepartureWarehouse: "PT2", idArrivalWarehouse: "PT3", distance: 120, time: 60, energy: 240, extraTime: 5}];
 

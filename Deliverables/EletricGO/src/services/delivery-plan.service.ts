@@ -5,6 +5,7 @@ import {environment} from 'src/environments/environment';
 import {MessageService} from './message.service';
 import {IDeliveryDto} from "../dtos/delivery/IDeliveryDto";
 import {IWarehouseDto} from "../dtos/warehouse/IWarehouseDto";
+import {IDeliveryPlanDTO} from "../dtos/deliveryplan/IDeliveryPlanDTO";
 
 @Injectable({
     providedIn: 'root'
@@ -42,30 +43,20 @@ export class DeliveryPlanService {
             );
     }
 
-    getDeliveryPlan(deliveryId: number, warehouseId: number): Observable<any> {
+    getDeliveryPlan(deliveryDate: string, warehouseId: number): Observable<IDeliveryPlanDTO> {
+        const url = `${this.deliveriesUrl + 'delivery-plan'}`;
         const params = new HttpParams()
-            .set('deliveryId', deliveryId)
-            .set('warehouseId', warehouseId);
-        const url = `${this.deliveriesUrl}delivery-plan/pdf`;
-
-        return this.http.get(url, {params, responseType: 'arraybuffer'})
-            .pipe(
-                tap(_ => this.log('fetching pdf')),
-                catchError(this.handleError<IWarehouseDto[]>('getDeliveryPlan', []))
-            );
+            .set('deliveryDate', deliveryDate)
+            .set('warehouseId', warehouseId.toString());
+        return this.http.get<IDeliveryPlanDTO>(url, {params});
     }
 
-    downloadPdf(deliveryId: number, warehouseId: number): Observable<any> {
+    downloadPdf(deliveryDate: string, warehouseId: number): Observable<Blob> {
+        const url = `${this.deliveriesUrl + 'delivery-plan/pdf'}`;
         const params = new HttpParams()
-            .set('deliveryId', deliveryId)
-            .set('warehouseId', warehouseId);
-        const url = `${this.deliveriesUrl}delivery-plan/pdf`;
-
-        return this.http.get(url, {params, responseType: 'arraybuffer'})
-            .pipe(
-                tap(_ => this.log('download pdf')),
-                catchError(this.handleError<IWarehouseDto[]>('downloadPdf', []))
-            );
+            .set('deliveryDate', deliveryDate)
+            .set('warehouseId', warehouseId.toString());
+        return this.http.get(url, {params, responseType: 'blob'});
     }
 
     /**

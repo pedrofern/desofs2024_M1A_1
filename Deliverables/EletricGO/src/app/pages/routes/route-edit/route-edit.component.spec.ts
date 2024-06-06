@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {IRoute} from "../../../../model/routes/IRoute";
+import {IRouteDTO} from "../../../../model/routes/IRouteDTO";
 import {RouteService} from "../../../../services/route.service";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
@@ -12,7 +12,7 @@ import {WarehouseService} from "../../../../services/warehouse.service";
 import {RouteEditComponent} from "./route-edit.component";
 import {ActivatedRoute} from "@angular/router";
 
-const expectedRoute: IRoute =
+const expectedRoute: IRouteDTO =
     { routeId: "PTX1", idDepartureWarehouse: "PT1", idArrivalWarehouse: "PT2", distance: 120, time: 60, energy: 240, extraTime: 5, }
 
 const expectedWarehouses: IWarehouseDto[] =
