@@ -51,20 +51,13 @@ public class InputSanitizer {
             }
         }
 
+        String[] specialCharacters = {"&", "<", ">", "\"", "'", "script"};
+        for (String character : specialCharacters) {
+            if (input.contains(character)) {
+                return true;
+            }
+        }
+
         return false;
-    }
-
-    public static String sanitizeInputForScripts(String input) {
-
-        // Replace characters that may be interpreted as HTML or JavaScript with their HTML entity equivalents
-        input = input.replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll("\"", "&quot;")
-                .replaceAll("'", "&#39;")
-                .replaceAll("script", "&#115cript");
-
-        return Encode.forHtml(input);
-
     }
 }

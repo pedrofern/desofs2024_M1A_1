@@ -1,6 +1,7 @@
 package pt.isep.desofs.m1a.g1.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class LogisticsController {
     private LogisticsService logisticsService;
 
     @PostMapping
-    public void submitForm(@RequestBody SubmitLogisticsForm request) {
+    public void submitForm(@Valid  @RequestBody SubmitLogisticsForm request) {
         logisticsService.submitForm(request);
     }
 
@@ -32,7 +33,7 @@ public class LogisticsController {
 
     //Get the packaging by id
     @GetMapping("/{id}")
-    public ResponseEntity<Packaging> getPackagingById(@PathVariable String id) {
+    public ResponseEntity<Packaging> getPackagingById(@Valid @PathVariable String id) {
         return ResponseEntity.ok(logisticsService.getPackagingById(id));
     }
 

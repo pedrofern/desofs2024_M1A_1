@@ -29,11 +29,15 @@ public class LogisticsServiceImpl implements LogisticsService {
     @Override
     public void submitForm(SubmitLogisticsForm request) {
 
-        // Sanitize input
-        String packagingId = InputSanitizer.sanitizeInputForScripts(request.getPackagingId());
+        // Check for malicious content
+        if (InputSanitizer.containsMaliciousContent(request.getPackagingId()) ||
+                InputSanitizer.containsMaliciousContent(String.valueOf(request.getDeliveryId())) ||
+                InputSanitizer.containsMaliciousContent(String.valueOf(request.getTruckId()))) {
+            throw new IllegalArgumentException("Input contains malicious content");
+        }
 
         Localization localization = new Localization(request.getX(), request.getY(), request.getZ());
-        Packaging packaging = new Packaging(packagingId, request.getDeliveryId(), request.getTruckId(), request.getLoadTime(), request.getUnloadTime(), localization.getX(), localization.getY(), localization.getZ());
+        Packaging packaging = new Packaging(request.getPackagingId(), request.getDeliveryId(), request.getTruckId(), request.getLoadTime(), request.getUnloadTime(), localization.getX(), localization.getY(), localization.getZ());
 
         Optional<Packaging> p = packagingRepo.findByPackagingId(request.getPackagingId());
         if (p.isPresent()) {
