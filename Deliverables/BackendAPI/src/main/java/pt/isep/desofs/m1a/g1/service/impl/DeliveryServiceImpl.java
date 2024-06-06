@@ -39,12 +39,9 @@ public class DeliveryServiceImpl implements DeliveryService {
         return deliveries.stream().map(Delivery::convertToDTO).collect(Collectors.toList());
     }
 
+    @Override
     public List<DeliveryDTO> getDeliveries(int pageIndex, int pageSize, String sortBy, String sortOrder, Map<String, String> filters) {
-        this.removePageFilters(filters);
-        Sort.Direction direction = sortOrder.equalsIgnoreCase("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.by(direction, sortBy));
-        Specification<DeliveryJpa> specification = SpecificationHelper.getSpecifications(filters);
-        Page<Delivery> page = deliveryRepository.findAllWithFilters(specification, pageable);
+        Page<Delivery> page = deliveryRepository.findAllWithFilters(pageIndex, pageSize, sortBy, sortOrder, filters);
         return page.stream().map(Delivery::convertToDTO).collect(Collectors.toList());
     }
 
@@ -87,12 +84,5 @@ public class DeliveryServiceImpl implements DeliveryService {
             throw new NotFoundException("Delivery not found with identifier: " + deliveryId);
         }
         deliveryRepository.deleteByIdentifier(deliveryId);
-    }
-
-    private void removePageFilters(Map<String, String> filters) {
-        filters.remove("pageSize");
-        filters.remove("pageIndex");
-        filters.remove("sortBy");
-        filters.remove("sortOrder");
     }
 }

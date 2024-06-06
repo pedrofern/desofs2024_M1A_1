@@ -31,4 +31,11 @@ public class SpecificationHelper {
             return false;
         }
     }
+
+    public static void removePageFilters(Map<String, String> filters) {
+        filters.remove("pageSize");
+        filters.remove("pageIndex");
+        filters.remove("sortBy");
+        filters.remove("sortOrder");
+    }
 }

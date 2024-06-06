@@ -2,16 +2,16 @@ package pt.isep.desofs.m1a.g1.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import pt.isep.desofs.m1a.g1.dto.*;
-import pt.isep.desofs.m1a.g1.exception.InvalidLocalizationFormatException;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.warehouse.Warehouse;
-import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 import pt.isep.desofs.m1a.g1.repository.WarehouseRepository;
 import pt.isep.desofs.m1a.g1.service.WarehouseService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class WarehouseServiceImpl implements WarehouseService {
 
     private final WarehouseRepository warehouseRepository;
-    private final DeliveryRepository deliveryRepository;
 
     @Autowired
     private GeolocalizacaoService geoService;
@@ -45,7 +44,6 @@ public class WarehouseServiceImpl implements WarehouseService {
         if (existingWarehouse.isEmpty()) {
             throw new NotFoundException("Warehouse not found with identifier: " + identifier);
         }
-        // Update the entity fields here
         existingWarehouse.get().changeDesignation(warehouseDto.getDesignation());
         existingWarehouse.get().getAddress().changeStreetName(warehouseDto.getStreetName());
         existingWarehouse.get().getAddress().changeDoorNumber(warehouseDto.getDoorNumber());
@@ -55,7 +53,7 @@ public class WarehouseServiceImpl implements WarehouseService {
         existingWarehouse.get().getGeographicCoordinates().changeLatitude(warehouseDto.getLatitude());
         existingWarehouse.get().getGeographicCoordinates().changeLongitude(warehouseDto.getLongitude());
         existingWarehouse.get().changeActive(warehouseDto.isActive());
-        Warehouse result = warehouseRepository.save(existingWarehouse.get());
+        Warehouse result = warehouseRepository.update(existingWarehouse.get());
         return convertToDto(result);
     }
 
@@ -73,6 +71,12 @@ public class WarehouseServiceImpl implements WarehouseService {
         return warehouseRepository.findAll().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WarehouseDto> findWarehouses(int pageIndex, int pageSize, String sortBy, String sortOrder, Map<String, String> filters) {
+        Page<Warehouse> page = warehouseRepository.findAllWithFilters(pageIndex, pageSize, sortBy, sortOrder, filters);
+        return page.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     private Warehouse convertToEntity(CreateWarehouseDto warehouseDto) {

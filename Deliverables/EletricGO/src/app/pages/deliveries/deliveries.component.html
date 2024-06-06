@@ -13,7 +13,7 @@
             <ng-container matColumnDef="deliveryId">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
-                        <input matInput type="number" [(ngModel)]="filterDeliveryId" (keyup.enter)="updateValue()" placeholder="Delivery ID">
+                        <input matInput type="number" [(ngModel)]="filterDeliveryId" (keyup.enter)="updateValue()" placeholder="Delivery">
                     </mat-form-field>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" >{{ element.deliveryId }}</mat-cell>
@@ -22,7 +22,7 @@
             <ng-container matColumnDef="deliveryDate">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
-                        <input matInput type="text" [(ngModel)]="filterDeliveryDate" (keyup.enter)="updateValue()" placeholder="Date">
+                        <input matInput type="date" [(ngModel)]="filterDeliveryDate" (keyup.enter)="updateValue()" placeholder="Date">
                     </mat-form-field>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element">{{ element.deliveryDate }}</mat-cell>

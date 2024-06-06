@@ -12,6 +12,7 @@ import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.service.WarehouseService;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Warehouse")
 @RestController
@@ -44,7 +45,7 @@ public class WarehouseController {
     }
 
     @GetMapping("/{identifier}")
-    public ResponseEntity<WarehouseDto> getDeliveryById(@PathVariable Long identifier) {
+    public ResponseEntity<WarehouseDto> getWarehouseById(@PathVariable Long identifier) {
         try {
             WarehouseDto warehouse = warehouseService.findWarehouseByIdentifier(identifier);
             return ResponseEntity.ok(warehouse);
@@ -56,9 +57,25 @@ public class WarehouseController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<WarehouseDto>> getAllDeliveries() {
+    public ResponseEntity<List<WarehouseDto>> getAllWarehouses() {
         try {
             List<WarehouseDto> warehouses = warehouseService.findAllWarehouses();
+            return ResponseEntity.ok(warehouses);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<WarehouseDto>> getWarehouses(
+            @RequestParam(defaultValue = "0") int pageIndex,
+            @RequestParam(defaultValue = "5") int pageSize,
+            @RequestParam(defaultValue = "identifier") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(required = false) Map<String, String> filters
+    ) {
+        try {
+            List<WarehouseDto> warehouses = warehouseService.findWarehouses(pageIndex, pageSize, sortBy, sortOrder, filters);
             return ResponseEntity.ok(warehouses);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

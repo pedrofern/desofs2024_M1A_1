@@ -27,9 +27,6 @@
     <a mat-list-item routerLink="/warehouses" (click)="onSidenavClose()">
         <mat-icon>warehouse</mat-icon><span class="nav-caption menu">Warehouses</span>
     </a>
-    <a mat-list-item routerLink="/map" (click)="onSidenavClose()">
-        <mat-icon>map</mat-icon><span class="nav-caption menu">Map</span>
-    </a>
     <a mat-list-item routerLink="/users" (click)="onSidenavClose()">
         <mat-icon>supervisor_account</mat-icon><span class="nav-caption menu">Users</span>
     </a>
@@ -44,6 +41,17 @@
     <a mat-list-item routerLink="/delivery-plan" (click)="onSidenavClose()">
         <mat-icon>assignment_turned_in</mat-icon><span class="nav-caption menu">Plannings</span>
     </a>
+    <a mat-list-item routerLink="/warehouses" (click)="onSidenavClose()">
+        <mat-icon>warehouse</mat-icon><span class="nav-caption menu">Warehouses</span>
+    </a>
+    <a mat-list-item routerLink="/users" (click)="onSidenavClose()">
+        <mat-icon>supervisor_account</mat-icon><span class="nav-caption menu">User</span>
+    </a>
+</div>
+<div *ngIf="role === '3'">
+    <a mat-list-item routerLink="/home" (click)="onSidenavClose()">
+        <mat-icon>home</mat-icon> <span class="nav-caption menu">Home</span>
+    </a>
     <a mat-list-item routerLink="/packagings" (click)="onSidenavClose()">
         <mat-icon>inventory_2</mat-icon><span class="nav-caption menu">Packagings</span>
     </a>
@@ -56,9 +64,6 @@
     </a>
     <a mat-list-item routerLink="/warehouses" (click)="onSidenavClose()">
         <mat-icon>warehouse</mat-icon><span class="nav-caption menu">Warehouses</span>
-    </a>
-    <a mat-list-item routerLink="/map" (click)="onSidenavClose()">
-        <mat-icon>map</mat-icon><span class="nav-caption menu">Map</span>
     </a>
     <a mat-list-item routerLink="/users" (click)="onSidenavClose()">
         <mat-icon>supervisor_account</mat-icon><span class="nav-caption menu">Users</span>

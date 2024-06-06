@@ -3,7 +3,9 @@ package pt.isep.desofs.m1a.g1.repository.jpa.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 import pt.isep.desofs.m1a.g1.exception.NotFoundException;
@@ -13,10 +15,11 @@ import pt.isep.desofs.m1a.g1.repository.jpa.DeliveryJpaRepo;
 import pt.isep.desofs.m1a.g1.repository.jpa.WarehouseJpaRepo;
 import pt.isep.desofs.m1a.g1.repository.jpa.mapper.DeliveryJpaMapper;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.DeliveryJpa;
-import pt.isep.desofs.m1a.g1.repository.jpa.model.UserJpa;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.WarehouseJpa;
+import pt.isep.desofs.m1a.g1.repository.utils.SpecificationHelper;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -42,7 +45,11 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public Page<Delivery> findAllWithFilters(Specification<DeliveryJpa> specification, Pageable pageable) {
+    public Page<Delivery> findAllWithFilters(int pageIndex, int pageSize, String sortBy, String sortOrder, Map<String, String> filters) {
+        SpecificationHelper.removePageFilters(filters);
+        Sort.Direction direction = sortOrder.equalsIgnoreCase("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.by(direction, sortBy));
+        Specification<DeliveryJpa> specification = SpecificationHelper.getSpecifications(filters);
         return repo.findAll(specification, pageable).map(mapper::deliveryJpaToDelivery);
     }
 

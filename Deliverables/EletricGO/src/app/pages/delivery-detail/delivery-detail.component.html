@@ -7,7 +7,7 @@
                 <input name="deliveryId" *ngIf="id" [(ngModel)]="delivery.deliveryId" readonly ngModel />
 
                 <label for="new-delivery-date">Date </label>
-                <input name="deliveryDate" type="text" placeholder="{{delivery.deliveryDate}}" max="2999-12-31" onfocus="(this.type='date')" onblur="(this.type='text')" [(ngModel)]="delivery.deliveryDate" required ngModel />
+                <input name="deliveryDate" type="date" [(ngModel)]="delivery.deliveryDate" (ngModelChange)="onDateChange($event)" required ngModel />
 
                 <label for="new-Weight">Weight </label>
                 <input name="deliveryWeight" type="number" [(ngModel)]="delivery.weight" required ngModel />

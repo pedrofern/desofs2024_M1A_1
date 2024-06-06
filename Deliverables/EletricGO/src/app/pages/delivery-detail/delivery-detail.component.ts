@@ -53,13 +53,20 @@ export class DeliveryDetailComponent implements OnInit {
             });
     }
 
+    onDateChange(event: any) {
+        const date = new Date(event);
+        if (this.delivery) {
+            this.delivery.deliveryDate = date.toISOString().split('T')[0];
+        }
+    }
+
     create(form: NgForm) {
         //Validar qual é o formato de data que foi introduzido
-        const regex_date = /^\d{4}-\d{1,2}-\d{1,2}$/;
+        const regex_date = /^\d{1,2}-\d{1,2}-\d{4}$/;
         let modifiedDate = form.value.deliveryDate;
         if (regex_date.test(form.value.deliveryDate)) {
             const [year, month, day] = form.value.deliveryDate.split("-");
-            modifiedDate = day + '-' + month + '-' + year;
+            modifiedDate = `${day}-${month}-${year}`;
         }
 
         this.deliveryService.addDelivery({
@@ -81,7 +88,7 @@ export class DeliveryDetailComponent implements OnInit {
     }
 
     edit(form: NgForm) {
-        const regex_date = /^\d{4}-\d{1,2}-\d{1,2}$/;
+        const regex_date = /^\d{1,2}-\d{1,2}-\d{4}$/;
         let modifiedDate = form.value.deliveryDate;
         if (regex_date.test(form.value.deliveryDate)) {
             const [year, month, day] = form.value.deliveryDate.split("-");

@@ -20,6 +20,7 @@ public interface RouteJpaMapper {
     @Mapping(source = "extraTime", target = "extraTime")
     Route routeJpaToRoute(RouteJpa routeJpa);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(source = "routeId", target = "routeId")
     @Mapping(source = "idDepartureWarehouse", target = "departureWarehouse.identifier")
     @Mapping(source = "idArrivalWarehouse", target = "arrivalWarehouse.identifier")
