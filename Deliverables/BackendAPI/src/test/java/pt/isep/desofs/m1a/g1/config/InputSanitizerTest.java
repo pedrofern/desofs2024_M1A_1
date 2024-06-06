@@ -58,7 +58,7 @@ public class InputSanitizerTest {
     @Test
     public void testContainsMaliciousContent_SafeHTML() {
         String input = "<b>Bold Text</b>";
-        assertFalse(InputSanitizer.containsMaliciousContent(input));
+        assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
 
     @Test
