@@ -20,8 +20,8 @@ const expectedRoutes: IRouteDTO[] =
         { routeId: "PTX2", idDepartureWarehouse: "PT2", idArrivalWarehouse: "PT3", distance: 120, time: 60, energy: 240, extraTime: 5}]
 
 const expectedWarehouses: IWarehouseDto[] =
-    [{ identifier: "PT1", designation: 'Póvoa de Varzim', streetName: "Rua do ABC", doorNumber: 12, city: "Porto", country: "Portugal", zipCode: "4410-213", latitude: 40.214556, longitude: 12.456923, height: 200, active: true},
-        { identifier: "PT2", designation: 'Vila do Conde', streetName: "Rua de Diogo Cão", doorNumber: 15, city: "Porto", country: "Portugal", zipCode: "4410-213", latitude: 41.214556, longitude: 11.456923, height: 300, active: true}];
+    [{ identifier: "PT1", designation: 'Póvoa de Varzim', streetName: "Rua do ABC", doorNumber: 12, city: "Porto", country: "Portugal", zipCode: "4410-213", latitude: 40.214556, longitude: 12.456923, active: true},
+        { identifier: "PT2", designation: 'Vila do Conde', streetName: "Rua de Diogo Cão", doorNumber: 15, city: "Porto", country: "Portugal", zipCode: "4410-213", latitude: 41.214556, longitude: 11.456923, active: true}];
 
 describe('RouteSearchComponent', () => {
     let component: RouteSearchComponent;
