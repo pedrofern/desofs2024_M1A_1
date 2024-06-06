@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -79,5 +80,31 @@ public class UserJpaRepositoryImplTest {
         verify(userJpaRepo, times(1)).save(userJpa);
         assertEquals(email, result.getUsername());
     }
+    
+    @Test
+    public void testFindAll() {
+    	
+    	String firstName = "John";
+        String lastName = "Doe";
+        String phoneNumber = "+1234567890";
+        String email = "john@example.com";
+		String password = "Test@1234";
+		
+		UserJpa userJpa = new UserJpa();
+		userJpa.setFirstName(firstName);
+		userJpa.setLastName(lastName);
+		userJpa.setPhoneNumber(phoneNumber);
+		userJpa.setEmail(email);
+		userJpa.setPassword(password);
+		userJpa.setRole(Role.ADMIN);
+
+		when(userJpaRepo.findAll()).thenReturn(List.of(userJpa));
+
+		List<User> result = userJpaRepository.findAll();
+
+		verify(userJpaRepo, times(1)).findAll();
+		assertEquals(email, result.get(0).getUsername());
+    }
+    	
 
 }

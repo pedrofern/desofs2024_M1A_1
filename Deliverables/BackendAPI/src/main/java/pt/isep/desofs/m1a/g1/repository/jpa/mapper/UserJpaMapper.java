@@ -1,5 +1,7 @@
 package pt.isep.desofs.m1a.g1.repository.jpa.mapper;
 
+import java.util.List;
+
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -35,5 +37,7 @@ public interface UserJpaMapper {
 	@Mapping(target = "tokens", ignore = true)
 	@Mapping(target = "password", ignore = true)
 	void updateUserJpa(@MappingTarget UserJpa userJpa, User user);
+	
+	List<User> toDomainModel(List<UserJpa> userList);
 
 }

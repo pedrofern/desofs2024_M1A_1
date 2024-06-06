@@ -1,10 +1,10 @@
 package pt.isep.desofs.m1a.g1.repository.jpa.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import pt.isep.desofs.m1a.g1.model.user.User;
@@ -44,6 +44,11 @@ public class UserJpaRepositoryImpl implements UserRepository {
 		}
 		UserJpa savedUser = repo.save(userToSave);
 		return mapper.toDomainModel(savedUser);
+	}
+
+	@Override
+	public List<User> findAll() {
+		return mapper.toDomainModel(repo.findAll());    
 	}
 
 }

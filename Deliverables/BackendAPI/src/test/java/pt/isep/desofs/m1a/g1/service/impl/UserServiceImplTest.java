@@ -1,5 +1,6 @@
 package pt.isep.desofs.m1a.g1.service.impl;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -7,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import pt.isep.desofs.m1a.g1.bean.RegisterRequest;
+import pt.isep.desofs.m1a.g1.dto.UserDto;
 import pt.isep.desofs.m1a.g1.model.user.Role;
 import pt.isep.desofs.m1a.g1.model.user.User;
 import pt.isep.desofs.m1a.g1.repository.UserRepository;
@@ -83,4 +86,35 @@ public class UserServiceImplTest {
 		verify(userRepo, times(1)).save(any(User.class));
 	}
 
+	@Test
+	public void testGetAllUsers() {
+		String id = "john.doe@example.com";
+		User user = new User("John", "Doe", "123456789", id, "Pass@1234", "ADMIN");
+
+		when(userRepo.findAll()).thenReturn(List.of(user));
+
+		List<UserDto> allUsers = userService.getAllUsers();
+		verify(userRepo, times(1)).findAll();
+		assertEquals(1, allUsers.size());
+	}
+
+	@Test
+	public void testGetUserEmpty() {
+		String id = "john.doe@example.com";
+		userService.getUser(id);
+		verify(userRepo, times(1)).findByEmail(id);
+		assertNull(null, userService.getUser(id));
+	}
+
+	@Test
+	public void testGetUserOk() {
+		String id = "john.doe@example.com";
+		User user = new User("John", "Doe", "123456789", id, "Pass@1234", "ADMIN");
+
+		when(userRepo.findByEmail(id)).thenReturn(Optional.of(user));
+
+		UserDto userDto = userService.getUser(id);
+		verify(userRepo, times(1)).findByEmail(id);
+		assertEquals(id, userDto.getEmail());
+	}
 }
