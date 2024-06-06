@@ -19,7 +19,7 @@
             <mat-cell *matCellDef="let element" >{{ element.identifier }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="designation_name">
+            <ng-container matColumnDef="designation">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="text" [(ngModel)]="filterDesignation" (keyup.enter)="updateValue()" placeholder="Designation">
@@ -28,7 +28,7 @@
                 <mat-cell *matCellDef="let element">{{ element.designation }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="address_streetName">
+            <ng-container matColumnDef="streetName">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="text" [(ngModel)]="filterStreetName" (keyup.enter)="updateValue()" placeholder="Street Name">
@@ -37,7 +37,7 @@
                 <mat-cell *matCellDef="let element">{{ element.streetName }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="address_doorNumber">
+            <ng-container matColumnDef="doorNumber">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="number" [(ngModel)]="filterDoorNumber" (keyup.enter)="updateValue()" placeholder="Door Number">
@@ -46,7 +46,7 @@
                 <mat-cell *matCellDef="let element">{{ element.doorNumber }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="address_city">
+            <ng-container matColumnDef="city">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="text" [(ngModel)]="filterCity" (keyup.enter)="updateValue()" placeholder="City">
@@ -55,7 +55,7 @@
                 <mat-cell *matCellDef="let element">{{ element.city }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="address_country">
+            <ng-container matColumnDef="country">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="text" [(ngModel)]="filterCountry" (keyup.enter)="updateValue()" placeholder="Country">
@@ -64,7 +64,7 @@
                 <mat-cell *matCellDef="let element">{{ element.country }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="address_zipCode">
+            <ng-container matColumnDef="zipCode">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="text" [(ngModel)]="filterZipCode" (keyup.enter)="updateValue()" placeholder="Zip Code">
@@ -73,7 +73,7 @@
                 <mat-cell *matCellDef="let element">{{ element.zipCode }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="geographiccoordinates_latitude">
+            <ng-container matColumnDef="latitude">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="number" [(ngModel)]="filterLatitude" (keyup.enter)="updateValue()" placeholder="Latitude">
@@ -82,7 +82,7 @@
                 <mat-cell *matCellDef="let element">{{ element.latitude }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="geographiccoordinates_longitude">
+            <ng-container matColumnDef="longitude">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="number" [(ngModel)]="filterLongitude" (keyup.enter)="updateValue()" placeholder="Longitude">
@@ -91,23 +91,17 @@
                 <mat-cell *matCellDef="let element">{{ element.longitude }}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="height">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>
-                    <mat-form-field>
-                        <input matInput type="number" [(ngModel)]="filterHeight" (keyup.enter)="updateValue()" placeholder="Height">
-                    </mat-form-field>
-                </mat-header-cell>                   
-                <mat-cell *matCellDef="let element">{{ element.height }}</mat-cell>
-            </ng-container>
-
             <ng-container matColumnDef="active">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                   <mat-form-field>
                       <input matInput type="text" [(ngModel)]="filterActive" (keyup.enter)="updateValue()" placeholder="Status">
                   </mat-form-field>
               </mat-header-cell>
-              <mat-cell *matCellDef="let element">{{ element.active ? "Active" : "Inactive" }}</mat-cell>
-              </ng-container>
+              <mat-cell *matCellDef="let element">
+                <mat-icon *ngIf="element.active" style="color: green;">check_circle</mat-icon>
+                <mat-icon *ngIf="!element.active" style="color: red;">cancel</mat-icon>
+              </mat-cell>
+            </ng-container>
 
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>

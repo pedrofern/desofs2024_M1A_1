@@ -12,7 +12,7 @@ export class Warehouses {
 
     static addTo(scene: THREE.Scene, warehouses: IWarehouseDto[]) {
         warehouses.forEach(warehouse => {
-            const coords = Utils.convertCoord(warehouse.longitude, warehouse.latitude, warehouse.height);
+            const coords = Utils.convertCoord(warehouse.longitude, warehouse.latitude, 0);
 
             // The main object
             const object = new THREE.Object3D

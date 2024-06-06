@@ -15,8 +15,8 @@ import {WarehouseService} from 'src/services/warehouse.service';
 })
 export class WarehouseDetailComponent implements OnInit {
 
-    warehouse: IWarehouse | undefined;
-    success: boolean | undefined;
+    warehouse!: IWarehouse;
+    success!: boolean;
     errorMessage = "";
     successMessage = "";
     id = "";
@@ -45,17 +45,16 @@ export class WarehouseDetailComponent implements OnInit {
 
     create(form: NgForm) {
         this.warehouseService.addWarehouse({
-            Identifier: form.value.inputWarehouseId,
-            Designation: form.value.inputDesignation,
-            StreetName: form.value.inputStreetName,
-            DoorNumber: form.value.inputDoorNumber,
-            City: form.value.inputCity,
-            Country: form.value.inputCountry,
-            ZipCode: form.value.inputZipCode,
-            Latitude: form.value.inputLatitude,
-            Longitude: form.value.inputLongitude,
-            Height: form.value.inputHeight,
-            Active: form.value.inputActive
+            identifier: form.value.inputWarehouseId,
+            designation: form.value.inputDesignation,
+            streetName: form.value.inputStreetName,
+            doorNumber: form.value.inputDoorNumber,
+            city: form.value.inputCity,
+            country: form.value.inputCountry,
+            zipCode: form.value.inputZipCode,
+            latitude: form.value.inputLatitude,
+            longitude: form.value.inputLongitude,
+            active: form.value.inputActive
         })
             .subscribe({
                 error: (error: HttpErrorResponse) => {
@@ -74,16 +73,15 @@ export class WarehouseDetailComponent implements OnInit {
         this.warehouseService.editWarehouse(
             this.id,
             {
-                Designation: form.value.inputDesignation,
-                StreetName: form.value.inputStreetName,
-                DoorNumber: form.value.inputDoorNumber,
-                City: form.value.inputCity,
-                Country: form.value.inputCountry,
-                ZipCode: form.value.inputZipCode,
-                Latitude: form.value.inputLatitude,
-                Longitude: form.value.inputLongitude,
-                Height: form.value.inputHeight,
-                Active: form.value.inputActive
+                designation: form.value.inputDesignation,
+                streetName: form.value.inputStreetName,
+                doorNumber: form.value.inputDoorNumber,
+                city: form.value.inputCity,
+                country: form.value.inputCountry,
+                zipCode: form.value.inputZipCode,
+                latitude: form.value.inputLatitude,
+                longitude: form.value.inputLongitude,
+                active: form.value.inputActive
             })
             .subscribe({
                 error: (error: HttpErrorResponse) => {

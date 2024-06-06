@@ -8,6 +8,5 @@ export interface IWarehouse {
     zipCode: string;
     latitude: number;
     longitude: number;
-    height: number;
     active: boolean;
 }

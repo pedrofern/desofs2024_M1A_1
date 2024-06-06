@@ -16,7 +16,7 @@ import {WarehouseService} from "../../../services/warehouse.service";
 })
 export class WarehousesComponent implements OnInit, OnDestroy, AfterViewInit {
     warehouses: IWarehouse[] = [];
-    displayedColumns: string[] = ['identifier','designation_name','address_streetName','address_doorNumber','address_city','address_country','address_zipCode','geographiccoordinates_latitude','geographiccoordinates_longitude','height','active', 'actions'];
+    displayedColumns: string[] = ['identifier','designation','streetName','doorNumber','city','country','zipCode','latitude','longitude','active', 'actions'];
     dataSource = new MatTableDataSource<IWarehouse>;
     destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -34,7 +34,6 @@ export class WarehousesComponent implements OnInit, OnDestroy, AfterViewInit {
     filterZipCode?: string;
     filterLatitude?: number;
     filterLongitude?: number;
-    filterHeight?: number;
     filterActive?: boolean;
 
     filters: any = {
@@ -47,7 +46,6 @@ export class WarehousesComponent implements OnInit, OnDestroy, AfterViewInit {
         zipCode: this.filterZipCode,
         latitude: this.filterLatitude,
         longitude: this.filterLongitude,
-        height: this.filterHeight,
         active: this.filterActive
     }
 
@@ -95,7 +93,6 @@ export class WarehousesComponent implements OnInit, OnDestroy, AfterViewInit {
         this.filters.zipCode = this.filterZipCode;
         this.filters.latitude = this.filterLatitude;
         this.filters.longitude = this.filterLongitude;
-        this.filters.height = this.filterHeight;
         this.filters.active = this.filterActive;
         this.getWarehouses();
     }

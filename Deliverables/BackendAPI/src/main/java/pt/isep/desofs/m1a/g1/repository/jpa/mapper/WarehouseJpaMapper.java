@@ -15,6 +15,7 @@ public interface WarehouseJpaMapper {
 
     WarehouseJpaMapper INSTANCE = Mappers.getMapper(WarehouseJpaMapper.class);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "streetName", source = "address.streetName")
     @Mapping(target = "doorNumber", source = "address.doorNumber")
     @Mapping(target = "city", source = "address.city")

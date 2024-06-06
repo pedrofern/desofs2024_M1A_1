@@ -14,5 +14,7 @@ public interface DeliveryJpaMapper {
 	@Mapping(source = "warehouse.identifier", target = "warehouseId")
 	Delivery deliveryJpaToDelivery(DeliveryJpa deliveryJpa);
 
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "warehouse", ignore = true)
 	DeliveryJpa deliveryToDeliveryJpa(Delivery delivery);
 }

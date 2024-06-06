@@ -16,6 +16,7 @@ public interface PackagingJpaMapper {
 
     PackagingJpaMapper INSTANCE = Mappers.getMapper(PackagingJpaMapper.class);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "loadTime", source = "loadTime.value")
     @Mapping(target = "unloadTime", source = "unloadTime.value")
     @Mapping(target = "x", source = "localization.x")
@@ -25,5 +26,7 @@ public interface PackagingJpaMapper {
     @Mapping(target = "truck", ignore = true)
     PackagingJpa toDatabaseEntity(Packaging packaging);
 
+    @Mapping(target = "deliveryId", ignore = true)
+    @Mapping(target = "truckId", ignore = true)
     Packaging  toDomainModel(PackagingJpa packagingJpa);
 }
