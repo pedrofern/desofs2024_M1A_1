@@ -24,7 +24,6 @@ const expectedWarehouse: IWarehouseDto[] =
         zipCode: 'Teste 1',
         latitude: 40,
         longitude: 9,
-        height: 100,
         active: true
     },
         {
@@ -37,7 +36,6 @@ const expectedWarehouse: IWarehouseDto[] =
             zipCode: 'Teste 2',
             latitude: 41,
             longitude: 8,
-            height: 200,
             active: true
         }];
 

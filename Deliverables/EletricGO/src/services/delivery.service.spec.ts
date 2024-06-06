@@ -141,8 +141,8 @@ describe('DeliveryService', () => {
   //Test GetWarehouses on Service
   it('should return expected getWarehouses (HttpClient called once)', () => {
     const expectedWarehouse: IWarehouseDto[] =
-      [{ identifier: '1', designation: 'Teste 1', streetName: 'Rua de Cima', doorNumber: 99, city: 'Teste 1', country: 'Teste 1', zipCode: 'Teste 1', latitude: 40, longitude: 9, height: 100, active: true },
-      { identifier: '2', designation: 'Teste 2', streetName: 'Rua de Cima', doorNumber: 99, city: 'Teste 2', country: 'Teste 2', zipCode: 'Teste 2', latitude: 41, longitude: 8, height: 200, active: true }];
+      [{ identifier: '1', designation: 'Teste 1', streetName: 'Rua de Cima', doorNumber: 99, city: 'Teste 1', country: 'Teste 1', zipCode: 'Teste 1', latitude: 40, longitude: 9, active: true },
+      { identifier: '2', designation: 'Teste 2', streetName: 'Rua de Cima', doorNumber: 99, city: 'Teste 2', country: 'Teste 2', zipCode: 'Teste 2', latitude: 41, longitude: 8, active: true }];
 
     // Make an HTTP GET request
     deliveryService.getWarehouses().subscribe(data =>

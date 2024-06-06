@@ -11,7 +11,7 @@ import {FormsModule, NgForm} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 
 const expectedWarehouse: IWarehouseDto =
-    { identifier: "PT1", designation: 'Póvoa de Varzim', streetName: "Rua do ABC", doorNumber: 12, city: "Porto", country: "Portugal", zipCode: "4410-213", latitude: 40.214556, longitude: 12.456923, height: 200, active: true }
+    { identifier: "PT1", designation: 'Póvoa de Varzim', streetName: "Rua do ABC", doorNumber: 12, city: "Porto", country: "Portugal", zipCode: "4410-213", latitude: 40.214556, longitude: 12.456923, active: true }
 
 describe('WarehouseDetailComponent', () => {
     let component: WarehouseDetailComponent;
