@@ -83,9 +83,16 @@ public class UserControllerTest {
 
     @Test
     public void testGetAllUsers() {
+    	String email = "test@example.com";
+    	
         UserDto userDto = new UserDto();
-        userDto.setEmail("test@example.com");
+        userDto.setEmail(email);
         List<UserDto> userDtoList = Arrays.asList(userDto);
+        
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getPrincipal()).thenReturn(userDetails);
+        when(userDetails.getUsername()).thenReturn(email);
+        when(userService.getUser(email)).thenReturn(userDto);
         when(userService.getAllUsers()).thenReturn(userDtoList);
 
         ResponseEntity<List<UserDto>> response = userController.getAllUsers();

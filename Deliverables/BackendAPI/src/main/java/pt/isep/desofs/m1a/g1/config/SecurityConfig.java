@@ -27,8 +27,8 @@ import pt.isep.desofs.m1a.g1.model.user.Role;
 public class SecurityConfig {
 
 	private static final String[] WHITE_LIST_URL = { "/api/v1/user/login" };
-	private static final String[] ADMIN_LIST_URL = { "/api/v1/user/register", "/api/v1/user/*/assign-role", "/api/v1/users" };
-	private static final String[] ALL_USERS_LIST_URL = { "/api/v1/user/*", "/api/v1/logistics/**", "/api/v1/trucks/**",
+	private static final String[] ADMIN_LIST_URL = { "/api/v1/user/register", "/api/v1/user/*/assign-role" };
+	private static final String[] ALL_USERS_LIST_URL = { "/api/v1/user/*", "/api/v1/users", "/api/v1/logistics/**", "/api/v1/trucks/**",
 			"/api/v1/deliveries/**", "/api/v1/warehouses/**" };
 	private final JwtAuthenticationFilter jwtAuthFilter;
 	private final AuthenticationProvider authenticationProvider;

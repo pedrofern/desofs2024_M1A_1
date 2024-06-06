@@ -45,6 +45,23 @@ public class UserController {
 
 	@GetMapping("/api/v1/users")
 	public ResponseEntity<List<UserDto>> getAllUsers() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String authenticatedEmail;
+		String authenticatedRole;
+
+		if (principal instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails) principal;
+			authenticatedEmail = userDetails.getUsername();
+			authenticatedRole = userDetails.getAuthorities().stream().map(a -> a.getAuthority())
+					.collect(Collectors.joining());
+		} else {
+			authenticatedEmail = principal.toString();
+			authenticatedRole = "";
+		}
+
+		if (!ROLE.equals(authenticatedRole)) {
+			return new ResponseEntity<>(List.of(getUserById(authenticatedEmail).getBody()), HttpStatus.OK);
+		}
 		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
 	}
 	
