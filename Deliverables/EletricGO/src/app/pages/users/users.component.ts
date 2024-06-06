@@ -36,43 +36,21 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.global.updateData(true);
-    if(this.cookieService.get('roleName') === 'Administrator'){
+    if(this.cookieService.get('role') === 'ADMIN'){
       this.role = '1';
     }
     this.getUsers();
   }
 
   getUsers(): void {
-    if(this.cookieService.get('roleName') === 'Administrator'){
-      this.userService.getUsers()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(data => {
-                this.users = UserMap.toModelList(data);
-                this.dataSource = new MatTableDataSource(this.users);
-                this.dataSource.sort = this.sort;
-                setTimeout(() => this.dataSource.paginator = this.paginator);
-            })
-    } else if (this.cookieService.get('roleName') === 'Warehouse Manager'){
-      this.userService.getUsers()
-              .subscribe(data => {
-                this.users = UserMap.toModelList(data);
-                this.dataSource = new MatTableDataSource(this.users);
-                this.dataSource.data = this.dataSource.data.filter(item => item.email === this.cookieService.get('email'));
-                this.dataSource.data = [...this.dataSource.data];
-                this.dataSource.sort = this.sort;
-                setTimeout(() => this.dataSource.paginator = this.paginator);
-              });
-    } else if (this.cookieService.get('roleName') === 'Logistics Manager'){
-      this.userService.getUsers()
-              .subscribe(data => {
-                this.users = UserMap.toModelList(data);
-                this.dataSource = new MatTableDataSource(this.users);
-                this.dataSource.data = this.dataSource.data.filter(item => item.email === this.cookieService.get('email'));
-                this.dataSource.data = [...this.dataSource.data];
-                this.dataSource.sort = this.sort;
-                setTimeout(() => this.dataSource.paginator = this.paginator);
-              });
-    }
+    this.userService.getUsers()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+          this.users = UserMap.toModelList(data);
+          this.dataSource = new MatTableDataSource(this.users);
+          this.dataSource.sort = this.sort;
+          setTimeout(() => this.dataSource.paginator = this.paginator);
+      })
   }
 
   ngOnDestroy() {

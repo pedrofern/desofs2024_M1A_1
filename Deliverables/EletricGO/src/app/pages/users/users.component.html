@@ -8,12 +8,12 @@
             <div class="input-group input-group-sm mb-3">
                 <input type="text" class="search-box" placeholder="Search" (keyup)="applyFilter($event)">
             </div>
-            <div style="padding-right: 10px;">
+            <!--<div style="padding-right: 10px;">
                 <button type="button" class="btn btn-primary btn-sm" routerLink="/users/password">Reset Password</button>
             </div>
             <div *ngIf="role === '1'">
                 <button type="button" class="btn btn-primary btn-sm" routerLink="/users/create">Create</button>
-            </div>
+            </div>-->
         </div>
         <mat-table [dataSource]="dataSource" matSort>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -46,18 +46,15 @@
 
         <ng-container matColumnDef="role">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.roleName }}</mat-cell>
+            <mat-cell *matCellDef="let element">{{ element.role }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let element">
-                <button mat-icon-button routerLink="/users/edit/{{element.email}}">
-                    <mat-icon>edit</mat-icon>
-                </button>
                 <div *ngIf="role === '1'">
-                    <button mat-icon-button routerLink="/users/delete/{{element.email}}">
-                        <mat-icon>delete</mat-icon>
+                    <button mat-icon-button routerLink="/users/assign-role/{{element.email}}">
+                        <mat-icon>edit</mat-icon>
                     </button>
                 </div>
             </mat-cell>

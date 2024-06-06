@@ -12,7 +12,7 @@ import { UserService } from 'src/services/user.service';
 import { UsersComponent } from './users.component';
 
 const expectedUser: IUser[] = [{ userName: 'Teste 1', firstName: 'Teste', lastName: 'Teste', phoneNumber: '123', email: 'teste@isep.ipp.pt', 
-password: '123', role: '1', roleName: 'Administrador', active: true}];
+password: '123', role: 'ADMIN', active: true}];
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -35,7 +35,7 @@ describe('UsersComponent', () => {
     })
         .compileComponents();
         
-    cookieServiceSpy.get.and.returnValue(of('Administrator'));
+    cookieServiceSpy.get.and.returnValue(of('ADMIN'));
     serviceSpy.getUsers.and.returnValue(of(expectedUser));
 
     fixture = TestBed.createComponent(UsersComponent);

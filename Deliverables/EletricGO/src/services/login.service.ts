@@ -27,17 +27,17 @@ export class LoginService {
 
   validateLogin(login: ILogin): Observable<IUser> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.post<IUser>(this.loginUrl + 'login', login, { headers });
+    return this.http.post<IUser>(this.loginUrl + '/login', login, { headers });
   }
 
   validateLoginGoogle(token: string): Observable<IUser> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.get<IUser>(this.loginUrl + 'loginGoogle/' + token, { headers });
+    return this.http.get<IUser>(this.loginUrl + '/loginGoogle/' + token, { headers });
   }
 
   validateIsLoggedIn(token: string): any {
     const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
-    this.http.post<HttpResponse<any>>(this.loginUrl + 'isLoggedIn', { headers })
+    this.http.post<HttpResponse<any>>(this.loginUrl + '/isLoggedIn', { headers })
                         .subscribe(response => {
                           if(!response.ok){
                             return false;
@@ -48,7 +48,7 @@ export class LoginService {
 
   logout(token: string): any {
     const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
-    this.http.post<HttpResponse<any>>(this.loginUrl + 'logout', { headers })
+    this.http.post<HttpResponse<any>>(this.loginUrl + '/logout', { headers })
                   .subscribe(response => {
                     if(!response.ok){
                       return false;
@@ -59,6 +59,6 @@ export class LoginService {
 
   getRoleByUser(roleId: string): Observable<IRoleDTO> {
     const headers = { 'Content-Type': 'application/json'};
-    return this.http.get<IRoleDTO>(this.loginUrl + 'roleByUser/' + roleId, { headers });
+    return this.http.get<IRoleDTO>(this.loginUrl + '/roleByUser/' + roleId, { headers });
   }
 }

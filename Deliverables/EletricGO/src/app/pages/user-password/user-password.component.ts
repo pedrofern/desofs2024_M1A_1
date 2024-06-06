@@ -27,7 +27,7 @@ export class UserPasswordComponent {
 
     ngOnInit(): void {
       this.global.updateData(true);
-      if(this.cookieService.get('roleName') === 'Administrator'){
+      if(this.cookieService.get('role') === 'ADMIN'){
         this.role = '1';
       }else{
         this.role = '2';

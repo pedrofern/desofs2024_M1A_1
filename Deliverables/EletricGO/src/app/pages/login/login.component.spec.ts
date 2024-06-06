@@ -15,7 +15,7 @@ import { LoginService } from 'src/services/login.service';
 import { LoginComponent } from './login.component';
 
 const expectedLogin: IUser = { userName: 'Teste 1', firstName: 'Teste', lastName: 'Teste', phoneNumber: '123', email: 'teste@isep.ipp.pt', 
-password: '123', role: '1', roleName: 'Administrador', active: true};
+password: '123', role: 'ADMIN', active: true};
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

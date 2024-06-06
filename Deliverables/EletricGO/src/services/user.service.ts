@@ -29,7 +29,7 @@ export class UserService {
 
   /** GET Users from the server */
   getUsers(): Observable<IUserDTO[]> {
-    return this.http.get<IUserDTO[]>(this.usersUrl)
+    return this.http.get<IUserDTO[]>(this.usersUrl+"s")
       .pipe(
         tap(_ => this.log('fetched users')),
         catchError(this.handleError<IUserDTO[]>('getUsers', []))
@@ -39,12 +39,12 @@ export class UserService {
   /** GET: Get a User from server */
   getUser(email: string): Observable<IUserDTO> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.get<IUserDTO>(this.usersUrl + email, { headers });
+    return this.http.get<IUserDTO>(this.usersUrl + "/" + email, { headers });
   }
 
   getUserByEmail(email: string): Observable<IUserDTO[]> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.get<IUserDTO[]>(this.usersUrl + email, { headers });
+    return this.http.get<IUserDTO[]>(this.usersUrl + "/" + email, { headers });
   }
 
   /** GET Users from the server */
@@ -60,25 +60,25 @@ export class UserService {
   /** POST: add a new User to the server */
   addUser(request: ICreateUserDTO): Observable<ICreateUserDTO> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.post<ICreateUserDTO>(this.loginUrl + 'signup', request, { headers });
+    return this.http.post<ICreateUserDTO>(this.loginUrl + "/" + 'signup', request, { headers });
   }
 
   /** PUT: edit a user to the server */
   editUser(email: string, requestRes: IUpdateUserDTO): Observable<IUpdateUserDTO> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.put<IUpdateUserDTO>(this.usersUrl + email, requestRes, { headers });
+    return this.http.put<IUpdateUserDTO>(this.usersUrl + "/" + email, requestRes, { headers });
   }
 
   /** PUT: edit a user to the server */
   editPassword(email: string, password: string): Observable<IUpdateUserDTO> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.put<IUpdateUserDTO>(this.usersPasswordUrl + email, password, { headers });
+    return this.http.put<IUpdateUserDTO>(this.usersPasswordUrl + "/" + email, password, { headers });
   }
 
   /** PUT: delete a user to the server */
   deleteUser(email: string): Observable<IUserDTO> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.put<IUserDTO>(this.deleteUserUrl + email, { headers });
+    return this.http.put<IUserDTO>(this.deleteUserUrl + "/" + email, { headers });
   }
 
   /**

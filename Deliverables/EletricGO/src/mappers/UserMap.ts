@@ -16,7 +16,6 @@ export class UserMap {
             email: dto.email,
             password: dto.password,
             role: dto.role,
-            roleName: dto.roleName,
             active: dto.active
         }
     }
@@ -40,7 +39,6 @@ export class UserMap {
             email: user.email,
             password: user.password,
             role: user.role,
-            roleName: user.roleName,
             active: user.active
         }
     }  

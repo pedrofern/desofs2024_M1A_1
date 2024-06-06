@@ -13,8 +13,8 @@ let httpClient: HttpClient;
 let httpTestingController: HttpTestingController;
 
 const expectedLogin: IUser = { userName: 'Teste 1', firstName: 'Teste', lastName: 'Teste', phoneNumber: '123', email: 'teste@isep.ipp.pt', 
-password: '123', role: '1', roleName: 'Administrador', active: true};
-const expectedRole: IRoleDTO = {id: '1', name: 'Administrador'}
+password: '123', role: 'ADMIN', active: true};
+const expectedRole: IRoleDTO = {id: '1', name: 'ADMIN'}
 
 describe('LoginService', () => {
   beforeEach(async () => {
@@ -44,7 +44,7 @@ describe('LoginService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIUsers+'login');
+    const req = httpTestingController.expectOne(environment.APIUsers+'/login');
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('POST');
@@ -70,7 +70,7 @@ describe('LoginService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIUsers+'loginGoogle/'+token);
+    const req = httpTestingController.expectOne(environment.APIUsers+'/loginGoogle/'+token);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');
@@ -96,7 +96,7 @@ describe('LoginService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIUsers+ 'roleByUser/' + roleId);
+    const req = httpTestingController.expectOne(environment.APIUsers+ '/roleByUser/' + roleId);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');

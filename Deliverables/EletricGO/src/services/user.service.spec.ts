@@ -44,7 +44,7 @@ describe('UserService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIUsers + 'signup');
+    const req = httpTestingController.expectOne(environment.APIUsers + '/signup');
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('POST');
@@ -72,7 +72,7 @@ describe('UserService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIUsers + userEmail);
+    const req = httpTestingController.expectOne(environment.APIUsers + "/" + userEmail);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('PUT');
@@ -89,7 +89,7 @@ describe('UserService', () => {
   it('should return expected getUser (HttpClient called once)', () => {
     const userEmail = 'teste@isep.ipp.pt';
     const expectedUser: IUserDTO = { userName: 'Teste 1', firstName: 'Teste', lastName: 'Teste', phoneNumber: '123', email: 'teste@isep.ipp.pt', 
-    password: '123', role: '1', roleName: 'Administrador', active: true};
+    password: '123', role: 'ADMIN', active: true};
 
     // Make an HTTP GET request
     userService.getUser(userEmail).subscribe(data =>
@@ -100,7 +100,7 @@ describe('UserService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIUsers + userEmail);
+    const req = httpTestingController.expectOne(environment.APIUsers + "/" + userEmail);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');
@@ -117,9 +117,9 @@ describe('UserService', () => {
   it('should return expected getUsers (HttpClient called once)', () => {
     const expectedUsers: IUserDTO[] =
       [{ userName: 'Teste 1', firstName: 'Teste', lastName: 'Teste', phoneNumber: '123', email: 'teste@isep.ipp.pt', 
-      password: '123', role: '1', roleName: 'Administrador', active: true},
+      password: '123', role: 'ADMIN', active: true},
       { userName: 'Teste 2', firstName: 'Teste2', lastName: 'Teste2', phoneNumber: '123', email: 'teste2@isep.ipp.pt', 
-    password: '123', role: '1', roleName: 'Administrador', active: true}];
+    password: '123', role: 'ADMIN', active: true}];
 
     // Make an HTTP GET request
     userService.getUsers().subscribe(data =>
@@ -130,7 +130,7 @@ describe('UserService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIUsers);
+    const req = httpTestingController.expectOne(environment.APIUsers + "s");
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');
@@ -148,9 +148,9 @@ describe('UserService', () => {
     const userEmail = 'teste@isep.ipp.pt';
     const expectedUsers: IUserDTO[] =
       [{ userName: 'Teste 1', firstName: 'Teste', lastName: 'Teste', phoneNumber: '123', email: 'teste@isep.ipp.pt', 
-      password: '123', role: '1', roleName: 'Administrador', active: true},
+      password: '123', role: 'ADMIN', active: true},
       { userName: 'Teste 2', firstName: 'Teste2', lastName: 'Teste2', phoneNumber: '123', email: 'teste2@isep.ipp.pt', 
-    password: '123', role: '1', roleName: 'Administrador', active: true}];
+    password: '123', role: 'ADMIN', active: true}];
 
     // Make an HTTP GET request
     userService.getUserByEmail(userEmail).subscribe(data =>
@@ -161,7 +161,7 @@ describe('UserService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIUsers + userEmail);
+    const req = httpTestingController.expectOne(environment.APIUsers + "/" + userEmail);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');

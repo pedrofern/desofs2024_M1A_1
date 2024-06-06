@@ -15,7 +15,7 @@ import { UserService } from 'src/services/user.service';
 import { UserDetailComponent } from './user-detail.component';
 
 const expectedUser: IUser = { userName: 'Teste 1', firstName: 'Teste', lastName: 'Teste', phoneNumber: '123', email: 'teste@isep.ipp.pt', 
-password: '123', role: '1', roleName: 'Administrador', active: true};
+password: '123', role: 'ADMIN', active: true};
 
 const expectedRoles: IRoleDTO[] =
       [{ id: '1', name: 'Teste1'},
