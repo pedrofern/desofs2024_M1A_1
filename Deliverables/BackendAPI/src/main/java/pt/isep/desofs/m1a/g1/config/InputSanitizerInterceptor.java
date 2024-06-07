@@ -12,12 +12,12 @@ public class InputSanitizerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
+
 		// Sanitize request parameters
 		request.getParameterMap().forEach((key, values) -> {
-            for (int i = 0; i < values.length; i++) {
-                if (!isValid(values[i])) {
-                    throw new IllegalArgumentException("Invalid input: " + values[i]);
+            for (String value : values) {
+                if (!isValid(value)) {
+                    throw new IllegalArgumentException("Invalid input: " + value);
                 }
             }
         });

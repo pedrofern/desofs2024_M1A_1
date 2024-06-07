@@ -19,7 +19,7 @@ public class InputSanitizer {
         String lowerCaseInput = input.toLowerCase();
 
         // SQL Injection patterns
-        String[] sqlKeywords = {"select ", "insert ", "update ", "delete ", "drop ", "truncate ", "exec ", "union ", "create ", "alter ", "rename ", "--", ";--", ";", "@@", "@"};
+        String[] sqlKeywords = {"select ", "insert ", "update ", "delete ", "drop ", "truncate ", "exec ", "union ", "create ", "alter ", "rename ", "--", ";--","-;-", "@@", "@"};
         for (String keyword : sqlKeywords) {
             if (lowerCaseInput.contains(keyword)) {
                 return true;
@@ -43,14 +43,14 @@ public class InputSanitizer {
         }
 
         // Command Injection patterns
-        String[] commandKeywords = {"&", "|", ";", "$(", "`", "||", "&&"};
+        String[] commandKeywords = {"&", "|", "$(", "`", "||", "&&"};
         for (String keyword : commandKeywords) {
             if (lowerCaseInput.contains(keyword)) {
                 return true;
             }
         }
 
-        String[] specialCharacters = {"&", "<", ">", "\"", "'", "script"};
+        String[] specialCharacters = {"&", "<", ">", "'", "script"};
         for (String character : specialCharacters) {
             if (input.contains(character)) {
                 return true;
