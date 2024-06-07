@@ -47,6 +47,8 @@ public class SecurityConfig {
     private SecurityHeadersInterceptor securityHeadersInterceptor;
     @Autowired
     private InputSanitizerInterceptor inputSanitizerInterceptor;
+    @Autowired
+    private RateLimitInterceptor rateLimitInterceptor;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -88,7 +90,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
+    public WebMvcConfigurer webConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
@@ -101,6 +103,8 @@ public class SecurityConfig {
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(securityHeadersInterceptor);
                 registry.addInterceptor(inputSanitizerInterceptor);
+                registry.addInterceptor(rateLimitInterceptor);
+
             }
         };
     }

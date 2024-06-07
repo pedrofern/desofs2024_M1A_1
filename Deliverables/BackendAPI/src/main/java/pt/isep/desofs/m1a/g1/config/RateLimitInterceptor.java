@@ -4,44 +4,42 @@ import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Bucket4j;
 import io.github.bucket4j.Refill;
-import io.github.bucket4j.grid.GridBucketState;
-import io.github.bucket4j.grid.ProxyManager;
-import io.github.bucket4j.grid.jcache.JCache;
-import org.springframework.http.HttpStatus;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.time.Duration;
+import java.util.concurrent.ConcurrentMap;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.cache.Cache;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.time.Duration;
+import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 public class RateLimitInterceptor implements HandlerInterceptor {
 
-    private final Cache<String, GridBucketState> cache;
-    private final ProxyManager<String> buckets;
+    private final ConcurrentMap<String, Bucket> buckets = new ConcurrentHashMap<>();
 
-    public RateLimitInterceptor(Cache<String, GridBucketState> cache) {
-        this.cache = cache;
-        this.buckets = Bucket4j.extension(JCache.class).proxyManagerForCache(cache);
-    }
-
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String apiKey = request.getHeader("X-api-key");
+        String apiKey = request.getHeader("Authorization");
         if (apiKey == null) {
-            response.sendError(HttpStatus.BAD_REQUEST.value(), "Missing Header: X-api-key");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing Header: Authorization");
             return false;
         }
 
-        Bucket bucket = buckets.getProxy(apiKey, () -> {
-            Bandwidth limit = Bandwidth.classic(1000, Refill.intervally(1000, Duration.ofMinutes(1)));
-            return Bucket4j.configurationBuilder().addLimit(limit).build();
-        });
+        Bucket bucket = buckets.computeIfAbsent(apiKey, k -> createNewBucket());
 
         if (bucket.tryConsume(1)) {
             return true;
         } else {
-            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "You have exceeded your API call rate limit.");
+            response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE, "You have exceeded your API call rate limit.");
             return false;
         }
     }
+
+    private Bucket createNewBucket() {
+        Bandwidth limit = Bandwidth.classic(1000, Refill.intervally(1000, Duration.ofMinutes(1)));
+        return Bucket4j.builder().addLimit(limit).build();
+    }
 }
+

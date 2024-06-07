@@ -36,7 +36,6 @@ import { UserPasswordComponent } from './pages/user-password/user-password.compo
 import { UserDeleteComponent } from './pages/user-delete/user-delete.component';
 import { EventAggregatorService } from 'src/services/event-aggregator.service';
 import {AuthInterceptor} from "./shared/auth.interceptor";
-import {SafeUrlPipe} from "./pages/delivery-plan/safe-url.pipe";
 
 @NgModule({
   declarations: [
@@ -76,8 +75,7 @@ import {SafeUrlPipe} from "./pages/delivery-plan/safe-url.pipe";
         BrowserAnimationsModule,
         MaterialModule,
         ReactiveFormsModule,
-        InputMaskModule,
-        SafeUrlPipe
+        InputMaskModule
     ],
   providers:[
     CookieService,
