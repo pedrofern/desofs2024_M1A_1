@@ -1,0 +1,9 @@
+{
+    "categories": [
+      { "title": "Features", "labels": ["feature"] },
+      { "title": "Fix", "labels": ["bug"] }
+    ],
+    "sort": "ASC",
+    "template": "${{CHANGELOG}}"
+  }
+  
