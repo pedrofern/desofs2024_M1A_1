@@ -1,6 +1,5 @@
 package pt.isep.desofs.m1a.g1.config;
 
-import org.owasp.encoder.Encode;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
 
@@ -20,7 +19,7 @@ public class InputSanitizer {
         String lowerCaseInput = input.toLowerCase();
 
         // SQL Injection patterns
-        String[] sqlKeywords = {"select ", "insert ", "update ", "delete ", "drop ", "truncate ", "exec ", "union ", "create ", "alter ", "rename ", "--", ";--", ";", "/*", "*/", "@@", "@"};
+        String[] sqlKeywords = {"select ", "insert ", "update ", "delete ", "drop ", "truncate ", "exec ", "union ", "create ", "alter ", "rename ", "--", ";--", ";", "@@", "@"};
         for (String keyword : sqlKeywords) {
             if (lowerCaseInput.contains(keyword)) {
                 return true;

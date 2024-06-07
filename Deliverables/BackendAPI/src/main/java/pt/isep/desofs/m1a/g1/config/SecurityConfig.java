@@ -2,6 +2,8 @@ package pt.isep.desofs.m1a.g1.config;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -14,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,13 +29,20 @@ import pt.isep.desofs.m1a.g1.model.user.Role;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+	@Value("${frontend.endpoint}")
+	private String ALLOWED_ORIGINS;
 	private static final String[] WHITE_LIST_URL = { "/api/v1/user/login" };
 	private static final String[] ADMIN_LIST_URL = { "/api/v1/user/register", "/api/v1/user/*/assign-role" };
-	private static final String[] ALL_USERS_LIST_URL = { "/api/v1/user/*", "/api/v1/users", "/api/v1/logistics/**", "/api/v1/trucks/**",
-			"/api/v1/deliveries/**", "/api/v1/warehouses/**" };
+	private static final String[] ALL_USERS_LIST_URL = { "/api/v1/user/*", "/api/v1/users", "/api/v1/logistics/**",
+			"/api/v1/trucks/**", "/api/v1/deliveries/**", "/api/v1/warehouses/**" };
 	private final JwtAuthenticationFilter jwtAuthFilter;
 	private final AuthenticationProvider authenticationProvider;
 	private final LogoutHandler logoutHandler;
+
+	@Autowired
+	private SecurityHeadersInterceptor securityHeadersInterceptor;
+	@Autowired
+	private InputSanitizerInterceptor inputSanitizerInterceptor;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -59,18 +69,23 @@ public class SecurityConfig {
 
 		return http.build();
 	}
-	
+
 	@Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:4200")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
-            }
-        };
-    }
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/**").allowedOrigins(ALLOWED_ORIGINS)
+						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS").allowedHeaders("*")
+						.allowCredentials(true);
+			}
+
+			@Override
+			public void addInterceptors(InterceptorRegistry registry) {
+				registry.addInterceptor(securityHeadersInterceptor);
+				registry.addInterceptor(inputSanitizerInterceptor);
+			}
+		};
+	}
+
 }
