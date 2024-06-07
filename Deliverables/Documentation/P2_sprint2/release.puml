@@ -27,5 +27,11 @@ fork again
     }
 end fork
 
+partition "Create Release and Changelog" {
+    :Checkout repository;
+    :Generate Changelog;
+    :Create GitHub Release;
+}
+
 stop
 @enduml
