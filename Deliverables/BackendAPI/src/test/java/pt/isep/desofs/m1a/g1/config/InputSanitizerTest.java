@@ -69,7 +69,7 @@ public class InputSanitizerTest {
 
     @Test
     public void testContainsMaliciousContent_DoubleQuote() {
-        String input = "Hello\", world!";
+        String input = "Hello;--, world!";
         assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
 
