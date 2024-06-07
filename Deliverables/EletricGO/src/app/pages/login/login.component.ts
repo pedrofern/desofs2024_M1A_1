@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
             this.eventService.refreshSideBar();
             this.router.navigateByUrl('/');
         }, (error: HttpErrorResponse) => {
-          this.errorMessage = error.error.message;
+          this.errorMessage = "Error validating login credentials";
           this.success = false;
         });
     } else {

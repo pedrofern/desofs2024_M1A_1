@@ -21,9 +21,9 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String apiKey = request.getHeader("Authorization");
+        String apiKey = request.getHeader("Accept-Encoding");
         if (apiKey == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing Header: Authorization");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing Header: Accept-Encoding");
             return false;
         }
 
