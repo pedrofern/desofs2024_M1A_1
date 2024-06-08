@@ -25,12 +25,9 @@ export class LoginComponent implements OnInit {
   public success: boolean | undefined;
   public successMessage = '';
   public errorMessage = '';
-  public clientId = '145040217029-il1b9bhjda462rode1sh4fghmbg6omjl.apps.googleusercontent.com';
+  public clientId = '';
 
   constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService, private eventService: EventAggregatorService, public global: GlobalService) { }
-
-  // Client ID -> 145040217029-il1b9bhjda462rode1sh4fghmbg6omjl.apps.googleusercontent.com
-  // Client secret -> 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
 
   ngOnInit(): void {
     this.eventService.LogoutRefresh.subscribe((e: EventArgs) => {
@@ -69,9 +66,8 @@ export class LoginComponent implements OnInit {
 
       this.loginService.validateLogin(this.loginCredentials)
         .subscribe((data: any) => {
+          this.global.updateData(true);
             this.cookieService.set('access_token', data.access_token, { path: '/' });
-            this.cookieService.set('email', data.email, { path: '/' });
-            this.cookieService.set('role', data.role, { path: '/' });
             this.eventService.refreshSideBar();
             this.router.navigateByUrl('/');
         }, (error: HttpErrorResponse) => {
@@ -89,8 +85,6 @@ export class LoginComponent implements OnInit {
         .subscribe((data: any) => {
             this.global.updateData(true);
             this.cookieService.set('access_token', data.access_token, { path: '/' });
-            this.cookieService.set('email', data.email, { path: '/' });
-            this.cookieService.set('role', data.role, { path: '/' });
             this.eventService.refreshSideBar();
             this.router.navigateByUrl('/');
         }, (error: HttpErrorResponse) => {

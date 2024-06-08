@@ -36,6 +36,7 @@ import { UserPasswordComponent } from './pages/user-password/user-password.compo
 import { UserDeleteComponent } from './pages/user-delete/user-delete.component';
 import { EventAggregatorService } from 'src/services/event-aggregator.service';
 import {AuthInterceptor} from "./shared/auth.interceptor";
+import {TokenService} from "src/services/TokenService";
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import {AuthInterceptor} from "./shared/auth.interceptor";
     CookieService,
     AuthGuard,
     EventAggregatorService,
+    TokenService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { IUser } from 'src/model/IUser';
 import { UserService } from 'src/services/user.service';
 import {UserMap} from 'src/mappers/UserMap';
-import { CookieService } from 'ngx-cookie-service';
+import { TokenService } from 'src/services/TokenService';
 import { GlobalService } from 'src/services/global.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   constructor(
       private userService: UserService,
       public dialog: MatDialog,
-      private cookieService: CookieService,
+      private tokenService: TokenService,
       public global: GlobalService
   ) {
   }
@@ -36,7 +36,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.global.updateData(true);
-    if(this.cookieService.get('role') === 'ADMIN'){
+    if(this.tokenService.getRole() === 'ADMIN'){
       this.role = '1';
     }
     this.getUsers();

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { TokenService } from 'src/services/TokenService';
 import { EventArgs } from 'src/model/EventArgs';
 import { EventAggregatorService } from 'src/services/event-aggregator.service';
 
@@ -15,7 +15,7 @@ export class SidenavComponent implements OnInit {
   title = "ElectricGo";
   role: string | undefined;
 
-  constructor(private cookieService: CookieService, private eventService: EventAggregatorService) { }
+  constructor(private tokenService: TokenService, private eventService: EventAggregatorService) { }
 
   ngOnInit(): void {
     this.eventService.SideBarRefresh.subscribe((e: EventArgs) => this.onRefresh());
@@ -27,15 +27,17 @@ export class SidenavComponent implements OnInit {
   }
 
   validateRole(): void {
-    if(this.cookieService.get('role') === 'ADMIN'){
+
+  const roleFromToken = this.tokenService.getRole();
+    if(roleFromToken === 'ADMIN'){
       this.role = '1';
-    } else if (this.cookieService.get('role') === 'WAREHOUSE_MANAGER'){
+    } else if (roleFromToken === 'WAREHOUSE_MANAGER'){
       this.role = '2';
-    } else if (this.cookieService.get('role') === 'FLEET_MANAGER'){
+    } else if (roleFromToken === 'FLEET_MANAGER'){
       this.role = '3';
-    } else if (this.cookieService.get('role') === 'LOGISTICS_MANAGER'){
+    } else if (roleFromToken === 'LOGISTICS_MANAGER'){
         this.role = '4';
-    } else if (this.cookieService.get('role') === 'OPERATOR'){
+    } else if (roleFromToken === 'OPERATOR'){
         this.role = '5';
     }
   }

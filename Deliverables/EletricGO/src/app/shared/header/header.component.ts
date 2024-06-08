@@ -29,9 +29,7 @@ export class HeaderComponent implements OnInit {
 
   public logout = () => {
     this.loginService.logout(this.cookieService.get('access_token'));
-      this.cookieService.delete('email');
       this.cookieService.delete('access_token');
-      this.cookieService.delete('role');
     this.global.updateData(false);
     this.eventService.refreshLogout();
     this.router.navigate(['/login']);

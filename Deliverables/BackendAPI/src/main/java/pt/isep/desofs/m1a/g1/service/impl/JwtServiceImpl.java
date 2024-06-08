@@ -55,6 +55,7 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
+		extraClaims.put("roles", userDetails.getAuthorities());
 		return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + expiration))

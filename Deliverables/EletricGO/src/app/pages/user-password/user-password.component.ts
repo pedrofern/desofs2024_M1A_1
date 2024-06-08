@@ -2,9 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import IRoleDTO from 'src/dtos/login/IRoleDTO';
-import { IUser } from 'src/model/IUser';
+import { TokenService } from 'src/services/TokenService';
 import { GlobalService } from 'src/services/global.service';
 import { UserService } from 'src/services/user.service';
 
@@ -19,19 +17,19 @@ export class UserPasswordComponent {
     success: boolean | undefined;
     errorMessage = "";
     successMessage = "";
-    email = '';
+    email: string | undefined;
     password = '';
 
-    constructor(private route: ActivatedRoute, private userService: UserService, private cookieService: CookieService, public global: GlobalService) {
+    constructor(private route: ActivatedRoute, private userService: UserService, private tokenService: TokenService, public global: GlobalService) {
     }
 
     ngOnInit(): void {
       this.global.updateData(true);
-      if(this.cookieService.get('role') === 'ADMIN'){
+      if(this.tokenService.getRole() === 'ADMIN'){
         this.role = '1';
       }else{
         this.role = '2';
-        this.email = this.cookieService.get('email');
+        this.email = this.tokenService.getEmail();
       }
     }
 
