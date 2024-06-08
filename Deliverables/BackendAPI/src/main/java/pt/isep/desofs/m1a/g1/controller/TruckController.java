@@ -22,16 +22,24 @@ public class TruckController {
     @Autowired
     private TruckService truckService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<TruckDto> createTruck(@RequestBody TruckDto truckDto) {
-        TruckDto createdTruck = truckService.createTruck(truckDto);
-        return new ResponseEntity<>(createdTruck, HttpStatus.CREATED);
+        try {
+            TruckDto createdTruck = truckService.createTruck(truckDto);
+            return new ResponseEntity<>(createdTruck, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PutMapping("/{truckId}")
     public ResponseEntity<TruckDto> updateTruck(@PathVariable long truckId, @RequestBody TruckDto truckDto) {
-        TruckDto updatedTruck = truckService.updateTruck(truckId, truckDto);
-        return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
+        try {
+            TruckDto updatedTruck = truckService.updateTruck(truckId, truckDto);
+            return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/")
@@ -45,7 +53,7 @@ public class TruckController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<TruckDto>> getDeliveries(
+    public ResponseEntity<List<TruckDto>> getTrucks(
             @RequestParam(defaultValue = "0") int pageIndex,
             @RequestParam(defaultValue = "5") int pageSize,
             @RequestParam(defaultValue = "truckId") String sortBy,
@@ -62,14 +70,22 @@ public class TruckController {
 
     @GetMapping("/active")
     public ResponseEntity<List<TruckDto>> getActiveTrucks() {
-        List<TruckDto> trucks = truckService.getActiveTrucks();
-        return new ResponseEntity<>(trucks, HttpStatus.OK);
+        try {
+            List<TruckDto> trucks = truckService.getActiveTrucks();
+            return new ResponseEntity<>(trucks, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/{truckId}")
     public ResponseEntity<TruckDto> getTruck(@PathVariable long truckId) {
-        TruckDto truck = truckService.getTruck(truckId);
-        return new ResponseEntity<>(truck, HttpStatus.OK);
+        try {
+            TruckDto truck = truckService.getTruck(truckId);
+            return new ResponseEntity<>(truck, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }
