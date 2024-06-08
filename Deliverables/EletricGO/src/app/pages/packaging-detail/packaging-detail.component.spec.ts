@@ -19,9 +19,11 @@ const expectedDeliveries: IDeliveryDto[] =
     [{deliveryId: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99'},
         {deliveryId: 2, deliveryDate: '12-12-2022', weight: 200, warehouseId: 'M98'}];
 
+const battery = { batteryId: 1, maximumBattery: 100, autonomy: 100, chargingTime: 100 };
+const battery2 = { batteryId: 2, maximumBattery: 100, autonomy: 100, chargingTime: 100 };
 const expectedTrucks: ITruckDTO[] =
-    [{truckId: 'AA-00-AA', tare: 100, loadCapacity: 100, maximumBattery: 100, autonomy: 100, chargingTime: 100, active: true},
-        {truckId: 'BB-00-BB', tare: 100, loadCapacity: 100, maximumBattery: 100, autonomy: 100, chargingTime: 100, active: true}];
+    [{ truckId: 1, tare: 100, loadCapacity: 100, active: true, battery: battery },
+        { truckId: 2, tare: 100, loadCapacity: 100, active: true, battery: battery2 }];
 
 describe('PackagingDetailComponent', () => {
     let component: PackagingDetailComponent;

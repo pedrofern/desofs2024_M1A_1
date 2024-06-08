@@ -10,9 +10,11 @@ import {TruckService} from 'src/services/truck.service';
 
 import {TrucksComponent} from './trucks.component';
 
+const battery = { batteryId: 1, maximumBattery: 100, autonomy: 100, chargingTime: 100 };
+const battery2 = { batteryId: 2, maximumBattery: 100, autonomy: 100, chargingTime: 100 };
 const expectedTrucks: ITruckDTO[] =
-    [{truckId: 'AA-00-AA', tare: 100, loadCapacity: 100, maximumBattery: 100, autonomy: 100, chargingTime: 100, active: true},
-        {truckId: 'BB-00-BB', tare: 100, loadCapacity: 100, maximumBattery: 100, autonomy: 100, chargingTime: 100, active: true}];
+    [{ truckId: 1, tare: 100, loadCapacity: 100, active: true, battery: battery },
+        { truckId: 2, tare: 100, loadCapacity: 100, active: true, battery: battery2 }];
 
 describe('TrucksComponent', () => {
     let component: TrucksComponent;
