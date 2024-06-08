@@ -29,9 +29,16 @@ public class LogisticsController {
     private LogisticsService logisticsService;
 
     @PostMapping("/")
-    public void submitForm(@Valid  @RequestBody SubmitLogisticsForm request, Authentication authentication){
+    public ResponseEntity<PackagingDto> submitForm(@Valid  @RequestBody SubmitLogisticsForm request, Authentication authentication){
         logger.info("Received request to submit logistics form from user {}", authentication.getName());
         logisticsService.submitForm(request);
+        try {
+            logger.info("Received request to submit logistics form from user {}", authentication.getName());
+            PackagingDto packagingDto = logisticsService.submitForm(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body(packagingDto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     //Get all the packaging

@@ -56,7 +56,7 @@ export class PackagingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnInit(): void {
         this.global.updateData(true);
-        this.service.getTotalRecords().subscribe(count => this.totalRecords = count);
+        this.service.getTotalRecords().subscribe(data => this.totalRecords = data.length);
     }
 
     ngAfterViewInit() {

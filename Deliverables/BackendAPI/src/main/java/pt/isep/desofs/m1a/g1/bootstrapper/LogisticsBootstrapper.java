@@ -23,7 +23,7 @@ public class LogisticsBootstrapper implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // admin
+
         if (packagingRepo.findByPackagingId("10001").isEmpty()) {
             SubmitLogisticsForm form = new SubmitLogisticsForm("10001",23L, 123L, "01:00", "01:00", 0, 0, 0);
 

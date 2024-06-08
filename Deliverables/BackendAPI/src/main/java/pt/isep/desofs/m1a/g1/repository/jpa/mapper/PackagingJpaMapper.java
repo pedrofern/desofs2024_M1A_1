@@ -26,7 +26,7 @@ public interface PackagingJpaMapper {
     @Mapping(target = "truck", ignore = true)
     PackagingJpa toDatabaseEntity(Packaging packaging);
 
-    @Mapping(target = "deliveryId", ignore = true)
-    @Mapping(target = "truckId", ignore = true)
+    @Mapping(target = "deliveryId", source = "delivery.deliveryId")
+    @Mapping(target = "truckId", source = "truck.truckId")
     Packaging  toDomainModel(PackagingJpa packagingJpa);
 }

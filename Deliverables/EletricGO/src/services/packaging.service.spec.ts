@@ -117,7 +117,7 @@ describe('PackagingService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIPackagings + '?0=1&sortBy=1&sortOrder=asc&skip=0&limit=0');
+    const req = httpTestingController.expectOne(environment.APIPackagings + 'filter?0=1&sortBy=1&sortOrder=asc&pageIndex=2&pageSize=0');
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');

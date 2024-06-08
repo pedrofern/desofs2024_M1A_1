@@ -27,7 +27,7 @@ public class LogisticsServiceImpl implements LogisticsService {
     private final DeliveryRepository deliveryRepo;
 
     @Override
-    public void submitForm(SubmitLogisticsForm request) {
+    public PackagingDto submitForm(SubmitLogisticsForm request) {
 
         Localization localization = new Localization(request.getX(), request.getY(), request.getZ());
         Packaging packaging = new Packaging(request.getPackagingId(), request.getDeliveryId(), request.getTruckId(), request.getLoadTime(), request.getUnloadTime(), localization.getX(), localization.getY(), localization.getZ());
@@ -45,6 +45,7 @@ public class LogisticsServiceImpl implements LogisticsService {
         }
 
         packagingRepo.save(packaging);
+        return packaging.convertToDTO();
     }
 
     //Get all the packaging

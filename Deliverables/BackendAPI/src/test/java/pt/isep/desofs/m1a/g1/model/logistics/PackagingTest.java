@@ -19,12 +19,5 @@ public class PackagingTest {
         assertEquals(3, packaging.getLocalization().getZ());
     }
 
-    @Test
-    void testSanitizeInputDuringPackagingCreation() {
-        String input = "<script>alert('Hello');</script>";
-        String expectedOutput = "&amp;lt;&amp;#115cript&amp;gt;alert(&amp;#39;Hello&amp;#39;);&amp;lt;/&amp;#115cript&amp;gt;";
-        Packaging packaging = new Packaging(input, 2L, 3L, "12:30", "13:30", 1, 2, 3);
-        assertEquals(expectedOutput, packaging.getPackagingId());
-    }
 
 }

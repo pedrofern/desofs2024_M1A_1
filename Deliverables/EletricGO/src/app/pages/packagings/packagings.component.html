@@ -8,7 +8,7 @@
         <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-primary btn-sm" routerLink="/packagings/create">Create</button>
         </div>
-        <mat-table [dataSource]="dataSource" matSort (matSortChange)="customSort($event)"> 
+        <mat-table [dataSource]="dataSource" matSort (matSortChange)="customSort($event)">
             <ng-container matColumnDef="packagingId">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
@@ -30,7 +30,7 @@
             <ng-container matColumnDef="truckId">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
-                        <input matInput type="text" [(ngModel)]="filterTruckId" (keyup.enter)="updateValue()" placeholder="Truck ID">
+                        <input matInput type="number" [(ngModel)]="filterTruckId" (keyup.enter)="updateValue()" placeholder="Truck ID">
                     </mat-form-field>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element">{{ element.truckId }}</mat-cell>

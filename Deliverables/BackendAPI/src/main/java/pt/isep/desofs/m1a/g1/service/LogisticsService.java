@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface LogisticsService {
 
-    void submitForm(SubmitLogisticsForm request);
+    PackagingDto submitForm(SubmitLogisticsForm request);
 
     List<Packaging> getAllPackaging();
 

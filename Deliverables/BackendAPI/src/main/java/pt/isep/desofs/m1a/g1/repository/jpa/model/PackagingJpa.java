@@ -14,10 +14,10 @@ public class PackagingJpa {
     @GeneratedValue
     private UUID id;
     private String packagingId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id")
     private DeliveryJpa delivery;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "truck_id")
     private TruckJpa truck;
     private String loadTime;

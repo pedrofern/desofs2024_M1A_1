@@ -9,6 +9,7 @@ import {IPackagingCreate} from 'src/model/IPackagingCreate';
 import {IPackagingUpdate} from 'src/model/IPackagingUpdate';
 import {catchError, Observable, of, tap} from 'rxjs';
 import {MessageService} from './message.service';
+import {IDeliveryDto} from "../dtos/delivery/IDeliveryDto";
 
 @Injectable({
     providedIn: 'root'
@@ -58,8 +59,8 @@ export class PackagingService {
         }
 
         // Add the pagination options to the params object
-        params = params.append('skip', (pageIndex * pageSize));
-        params = params.append('limit', pageSize);
+        params = params.append('pageIndex', pageIndex);
+        params = params.append('pageSize', pageSize);
 
         return this.http.get<IPackagingDTO[]>(url, {params})
             .pipe(
@@ -78,12 +79,11 @@ export class PackagingService {
             );
     }
 
-    getTotalRecords(): Observable<number> {
-        const url = `${this.packaginsRequestUrl}total/get`;
-        return this.http.get<number>(url)
+    getTotalRecords(): Observable<IPackagingDTO[]> {
+        return this.http.get<IPackagingDTO[]>(this.packaginsRequestUrl)
             .pipe(
-                tap(() => this.log(`fetched count packagings`)),
-                catchError(this.handleError<number>(`packagings count`))
+                tap(_ => this.log('fetched packages')),
+                catchError(this.handleError<IPackagingDTO[]>('getPackagings', []))
             );
     }
 
