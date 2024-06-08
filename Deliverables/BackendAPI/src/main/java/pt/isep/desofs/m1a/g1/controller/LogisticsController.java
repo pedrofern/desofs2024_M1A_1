@@ -30,8 +30,6 @@ public class LogisticsController {
 
     @PostMapping("/")
     public ResponseEntity<PackagingDto> submitForm(@Valid  @RequestBody SubmitLogisticsForm request, Authentication authentication){
-        logger.info("Received request to submit logistics form from user {}", authentication.getName());
-        logisticsService.submitForm(request);
         try {
             logger.info("Received request to submit logistics form from user {}", authentication.getName());
             PackagingDto packagingDto = logisticsService.submitForm(request);
