@@ -1,7 +1,7 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-import {of, throwError} from 'rxjs';
+import {of} from 'rxjs';
 import {DeliveryService} from 'src/services/delivery.service';
 import {RouterTestingModule} from "@angular/router/testing";
 import {DeliveryDetailComponent} from './delivery-detail.component';

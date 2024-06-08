@@ -11,6 +11,7 @@ import { DeliveryMap } from 'src/mappers/DeliveryMap';
 import { GlobalService } from 'src/services/global.service';
 import { TokenService } from 'src/services/TokenService';
 
+
 @Component({
     selector: 'app-deliveries',
     templateUrl: './deliveries.component.html',
@@ -54,13 +55,13 @@ export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
         this.deliveryService.getTotalRecords().subscribe(data => this.totalRecords = data.length);
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.getDeliveries();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
     }
@@ -74,7 +75,7 @@ export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
             })
     }
 
-    updateValue() {
+    updateValue(): void {
         this.filters.deliveryId = this.filterDeliveryId;
         this.filters.deliveryDate = this.filterDeliveryDate;
         this.filters.weight = this.filterWeight;
@@ -82,16 +83,16 @@ export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getDeliveries();
     }
 
-    pageChanged(e: PageEvent) {
+    pageChanged(e: PageEvent): void {
         this.getDeliveries();
     }
 
-    customSort(e: Sort) {
+    customSort(e: Sort): void {
         this.sort.direction = e.direction;
         this.sort.active = e.active;
         this.getDeliveries();
     }
-    
+
     validateRole(): boolean {
         return this.token.getRole() === 'ADMIN' || this.token.getRole() === 'WAREHOUSE_MANAGER';
     }

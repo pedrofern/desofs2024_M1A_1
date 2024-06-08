@@ -15,11 +15,11 @@ export class AppComponent implements OnInit {
     this.updateData();
   }
 
-  async updateData() {
+  async updateData(): Promise<void> {
     this.global.updateData(false);
   }
 
-  validateLogin() {
+  validateLogin(): boolean {
     return this.global.isLoggedIn;
   }
 
