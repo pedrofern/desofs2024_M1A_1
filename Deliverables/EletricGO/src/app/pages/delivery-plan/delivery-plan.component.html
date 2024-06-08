@@ -27,7 +27,7 @@
 
             <div>
                 <button mat-raised-button color="primary" type="submit">View</button>
-                <button mat-raised-button color="accent" type="button" (click)="downloadPdf()">Download PDF</button>
+                <button mat-raised-button color="accent" type="button" *ngIf="validateRole()" (click)="downloadPdf()">Download PDF</button>
             </div>
         </form>
 

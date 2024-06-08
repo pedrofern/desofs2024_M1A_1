@@ -9,6 +9,7 @@ import { DeliveryService } from '../../../services/delivery.service';
 import { IDelivery } from 'src/model/IDelivery';
 import { DeliveryMap } from 'src/mappers/DeliveryMap';
 import { GlobalService } from 'src/services/global.service';
+import { TokenService } from 'src/services/TokenService';
 
 @Component({
     selector: 'app-deliveries',
@@ -41,7 +42,8 @@ export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         private deliveryService: DeliveryService,
         public dialog: MatDialog,
-        public global: GlobalService
+        public global: GlobalService,
+        public token: TokenService
     ) { }
 
     @ViewChild(MatSort) sort: MatSort = new MatSort;
@@ -88,5 +90,9 @@ export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
         this.sort.direction = e.direction;
         this.sort.active = e.active;
         this.getDeliveries();
+    }
+    
+    validateRole(): boolean {
+        return this.token.getRole() === 'ADMIN' || this.token.getRole() === 'WAREHOUSE_MANAGER';
     }
 }
