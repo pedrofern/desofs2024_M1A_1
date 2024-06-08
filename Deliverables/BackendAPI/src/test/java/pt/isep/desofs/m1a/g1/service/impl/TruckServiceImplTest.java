@@ -13,6 +13,7 @@ import pt.isep.desofs.m1a.g1.model.truck.Battery;
 import pt.isep.desofs.m1a.g1.model.truck.Truck;
 import pt.isep.desofs.m1a.g1.repository.TruckRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -115,7 +116,8 @@ public class TruckServiceImplTest {
 
     @Test
     public void testGetTruckNotFound() {
-        when(truckRepository.findByTruckId(1L)).thenReturn(null);
+        Optional<Truck> trucks = Optional.empty();
+        when(truckRepository.findByTruckId(1L)).thenReturn(trucks);
 
         assertThrows(InvalidTruckException.class, () -> {
             truckService.getTruck(1L);
