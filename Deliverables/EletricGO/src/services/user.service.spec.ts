@@ -59,8 +59,8 @@ describe('UserService', () => {
 
   //Test EditUser on Service
   it('should return expected editUser (HttpClient called once)', () => {
-    const editUser: IUpdateUserDTO = { userName: 'Teste 1', firstName: 'Teste', lastName: 'Teste', phoneNumber: '123', role: '1'};
-    const expectedUser: IUpdateUserDTO = { userName: 'Teste 1', firstName: 'Teste', lastName: 'Teste', phoneNumber: '123', role: '1'};
+    const editUser: IUpdateUserDTO = { role: '1'};
+    const expectedUser: IUpdateUserDTO = { role: '1'};
     const userEmail = 'teste@isep.ipp.pt';
 
     // Make an HTTP PUT request
@@ -72,7 +72,7 @@ describe('UserService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(environment.APIUsers + "/" + userEmail);
+    const req = httpTestingController.expectOne(environment.APIUsers + "/" + userEmail + "/assign-role");
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('PUT');

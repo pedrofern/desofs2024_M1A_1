@@ -85,7 +85,7 @@ export class UserDetailComponent implements OnInit {
         })
             .subscribe({
                 error: (error: HttpErrorResponse) => {
-                    this.errorMessage = error.name + ' ' + error.status;
+                    this.errorMessage = error.error.errors.message;
                     this.success = false;
                 },
                 complete: () => {

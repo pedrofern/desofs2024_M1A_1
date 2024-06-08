@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Clean environment
         run: |
@@ -21,7 +21,7 @@ jobs:
         working-directory: Deliverables/BackendAPI
 
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'adopt'
@@ -39,7 +39,7 @@ jobs:
         working-directory: Deliverables/BackendAPI
 
       - name: Archive backend test coverage report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: backend-test-coverage
           path: Deliverables/BackendAPI/target/site/jacoco
@@ -60,14 +60,14 @@ jobs:
         working-directory: Deliverables/BackendAPI
 
       - name: Archive backend artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: backend-artifact
           path: Deliverables/BackendAPI/target/*.jar
           if-no-files-found: warn
 
       - name: Archive backend dependency report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: backend-dependency-report
           path: Deliverables/BackendAPI/dependency-report/
@@ -79,7 +79,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Check deliverables folder for frontend
         run: |
@@ -94,7 +94,7 @@ jobs:
         working-directory: Deliverables/EletricGO
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
 
@@ -110,7 +110,7 @@ jobs:
         working-directory: Deliverables/EletricGO 
       
       - name: Archive frontend test coverage report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: frontend-test-coverage
           path: Deliverables/EletricGO/coverage
@@ -139,14 +139,14 @@ jobs:
         working-directory: Deliverables/EletricGO
 
       - name: Archive frontend artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: frontend-artifact
           path: Deliverables/EletricGO/dist/
           if-no-files-found: warn
 
       - name: Archive frontend dependency report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: frontend-dependency-report
           path: Deliverables/EletricGO/dependency-report/
@@ -159,16 +159,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download backend dependency report
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: backend-dependency-report
           path: backend-dependency-report/
 
       - name: Download backend test coverage report
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: backend-test-coverage
           path: backend-test-coverage/
@@ -186,16 +186,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download frontend dependency report
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: frontend-dependency-report
           path: frontend-dependency-report/
 
       - name: Download frontend test coverage report
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: frontend-test-coverage
           path: frontend-test-coverage/

@@ -18,8 +18,8 @@ const expectedUser: IUser = { userName: 'Teste 1', firstName: 'Teste', lastName:
 password: '123', role: 'ADMIN', active: true};
 
 const expectedRoles: IRoleDTO[] =
-      [{ id: '1', name: 'Teste1'},
-      { id: '2', name: 'Teste2'}];
+      [{ id: '1', name: 'ADMIN'},
+      { id: '2', name: 'ADMIN'}];
 
 describe('UserDetailComponent', () => {
   let component: UserDetailComponent;
@@ -91,7 +91,7 @@ describe('UserDetailComponent', () => {
 
     serviceSpy.addUser.and.returnValue(throwError(() => ({status: 500, error: {errors: {message: "Already exists"}}})));
 
-    component.create(testForm)
+    component.create(testForm);
     expect(component.errorMessage).toEqual("Already exists");
   });
 });
