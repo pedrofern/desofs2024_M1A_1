@@ -1,52 +1,61 @@
 package pt.isep.desofs.m1a.g1.service.impl;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import pt.isep.desofs.m1a.g1.dto.GeolocalizacaoResponseDTO;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
+import pt.isep.desofs.m1a.g1.dto.GeolocalizacaoResponseDTO;
+
 public class GeolocalizacaoClientTest {
 
-    @Mock
-    private GeolocalizacaoClient geolocalizacaoClient;
+	@InjectMocks
+	private GeolocalizacaoClient geolocalizacaoClient;
+	@Mock
+	private RestTemplate restTemplate;
 
-    @Test
-    public void testDependencyInjection() {
-        assertNotNull(geolocalizacaoClient);
-    }
+	@BeforeEach
+	public void setup() {
+		MockitoAnnotations.openMocks(this);
+		ReflectionTestUtils.setField(geolocalizacaoClient, "geoApiUrl",
+				"https://geoapi.pt/gps/{latitude},{longitude}?json=1");
+	}
 
-    @Test
-    public void testRestClientExceptionHandling() {
-        GeolocalizacaoResponseDTO response = geolocalizacaoClient.obterGeolocalizacao(38.72, -9.14);
-        assertNull(response, "Expected response to be null when RestClientException occurs");
-    }
+	@Test
+	public void testObterGeolocalizacao() {
+		double latitude = 40.712776;
+		double longitude = -74.005974;
+		GeolocalizacaoResponseDTO responseDTO = new GeolocalizacaoResponseDTO();
+		responseDTO.setLat(latitude);
+		responseDTO.setLon(longitude);
 
-    @Test
-    public void testInvalidLatitude() {
-        GeolocalizacaoResponseDTO response = geolocalizacaoClient.obterGeolocalizacao(100.0, -9.14);
-        assertNull(response, "Expected response to be null for invalid latitude");
-    }
+		when(restTemplate.getForObject("https://geoapi.pt/gps/40.712776,-74.005974?json=1",
+				GeolocalizacaoResponseDTO.class)).thenReturn(responseDTO);
 
-    @Test
-    public void testInvalidLongitude() {
-        GeolocalizacaoResponseDTO response = geolocalizacaoClient.obterGeolocalizacao(38.72, 200.0);
-        assertNull(response, "Expected response to be null for invalid longitude");
-    }
+		GeolocalizacaoResponseDTO result = geolocalizacaoClient.obterGeolocalizacao(latitude, longitude);
 
-    @Test
-    public void testNoSensitiveInfoInLogs() {
-        geolocalizacaoClient.obterGeolocalizacao(38.72, -9.14);
+		assertTrue(responseDTO.getLat() == result.getLat());
+		assertTrue(responseDTO.getLon() == result.getLon());
+	}
 
-        // Verifica que o logger não contém informações sensíveis
-        // Supondo que o logger está configurado para capturar as mensagens (pode ser necessário um Mock ou Spy para o Logger)
-        // Verifique que mensagens de log não contêm informações sensíveis
-        // Exemplo de verificação:
-        verify(geolocalizacaoClient).obterGeolocalizacao(38.72, -9.14);
-        verify(geolocalizacaoClient, times(1)).obterGeolocalizacao(38.72, -9.14);
-        verify(geolocalizacaoClient, atLeastOnce()).obterGeolocalizacao(38.72, -9.14);
-    }
+	@Test
+	public void testObterGeolocalizacaoWithException() {
+		double latitude = 40.712776;
+		double longitude = -74.005974;
+
+		when(restTemplate.getForObject("https://geoapi.pt/gps/40.712776,-74.005974?json=1",
+				GeolocalizacaoResponseDTO.class)).thenThrow(new RestClientException("Exception"));
+
+		GeolocalizacaoResponseDTO result = geolocalizacaoClient.obterGeolocalizacao(latitude, longitude);
+
+		assertNull(result);
+	}
 }
