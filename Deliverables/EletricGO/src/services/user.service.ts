@@ -66,7 +66,7 @@ export class UserService {
   /** PUT: edit a user to the server */
   editUser(email: string, requestRes: IUpdateUserDTO): Observable<IUpdateUserDTO> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.put<IUpdateUserDTO>(this.usersUrl + "/" + email, requestRes, { headers });
+    return this.http.put<IUpdateUserDTO>(this.usersUrl + "/" + email + "/assign-role", requestRes, { headers });
   }
 
   /** PUT: edit a user to the server */

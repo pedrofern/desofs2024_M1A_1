@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IRoleDTO } from 'src/dtos/role/IRoleDTO';
-import { IRole } from 'src/model/IRole';
-import { IUserDTO } from 'src/dtos/user/IUserDTO';
 import { IUser } from 'src/model/IUser';
 import { UserService } from 'src/services/user.service';
 import { UserMap } from 'src/mappers/UserMap';
@@ -44,20 +42,19 @@ export class UserDetailComponent implements OnInit {
     }
 
     getRoles(): void {
-        this.userService.getRoles()
-            .subscribe((data: IRoleDTO[]) => {
-                this.roles = data
-            });
+        this.roles = [
+            { id: '1', name: 'ADMIN' },
+            { id: '2', name: 'WAREHOUSE_MANAGER' },
+            { id: '3', name: 'FLEET_MANAGER' },
+            { id: '4', name: 'LOGISTICS_MANAGER' },
+            { id: '5', name: 'OPERATOR' }
+        ];
     }
 
     edit(form: NgForm) {
         this.userService.editUser(
             this.email,
-            {
-            userName: form.value.username,
-            firstName: form.value.firstname,
-            lastName: form.value.lastname,
-            phoneNumber: form.value.phonenumber,
+            {            
             role: String(form.value.role)
           })
               .subscribe({
@@ -69,6 +66,9 @@ export class UserDetailComponent implements OnInit {
                       this.success = true;
                       this.successMessage = 'The user was updated!'
                       form.resetForm();
+                      setTimeout(() => {
+                        window.history.back();
+                    }, 1500);
                   },
               })
     }
@@ -85,13 +85,16 @@ export class UserDetailComponent implements OnInit {
         })
             .subscribe({
                 error: (error: HttpErrorResponse) => {
-                    this.errorMessage = error.error.errors.message;
+                    this.errorMessage = error.name + ' ' + error.status;
                     this.success = false;
                 },
                 complete: () => {
                     this.success = true;
                     this.successMessage = 'The user was created!'
                     form.resetForm();
+                    setTimeout(() => {
+                        window.history.back();
+                    }, 1500);
                 },
             })
     }
