@@ -17,7 +17,7 @@ import { TruckService } from 'src/services/truck.service';
 export class TrucksComponent implements OnInit, OnDestroy, AfterViewInit {
 
     trucks: ITruck[] = [];
-    displayedColumns: string[] = ['truckId', 'tare', 'loadCapacity', 'maximumBattery', 'autonomy', 'chargingTime', 'active', 'actions'];
+    displayedColumns: string[] = ['truckId', 'tare', 'loadCapacity', 'active', 'maximumBattery', 'autonomy', 'chargingTime', 'actions'];
     dataSource = new MatTableDataSource<ITruck>;
     destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -26,22 +26,24 @@ export class TrucksComponent implements OnInit, OnDestroy, AfterViewInit {
     totalRecords?: number;
 
     // Filters
-    filterTruckId?: string;
+    filterTruckId?: number;
     filterTare?: number;
     filterLoadCapacity?: number;
+    filterActive?: boolean;
+    filterBatteryId?: number;
     filterMaximumBattery?: number;
     filterAutonomy?: number;
     filterChargingTime?: number;
-    filterActive?: boolean;
 
     filters: any = {
         truckId: this.filterTruckId,
         tare: this.filterTare,
         loadCapacity: this.filterLoadCapacity,
+        active: this.filterActive,
+        batteryId: this.filterBatteryId,
         maximumBattery: this.filterMaximumBattery,
         autonomy: this.filterAutonomy,
-        chargingTime: this.filterChargingTime,
-        active: this.filterActive
+        chargingTime: this.filterChargingTime
     }
 
     constructor(
@@ -83,10 +85,11 @@ export class TrucksComponent implements OnInit, OnDestroy, AfterViewInit {
         this.filters.truckId = this.filterTruckId;
         this.filters.tare = this.filterTare;
         this.filters.loadCapacity = this.filterLoadCapacity;
+        this.filters.active = this.filterActive;
+        this.filters.batteryId = this.filterBatteryId;
         this.filters.maximumBattery = this.filterMaximumBattery;
         this.filters.autonomy = this.filterAutonomy;
         this.filters.chargingTime = this.filterChargingTime;
-        this.filters.active = this.filterActive;
         this.getTrucks();
     }
 
