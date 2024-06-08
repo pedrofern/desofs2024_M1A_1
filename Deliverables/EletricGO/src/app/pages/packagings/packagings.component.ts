@@ -93,12 +93,10 @@ export class PackagingsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     pageChanged(e: PageEvent) {
-        console.log(e);
         this.getPackagings();
     }
 
     customSort(e: Sort) {
-        console.log(e);
         this.sort.direction = e.direction;
         this.sort.active = e.active;
         this.getPackagings();

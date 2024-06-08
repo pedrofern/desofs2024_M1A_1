@@ -25,17 +25,21 @@ public class DeliveryPlanServiceImpl implements DeliveryPlanService {
 
     @Override
     public DeliveryPlan getDeliveryPlan(String deliveryDate, Long warehouseId) {
-        List<Delivery> deliveries = deliveryRepository.findByDeliveryDateAndWarehouseId(deliveryDate, warehouseId);
-        List<Route> routes = routeRepository.findByArrivalWarehouseId(warehouseId);
+        try {
+            List<Delivery> deliveries = deliveryRepository.findByDeliveryDateAndWarehouseId(deliveryDate, warehouseId);
+            List<Route> routes = routeRepository.findByArrivalWarehouseId(warehouseId);
 
-        List<DeliveryDTO> deliveriesDTO = deliveries.stream()
-                .map(Delivery::convertToDTO)
-                .collect(Collectors.toList());
+            List<DeliveryDTO> deliveriesDTO = deliveries.stream()
+                    .map(Delivery::convertToDTO)
+                    .collect(Collectors.toList());
 
-        List<RouteDTO> routesDTO = routes.stream()
-                .map(Route::convertToDTO)
-                .collect(Collectors.toList());
+            List<RouteDTO> routesDTO = routes.stream()
+                    .map(Route::convertToDTO)
+                    .collect(Collectors.toList());
 
-        return new DeliveryPlan(routesDTO, deliveriesDTO);
+            return new DeliveryPlan(routesDTO, deliveriesDTO);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
