@@ -34,8 +34,12 @@ public class TruckController {
 
     @PutMapping("/{truckId}")
     public ResponseEntity<TruckDto> updateTruck(@PathVariable long truckId, @RequestBody TruckDto truckDto) {
-        TruckDto updatedTruck = truckService.updateTruck(truckId, truckDto);
-        return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
+        try {
+            TruckDto updatedTruck = truckService.updateTruck(truckId, truckDto);
+            return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/")
@@ -66,14 +70,22 @@ public class TruckController {
 
     @GetMapping("/active")
     public ResponseEntity<List<TruckDto>> getActiveTrucks() {
-        List<TruckDto> trucks = truckService.getActiveTrucks();
-        return new ResponseEntity<>(trucks, HttpStatus.OK);
+        try {
+            List<TruckDto> trucks = truckService.getActiveTrucks();
+            return new ResponseEntity<>(trucks, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/{truckId}")
     public ResponseEntity<TruckDto> getTruck(@PathVariable long truckId) {
-        TruckDto truck = truckService.getTruck(truckId);
-        return new ResponseEntity<>(truck, HttpStatus.OK);
+        try {
+            TruckDto truck = truckService.getTruck(truckId);
+            return new ResponseEntity<>(truck, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }
