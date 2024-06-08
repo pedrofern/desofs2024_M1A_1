@@ -1,11 +1,19 @@
 package pt.isep.desofs.m1a.g1.repository.jpa.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
+
 import pt.isep.desofs.m1a.g1.model.logistics.Packaging;
 import pt.isep.desofs.m1a.g1.repository.jpa.PackagingJpaRepo;
 import pt.isep.desofs.m1a.g1.repository.jpa.mapper.PackagingJpaMapper;
@@ -13,15 +21,7 @@ import pt.isep.desofs.m1a.g1.repository.jpa.model.DeliveryJpa;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.PackagingJpa;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.TruckJpa;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
 public class PackagingJpaRepositoryImplTest {
-
-    private PackagingJpaMapper mapper = PackagingJpaMapper.INSTANCE;
 
     @InjectMocks
     private PackagingJpaRepositoryImpl logisticsRepository;

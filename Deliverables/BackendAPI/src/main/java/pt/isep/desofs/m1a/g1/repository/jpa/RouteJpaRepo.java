@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface RouteJpaRepo extends JpaRepository<RouteJpa, UUID> {
 
-    List<RouteJpa> findByArrivalWarehouse_IdentifierOrDepartureWarehouse_Identifier(Long warehouseA, Long warehouseD);
+    List<RouteJpa> findByArrivalWarehouseIdentifierOrDepartureWarehouseIdentifier(Long warehouseA, Long warehouseD);
 }

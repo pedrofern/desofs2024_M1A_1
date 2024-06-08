@@ -1,11 +1,13 @@
 package pt.isep.desofs.m1a.g1.repository.jpa.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +16,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import pt.isep.desofs.m1a.g1.model.truck.Truck;
 import pt.isep.desofs.m1a.g1.model.truck.Battery;
 import pt.isep.desofs.m1a.g1.repository.jpa.TruckJpaRepo;
 import pt.isep.desofs.m1a.g1.repository.jpa.mapper.TruckJpaMapper;
 import pt.isep.desofs.m1a.g1.repository.jpa.model.TruckJpa;
+import pt.isep.desofs.m1a.g1.repository.utils.SpecificationHelper;
 
 public class TruckJpaRepositoryImplTest {
 
@@ -45,6 +53,7 @@ public class TruckJpaRepositoryImplTest {
 
         Optional<Truck> foundTruck = truckJpaRepository.findByTruckId(truckId);
 
+        assertTrue(foundTruck.isPresent());
         assertEquals(truckId, foundTruck.get().getTruckId());
         assertEquals(5000.0, foundTruck.get().getTare());
         assertEquals(battery.getBatteryId(), foundTruck.get().getBattery().getBatteryId());
@@ -84,4 +93,20 @@ public class TruckJpaRepositoryImplTest {
         verify(truckJpaRepo, times(1)).findAll();
     }
 
+    @Test
+    public void testFindAllActive() {
+        Battery battery1 = new Battery(1L, 100.0, 500.0, 2.0);
+        Battery battery2 = new Battery(2L, 200.0, 600.0, 3.0);
+        Truck truck1 = new Truck(1L, 5000.0, 10000.0, true, battery1);
+        Truck truck2 = new Truck(2L, 6000.0, 11000.0, false, battery2);
+        TruckJpa truckJpa1 = mapper.toDatabaseEntity(truck1);
+        TruckJpa truckJpa2 = mapper.toDatabaseEntity(truck2);
+
+        when(truckJpaRepo.findAll()).thenReturn(List.of(truckJpa1, truckJpa2));
+
+        List<Truck> activeTrucks = truckJpaRepository.findAllActive();
+
+        assertEquals(1, activeTrucks.size());
+        verify(truckJpaRepo, times(1)).findAll();
+    }
 }

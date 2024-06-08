@@ -1,5 +1,13 @@
 package pt.isep.desofs.m1a.g1.service.impl;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayInputStream;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -7,20 +15,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import pt.isep.desofs.m1a.g1.bean.*;
+
+import pt.isep.desofs.m1a.g1.bean.RegisterRequest;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.RouteDTO;
 import pt.isep.desofs.m1a.g1.model.delivery.DeliveryPlan;
-import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
-import pt.isep.desofs.m1a.g1.model.delivery.Route;
 import pt.isep.desofs.m1a.g1.service.AuthenticationService;
 import pt.isep.desofs.m1a.g1.service.UserService;
-
-import java.io.ByteArrayInputStream;
-import java.util.List;
-import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PdfServiceImplTest {
 
@@ -56,7 +57,7 @@ class PdfServiceImplTest {
      * Objective: Ensure the system handles high-load scenarios without failure.
      */
     @Test
-    public void testServiceAvailability_underHighLoad() {
+    public void testServiceAvailabilityUnderHighLoad() {
         IntStream.range(0, 1000).parallel().forEach(i -> {
             RegisterRequest request = new RegisterRequest();
             request.setFirstName("John");

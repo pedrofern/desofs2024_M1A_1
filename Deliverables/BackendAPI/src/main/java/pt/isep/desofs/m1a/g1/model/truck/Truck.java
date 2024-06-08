@@ -13,7 +13,7 @@ public final class Truck {
     private Battery battery;
 
     public Truck(long truckId, double tare, double loadCapacity, boolean active, Battery battery) {
-        if (!isValid(truckId, tare, loadCapacity, active)) {
+        if (!isValid(truckId, tare, loadCapacity)) {
             throw new InvalidTruckException("Invalid truck.");
         }
         this.truckId = truckId;
@@ -35,7 +35,7 @@ public final class Truck {
         this.active = active;
     }
 
-    private static boolean isValid(long truckId, double tare, double loadCapacity, boolean active) {
+    private static boolean isValid(long truckId, double tare, double loadCapacity) {
         return truckId > 0 && tare > 0 && loadCapacity > 0;
     }
 

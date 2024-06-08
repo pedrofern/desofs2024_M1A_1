@@ -13,5 +13,5 @@ public interface PackagingJpaRepo extends JpaRepository<PackagingJpa, UUID>, Jpa
 
     PackagingJpa findByPackagingId(String packagingId);
 
-    List<PackagingJpa> findByDelivery_DeliveryId(long deliveryId);
+    List<PackagingJpa> findByDeliveryDeliveryId(long deliveryId);
 }
