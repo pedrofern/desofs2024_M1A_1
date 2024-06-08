@@ -1,56 +1,54 @@
 <div class="centered-content">
-  <div class="model-box has-background-white">
-      <form *ngIf="truck" (ngSubmit)="id ? edit(truckDetailForm) : create(truckDetailForm)" #truckDetailForm="ngForm">
-          <h2>{{!id ? 'Create' : 'Edit'}} Truck {{truck.truckId}}</h2>
-          <div class="form-group" *ngIf="!id">
-            <label for="inputTruckId">Licence Plate</label>
-            <input class="form-control" type="number" name="inputTruckId" [(ngModel)]="truck.truckId" required ngModel>
-          </div>
+    <div class="model-box has-background-white">
+        <form *ngIf="truck" (ngSubmit)="id ? edit(truckDetailForm) : create(truckDetailForm)" #truckDetailForm="ngForm">
+            <h2>{{ !id ? 'Create' : 'Edit' }} Truck {{ truck.truckId }}</h2>
+            <div>
+                <label for="truckId" *ngIf="!id">Truck Id</label>
+                <input name="truckId" *ngIf="!id" [(ngModel)]="truck.truckId" readonly ngModel>
 
-          <div class="form-group">
-            <label for="inputTare">Tare</label>
-            <input class="form-control" type="number" name="inputTare" [(ngModel)]="truck.tare" required ngModel>
-          </div>
+                <label for="tare">Tare</label>
+                <input name="tare" type="number" [(ngModel)]="truck.tare" required ngModel>
 
-          <div class="form-group">
-            <label for="inputLoadCapacity">Load Capacity</label>
-            <input class="form-control" type="number" name="inputLoadCapacity" [(ngModel)]="truck.loadCapacity" required ngModel>
-          </div>
+                <label for="loadCapacity">Load Capacity</label>
+                <input name="loadCapacity" type="number" [(ngModel)]="truck.loadCapacity" required ngModel>
 
-          <div class="form-group">
-            <div>Status</div>
-            <mat-slide-toggle color="blue" name="inputActive" [(ngModel)]="truck.active">{{ truck.active ? "Active" : "Inactive" }}</mat-slide-toggle>
-          </div>
+                <div>Status</div>
+                <mat-slide-toggle name="active" color="blue"
+                                  [(ngModel)]="truck.active">{{ truck.active ? "Active" : "Inactive" }}
+                </mat-slide-toggle>
+                <div></div>
 
-          <div class="form-group">
-              <label for="inputBatteryId">Battery Id</label>
-              <input class="form-control" type="number" name="inputMaximumBattery" [(ngModel)]="truck.battery.batteryId" required ngModel>
-          </div>
+                <label for="batteryId">Battery Id</label>
+                <input name="batteryId" type="number" [(ngModel)]="truck.battery.batteryId" readonly ngModel>
 
-          <div class="form-group">
-              <label for="inputMaximumBattery">Maximum Battery</label>
-              <input class="form-control" type="number" name="inputMaximumBattery" [(ngModel)]="truck.battery.maximumBattery" required ngModel>
-          </div>
+                <label for="maximumBattery">Maximum Battery</label>
+                <input name="maximumBattery" type="number"
+                       [(ngModel)]="truck.battery.maximumBattery" required ngModel>
 
-          <div class="form-group">
-              <label for="inputAutonomy">Autonomy</label>
-              <input class="form-control" type="number" name="inputAutonomy" [(ngModel)]="truck.battery.autonomy" required ngModel>
-          </div>
+                <label for="autonomy">Autonomy</label>
+                <input name="autonomy" type="number" [(ngModel)]="truck.battery.autonomy" required ngModel>
 
-          <div class="form-group">
-              <label for="inputChargingTime">Charging Time</label>
-              <input class="form-control" type="number" name="inputChargingTime" [(ngModel)]="truck.battery.chargingTime" required ngModel>
-          </div>
+                <label for="chargingTime">Charging Time</label>
+                <input name="chargingTime" type="number" [(ngModel)]="truck.battery.chargingTime" required ngModel>
+            </div>
 
-          <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-outline-primary" *ngIf="id" [disabled]="!truckDetailForm.form.valid">Save</button>
-            <button type="submit" class="btn btn-outline-primary" *ngIf="!id" [disabled]="!truckDetailForm.form.valid">Create</button>
-            <button type="button" class="btn btn-outline-secondary" routerLink="/trucks">Cancel</button>
-          </div>
-          <div class="d-flex justify-content-center">
-            <div *ngIf="!success && success != null" class="alert alert-danger alert-dismissible fade show" role="alert">{{this.errorMessage}}</div>
-            <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">{{this.successMessage}}</div>
-        </div>
-    </form>
-</div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-primary" *ngIf="id"
+                        [disabled]="!truckDetailForm.form.valid">Save
+                </button>
+                <button type="submit" class="btn btn-outline-primary" *ngIf="!id"
+                        [disabled]="!truckDetailForm.form.valid">Create
+                </button>
+                <button type="button" class="btn btn-outline-secondary" routerLink="/trucks">Cancel</button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div *ngIf="!success && success != null" class="alert alert-danger alert-dismissible fade show"
+                     role="alert">{{ this.errorMessage }}
+                </div>
+                <div *ngIf="success" class="alert alert-success alert-dismissible fade show"
+                     role="alert">{{ this.successMessage }}
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

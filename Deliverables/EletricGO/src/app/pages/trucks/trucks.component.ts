@@ -58,7 +58,7 @@ export class TrucksComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnInit(): void {
         this.global.updateData(true);
-        this.truckService.getTotalRecords().subscribe(count => this.totalRecords = count);
+        this.truckService.getTotalRecords().subscribe(data => this.totalRecords = data.length);
     }
 
     ngAfterViewInit() {

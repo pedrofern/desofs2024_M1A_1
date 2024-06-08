@@ -23,8 +23,6 @@ export class TruckDetailComponent implements OnInit {
     errorMessage = "";
     successMessage = "";
 
-    matriculaInputMask = createMask('(A{2}|9{2})-(A{2}|9{2})-(A{2}|9{2})');
-
     constructor(
         private route: ActivatedRoute,
         private truckService: TruckService,
@@ -49,15 +47,15 @@ export class TruckDetailComponent implements OnInit {
 
     create(form: NgForm): void {
         this.truckService.addTruck({
-            truckId: form.value.inputTruckId,
-            tare: form.value.inputTare,
-            loadCapacity: form.value.inputLoadCapacity,
-            active: form.value.inputActive,
+            truckId: form.value.truckId,
+            tare: form.value.tare,
+            loadCapacity: form.value.loadCapacity,
+            active: form.value.active,
             battery: {
-                batteryId: form.value.inputBatteryId,
-                maximumBattery: form.value.inputMaximumBattery,
-                autonomy: form.value.inputAutonomy,
-                chargingTime: form.value.inputChargingTime
+                batteryId: form.value.batteryId,
+                maximumBattery: form.value.maximumBattery,
+                autonomy: form.value.autonomy,
+                chargingTime: form.value.chargingTime
             }
         })
             .subscribe({
@@ -78,14 +76,14 @@ export class TruckDetailComponent implements OnInit {
             this.id,
             {
                 truckId: this.id,
-                tare: form.value.inputTare,
-                loadCapacity: form.value.inputLoadCapacity,
-                active: form.value.inputActive,
+                tare: form.value.tare,
+                loadCapacity: form.value.loadCapacity,
+                active: form.value.active,
                 battery: {
-                    batteryId: form.value.inputBatteryId,
-                    maximumBattery: form.value.inputMaximumBattery,
-                    autonomy: form.value.inputAutonomy,
-                    chargingTime: form.value.inputChargingTime
+                    batteryId: form.value.batteryId,
+                    maximumBattery: form.value.maximumBattery,
+                    autonomy: form.value.autonomy,
+                    chargingTime: form.value.chargingTime
                 }
             })
             .subscribe({

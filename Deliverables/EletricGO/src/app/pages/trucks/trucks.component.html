@@ -53,7 +53,7 @@
                       <input matInput type="number" [(ngModel)]="filterBatteryId" (keyup.enter)="updateValue()" placeholder="Battery Id">
                   </mat-form-field>
               </mat-header-cell>
-              <mat-cell *matCellDef="let element" >{{ element.batteryId }}</mat-cell>
+              <mat-cell *matCellDef="let element" >{{ element.battery.batteryId }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="maximumBattery">
@@ -62,7 +62,7 @@
                   <input matInput type="number" [(ngModel)]="filterMaximumBattery" (keyup.enter)="updateValue()" placeholder="Maximum Battery">
               </mat-form-field>
           </mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.maximumBattery }}</mat-cell>
+          <mat-cell *matCellDef="let element">{{ element.battery.maximumBattery }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="autonomy">
@@ -71,7 +71,7 @@
                   <input matInput type="number" [(ngModel)]="filterAutonomy" (keyup.enter)="updateValue()" placeholder="Autonomy">
               </mat-form-field>
           </mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.autonomy }}</mat-cell>
+          <mat-cell *matCellDef="let element">{{ element.battery.autonomy }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="chargingTime">
@@ -80,7 +80,7 @@
                   <input matInput type="number" [(ngModel)]="filterChargingTime" (keyup.enter)="updateValue()" placeholder="Charging Time">
               </mat-form-field>
           </mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.chargingTime }}</mat-cell>
+          <mat-cell *matCellDef="let element">{{ element.battery.chargingTime }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="actions">
