@@ -38,7 +38,7 @@ public class TruckServiceImpl implements TruckService {
     @Override
     public TruckDto updateTruck(long truckId, TruckDto truckDto) {
         validateTruckDto(truckDto);
-        Truck truck = truckRepository.findByTruckId(truckId);
+        Truck truck = truckRepository.findByTruckId(truckId).orElse(null);
         if (truck == null) {
             throw new InvalidTruckException("Truck not found");
         }
@@ -74,7 +74,7 @@ public class TruckServiceImpl implements TruckService {
     @Override
     public TruckDto getTruck(long truckId) {
         validateTruckId(truckId);
-        Truck truck = truckRepository.findByTruckId(truckId);
+        Truck truck = truckRepository.findByTruckId(truckId).orElse(null);
         if (truck == null) {
             throw new InvalidTruckException("Truck not found");
         }

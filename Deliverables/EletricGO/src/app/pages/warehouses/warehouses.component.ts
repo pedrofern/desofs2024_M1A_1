@@ -98,12 +98,10 @@ export class WarehousesComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     pageChanged(e: PageEvent) {
-        console.log(e);
         this.getWarehouses();
     }
 
     customSort(e: Sort) {
-        console.log(e);
         this.sort.direction = e.direction;
         this.sort.active = e.active;
         this.getWarehouses();

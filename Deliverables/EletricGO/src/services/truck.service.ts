@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import ITruckDTO from 'src/dtos/truck/ITruckDTO';
-import IUpdateTruckDTO from 'src/dtos/truck/IUpdateTruckDTO';
 import { environment } from 'src/environments/environment';
 import { MessageService } from './message.service';
 
@@ -20,7 +19,7 @@ export class TruckService {
     private http: HttpClient,
     private messageService: MessageService
   ) { }
-  
+
   /** POST: add a new truck to the server */
   addTruck(request: ITruckDTO): Observable<ITruckDTO> {
     const headers = { 'Content-Type': 'application/json' };
@@ -28,10 +27,10 @@ export class TruckService {
   }
 
   /** PUT: update a truck on the server */
-  updateTruck(truckId: string, truck: IUpdateTruckDTO): Observable<IUpdateTruckDTO> {
-    return this.http.put<IUpdateTruckDTO>(this.trucksUrl + truckId, truck, this.httpOptions).pipe(
+  updateTruck(truckId: number, truck: ITruckDTO): Observable<ITruckDTO> {
+    return this.http.put<ITruckDTO>(this.trucksUrl + truckId, truck, this.httpOptions).pipe(
       tap(_ => this.log(`updated truck id=${truckId}`)),
-      catchError(this.handleError<IUpdateTruckDTO>('updateTruck'))
+      catchError(this.handleError<ITruckDTO>('updateTruck'))
       );
     }
 
@@ -66,7 +65,7 @@ export class TruckService {
         catchError(this.handleError<ITruckDTO[]>('getTrucks', []))
       );
     }
-  
+
     /** GET active trucks from the server */
     getActiveTrucks(): Observable<ITruckDTO[]> {
       const url = `${this.trucksUrl}active`;
@@ -75,7 +74,7 @@ export class TruckService {
           tap(_ => this.log('fetched active trucks')),
           catchError(this.handleError<ITruckDTO[]>('active trucks', []))
         );
-    } 
+    }
 
   /** GET truck by id. Return `undefined` when id not found */
   getTruckNo404<Data>(truckId: string): Observable<ITruckDTO> {
@@ -92,7 +91,7 @@ export class TruckService {
     }
 
   /** GET truck by id. Will 404 if id not found */
-  getTruck(truckId: string): Observable<ITruckDTO> {
+  getTruck(truckId: number): Observable<ITruckDTO> {
     const url = `${this.trucksUrl}/${truckId}`;
       return this.http.get<ITruckDTO>(url)
       .pipe(

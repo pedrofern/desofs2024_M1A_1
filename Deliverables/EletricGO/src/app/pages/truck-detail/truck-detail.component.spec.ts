@@ -10,8 +10,9 @@ import {TruckService} from 'src/services/truck.service';
 import {TruckDetailComponent} from './truck-detail.component';
 import {ActivatedRoute} from "@angular/router";
 
+const battery = {batteryId: 1, maximumBattery: 100, autonomy: 100, chargingTime: 100};
 const expectedTruck: ITruckDTO =
-    {truckId: 'AA-00-AA', tare: 100, loadCapacity: 100, maximumBattery: 100, autonomy: 100, chargingTime: 100, active: true};
+    {truckId: 1, tare: 100, loadCapacity: 100, active: true, battery: battery};
 
 describe('TruckDetailComponent', () => {
     let component: TruckDetailComponent;

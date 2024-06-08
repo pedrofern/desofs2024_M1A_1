@@ -99,12 +99,10 @@ export class RouteSearchComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     pageChanged(e: PageEvent) {
-        console.log(e);
         this.getRoutes();
     }
 
     customSort(e: Sort) {
-        console.log(e);
         this.sort.direction = e.direction;
         this.sort.active = e.active;
         this.getRoutes();
