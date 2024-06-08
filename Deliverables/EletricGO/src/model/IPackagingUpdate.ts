@@ -1,9 +1,9 @@
-export interface IPackagingUpdate{
-  deliveryId: string;
-  truckId: string;
-  x: number;
-  y: number;
-  z: number;
-  loadTime: number;
-  unloadTime: number;
+export interface IPackagingUpdate {
+    deliveryId: number;
+    truckId: number;
+    loadTime: string;
+    unloadTime: string;
+    x: number;
+    y: number;
+    z: number;
 }

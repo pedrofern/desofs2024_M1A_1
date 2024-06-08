@@ -26,8 +26,8 @@ describe('PackagingService', () => {
 
   //TESTS
   it('should return expected added packaging (HttpClient called once)', () => {
-    const originalPackagings: IPackagingDTO = { packagingId: "P01", deliveryId: "1", truckId: "AA-00-BB", x: 1, y: 2, z: 3, loadTime: 100, unloadTime: 200 }
-    const expectedPackagings: IPackagingDTO = { packagingId: "P01", deliveryId: "1", truckId: "AA-00-BB", x: 1, y: 2, z: 3, loadTime: 100, unloadTime: 200 }
+    const originalPackagings: IPackagingDTO = { packagingId: "P01", deliveryId: 1, truckId: 123, x: 1, y: 2, z: 3, loadTime: "01:30", unloadTime: "01:00" }
+    const expectedPackagings: IPackagingDTO = { packagingId: "P01", deliveryId: 1, truckId: 123, x: 1, y: 2, z: 3, loadTime: "01:00", unloadTime: "01:30" }
 
     // Make an HTTP POST request
     service.createPackaging(originalPackagings).subscribe(data =>
@@ -51,8 +51,8 @@ describe('PackagingService', () => {
   });
 
   it('should return expected updated packaging (HttpClient called once)', () => {
-    const originalPackaging: IPackagingDTO = { packagingId: "P01", deliveryId: "1", truckId: "AA-00-CC", x: 1, y: 2, z: 3, loadTime: 100, unloadTime: 200 }
-    const expectedPackaging: IPackagingDTO = { packagingId: "P01", deliveryId: "1", truckId: "AA-00-CC", x: 1, y: 2, z: 3, loadTime: 100, unloadTime: 200 }
+      const originalPackaging: IPackagingDTO = { packagingId: "P01", deliveryId: 1, truckId: 123, x: 1, y: 2, z: 3, loadTime: "01:30", unloadTime: "01:00" }
+      const expectedPackaging: IPackagingDTO = { packagingId: "P01", deliveryId: 1, truckId: 123, x: 1, y: 2, z: 3, loadTime: "01:00", unloadTime: "01:30" }
     const packagingId = "P01"
 
     // Make an HTTP PUT request
@@ -78,7 +78,7 @@ describe('PackagingService', () => {
   });
 
   it('should return expected packaging (HttpClient called once)', () => {
-    const expectedPackaging: IPackagingDTO = { packagingId: "P01", deliveryId: "1", truckId: "AA-00-CC", x: 1, y: 2, z: 3, loadTime: 100, unloadTime: 200 }
+    const expectedPackaging: IPackagingDTO = { packagingId: "P01", deliveryId: 1, truckId: 123, x: 1, y: 2, z: 3, loadTime: "01:00", unloadTime: "01:30" }
     const packagingId = "P01"
 
     // Make an HTTP GET request
@@ -105,8 +105,8 @@ describe('PackagingService', () => {
 
   it('should return expected packagings (HttpClient called once)', () => {
     const expectedPackagings: IPackagingDTO[] = [
-      { packagingId: "P01", deliveryId: "1", truckId: "AA-00-BB", x: 1, y: 2, z: 3, loadTime: 100, unloadTime: 200 },
-      { packagingId: "P02", deliveryId: "2", truckId: "AA-00-CC", x: 3, y: 4, z: 5, loadTime: 300, unloadTime: 400 }];
+        { packagingId: "P01", deliveryId: 1, truckId: 123, x: 1, y: 2, z: 3, loadTime: "01:00", unloadTime: "01:30" },
+        { packagingId: "P02", deliveryId: 2, truckId: 123, x: 1, y: 2, z: 3, loadTime: "01:00", unloadTime: "01:30" }];
 
     // Make an HTTP GET request
     service.getPackagings('1', '1', 'asc',2,0).subscribe(data =>

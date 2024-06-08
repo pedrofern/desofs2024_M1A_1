@@ -8,7 +8,7 @@ export const environment = {
   APIDeliveries: "http://localhost:8080/api/v1/deliveries/",
   APIPlannings: "http://localhost:8080/api/v1/plannings/",
   APICreatePlannings: "http://localhost:8080/planning",
-  APIPackagings: "http://localhost:8080/api/v1/packagings/",
+  APIPackagings: "http://localhost:8080/api/v1/logistics/",
   APIRoutes: "http://localhost:8080/api/v1/routes/",
   APITrucks: "http://localhost:8080/api/v1/trucks/",
   APIUsers: "http://localhost:8080/api/v1/user",

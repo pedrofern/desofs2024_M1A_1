@@ -1,21 +1,21 @@
 package pt.isep.desofs.m1a.g1.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.owasp.encoder.Encode;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import pt.isep.desofs.m1a.g1.bean.SubmitLogisticsForm;
-import pt.isep.desofs.m1a.g1.config.InputSanitizer;
+import pt.isep.desofs.m1a.g1.dto.PackagingDto;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.model.logistics.Localization;
 import pt.isep.desofs.m1a.g1.model.logistics.Packaging;
-import pt.isep.desofs.m1a.g1.model.logistics.Time;
 import pt.isep.desofs.m1a.g1.repository.DeliveryRepository;
 import pt.isep.desofs.m1a.g1.repository.PackagingRepository;
 import pt.isep.desofs.m1a.g1.service.LogisticsService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 
 
 @Service
@@ -48,11 +48,19 @@ public class LogisticsServiceImpl implements LogisticsService {
     }
 
     //Get all the packaging
+    @Override
     public List<Packaging> getAllPackaging() {
         return packagingRepo.findAll();
     }
 
+    @Override
+    public List<PackagingDto> getAllPackaging(int pageIndex, int pageSize, String sortBy, String sortOrder, Map<String, String> filters) {
+        Page<Packaging> page = packagingRepo.findAllWithFilters(pageIndex,pageSize,sortBy,sortOrder,filters);
+        return page.stream().map(Packaging::convertToDTO).collect(Collectors.toList());
+    }
+
     //Get the packaging by id
+    @Override
     public Packaging getPackagingById(String id) {
         return packagingRepo.findByPackagingId(id).orElseThrow();
     }
