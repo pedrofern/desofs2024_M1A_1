@@ -77,7 +77,7 @@ public class AuthenticationServiceImplTest {
 	}
 
 	@Test
-	public void testAuthenticate_AuthenticationException() {
+	public void testAuthenticateAuthenticationException() {
 		String email = "testEmail@batatas.pt";
 		String pass = "Pass@1234";
 		AuthenticationRequest request = new AuthenticationRequest(email, pass);
@@ -97,7 +97,7 @@ public class AuthenticationServiceImplTest {
 	}
 
 	@Test
-	public void testAuthenticate_LockedException() {
+	public void testAuthenticateLockedException() {
 		String email = "testEmail@batatas.pt";
 		String pass = "Pass@1234";
 		AuthenticationRequest request = new AuthenticationRequest(email, pass);

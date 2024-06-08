@@ -59,7 +59,7 @@ public class PackagingJpaRepositoryImpl implements PackagingRepository {
 
     @Override
     public List<Packaging> findByDelivery(Delivery delivery) {
-            List<PackagingJpa> packagingJpaList = repo.findByDelivery_DeliveryId(delivery.getDeliveryId());
+            List<PackagingJpa> packagingJpaList = repo.findByDeliveryDeliveryId(delivery.getDeliveryId());
             if (!packagingJpaList.isEmpty()) {
                 return packagingJpaList.stream()
                         .map(mapper::toDomainModel)
