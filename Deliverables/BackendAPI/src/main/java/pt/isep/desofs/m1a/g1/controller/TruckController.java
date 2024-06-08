@@ -22,10 +22,14 @@ public class TruckController {
     @Autowired
     private TruckService truckService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<TruckDto> createTruck(@RequestBody TruckDto truckDto) {
-        TruckDto createdTruck = truckService.createTruck(truckDto);
-        return new ResponseEntity<>(createdTruck, HttpStatus.CREATED);
+        try {
+            TruckDto createdTruck = truckService.createTruck(truckDto);
+            return new ResponseEntity<>(createdTruck, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PutMapping("/{truckId}")
@@ -45,7 +49,7 @@ public class TruckController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<TruckDto>> getDeliveries(
+    public ResponseEntity<List<TruckDto>> getTrucks(
             @RequestParam(defaultValue = "0") int pageIndex,
             @RequestParam(defaultValue = "5") int pageSize,
             @RequestParam(defaultValue = "truckId") String sortBy,
