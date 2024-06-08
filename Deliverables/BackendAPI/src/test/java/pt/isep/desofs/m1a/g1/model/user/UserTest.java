@@ -24,7 +24,7 @@ public class UserTest {
 		String role = "ADMIN";
 
 		// Act
-		User user = new User(firstName, lastName, phoneNumber, email, password, role);
+		User user = new User(firstName, lastName, phoneNumber, email, password, role, false);
 
 		// Assert
 		assertEquals(firstName, user.getFirstName().getValue());
@@ -33,6 +33,11 @@ public class UserTest {
 		assertEquals(email, user.getEmail().getValue());
 		assertEquals(password, user.getPassword());
 		assertEquals(Role.ADMIN, user.getRole());
+		assertEquals(false, user.isLocked());
+		assertEquals(true, user.isAccountNonExpired());
+		assertEquals(true, user.isAccountNonLocked());
+		assertEquals(true, user.isCredentialsNonExpired());
+		assertEquals(true, user.isEnabled());
 	}
 
 	@Test
@@ -47,7 +52,7 @@ public class UserTest {
 
 		// Act and Assert
 		assertThrows(InvalidNameFormatException.class,
-				() -> new User(firstName, lastName, phoneNumber, email, password, role));
+				() -> new User(firstName, lastName, phoneNumber, email, password, role, false));
 	}
 
 	@Test
@@ -62,7 +67,7 @@ public class UserTest {
 
 		// Act and Assert
 		assertThrows(InvalidEmailFormatException.class,
-				() -> new User(firstName, lastName, phoneNumber, invalidEmail, password, role));
+				() -> new User(firstName, lastName, phoneNumber, invalidEmail, password, role, false));
 	}
 
 	@Test
@@ -77,7 +82,7 @@ public class UserTest {
 
 		// Act and Assert
 		assertThrows(InvalidPhoneNumberFormatException.class,
-				() -> new User(firstName, lastName, invalidPhoneNumber, email, password, role));
+				() -> new User(firstName, lastName, invalidPhoneNumber, email, password, role, false));
 	}
 
 	@Test
@@ -92,7 +97,7 @@ public class UserTest {
 
 		// Act and Assert
 		assertThrows(InvalidPasswordFormatException.class,
-				() -> new User(firstName, lastName, phoneNumber, email, invalidPassword, role));
+				() -> new User(firstName, lastName, phoneNumber, email, invalidPassword, role, false));
 	}
 
 	@Test
@@ -107,6 +112,21 @@ public class UserTest {
 
 		// Act and Assert
 		assertThrows(InvalidRoleFormatException.class,
-				() -> new User(firstName, lastName, phoneNumber, email, password, role));
+				() -> new User(firstName, lastName, phoneNumber, email, password, role, false));
+	}
+
+	@Test
+	public void testLockAccount() {
+		String firstName = "John";
+		String lastName = "Doe";
+		String phoneNumber = "+1234567890";
+		String email = "john@example.com";
+		String password = "Test@1234";
+		String role = "ADMIN";
+
+		User user = new User(firstName, lastName, phoneNumber, email, password, role, false);
+		user.lockAccount();
+
+		assertEquals(true, user.isLocked());
 	}
 }

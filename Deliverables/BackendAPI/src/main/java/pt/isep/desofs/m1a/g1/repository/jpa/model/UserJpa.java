@@ -25,6 +25,7 @@ public class UserJpa {
 	private String phoneNumber;
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	private boolean locked;
 
 	@OneToMany(mappedBy = "user")
 	private List<TokenJpa> tokens;
