@@ -1,6 +1,10 @@
 package pt.isep.desofs.m1a.g1.model.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.UUID;
 
@@ -64,4 +68,36 @@ public class TokenTest {
 		assertThat(token.isRevoked()).isFalse();
 		assertThat(token.isExpired()).isFalse();
 	}
+
+	@Test
+	public void testEqualsAndHashCode() {
+		UUID tokenId = UUID.randomUUID();
+		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN");
+		String tokenStr = "token123";
+		Token token1 = new Token(tokenId, tokenStr, TokenType.BEARER, false, false, user);
+		Token token2 = new Token(tokenId, tokenStr, TokenType.BEARER, false, false, user);
+
+		// Test equals
+		assertTrue(token1.equals(token2) && token2.equals(token1));
+		assertEquals(token1.hashCode(), token2.hashCode());
+
+		// Test not equals
+		token2.setToken("differentToken");
+		assertFalse(token1.equals(token2) || token2.equals(token1));
+		assertNotEquals(token1.hashCode(), token2.hashCode());
+	}
+
+	@Test
+	public void testToString() {
+		UUID tokenId = UUID.randomUUID();
+		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN");
+		String tokenStr = "token123";
+		Token token = new Token(tokenId, tokenStr, TokenType.BEARER, false, false, user);
+
+		String expectedString = "Token(id=" + tokenId + ", token=" + tokenStr + ", tokenType=" + TokenType.BEARER
+		        + ", revoked=false, expired=false, user=" + user + ")";
+
+		assertEquals(expectedString, token.toString());
+	}
+
 }

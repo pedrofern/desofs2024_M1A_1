@@ -28,4 +28,13 @@ public class EmailTest {
         assertThrows(InvalidEmailFormatException.class, () -> new Email(nullEmail));
     }
     
+	@Test
+    public void testEqualsAndHashCode() {
+        String emailValue = "test@example.com";
+        Email email1 = new Email(emailValue);
+        Email email2 = new Email(emailValue);
+        assertEquals(email1, email2);
+        assertEquals(email1.hashCode(), email2.hashCode());    
+	}
+    
 }

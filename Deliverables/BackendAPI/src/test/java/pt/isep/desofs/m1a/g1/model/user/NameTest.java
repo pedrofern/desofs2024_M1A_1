@@ -33,5 +33,14 @@ public class NameTest {
 		String invalidName = "John Doe123";
 		assertThrows(InvalidNameFormatException.class, () -> new Name(invalidName));
 	}
+	
+	@Test
+	public void testEqualsAndHashCode() {
+		String nameValue = "John Doe";
+		Name name1 = new Name(nameValue);
+		Name name2 = new Name(nameValue);
+		assertEquals(name1, name2);
+		assertEquals(name1.hashCode(), name2.hashCode());
+	}
 
 }

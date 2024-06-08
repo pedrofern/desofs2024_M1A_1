@@ -47,4 +47,13 @@ public class PhoneNumberTest {
 		assertThrows(InvalidPhoneNumberFormatException.class, () -> new PhoneNumber(phoneNumberExceedsMaxLength));
 	}
 
+	@Test
+	public void testEqualsAndHashCode() {
+		String phoneNumberValue = "+1234567890";
+		PhoneNumber phoneNumber1 = new PhoneNumber(phoneNumberValue);
+		PhoneNumber phoneNumber2 = new PhoneNumber(phoneNumberValue);
+		assertEquals(phoneNumber1, phoneNumber2);
+		assertEquals(phoneNumber1.hashCode(), phoneNumber2.hashCode());
+	}
+	
 }
