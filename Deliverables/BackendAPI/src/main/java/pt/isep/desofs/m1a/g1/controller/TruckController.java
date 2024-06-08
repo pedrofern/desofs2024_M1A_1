@@ -6,11 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isep.desofs.m1a.g1.config.InputSanitizer;
+import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.TruckDto;
 import pt.isep.desofs.m1a.g1.exception.InvalidTruckException;
 import pt.isep.desofs.m1a.g1.service.TruckService;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Trucks")
 @RestController
@@ -32,10 +34,30 @@ public class TruckController {
         return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<TruckDto>> getAllTrucks() {
-        List<TruckDto> trucks = truckService.getAllTrucks();
-        return new ResponseEntity<>(trucks, HttpStatus.OK);
+        try {
+            List<TruckDto> trucks = truckService.getAllTrucks();
+            return new ResponseEntity<>(trucks, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<TruckDto>> getDeliveries(
+            @RequestParam(defaultValue = "0") int pageIndex,
+            @RequestParam(defaultValue = "5") int pageSize,
+            @RequestParam(defaultValue = "truckId") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(required = false) Map<String, String> filters
+    ) {
+        try {
+            List<TruckDto> trucks = truckService.getTrucks(pageIndex, pageSize, sortBy, sortOrder, filters);
+            return ResponseEntity.ok(trucks);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/active")

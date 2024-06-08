@@ -1,18 +1,22 @@
 package pt.isep.desofs.m1a.g1.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import pt.isep.desofs.m1a.g1.config.InputSanitizer;
 import pt.isep.desofs.m1a.g1.dto.BatteryDto;
+import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.TruckDto;
 import pt.isep.desofs.m1a.g1.exception.InvalidBatteryException;
 import pt.isep.desofs.m1a.g1.exception.InvalidTruckException;
+import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.model.truck.Battery;
 import pt.isep.desofs.m1a.g1.model.truck.Truck;
 import pt.isep.desofs.m1a.g1.repository.TruckRepository;
 import pt.isep.desofs.m1a.g1.service.TruckService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,6 +64,13 @@ public class TruckServiceImpl implements TruckService {
     @Override
     public List<TruckDto> getAllTrucks() {
         return truckRepository.findAll().stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TruckDto> getTrucks(int pageIndex, int pageSize, String sortBy, String sortOrder, Map<String, String> filters) {
+        return truckRepository.findAllWithFilters(pageIndex, pageSize, sortBy, sortOrder, filters).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
