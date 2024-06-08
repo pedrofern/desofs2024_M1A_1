@@ -1,9 +1,9 @@
+import IBattery from "./IBattery";
+
 export default interface ITruck {
-    truckId: string;
+    truckId: number;
     tare: number;
     loadCapacity: number;
-    maximumBattery: number;
-    autonomy: number;
-    chargingTime: number;
     active: boolean;
+    battery: IBattery;
 }

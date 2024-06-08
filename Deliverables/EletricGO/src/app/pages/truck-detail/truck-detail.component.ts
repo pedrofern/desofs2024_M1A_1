@@ -15,9 +15,9 @@ import {TruckService} from 'src/services/truck.service';
     styleUrls: ['./truck-detail.component.css']
 })
 export class TruckDetailComponent implements OnInit {
-    
+
     truck: ITruck | undefined;
-    id = "";
+    id = 0;
 
     success: boolean | undefined;
     errorMessage = "";
@@ -38,7 +38,7 @@ export class TruckDetailComponent implements OnInit {
     }
 
     getTruck(): void {
-        this.id = this.route.snapshot.paramMap.get('id')!;
+        this.id = Number.parseInt(this.route.snapshot.paramMap.get('id')!);
         if (this.id) {
             this.truckService.getTruck(this.id)
                 .subscribe((dto: ITruckDTO) => this.truck = TruckMap.toModel(dto));
@@ -52,10 +52,13 @@ export class TruckDetailComponent implements OnInit {
             truckId: form.value.inputTruckId,
             tare: form.value.inputTare,
             loadCapacity: form.value.inputLoadCapacity,
-            maximumBattery: form.value.inputMaximumBattery,
-            autonomy: form.value.inputAutonomy,
-            chargingTime: form.value.inputChargingTime,
-            active: form.value.inputActive
+            active: form.value.inputActive,
+            battery: {
+                batteryId: form.value.inputBatteryId,
+                maximumBattery: form.value.inputMaximumBattery,
+                autonomy: form.value.inputAutonomy,
+                chargingTime: form.value.inputChargingTime
+            }
         })
             .subscribe({
                 error: (error: HttpErrorResponse) => {
@@ -74,12 +77,16 @@ export class TruckDetailComponent implements OnInit {
         this.truckService.updateTruck(
             this.id,
             {
+                truckId: this.id,
                 tare: form.value.inputTare,
                 loadCapacity: form.value.inputLoadCapacity,
-                maximumBattery: form.value.inputMaximumBattery,
-                autonomy: form.value.inputAutonomy,
-                chargingTime: form.value.inputChargingTime,
-                active: form.value.inputActive
+                active: form.value.inputActive,
+                battery: {
+                    batteryId: form.value.inputBatteryId,
+                    maximumBattery: form.value.inputMaximumBattery,
+                    autonomy: form.value.inputAutonomy,
+                    chargingTime: form.value.inputChargingTime
+                }
             })
             .subscribe({
                 error: (error: HttpErrorResponse) => {
