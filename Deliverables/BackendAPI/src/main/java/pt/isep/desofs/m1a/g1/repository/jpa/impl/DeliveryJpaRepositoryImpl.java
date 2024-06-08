@@ -34,8 +34,6 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
     private WarehouseJpaRepo wRepo;
 
     private final DeliveryJpaMapper mapper = DeliveryJpaMapper.INSTANCE;
-    @Autowired
-    private DeliveryJpaRepo deliveryJpaRepo;
 
     @Override
     public List<Delivery> findAll() {
@@ -77,7 +75,7 @@ public class DeliveryJpaRepositoryImpl implements DeliveryRepository {
         if (warehouseJpa.isEmpty()) {
             throw new NotFoundException("Warehouse not found with identifier: " + delivery.getWarehouseId());
         }
-        Optional<DeliveryJpa> deliveryJpaOptional = deliveryJpaRepo.findByDeliveryId(delivery.getDeliveryId());
+        Optional<DeliveryJpa> deliveryJpaOptional = repo.findByDeliveryId(delivery.getDeliveryId());
         if (deliveryJpaOptional.isEmpty()) {
             throw new NotFoundException("Delivery not found with identifier: " + delivery.getDeliveryId());
         }

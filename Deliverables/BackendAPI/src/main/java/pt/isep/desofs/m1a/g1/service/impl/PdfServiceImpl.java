@@ -19,10 +19,8 @@ public class PdfServiceImpl implements PdfService {
             PdfWriter writer = new PdfWriter(out);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
-
             document.add(new Paragraph("Delivery Plan"));
-            document.add(new Paragraph("Routes and Deliveries:"));
-
+            
             deliveryPlan.getRoutes().forEach(route -> {
                 document.add(new Paragraph("Route: " + route.toString()));
             });

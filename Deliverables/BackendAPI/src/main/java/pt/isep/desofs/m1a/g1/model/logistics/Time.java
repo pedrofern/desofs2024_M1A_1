@@ -25,4 +25,8 @@ public class Time {
         return time != null && TIME_PATTERN.matcher(time).matches();
     }
 
+    @Override
+    public String toString() {
+        return value;
+    }
 }

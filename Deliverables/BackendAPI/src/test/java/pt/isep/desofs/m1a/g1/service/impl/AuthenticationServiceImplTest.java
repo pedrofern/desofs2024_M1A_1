@@ -20,6 +20,7 @@ import pt.isep.desofs.m1a.g1.bean.AuthenticationRequest;
 import pt.isep.desofs.m1a.g1.bean.AuthenticationResponse;
 import pt.isep.desofs.m1a.g1.model.user.User;
 import pt.isep.desofs.m1a.g1.repository.TokenRepository;
+import pt.isep.desofs.m1a.g1.repository.UserExtensionRepository;
 import pt.isep.desofs.m1a.g1.repository.UserRepository;
 import pt.isep.desofs.m1a.g1.service.JwtService;
 
@@ -30,7 +31,8 @@ public class AuthenticationServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
-
+    @Mock
+	private UserExtensionRepository userExtensionRepo;
     @Mock
     private TokenRepository tokenRepository;
 
@@ -51,7 +53,7 @@ public class AuthenticationServiceImplTest {
     	String pass = "Pass@1234";
         AuthenticationRequest request = new AuthenticationRequest(email,pass);
         
-        User user = new User("testFirstName", "testLastName", "911234567", email, pass, "ADMIN");
+        User user = new User("testFirstName", "testLastName", "911234567", email, pass, "ADMIN", false);
         String jwtToken = "testToken";
         String refreshToken = "refreshToken";
 
@@ -62,8 +64,5 @@ public class AuthenticationServiceImplTest {
         AuthenticationResponse response = authenticationService.authenticate(request);
 
         assertNotNull(response);
-//        verify(userRepository, times(1)).findByEmail(email);
-//        verify(jwtService, times(1)).generateToken(user);
-//        verify(jwtService, times(1)).generateRefreshToken(user);
     }
 }

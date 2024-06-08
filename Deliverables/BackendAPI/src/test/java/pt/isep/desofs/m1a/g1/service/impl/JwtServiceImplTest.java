@@ -52,7 +52,7 @@ public class JwtServiceImplTest {
 		String password = "Test@1234";
 		String role = "ADMIN";
 
-		user = new User(firstName, lastName, phoneNumber, email, password, role);
+		user = new User(firstName, lastName, phoneNumber, email, password, role, false);
     }
 
     @Test

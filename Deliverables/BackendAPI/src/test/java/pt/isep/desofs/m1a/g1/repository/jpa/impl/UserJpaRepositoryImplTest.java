@@ -69,7 +69,7 @@ public class UserJpaRepositoryImplTest {
 		String password = "Test@1234";
 		String role = "ADMIN";
 
-		User user = new User(firstName, lastName, phoneNumber, email, password, role);
+		User user = new User(firstName, lastName, phoneNumber, email, password, role, false);
 		var userJpa =mapper.toDatabaseEntity(user);
 		when(userJpaRepo.findByEmail(email)).thenReturn(Optional.of(userJpa));
         when(userJpaRepo.save(userJpa)).thenReturn(userJpa);

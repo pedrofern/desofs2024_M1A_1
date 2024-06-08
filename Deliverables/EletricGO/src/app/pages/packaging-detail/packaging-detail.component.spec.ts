@@ -13,7 +13,7 @@ import ITruckDTO from "../../../dtos/truck/ITruckDTO";
 import {TruckService} from "../../../services/truck.service";
 import {DeliveryService} from "../../../services/delivery.service";
 
-const expectedPackaging: IPackagingDTO = { packagingId: "P01", deliveryId: "1", truckId: "AA-00-CC", x: 1, y: 2, z: 3, loadTime: 100, unloadTime: 200 }
+const expectedPackaging: IPackagingDTO = { packagingId: "P01", deliveryId: 1, truckId: 123,  loadTime: "01:30", unloadTime: "01:00" , x: 1, y: 2, z: 3}
 
 const expectedDeliveries: IDeliveryDto[] =
     [{deliveryId: 1, deliveryDate: '12-12-2022', weight: 100, warehouseId: 'M99'},

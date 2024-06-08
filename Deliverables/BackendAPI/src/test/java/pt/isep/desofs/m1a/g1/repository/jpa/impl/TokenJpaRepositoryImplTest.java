@@ -86,7 +86,7 @@ public class TokenJpaRepositoryImplTest {
         String tokenStr = "token1";
         UUID tokenId = UUID.randomUUID();
 
-        User user = new User("John", "Doe", "+1234567890", email, "Test@1234", "ADMIN");
+        User user = new User("John", "Doe", "+1234567890", email, "Test@1234", "ADMIN", false);
         Token token = new Token(tokenId, tokenStr, TokenType.BEARER, false, false,user);
 
         UserJpa userJpa = new UserJpa();
@@ -115,8 +115,8 @@ public class TokenJpaRepositoryImplTest {
         String tokenStr1 = "token1";
         String tokenStr2 = "token2";
 
-        User user1 = new User("John", "Doe", "+1234567890", email, "Test@1234", "ADMIN");
-        User user2 = new User("John", "Doe", "+1234567890", email, "Test@1234", "ADMIN");
+        User user1 = new User("John", "Doe", "+1234567890", email, "Test@1234", "ADMIN", false);
+        User user2 = new User("John", "Doe", "+1234567890", email, "Test@1234", "ADMIN", false);
         Token token1 = new Token(tokenId1, tokenStr1,TokenType.BEARER, false, false, user1);
         Token token2 = new Token(tokenId2, tokenStr2, TokenType.BEARER, false, false,user2);
 

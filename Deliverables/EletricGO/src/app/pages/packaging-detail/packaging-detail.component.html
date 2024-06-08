@@ -34,11 +34,11 @@
             </div>
             <div class="form-group">
                 <label for="inputLoadTime">Load Time</label>
-                <input class="form-control" type="number" name="inputLoadTime" [(ngModel)]="packaging.loadTime" required ngModel>
+                <input class="form-control" type="text" name="inputLoadTime" [(ngModel)]="packaging.loadTime" required ngModel>
             </div>
             <div class="form-group">
                 <label for="inputUnloadTime">Unload Time</label>
-                <input class="form-control" type="number" name="inputUnloadTime" [(ngModel)]="packaging.unloadTime" required ngModel>
+                <input class="form-control" type="text" name="inputUnloadTime" [(ngModel)]="packaging.unloadTime" required ngModel>
             </div>
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-outline-primary" *ngIf="id" [disabled]="!packagingDetailForm.form.valid">Save</button>

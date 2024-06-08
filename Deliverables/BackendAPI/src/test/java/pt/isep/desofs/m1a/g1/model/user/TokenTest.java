@@ -16,7 +16,7 @@ public class TokenTest {
 	public void testTokenAllArgsConstructor() {
 		UUID tokenId = UUID.randomUUID();
 		String tokenStr = "token123";
-		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN");
+		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN", false);
 
 		Token token = new Token(tokenId, tokenStr, TokenType.BEARER, false, false, user);
 
@@ -32,14 +32,14 @@ public class TokenTest {
 	public void testTokenSettersAndGetters() {
 		UUID tokenId = UUID.randomUUID();
 		String tokenStr = "token123";
-		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "OPERATOR");
+		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "OPERATOR", false);
 
 		Token token = new Token(tokenId, tokenStr, TokenType.BEARER, false, false, user);
 
 		// Utilize setters to modify the values
 		UUID newTokenId = UUID.randomUUID();
 		String newTokenStr = "newToken123";
-		User newUser = new User("Jane", "Smith", "+0987654321", "jane@example.com", "Test@4321", "OPERATOR");
+		User newUser = new User("Jane", "Smith", "+0987654321", "jane@example.com", "Test@4321", "OPERATOR", false);
 
 		token.setId(newTokenId);
 		token.setToken(newTokenStr);
@@ -60,7 +60,7 @@ public class TokenTest {
 	public void testTokenDefaultValues() {
 		UUID tokenId = UUID.randomUUID();
 		String tokenStr = "token123";
-		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN");
+		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN", false);
 
 		Token token = new Token(tokenId, tokenStr, TokenType.BEARER, false, false, user);
 
@@ -72,7 +72,7 @@ public class TokenTest {
 	@Test
 	public void testEqualsAndHashCode() {
 		UUID tokenId = UUID.randomUUID();
-		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN");
+		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN", false);
 		String tokenStr = "token123";
 		Token token1 = new Token(tokenId, tokenStr, TokenType.BEARER, false, false, user);
 		Token token2 = new Token(tokenId, tokenStr, TokenType.BEARER, false, false, user);
@@ -90,7 +90,7 @@ public class TokenTest {
 	@Test
 	public void testToString() {
 		UUID tokenId = UUID.randomUUID();
-		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN");
+		User user = new User("John", "Doe", "+1234567890", "john@example.com", "Test@1234", "ADMIN", false);
 		String tokenStr = "token123";
 		Token token = new Token(tokenId, tokenStr, TokenType.BEARER, false, false, user);
 

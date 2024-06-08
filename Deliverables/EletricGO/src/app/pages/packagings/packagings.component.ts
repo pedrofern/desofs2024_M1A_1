@@ -16,7 +16,7 @@ import { PackagingService } from 'src/services/packaging.service';
 })
 export class PackagingsComponent implements OnInit, OnDestroy, AfterViewInit {
     destroy$: Subject<boolean> = new Subject<boolean>();
-    displayedColumns: string[] = ['packagingId', 'deliveryId', 'truckId', 'x', 'y', 'z', 'loadTime', 'unloadTime', 'actions'];
+    displayedColumns: string[] = ['packagingId', 'deliveryId', 'truckId','loadTime', 'unloadTime', 'x', 'y', 'z', 'actions'];
     packagings: IPackaging[] = [];
     dataSource = new MatTableDataSource<IPackaging>;
 
@@ -27,12 +27,12 @@ export class PackagingsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Filter
     filterPackagingId?: string;
     filterDeliveryId?: number;
-    filterTruckId?: string;
+    filterTruckId?: number;
     filterX?: number;
     filterY?: number;
     filterZ?: number;
-    filterLoadTime?: number;
-    filterUnloadTime?: number;
+    filterLoadTime?: string;
+    filterUnloadTime?: string;
 
     filters: any = {
         packagingId: this.filterPackagingId,
@@ -63,6 +63,7 @@ export class PackagingsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getPackagings();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        console.log(this.packagings);
     }
 
     ngOnDestroy() {
@@ -71,12 +72,14 @@ export class PackagingsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     getPackagings(): void {
+        console.log(this.packagings);
         this.service.getPackagings(this.filters, this.sort.active, this.sort.direction, this.paginator?.pageIndex ?? 0, this.paginator?.pageSize ?? 5)
             .pipe(takeUntil(this.destroy$))
             .subscribe(response => {
                 this.packagings = PackagingMap.toList(response);
                 this.dataSource = new MatTableDataSource(this.packagings);
             })
+        console.log(this.packagings);
     }
 
     updateValue() {
@@ -93,12 +96,10 @@ export class PackagingsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     pageChanged(e: PageEvent) {
-        console.log(e);
         this.getPackagings();
     }
 
     customSort(e: Sort) {
-        console.log(e);
         this.sort.direction = e.direction;
         this.sort.active = e.active;
         this.getPackagings();

@@ -23,6 +23,8 @@ import pt.isep.desofs.m1a.g1.bean.RegisterRequest;
 import pt.isep.desofs.m1a.g1.dto.UserDto;
 import pt.isep.desofs.m1a.g1.model.user.Role;
 import pt.isep.desofs.m1a.g1.model.user.User;
+import pt.isep.desofs.m1a.g1.model.user.UserExtension;
+import pt.isep.desofs.m1a.g1.repository.UserExtensionRepository;
 import pt.isep.desofs.m1a.g1.repository.UserRepository;
 import pt.isep.desofs.m1a.g1.validator.PasswordValidator;
 
@@ -30,7 +32,8 @@ public class UserServiceImplTest {
 
 	@Mock
 	private UserRepository userRepo;
-
+	@Mock
+	private UserExtensionRepository userExtensionRepo;
 	@Mock
 	private PasswordEncoder passwordEncoder;
 
@@ -57,15 +60,18 @@ public class UserServiceImplTest {
 		String password = PasswordValidator.createPassword(request.getPassword());
 		String passwordEncoded = passwordEncoder2.encode(password);
 		User user = new User(request.getFirstName(), request.getLastName(), request.getPhoneNumber(),
-				request.getEmail(), passwordEncoded, request.getRole());
-
-		when(userRepo.save(any(User.class))).thenReturn(user);
+				request.getEmail(), passwordEncoded, request.getRole(), false);
+		UserExtension userExtension = new UserExtension(user.getUsername(), 0);
+		
+		when(userRepo.save(user)).thenReturn(user);
+		when(userExtensionRepo.save(userExtension)).thenReturn(userExtension);
 		when(passwordEncoder.encode(password)).thenReturn(passwordEncoded);
 
 		boolean result = userService.register(request);
 
 		assertTrue(result);
-		verify(userRepo, times(1)).save(any(User.class));
+		verify(userRepo, times(1)).save(user);
+		verify(userExtensionRepo, times(1)).save(userExtension);
 	}
 
 	@Test
@@ -73,7 +79,7 @@ public class UserServiceImplTest {
 		String id = "john.doe@example.com";
 		String role = "ADMIN";
 
-		User user = new User("John", "Doe", "123456789", id, "Pass@1234", "ADMIN");
+		User user = new User("John", "Doe", "123456789", id, "Pass@1234", "ADMIN", false);
 
 		when(userRepo.findByEmail(id)).thenReturn(Optional.of(user));
 		when(userRepo.save(any(User.class))).thenReturn(user);
@@ -89,7 +95,7 @@ public class UserServiceImplTest {
 	@Test
 	public void testGetAllUsers() {
 		String id = "john.doe@example.com";
-		User user = new User("John", "Doe", "123456789", id, "Pass@1234", "ADMIN");
+		User user = new User("John", "Doe", "123456789", id, "Pass@1234", "ADMIN", false);
 
 		when(userRepo.findAll()).thenReturn(List.of(user));
 
@@ -109,7 +115,7 @@ public class UserServiceImplTest {
 	@Test
 	public void testGetUserOk() {
 		String id = "john.doe@example.com";
-		User user = new User("John", "Doe", "123456789", id, "Pass@1234", "ADMIN");
+		User user = new User("John", "Doe", "123456789", id, "Pass@1234", "ADMIN", false);
 
 		when(userRepo.findByEmail(id)).thenReturn(Optional.of(user));
 
