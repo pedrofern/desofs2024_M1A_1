@@ -34,19 +34,7 @@ export class TokenService {
             return undefined;
         }
     
-        const roleFromToken = decodedToken.roles[0].authority;
-        if(roleFromToken === 'ADMIN'){
-        return '1';
-        } else if (roleFromToken === 'WAREHOUSE_MANAGER'){
-        return '2';
-        } else if (roleFromToken === 'FLEET_MANAGER'){
-        return '3';
-        } else if (roleFromToken === 'LOGISTICS_MANAGER'){
-        return '4';
-        } else if (roleFromToken === 'OPERATOR'){
-        return '5';
-        }
-        return undefined;
+        return decodedToken.roles[0].authority.substring(5);  
     }
 
     public getEmail(): string | undefined {

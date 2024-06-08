@@ -5,18 +5,17 @@
                 Deliveries
             </h3>
         </div>
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-primary btn-sm" routerLink="/deliveries/create">Create</button>
+        <div class="d-flex justify-content-end mb-2">
+            <button type="button" class="btn btn-primary btn-sm" *ngIf="validateRole()" routerLink="/deliveries/create">Create</button>
         </div>
         <mat-table [dataSource]="dataSource" matSort (matSortChange)="customSort($event)">
-
             <ng-container matColumnDef="deliveryId">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
                         <input matInput type="number" [(ngModel)]="filterDeliveryId" (keyup.enter)="updateValue()" placeholder="Delivery">
                     </mat-form-field>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" >{{ element.deliveryId }}</mat-cell>
+                <mat-cell *matCellDef="let element">{{ element.deliveryId }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="deliveryDate">
@@ -28,7 +27,6 @@
                 <mat-cell *matCellDef="let element">{{ element.deliveryDate }}</mat-cell>
             </ng-container>
 
-
             <ng-container matColumnDef="weight">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                     <mat-form-field>
@@ -37,7 +35,6 @@
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
-
 
             <ng-container matColumnDef="warehouseId">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -48,26 +45,18 @@
                 <mat-cell *matCellDef="let element">{{ element.warehouseId }}</mat-cell>
             </ng-container>
 
-
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button mat-icon-button routerLink="/deliveries/edit/{{element.deliveryId}}">
+                    <button *ngIf="validateRole()" mat-icon-button routerLink="/deliveries/edit/{{element.deliveryId}}">
                         <mat-icon>edit</mat-icon>
                     </button>
                 </mat-cell>
             </ng-container>
 
-
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
-
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
-        <mat-paginator matPaginator
-            [length]="totalRecords"
-            [pageSizeOptions]="pageSizes"
-            showFirstLastButtons
-            (page)="pageChanged($event)">
-        </mat-paginator>
+        <mat-paginator [length]="totalRecords" [pageSizeOptions]="pageSizes" showFirstLastButtons (page)="pageChanged($event)"></mat-paginator>
     </div>
 </div>

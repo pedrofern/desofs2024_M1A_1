@@ -6,6 +6,7 @@ import {IWarehouseDto} from "../../../dtos/warehouse/IWarehouseDto";
 import {DeliveryPlanService} from "../../../services/delivery-plan.service";
 import {IDeliveryPlanDTO} from "../../../dtos/deliveryplan/IDeliveryPlanDTO";
 import {IRouteDTO} from "../../../model/routes/IRouteDTO";
+import { TokenService } from 'src/services/TokenService';
 
 @Component({
     selector: 'app-delivery-plan',
@@ -25,7 +26,8 @@ export class DeliveryPlanComponent implements OnInit {
     displayedColumnsRoutes: string[] = ['routeId', 'idDepartureWarehouse', 'idArrivalWarehouse', 'distance', 'time', 'energy', 'extraTime'];
 
     constructor(
-        private deliveryPlanService: DeliveryPlanService
+        private deliveryPlanService: DeliveryPlanService,
+        public token: TokenService
     ) {
     }
 
@@ -74,5 +76,9 @@ export class DeliveryPlanComponent implements OnInit {
     ngOnDestroy() {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
+    }
+
+    validateRole(): boolean {
+        return this.token.getRole() === 'ADMIN' || this.token.getRole() === 'WAREHOUSE_MANAGER';
     }
 }
