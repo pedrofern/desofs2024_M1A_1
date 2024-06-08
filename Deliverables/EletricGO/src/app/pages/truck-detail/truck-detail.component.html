@@ -4,7 +4,7 @@
           <h2>{{!id ? 'Create' : 'Edit'}} Truck {{truck.truckId}}</h2>
           <div class="form-group" *ngIf="!id">
             <label for="inputTruckId">Licence Plate</label>
-            <input class="form-control" type="text" [inputMask]="matriculaInputMask" name="inputTruckId" [(ngModel)]="truck.truckId" required ngModel>
+            <input class="form-control" type="number" name="inputTruckId" [(ngModel)]="truck.truckId" required ngModel>
           </div>
 
           <div class="form-group">
@@ -18,23 +18,28 @@
           </div>
 
           <div class="form-group">
-            <label for="inputMaximumBattery">Maximum Battery</label>
-            <input class="form-control" type="number" name="inputMaximumBattery" [(ngModel)]="truck.maximumBattery" required ngModel>
-          </div>
-
-          <div class="form-group">
-            <label for="inputAutonomy">Autonomy</label>
-            <input class="form-control" type="number" name="inputAutonomy" [(ngModel)]="truck.autonomy" required ngModel>
-          </div>
-
-          <div class="form-group">
-            <label for="inputChargingTime">Charging Time</label>
-            <input class="form-control" type="number" name="inputChargingTime" [(ngModel)]="truck.chargingTime" required ngModel>
-          </div>
-
-          <div class="form-group">
             <div>Status</div>
             <mat-slide-toggle color="blue" name="inputActive" [(ngModel)]="truck.active">{{ truck.active ? "Active" : "Inactive" }}</mat-slide-toggle>
+          </div>
+
+          <div class="form-group">
+              <label for="inputBatteryId">Battery Id</label>
+              <input class="form-control" type="number" name="inputMaximumBattery" [(ngModel)]="truck.battery.batteryId" required ngModel>
+          </div>
+
+          <div class="form-group">
+              <label for="inputMaximumBattery">Maximum Battery</label>
+              <input class="form-control" type="number" name="inputMaximumBattery" [(ngModel)]="truck.battery.maximumBattery" required ngModel>
+          </div>
+
+          <div class="form-group">
+              <label for="inputAutonomy">Autonomy</label>
+              <input class="form-control" type="number" name="inputAutonomy" [(ngModel)]="truck.battery.autonomy" required ngModel>
+          </div>
+
+          <div class="form-group">
+              <label for="inputChargingTime">Charging Time</label>
+              <input class="form-control" type="number" name="inputChargingTime" [(ngModel)]="truck.battery.chargingTime" required ngModel>
           </div>
 
           <div class="d-flex justify-content-center">

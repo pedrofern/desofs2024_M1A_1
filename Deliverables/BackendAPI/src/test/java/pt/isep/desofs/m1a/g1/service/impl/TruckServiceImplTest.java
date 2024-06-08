@@ -75,7 +75,7 @@ public class TruckServiceImplTest {
     @Test
     public void testUpdateTruck() {
         Truck truck = new Truck(1L, 5000.0, 20000.0, true, new Battery(1L, 500.0, 1000.0, 2.0));
-        when(truckRepository.findByTruckId(1L)).thenReturn(truck);
+        when(truckRepository.findByTruckId(1L)).thenReturn(Optional.of(truck));
 
         TruckDto truckDto = new TruckDto();
         truckDto.setTruckId(1L);
@@ -104,7 +104,7 @@ public class TruckServiceImplTest {
     @Test
     public void testGetTruck() {
         Truck truck = new Truck(1L, 5000.0, 20000.0, true, new Battery(1L, 500.0, 1000.0, 2.0));
-        when(truckRepository.findByTruckId(1L)).thenReturn(truck);
+        when(truckRepository.findByTruckId(1L)).thenReturn(Optional.of(truck));
 
         TruckDto result = truckService.getTruck(1L);
 

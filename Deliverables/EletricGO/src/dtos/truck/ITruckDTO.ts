@@ -1,9 +1,9 @@
+import IBatteryDTO from "./IBatteryDTO";
+
 export default interface ITruckDTO {
-    truckId: string;
+    truckId: number;
     tare: number;
     loadCapacity: number;
-    maximumBattery: number;
-    autonomy: number;
-    chargingTime: number;
     active: boolean;
+    battery: IBatteryDTO;
 }

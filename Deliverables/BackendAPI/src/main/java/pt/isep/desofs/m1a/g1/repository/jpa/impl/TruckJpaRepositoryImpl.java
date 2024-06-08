@@ -23,9 +23,12 @@ public class TruckJpaRepositoryImpl implements TruckRepository {
     private TruckJpaMapper mapper = TruckJpaMapper.INSTANCE;
 
     @Override
-    public Truck findByTruckId(Long id) {
+    public Optional<Truck> findByTruckId(Long id) {
         Optional<TruckJpa> opt = repo.findByTruckId(id);
-        return opt.map(mapper::toDomainModel).orElse(null);
+        if (opt.isPresent()) {
+            return Optional.of(mapper.toDomainModel(opt.get()));
+        }
+        return Optional.empty();
     }
 
     @Override

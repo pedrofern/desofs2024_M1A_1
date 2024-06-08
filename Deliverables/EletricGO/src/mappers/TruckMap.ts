@@ -8,10 +8,8 @@ export class TruckMap {
             truckId: dto.truckId,
             tare: dto.tare,
             loadCapacity: dto.loadCapacity,
-            maximumBattery: dto.maximumBattery,
-            autonomy: dto.autonomy,
-            chargingTime: dto.chargingTime,
-            active: dto.active
+            active: dto.active,
+            battery: dto.battery
         }
     }
 
@@ -30,13 +28,11 @@ export class TruckMap {
             truckId: truck.truckId,
             tare: truck.tare,
             loadCapacity: truck.loadCapacity,
-            maximumBattery: truck.maximumBattery,
-            autonomy: truck.autonomy,
-            chargingTime: truck.chargingTime,
-            active: truck.active
+            active: truck.active,
+            battery: truck.battery
         }
-    }  
-    
+    }
+
     public static toDTOList(trucks: ITruck[]): ITruckDTO[] {
         const list: ITruck[] = []
 
