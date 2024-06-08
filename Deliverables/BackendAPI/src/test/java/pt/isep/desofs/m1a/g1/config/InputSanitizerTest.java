@@ -22,62 +22,61 @@ public class InputSanitizerTest {
     }
 
     @Test
-    public void testContainsMaliciousContent_NullInput() {
+    public void testContainsMaliciousContentNullInput() {
         assertFalse(InputSanitizer.containsMaliciousContent(null));
     }
 
     @Test
-    public void testContainsMaliciousContent_EmptyInput() {
+    public void testContainsMaliciousContentEmptyInput() {
         assertFalse(InputSanitizer.containsMaliciousContent(""));
     }
 
     @Test
-    public void testContainsMaliciousContent_SQLInjection() {
+    public void testContainsMaliciousContentSQLInjection() {
         String input = "SELECT * FROM users WHERE username='admin'; --";
         assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
 
     @Test
-    public void testContainsMaliciousContent_XSS() {
+    public void testContainsMaliciousContentXSS() {
         String input = "<script>alert('XSS');</script>";
         assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
 
     @Test
-    public void testContainsMaliciousContent_DangerousHTMLTags() {
+    public void testContainsMaliciousContentDangerousHTMLTags() {
         String input = "<iframe src='http://example.com'></iframe>";
         assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
 
     @Test
-    public void testContainsMaliciousContent_SafeInput() {
+    public void testContainsMaliciousContentSafeInput() {
         String input = "Hello, world!";
         assertFalse(InputSanitizer.containsMaliciousContent(input));
     }
 
     @Test
-    public void testContainsMaliciousContent_SafeHTML() {
+    public void testContainsMaliciousContentSafeHTML() {
         String input = "<b>Bold Text</b>";
         assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
 
     @Test
-    public void testContainsMaliciousContent_SQLKeywordWithinSafeInput() {
+    public void testContainsMaliciousContentSQLKeywordWithinSafeInput() {
         String input = "This is a select few items.";
         assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
 
     @Test
-    public void testContainsMaliciousContent_DoubleQuote() {
+    public void testContainsMaliciousContentDoubleQuote() {
         String input = "Hello;--, world!";
         assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
 
     @Test
-    public void testContainsMaliciousContent_Ampersand() {
+    public void testContainsMaliciousContentAmpersand() {
         String input = "Hello&, world!";
         assertTrue(InputSanitizer.containsMaliciousContent(input));
     }
-
-
+    
 }
