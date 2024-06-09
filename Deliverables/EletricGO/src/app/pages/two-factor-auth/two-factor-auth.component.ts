@@ -10,8 +10,8 @@ import { FormControl, AbstractControl } from '@angular/forms';
 })
 export class TwoFactorAuthComponent {
 
-  qrCodeUrl: string = "";
-  secret: string = "";
+  qrCodeUrl = "";
+  secret = "";
   code = new FormControl('', [this.exactlySixDigits, this.onlyNumbers]);
 
   constructor(public dialogRef: MatDialogRef<TwoFactorAuthComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private twoFactorAuthService: TwoFactorAuthService) { }
