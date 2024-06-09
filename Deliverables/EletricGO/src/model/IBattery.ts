@@ -1,4 +1,4 @@
-export default interface ITruck {
+export default interface IBattery {
     batteryId: number;
     maximumBattery: number;
     autonomy: number;
