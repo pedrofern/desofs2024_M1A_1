@@ -175,7 +175,7 @@ Deploy Images Release diagram:
 
 #### Execute Frontend Container
 >
->docker run -d --name frontend_container -p 8082:80 1060503/frontend:latest
+>docker run -d --name frontend_container -p 4200:80 1060503/frontend:latest
 
 ## Frontend
 
