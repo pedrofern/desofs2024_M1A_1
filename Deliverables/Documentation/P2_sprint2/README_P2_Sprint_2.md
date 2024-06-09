@@ -16,6 +16,7 @@
   - [Continuous Integration (CI)](#continuous-integration-ci)
   - [Continuous Deployment (CD)](#continuous-deployment-cd)
   - [Automation Tools](#automation-tools)
+  - [Pull and Run Docker Images](#pull-and-run-docker-images)
 - [Frontend](#frontend)
   - [Key Features](#key-features)
   - [Development Setup](#development-setup)
@@ -158,6 +159,24 @@ Deploy Images Release diagram:
 
 ![Docker Hub](dockerhub.png)
 
+### Pull and Run Docker Images
+
+#### Pull Backend Image
+>
+>docker pull 1060503/backend
+
+#### Execute Backend Container
+>
+>docker run -d --name backend_container --platform linux/amd64 -p 8081:8081 1060503/backend
+
+#### Pull Frontend Image
+>
+>docker pull 1060503/frontend
+
+#### Execute Frontend Container
+>
+>docker run -d --name frontend_container -p 8080:80 1060503/frontend:latest
+
 ## Frontend
 
 The frontend is developed using Angular. It is responsible for the user interface and user experience of the EletricGo application.
@@ -231,7 +250,6 @@ Other security requirement implemented in the backend was monitoing and logging 
 We implemented an interceptor witch has only the issue to persiste into the database all the requests, (user, date/time, endpoint) that are made to the server.
 
 ![Monitoring](monitoring.png)
-
 
 #### Frontend
 
@@ -310,6 +328,7 @@ Ensures only authorized users can manage truck data using role-based access cont
 // Only FLEET_MANAGER can access these endpoints
 .requestMatchers(FLEET_LIST_URL).hasAnyRole(Role.ADMIN.getName(), Role.FLEET_MANAGER.getName())
 ```
+
 ```java
 validateRole(): boolean {
         return this.token.getRole() === 'ADMIN' || this.token.getRole() === 'FLEET_MANAGER';
@@ -319,6 +338,7 @@ validateRole(): boolean {
 > **Input Validation**
 
 Prevents injection attacks by validating all input data.
+
 ```java
 private void validateTruckDto(TruckDto truckDto) {
         if (truckDto.getBattery() == null) {
@@ -339,6 +359,7 @@ private void validateTruckDto(TruckDto truckDto) {
 ```
 
 > **Secure Error Handling**
+
 - **Exception Handling:** Catches and manages errors gracefully, providing meaningful and non-sensitive messages to users.
 - **Logging:** Logs detailed error information for debugging without exposing sensitive data.
 - **Generic User Messages:** Ensures users receive generic error messages that do not reveal internal system details.
