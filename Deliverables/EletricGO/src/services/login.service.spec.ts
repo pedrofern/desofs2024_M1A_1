@@ -33,7 +33,7 @@ describe('LoginService', () => {
   //Test validateLogin on Service
   it('should return expected validateLogin (HttpClient called once)', () => {
 
-    const createLogin: ILogin = {email: 'teste@isep.ipp.pt', password: '123'}
+    const createLogin: ILogin = {email: 'teste@isep.ipp.pt', password: '123', secret: '123', code: 123};
 
     // Make an HTTP POST request
     loginService.validateLogin(createLogin).subscribe(data =>

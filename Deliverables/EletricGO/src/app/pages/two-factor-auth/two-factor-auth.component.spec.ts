@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TwoFactorAuthComponent } from './two-factor-auth.component';
 
 describe('TwoFactorAuthComponent', () => {
@@ -8,7 +9,13 @@ describe('TwoFactorAuthComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TwoFactorAuthComponent ]
+      imports: [HttpClientTestingModule],
+      declarations: [ TwoFactorAuthComponent ],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} }
+        // other providers...
+      ]
     })
     .compileComponents();
 
