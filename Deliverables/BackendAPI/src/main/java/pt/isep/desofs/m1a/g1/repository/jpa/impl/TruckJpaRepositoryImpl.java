@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
+import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.delivery.Delivery;
 import pt.isep.desofs.m1a.g1.model.truck.Truck;
 import pt.isep.desofs.m1a.g1.repository.TruckRepository;
@@ -68,5 +69,24 @@ public class TruckJpaRepositoryImpl implements TruckRepository {
                 .filter(TruckJpa::isActive)
                 .map(mapper::toDomainModel)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Truck update(Truck truck) {
+        Optional<TruckJpa> truckJpaOptional = repo.findByTruckId(truck.getTruckId());
+        if (truckJpaOptional.isEmpty()) {
+            throw new NotFoundException("Truck not found with identifier: " + truck.getTruckId());
+        }
+
+        TruckJpa existingTruckJpa = truckJpaOptional.get();
+        existingTruckJpa.setActive(truck.isActive());
+        existingTruckJpa.setTare(truck.getTare());
+        existingTruckJpa.setLoadCapacity(truck.getLoadCapacity());
+        existingTruckJpa.getBattery().setAutonomy(truck.getBattery().getAutonomy());
+        existingTruckJpa.getBattery().setChargingTime(truck.getBattery().getChargingTime());
+        existingTruckJpa.getBattery().setMaximumBattery(truck.getBattery().getMaximumBattery());
+
+        TruckJpa savedTruckJpa = repo.save(existingTruckJpa);
+        return mapper.toDomainModel(savedTruckJpa);
     }
 }
