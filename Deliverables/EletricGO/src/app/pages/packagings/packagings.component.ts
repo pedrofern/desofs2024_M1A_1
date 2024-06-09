@@ -9,6 +9,7 @@ import { PackagingMap } from 'src/mappers/PackagingMap';
 import { IPackaging } from 'src/model/IPackaging';
 import { GlobalService } from 'src/services/global.service';
 import { PackagingService } from 'src/services/packaging.service';
+import {TokenService} from "../../../services/TokenService";
 @Component({
     selector: 'app-packagings',
     templateUrl: './packagings.component.html',
@@ -48,7 +49,8 @@ export class PackagingsComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         private service: PackagingService,
         public dialog: MatDialog,
-        public global: GlobalService
+        public global: GlobalService,
+        public token: TokenService
     ) { }
 
     @ViewChild(MatSort) sort: MatSort = new MatSort;
@@ -103,5 +105,9 @@ export class PackagingsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.sort.direction = e.direction;
         this.sort.active = e.active;
         this.getPackagings();
+    }
+
+    validateRole(): boolean {
+        return this.token.getRole() === 'ADMIN' || this.token.getRole() === 'LOGISTICS_MANAGER';
     }
 }
