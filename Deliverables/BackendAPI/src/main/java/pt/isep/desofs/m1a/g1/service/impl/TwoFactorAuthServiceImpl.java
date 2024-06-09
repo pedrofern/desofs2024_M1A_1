@@ -27,7 +27,7 @@ public class TwoFactorAuthServiceImpl implements TwoFactorAuthService {
         GoogleAuthenticatorKey key;
         if (secretKey == null || secretKey.isEmpty()) {
             key = gAuth.createCredentials(username);
-            userExtensionRepository.saveUserCredentials(username, secretKey, 0, null);
+            userExtensionRepository.saveUserCredentials(username, key.getKey(), 0, null);
         } else {
             key = new GoogleAuthenticatorKey.Builder(secretKey).build();
         }
