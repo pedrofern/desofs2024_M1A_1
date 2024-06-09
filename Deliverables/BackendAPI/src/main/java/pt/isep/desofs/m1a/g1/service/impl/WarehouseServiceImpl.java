@@ -22,13 +22,13 @@ public class WarehouseServiceImpl implements WarehouseService {
     private final WarehouseRepository warehouseRepository;
 
     @Autowired
-    private GeolocalizacaoService geoService;
+    private GeoLocalizationService geoService;
 
     @Override
     public WarehouseDto createWarehouse(CreateWarehouseDto warehouseDto) {
 
         Warehouse warehouse;
-        GeolocalizacaoResponseDTO response = geoService.obterLocalizacao(warehouseDto.getLatitude(), warehouseDto.getLongitude());
+        GeoLocalizationResponseDTO response = geoService.getGeoLocalization(warehouseDto.getLatitude(), warehouseDto.getLongitude());
         if (response == null) {
             warehouse = convertToEntity(warehouseDto);
         } else {
@@ -85,9 +85,9 @@ public class WarehouseServiceImpl implements WarehouseService {
                 warehouseDto.getLongitude(), true);
     }
 
-    private Warehouse convertToEntity(CreateWarehouseDto warehouseDto, GeolocalizacaoResponseDTO response) {
-        return new Warehouse(warehouseDto.getIdentifier(), warehouseDto.getDesignation(), response.getRua(), response.getN_porta(),
-                response.getFreguesia(), response.getDistrito(), response.getCP() == null ? "4420-123" : response.getCP(), warehouseDto.getLatitude(),
+    private Warehouse convertToEntity(CreateWarehouseDto warehouseDto, GeoLocalizationResponseDTO response) {
+        return new Warehouse(warehouseDto.getIdentifier(), warehouseDto.getDesignation(), response.getRua(), response.getNporta(),
+                response.getFreguesia(), response.getDistrito(), response.getCp() == null ? "4420-123" : response.getCp(), warehouseDto.getLatitude(),
                 warehouseDto.getLongitude(), true);
     }
 
