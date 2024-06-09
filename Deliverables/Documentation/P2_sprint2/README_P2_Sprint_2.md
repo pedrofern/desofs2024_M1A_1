@@ -291,6 +291,67 @@ To prevent the abuse scenarios identified, various security measures have been i
 
 ### Truck Aggregate
 
+The Truck Aggregate is responsible for managing all aspects of truck data, including creation, updating, and retrieval. This component ensures accurate and secure management of truck information essential for logistics operations.
+
+#### Security Measures
+
+> **User Authentication and Authorization**
+
+Ensures only authorized users can manage truck data using role-based access control.
+
+```java
+// Only FLEET_MANAGER can access these endpoints
+.requestMatchers(FLEET_LIST_URL).hasAnyRole(Role.ADMIN.getName(), Role.FLEET_MANAGER.getName())
+```
+```java
+validateRole(): boolean {
+        return this.token.getRole() === 'ADMIN' || this.token.getRole() === 'FLEET_MANAGER';
+    }
+```
+
+> **Input Validation**
+
+Prevents injection attacks by validating all input data.
+```java
+private void validateTruckDto(TruckDto truckDto) {
+        if (truckDto.getBattery() == null) {
+            throw new InvalidBatteryException("Battery information cannot be null");
+        }
+        if (truckDto.getTare() < 0) {
+            throw new InvalidTruckException("Tare must be positive");
+        }
+
+        if (InputSanitizer.containsMaliciousContent(String.valueOf(truckDto.getTruckId())) ||
+                InputSanitizer.containsMaliciousContent(String.valueOf(truckDto.getTare())) ||
+                InputSanitizer.containsMaliciousContent(String.valueOf(truckDto.getLoadCapacity())) ||
+                InputSanitizer.containsMaliciousContent(String.valueOf(truckDto.isActive())) ||
+                InputSanitizer.containsMaliciousContent(truckDto.getBattery().toString())) {
+            throw new InvalidTruckException("Request contains potentially malicious content");
+        }
+    }
+```
+
+> **Secure Error Handling**
+- **Exception Handling:** Catches and manages errors gracefully, providing meaningful and non-sensitive messages to users.
+- **Logging:** Logs detailed error information for debugging without exposing sensitive data.
+- **Generic User Messages:** Ensures users receive generic error messages that do not reveal internal system details.
+
+```java
+@Override
+public TruckDto getTruck(long truckId) {
+    try {
+        return truckRepository.findById(truckId)
+            .orElseThrow(() -> new InvalidTruckException("Truck not found"));
+    } catch (InvalidTruckException e) {
+        logger.error("Error fetching truck: {}", e.getMessage());
+        throw e;
+    } catch (Exception e) {
+        logger.error("Unexpected error fetching truck", e);
+        throw new RuntimeException("Unexpected error occurred. Please try again later.");
+    }
+}
+```
+
 ### Logistics Aggregate
 
 The logistics aggregate is responsible for managing the packages, their delivery, their truck and the position inside the truck.
