@@ -263,9 +263,31 @@ To prevent the abuse scenarios identified, various security measures have been i
 3. **Role-based authorization**:
     - We set up authorization based on roles to control access to different system functionalities:
         - **Operator**: Users with the operator role only have access to read operations (GET).
-        - **Warehouse**: Users with the warehouse role have full access, being able to perform all operations (GET, POST, PUT, DELETE).
+        - **Warehouse**: Users with the warehouse role have full access for all operations (CRUD).
+
+4. **Validation of the object received by the geolocation API:**
+    - Validation has been added to the object received by the external API for geolocation search to guarantee the integrity and compliance of the data received, avoiding code injections and malformed data.
+
+5. **New rest template**:
+    - A new REST template has been set up with improved HTTP connection settings to increase efficiency and avoid running out of resources.
+    - A maximum total of 100 connections and a maximum time per connection of 5 seconds have been set.
 
 ### Delivery Aggregate
+
+To prevent the abuse scenarios identified, various security measures have been implemented on both the backend and the frontend. In addition to what has been implemented for all aggregates, the following has also been implemented:
+
+1. **Rate Limit Interceptor**:
+    - We have implemented a rate limit interceptor to limit the number of requests a user can make to the API.
+    - The limit is set to 1000 requests per minute, thus preventing brute force and DDoS attacks.
+
+2. **Application Audit Aware**:
+    - We've added application-aware auditing to monitor and log activities on the system.
+    - This includes tracking user actions and system changes, helping to detect and respond to suspicious activity.
+
+3. **Role-based authorization**:
+    - We set up authorization based on roles to control access to different system functionalities:
+        - **Operator**: Users with the operator role only have access to read operations (GET).
+        - **Warehouse**: Users with the warehouse role have full access for all operations (CRUD).
 
 ### Truck Aggregate
 

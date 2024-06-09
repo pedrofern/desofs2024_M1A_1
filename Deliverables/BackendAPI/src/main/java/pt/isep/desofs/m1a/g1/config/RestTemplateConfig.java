@@ -1,4 +1,4 @@
-package pt.isep.desofs.m1a.g1.service.impl;
+package pt.isep.desofs.m1a.g1.config;
 
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
