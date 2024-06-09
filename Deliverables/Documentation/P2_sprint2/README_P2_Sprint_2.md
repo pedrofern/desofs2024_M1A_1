@@ -167,7 +167,7 @@ Deploy Images Release diagram:
 
 #### Execute Backend Container
 >
->docker run -d --name backend_container --platform linux/amd64 -p 8081:8081 1060503/backend
+>docker run -d --name backend_container --platform linux/amd64 -p 8080:80 1060503/backend
 
 #### Pull Frontend Image
 >
@@ -175,7 +175,7 @@ Deploy Images Release diagram:
 
 #### Execute Frontend Container
 >
->docker run -d --name frontend_container -p 8080:80 1060503/frontend:latest
+>docker run -d --name frontend_container -p 8081:8081 1060503/frontend:latest
 
 ## Frontend
 

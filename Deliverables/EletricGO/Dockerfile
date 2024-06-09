@@ -15,7 +15,13 @@ RUN npm run build --prod
 
 # Use uma imagem base do Nginx para servir a aplicação
 FROM nginx:alpine
-COPY --from=build /app/dist/ /usr/share/nginx/html
+COPY --from=build /app/dist/spa /usr/share/nginx/html
 
 # Copie a configuração customizada do Nginx, se houver
 # COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expor a porta padrão do Nginx
+EXPOSE 80
+
+# Comando para iniciar o Nginx
+CMD ["nginx", "-g", "daemon off;"]
