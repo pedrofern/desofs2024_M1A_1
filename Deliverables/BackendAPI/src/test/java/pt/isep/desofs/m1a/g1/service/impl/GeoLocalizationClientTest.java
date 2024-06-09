@@ -47,21 +47,21 @@ public class GeoLocalizationClientTest {
 		return responseDTO;
 	}
 
-//	@Test
-//	public void testGetData() {
-//		String url = "https://geoapi.pt/gps/{latitude},{longitude}?json=1";
-//		double latitude = 38.748406;
-//		double longitude = -9.102984;
-//		GeoLocalizationResponseDTO responseDTO = getGeoLocalizationResponseDTO();
-//
-//		when(restTemplate.getForObject(url, GeoLocalizationResponseDTO.class)).thenReturn(responseDTO);
-//
-//		GeoLocalizationResponseDTO result = geoLocalizationClient.getData(latitude, longitude);
-//
-//		assertNotNull(result);
-//		assertTrue(responseDTO.getLat() == result.getLat());
-//		assertTrue(responseDTO.getLon() == result.getLon());
-//	}
+	@Test
+	public void testGetData() {
+		String url = "https://geoapi.pt/gps/38.748406,-9.102984?json=1";
+		double latitude = 38.748406;
+		double longitude = -9.102984;
+		GeoLocalizationResponseDTO responseDTO = getGeoLocalizationResponseDTO();
+
+		when(restTemplate.getForObject(url, GeoLocalizationResponseDTO.class)).thenReturn(responseDTO);
+
+		GeoLocalizationResponseDTO result = geoLocalizationClient.getData(latitude, longitude);
+
+		assertNotNull(result);
+		assertTrue(responseDTO.getLat() == result.getLat());
+		assertTrue(responseDTO.getLon() == result.getLon());
+	}
 
 	@Test
 	public void testGetDataWithException() {

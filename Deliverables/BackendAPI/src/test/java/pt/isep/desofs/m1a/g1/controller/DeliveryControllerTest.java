@@ -1,8 +1,5 @@
 package pt.isep.desofs.m1a.g1.controller;
 
-import com.itextpdf.kernel.pdf.*;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,15 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import pt.isep.desofs.m1a.g1.dto.CreateDeliveryDTO;
 import pt.isep.desofs.m1a.g1.dto.DeliveryDTO;
-import pt.isep.desofs.m1a.g1.dto.RouteDTO;
 import pt.isep.desofs.m1a.g1.dto.UpdateDeliveryDTO;
-import pt.isep.desofs.m1a.g1.model.delivery.DeliveryPlan;
 import pt.isep.desofs.m1a.g1.service.PdfService;
 import pt.isep.desofs.m1a.g1.service.impl.DeliveryPlanServiceImpl;
 import pt.isep.desofs.m1a.g1.service.impl.DeliveryServiceImpl;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Map;
 
