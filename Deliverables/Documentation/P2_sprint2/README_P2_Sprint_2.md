@@ -40,6 +40,7 @@
 The main objective of this document is to present the second sprint P2 implementation decisions.
 
 As we decided in the previous document, we have three main components:
+
   1. Frontend
   2. Backend
   3. Database
@@ -78,16 +79,16 @@ We have created the following issues to track the tasks related to the DESFOS pr
 - [#16 FE - Truck implementation](https://github.com/pedrofern/desofs2024_M1A_1/issues/16)
 - [#17 FE - Logistics implementation](https://github.com/pedrofern/desofs2024_M1A_1/issues/17)
 
-
 ## Build and Deploy Process
 
-We have set up a continuous integration and continuous deployment (CI/CD) pipeline using GitHub Actions. The pipeline is configured to automate the build, test, and 
+We have set up a continuous integration and continuous deployment (CI/CD) pipeline using GitHub Actions. The pipeline is configured to automate the build, test, and
 
 Deployment processes for both the frontend and backend components of the project is done when a tag v*.*.* is created.
 
 Here there is a copy of the pipeline files:
-  * CI/CD Build Workflow file: [CI/CD Build Workflow](pipeline.yml)
-  * Deploy Images Release file: [Deploy Images](release.yml)
+
+- CI/CD Build Workflow file: [CI/CD Build Workflow](pipeline.yml)
+- Deploy Images Release file: [Deploy Images](release.yml)
 
 ### Continuous Integration (CI)
 
@@ -123,22 +124,20 @@ Deploy Images Release diagram:
 
 ![Deploy Images Release](release.png)
 
-
 ### Automation Tools
 
 - **Dependabot**:
   - GitHub tool enabled to keep dependencies up to date.
-- **Codacy Quality**: 
+- **Codacy Quality**:
   - Enabled to monitor code quality.
   - [![Codacy Quality Badge](https://app.codacy.com/project/badge/Grade/65b4c2ec5835498eb2463147b77be122)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-- **Codacy Coverage**: 
-  - Enabled to monitor code coverage. 
+- **Codacy Coverage**:
+  - Enabled to monitor code coverage.
   - [![Codacy Coverage Badge](https://app.codacy.com/project/badge/Coverage/65b4c2ec5835498eb2463147b77be122)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
-- **Deploy to Docker Hub**: 
+- **Deploy to Docker Hub**:
   - Enabled to deploy Docker images to Docker Hub.
-
 
 ### Tools Evidence
 
@@ -150,9 +149,6 @@ Deploy Images Release diagram:
   - ![Codacy](codacy.png)  
 - **Docker Hub**:
   - ![Docker Hub](dockerhub.png)
-
-
-
 
 ## Frontend
 
@@ -177,7 +173,6 @@ The frontend is developed using Angular. It is responsible for the user interfac
 
 - **Unit Tests**: Run unit tests using `npm run test-no-browser`.
 
-
 ## Backend
 
 The backend is developed using Java and Spring Boot. It provides RESTful APIs for the frontend and handles business logic, data processing and integration with the database.
@@ -201,12 +196,9 @@ The backend is developed using Java and Spring Boot. It provides RESTful APIs fo
 - **Unit Tests**: Run unit tests using `mvn test jacoco:report`.
 - **Integration Tests**: Run integration tests using the Postman collection file `BackendAPI/EletricGo_BackEnd.postman_collection.json`.
 
-
-
 ## Database
 
 The database is developed using PostgreSQL. It stores all the data related to the DESFOS application, including user data, warehouse information, delivery plans, truck data, and logistics operations.
-
 
 ## Aggregate Specifications
 
@@ -222,7 +214,7 @@ The backend was the focus of the security requirements and the frontend was the 
 
 The structure of the backend was designed to ensure that the data is secure and that the APIs are protected from unauthorized access.
 
-> **We implemented user authentication and authorization, input validation, and data encryption to protect sensitive information, with many other security concerns.** 
+> **We implemented user authentication and authorization, input validation, and data encryption to protect sensitive information, with many other security concerns.**
 
 > **All of this was possible using interceptors for each request to the server.**
 
@@ -232,18 +224,15 @@ Obviously, we had many security concerns in the frontend, such as ensuring that 
 
 Aldo, we have specific requirements for each component.
 
-
 ### User Aggregate
 
 The user aggregate is responsible for managing user accounts and profiles. It is probably the most critical part of the application, as it deals with sensitive information such as user credentials and personal data.
 
 To solve this requirement and mitigate the risks, it was implemented 2FA (Two-Factor Authentication) and lock account after n failed login attempts.
 
-
 > **Lock account after n failed login attempts**
 
 ![Lock account](lock_account.png)
-
 
 > **2FA (Two-Factor Authentication)**
 
@@ -253,12 +242,24 @@ This requirement was implemented using the Google Authenticator app to generate 
 
 ### Warehouse Aggregate
 
+To prevent the abuse scenarios identified, various security measures have been implemented on both the backend and the frontend. In addition to what has been implemented for all aggregates, the following has also been implemented:
+
+1. **Rate Limit Interceptor**:
+    - We have implemented a rate limit interceptor to limit the number of requests a user can make to the API.
+    - The limit is set to 1000 requests per minute, thus preventing brute force and DDoS attacks.
+
+2. **Application Audit Aware**:
+    - We've added application-aware auditing to monitor and log activities on the system.
+    - This includes tracking user actions and system changes, helping to detect and respond to suspicious activity.
+
+3. **Role-based authorization**:
+    - We set up authorization based on roles to control access to different system functionalities:
+        - **Operator**: Users with the operator role only have access to read operations (GET).
+        - **Warehouse**: Users with the warehouse role have full access, being able to perform all operations (GET, POST, PUT, DELETE).
 
 ### Delivery Aggregate
 
-
 ### Truck Aggregate
-
 
 ### Logistics Aggregate
 
@@ -275,4 +276,3 @@ To mitigate the risk in this aggregate it was implemented:
 ![logs](log_system.png)
 
 - "Valid" annotations on the parameters on the controller and annotations on the request type (SubmitLogisticsForm) to mitigate Parameter Tampering.
-
