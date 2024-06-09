@@ -10,6 +10,7 @@ import pt.isep.desofs.m1a.g1.dto.BatteryDto;
 import pt.isep.desofs.m1a.g1.dto.TruckDto;
 import pt.isep.desofs.m1a.g1.exception.InvalidBatteryException;
 import pt.isep.desofs.m1a.g1.exception.InvalidTruckException;
+import pt.isep.desofs.m1a.g1.exception.NotFoundException;
 import pt.isep.desofs.m1a.g1.model.truck.Battery;
 import pt.isep.desofs.m1a.g1.model.truck.Truck;
 import pt.isep.desofs.m1a.g1.repository.TruckRepository;
@@ -50,12 +51,15 @@ public class TruckServiceImpl implements TruckService {
         try {
             validateTruckDto(truckDto);
             Truck truck = truckRepository.findByTruckId(truckId).orElseThrow(() -> new InvalidTruckException("Truck not found"));
+            if (truck == null) {
+                throw new NotFoundException("Truck not found with identifier: " + truckId);
+            }
             truck.setActive(truckDto.isActive());
             truck.setTare(truckDto.getTare());
             truck.setLoadCapacity(truckDto.getLoadCapacity());
             truck.getBattery().setAutonomy(truckDto.getBattery().getAutonomy());
             truck.getBattery().setChargingTime(truckDto.getBattery().getChargingTime());
-            Truck updatedTruck = truckRepository.save(truck);
+            Truck updatedTruck = truckRepository.update(truck);
             return convertToDto(updatedTruck);
         } catch (InvalidBatteryException | InvalidTruckException e) {
             logger.error("Error updating truck: {}", e.getMessage());

@@ -20,4 +20,6 @@ public interface TruckRepository {
     Page<Truck> findAllWithFilters(int pageIndex, int pageSize, String sortBy, String sortOrder, Map<String, String> filters);
 
     List<Truck> findAllActive();
+
+    Truck update(Truck truck);
 }
