@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 			var user = new User(request.getFirstName(), request.getLastName(), request.getPhoneNumber(),
 					request.getEmail(), passwordEncoded, request.getRole(), false);
 			var savedUser = userRepo.save(user);
-			var userExtension = userExtensionRepo.save(new UserExtension(user.getUsername(), 0));
+			var userExtension = userExtensionRepo.save(new UserExtension(user.getUsername(), 0, null));
 			return savedUser != null && userExtension != null;
 		} catch (Exception e) {
 			return false;

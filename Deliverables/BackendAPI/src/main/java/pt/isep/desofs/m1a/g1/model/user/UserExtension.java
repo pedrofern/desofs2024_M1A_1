@@ -9,10 +9,12 @@ public class UserExtension {
 
 	private int numRetries;
 	private String username;
+	private String secretKey = null;
 	
-	public UserExtension(String username, int numRetries) {
+	public UserExtension(String username, int numRetries, String secretKey) {
 		this.numRetries = numRetries;
 		this.username = username;
+		this.secretKey = secretKey;
 	}
 	
 	public void incrementRetries() {

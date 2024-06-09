@@ -31,8 +31,8 @@ import pt.isep.desofs.m1a.g1.model.user.Role;
 public class SecurityConfig {
 
     @Value("${frontend.endpoint}")
-    private String ALLOWED_ORIGINS;
-    private static final String[] WHITE_LIST_URL = {"/api/v1/user/login"};
+    private String allowedOrigins;
+    private static final String[] WHITE_LIST_URL = {"/api/v1/user/login/**"};
     private static final String[] ADMIN_LIST_URL = {"/api/v1/user/register", "/api/v1/user/*/assign-role"};
     private static final String[] ALL_USERS_LIST_URL = {"/api/v1/user/*", "/api/v1/users"};
     private static final String[] WAREHOUSE_LIST_URL = {"/api/v1/warehouses/**", "/api/v1/deliveries/**",};
@@ -94,7 +94,7 @@ public class SecurityConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**").allowedOrigins(ALLOWED_ORIGINS)
+                registry.addMapping("/api/**").allowedOrigins(allowedOrigins)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS").allowedHeaders("*")
                         .allowCredentials(true);
             }

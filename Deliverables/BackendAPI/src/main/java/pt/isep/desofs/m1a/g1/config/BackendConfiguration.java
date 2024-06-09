@@ -1,5 +1,6 @@
 package pt.isep.desofs.m1a.g1.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -13,10 +14,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.client.RestTemplate;
+
+import com.warrenstrange.googleauth.GoogleAuthenticator;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.client.RestTemplate;
 import pt.isep.desofs.m1a.g1.repository.UserRepository;
+import pt.isep.desofs.m1a.g1.repository.jpa.impl.UserExtensionRepositoryImpl;
 
 @Configuration
 @RequiredArgsConstructor
@@ -25,6 +29,8 @@ import pt.isep.desofs.m1a.g1.repository.UserRepository;
 public class BackendConfiguration {
 
 	private final UserRepository repository;
+	@Autowired
+	private UserExtensionRepositoryImpl userExtensionRepositoryImpl;
 
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -58,6 +64,13 @@ public class BackendConfiguration {
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
+	}
+
+	@Bean
+	public GoogleAuthenticator googleAuthenticator() {
+		GoogleAuthenticator gAuth = new GoogleAuthenticator();
+		gAuth.setCredentialRepository(userExtensionRepositoryImpl);
+		return gAuth;
 	}
 
 }

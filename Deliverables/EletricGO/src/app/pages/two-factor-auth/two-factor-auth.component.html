@@ -1,0 +1,19 @@
+<div class="container mt-5 mb-5" *ngIf="qrCodeUrl">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h1>Google Authenticator</h1>
+            <h4>QR Code</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+        <img [src]="qrCodeUrl" alt="QR Code" class="img-fluid">
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-12 text-center">
+            <input type="text" id="code" [formControl]="code" class="form-control text-center mb-3" placeholder="Enter Code" (keypress)="numericOnly($event)">            
+            <button class="btn btn-outline-secondary" type="button" (click)="validateCode()" [disabled]="code.pristine || code.invalid">Validate</button>
+        </div>
+    </div>
+</div>

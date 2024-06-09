@@ -16,6 +16,8 @@ public class UserExtensionJpa {
 	@GeneratedValue
 	private UUID id;
 	private int numRetries;
+	@Column(nullable = true)
+	private String secretKey = null;
 
 	@Column(unique = true)
 	private String username;

@@ -4,13 +4,14 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { ILogin } from 'src/dtos/login/ILogin';
 import { LoginService } from 'src/services/login.service';
 import { CookieService } from 'ngx-cookie-service';
-import { IRole } from 'src/model/IRole';
-import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { EventAggregatorService } from 'src/services/event-aggregator.service';
 import { EventArgs } from 'src/model/EventArgs';
 import { GlobalService } from 'src/services/global.service';
+import { TwoFactorAuthComponent } from '../two-factor-auth/two-factor-auth.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   public errorMessage = '';
   public clientId = '';
 
-  constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService, private eventService: EventAggregatorService, public global: GlobalService) { }
+  constructor(public dialog: MatDialog, private loginService: LoginService, private router: Router, private cookieService: CookieService, private eventService: EventAggregatorService, public global: GlobalService) { }
 
   ngOnInit(): void {
     this.eventService.LogoutRefresh.subscribe((e: EventArgs) => {
@@ -59,11 +60,17 @@ export class LoginComponent implements OnInit {
       google.accounts.id.prompt((notification: PromptMomentNotification) => {});
   }
 
-  validateLogin(form: NgForm) {
+  async validateLogin(form: NgForm) {
     if (form.value.email != '' && form.value.password != '') {
       this.loginCredentials.email = form.value.email;
       this.loginCredentials.password = form.value.password;
 
+      if(environment.twoFactorAuthenticationEnabled){
+        const result = await this.onEmailInserted(this.loginCredentials.email);
+
+        this.loginCredentials.code = result.code;
+        this.loginCredentials.secret = result.secret;
+      }
       this.loginService.validateLogin(this.loginCredentials)
         .subscribe((data: any) => {
           this.global.updateData(true);
@@ -78,6 +85,18 @@ export class LoginComponent implements OnInit {
       this.errorMessage = "Missing email or password";
       this.success = false;
     }
+  }
+
+  onEmailInserted(email: string): Promise<{ code: number, secret: string }> {
+    return new Promise<{ code: number, secret: string }>((resolve) => {
+      const dialogRef = this.dialog.open(TwoFactorAuthComponent, {
+        data: { email: email }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        resolve(result);
+      });
+    });
   }
 
   handleCredentialResponse(response: CredentialResponse) {

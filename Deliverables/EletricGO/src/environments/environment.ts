@@ -14,7 +14,8 @@ export const environment = {
   APIUsers: "http://localhost:8080/api/v1/user",
   APIPassword: "http://localhost:8080/api/v1/users/password/",
   APIDeleteUser: "http://localhost:8080/api/v1/users/cancel/",
-  APIRoles: "http://localhost:8080/api/v1/roles/"
+  APIRoles: "http://localhost:8080/api/v1/roles/",
+  twoFactorAuthenticationEnabled: true
 };
 
 /*

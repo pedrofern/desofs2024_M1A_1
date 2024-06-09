@@ -61,7 +61,7 @@ public class UserServiceImplTest {
 		String passwordEncoded = passwordEncoder2.encode(password);
 		User user = new User(request.getFirstName(), request.getLastName(), request.getPhoneNumber(),
 				request.getEmail(), passwordEncoded, request.getRole(), false);
-		UserExtension userExtension = new UserExtension(user.getUsername(), 0);
+		UserExtension userExtension = new UserExtension(user.getUsername(), 0, null);
 		
 		when(userRepo.save(user)).thenReturn(user);
 		when(userExtensionRepo.save(userExtension)).thenReturn(userExtension);

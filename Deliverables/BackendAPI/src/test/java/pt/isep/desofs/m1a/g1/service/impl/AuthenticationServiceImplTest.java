@@ -59,7 +59,7 @@ public class AuthenticationServiceImplTest {
 	public void testAuthenticate() {
 		String email = "testEmail@batatas.pt";
 		String pass = "Pass@1234";
-		AuthenticationRequest request = new AuthenticationRequest(email, pass);
+		AuthenticationRequest request = new AuthenticationRequest(email, pass, "", 0);
 
 		User user = new User("testFirstName", "testLastName", "911234567", email, pass, "ADMIN", false);
 		String jwtToken = "testToken";
@@ -80,10 +80,10 @@ public class AuthenticationServiceImplTest {
 	public void testAuthenticateAuthenticationException() {
 		String email = "testEmail@batatas.pt";
 		String pass = "Pass@1234";
-		AuthenticationRequest request = new AuthenticationRequest(email, pass);
+		AuthenticationRequest request = new AuthenticationRequest(email, pass, "", 0);
 
 		User user = new User("testFirstName", "testLastName", "911234567", email, pass, "ADMIN", false);
-		UserExtension userExtension = new UserExtension(email, 0);
+		UserExtension userExtension = new UserExtension(email, 0, null);
 
 		when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
 		when(userExtensionRepo.findByUsername(email)).thenReturn(Optional.of(userExtension));
@@ -100,10 +100,10 @@ public class AuthenticationServiceImplTest {
 	public void testAuthenticateLockedException() {
 		String email = "testEmail@batatas.pt";
 		String pass = "Pass@1234";
-		AuthenticationRequest request = new AuthenticationRequest(email, pass);
+		AuthenticationRequest request = new AuthenticationRequest(email, pass, "", 0);
 
 		User user = new User("testFirstName", "testLastName", "911234567", email, pass, "ADMIN", false);
-		UserExtension userExtension = new UserExtension(email, 5); // assuming 5 is the maximum number of retries
+		UserExtension userExtension = new UserExtension(email, 5, null); // assuming 5 is the maximum number of retries
 
 		when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
 		when(userExtensionRepo.findByUsername(email)).thenReturn(Optional.of(userExtension));

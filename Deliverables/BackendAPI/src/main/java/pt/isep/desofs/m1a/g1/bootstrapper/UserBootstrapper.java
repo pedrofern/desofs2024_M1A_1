@@ -33,7 +33,7 @@ public class UserBootstrapper implements CommandLineRunner {
 					encoder.encode("Admin@123"), "ADMIN", false);
 
 			userRepo.save(admin);
-			userExtensionRepo.save(new UserExtension(admin.getUsername(), 0));
+			userExtensionRepo.save(new UserExtension(admin.getUsername(), 0, null));
 		}
 
 		// warehouse
@@ -42,7 +42,7 @@ public class UserBootstrapper implements CommandLineRunner {
 					encoder.encode("Warehouse@123"), "WAREHOUSE_MANAGER", false);
 
 			userRepo.save(warehouse);
-			userExtensionRepo.save(new UserExtension(warehouse.getUsername(), 0));
+			userExtensionRepo.save(new UserExtension(warehouse.getUsername(), 0, null));
 		}
 
 		// fleet
@@ -51,7 +51,7 @@ public class UserBootstrapper implements CommandLineRunner {
 					encoder.encode("Fleet@123"), "FLEET_MANAGER", false);
 
 			userRepo.save(fleet);
-			userExtensionRepo.save(new UserExtension(fleet.getUsername(), 0));
+			userExtensionRepo.save(new UserExtension(fleet.getUsername(), 0, null));
 		}
 
 		// logistics
@@ -60,7 +60,7 @@ public class UserBootstrapper implements CommandLineRunner {
 					encoder.encode("Logistics@123"), "LOGISTICS_MANAGER", false);
 
 			userRepo.save(logistics);
-			userExtensionRepo.save(new UserExtension(logistics.getUsername(), 0));
+			userExtensionRepo.save(new UserExtension(logistics.getUsername(), 0, null));
 		}
 
 		// operator
@@ -69,7 +69,7 @@ public class UserBootstrapper implements CommandLineRunner {
 					encoder.encode("Operator@123"), "OPERATOR", false);
 
 			userRepo.save(operator);
-			userExtensionRepo.save(new UserExtension(operator.getUsername(), 0));
+			userExtensionRepo.save(new UserExtension(operator.getUsername(), 0, null));
 		}
 
 		// admin - Cristiano Soares
@@ -78,7 +78,7 @@ public class UserBootstrapper implements CommandLineRunner {
 					encoder.encode("Admin@123"), "ADMIN", false);
 
 			userRepo.save(cristiano);
-			userExtensionRepo.save(new UserExtension(cristiano.getUsername(), 0));
+			userExtensionRepo.save(new UserExtension(cristiano.getUsername(), 0, null));
 		}
 
 		// admin - Fábio Cruz
@@ -87,16 +87,16 @@ public class UserBootstrapper implements CommandLineRunner {
 					encoder.encode("Admin@123"), "ADMIN", false);
 
 			userRepo.save(fabio);
-			userExtensionRepo.save(new UserExtension(fabio.getUsername(), 0));
+			userExtensionRepo.save(new UserExtension(fabio.getUsername(), 0, null));
 		}
 		
 		// admin - Pedro Fernandes
-		if (userRepo.findByEmail("1060503@isep.pt").isEmpty()) {
-			User pedro = new User("Pedro", "Fernandes", "+351912123123", "1060503@isep.pt",
+		if (userRepo.findByEmail("1060503@isep.ipp.pt").isEmpty()) {
+			User pedro = new User("Pedro", "Fernandes", "+351912123123", "1060503@isep.ipp.pt",
 					encoder.encode("Admin@123"), "ADMIN", false);
 
 			userRepo.save(pedro);
-			userExtensionRepo.save(new UserExtension(pedro.getUsername(), 0));
+			userExtensionRepo.save(new UserExtension(pedro.getUsername(), 0, null));
 		}
 	}
 }

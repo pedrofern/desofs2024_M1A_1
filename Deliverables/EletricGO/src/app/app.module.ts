@@ -37,6 +37,8 @@ import { UserDeleteComponent } from './pages/user-delete/user-delete.component';
 import { EventAggregatorService } from 'src/services/event-aggregator.service';
 import {AuthInterceptor} from "./shared/auth.interceptor";
 import {TokenService} from "src/services/TokenService";
+import { TwoFactorAuthComponent } from './pages/two-factor-auth/two-factor-auth.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import {TokenService} from "src/services/TokenService";
     UsersComponent,
     UserDetailComponent,
     UserPasswordComponent,
-    UserDeleteComponent
+    UserDeleteComponent,
+    TwoFactorAuthComponent
   ],
     imports: [
         BrowserModule,
@@ -76,7 +79,8 @@ import {TokenService} from "src/services/TokenService";
         BrowserAnimationsModule,
         MaterialModule,
         ReactiveFormsModule,
-        InputMaskModule
+        InputMaskModule,
+        MatDialogModule
     ],
   providers:[
     CookieService,
