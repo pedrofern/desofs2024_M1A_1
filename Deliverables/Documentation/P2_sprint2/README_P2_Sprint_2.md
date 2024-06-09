@@ -15,7 +15,10 @@
 - [Build and Deploy Process](#build-and-deploy-process)
   - [Continuous Integration (CI)](#continuous-integration-ci)
   - [Continuous Deployment (CD)](#continuous-deployment-cd)
+  - [Deploy Images](#deploy-images)
+  - [Code Review](#code-review)
   - [Automation Tools](#automation-tools)
+  - [Tools Evidence](#tools-evidence)
   - [Pull and Run Docker Images](#pull-and-run-docker-images)
 - [Frontend](#frontend)
   - [Key Features](#key-features)
@@ -124,6 +127,14 @@ CI/CD Build Workflow diagram:
 Deploy Images Release diagram:
 
 ![Deploy Images Release](release.png)
+
+### Code Review
+
+The code review process is done by the team members.
+The code is reviewed for quality, security, and compliance with coding standards.
+
+- Example:
+![Release Approved](release_approved.png)
 
 ### Automation Tools
 
