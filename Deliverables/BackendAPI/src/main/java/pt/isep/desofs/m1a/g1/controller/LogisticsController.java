@@ -42,7 +42,6 @@ public class LogisticsController {
     //Get all the packaging
     @GetMapping("/")
     public ResponseEntity<List<Packaging>> getAllPackaging(Authentication authentication) {
-        logger.info("Received request to get all packaging from user {}", authentication.getName());
         return ResponseEntity.ok(logisticsService.getAllPackaging());
     }
 
