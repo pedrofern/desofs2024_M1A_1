@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
 import pt.isep.desofs.m1a.g1.dto.BatteryDto;
 import pt.isep.desofs.m1a.g1.dto.TruckDto;
 import pt.isep.desofs.m1a.g1.exception.InvalidBatteryException;
@@ -13,8 +14,8 @@ import pt.isep.desofs.m1a.g1.model.truck.Battery;
 import pt.isep.desofs.m1a.g1.model.truck.Truck;
 import pt.isep.desofs.m1a.g1.repository.TruckRepository;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,6 +75,25 @@ public class TruckServiceImplTest {
     }
 
     @Test
+    public void testCreateTruckWithNegativeTare() {
+        TruckDto truckDto = new TruckDto();
+        truckDto.setTruckId(1L);
+        truckDto.setTare(-5000.0);
+        truckDto.setLoadCapacity(20000.0);
+        truckDto.setActive(true);
+        BatteryDto batteryDto = new BatteryDto();
+        batteryDto.setBatteryId(1L);
+        batteryDto.setAutonomy(500.0);
+        batteryDto.setMaximumBattery(1000.0);
+        batteryDto.setChargingTime(2.0);
+        truckDto.setBattery(batteryDto);
+
+        assertThrows(InvalidTruckException.class, () -> {
+            truckService.createTruck(truckDto);
+        });
+    }
+
+    @Test
     public void testUpdateTruck() {
         Truck truck = new Truck(1L, 5000.0, 20000.0, true, new Battery(1L, 500.0, 1000.0, 2.0));
         when(truckRepository.findByTruckId(1L)).thenReturn(Optional.of(truck));
@@ -103,6 +123,27 @@ public class TruckServiceImplTest {
     }
 
     @Test
+    public void testUpdateTruckNotFound() {
+        TruckDto truckDto = new TruckDto();
+        truckDto.setTruckId(1L);
+        truckDto.setTare(6000.0);
+        truckDto.setLoadCapacity(25000.0);
+        truckDto.setActive(false);
+        BatteryDto batteryDto = new BatteryDto();
+        batteryDto.setBatteryId(1L);
+        batteryDto.setAutonomy(600.0);
+        batteryDto.setMaximumBattery(1200.0);
+        batteryDto.setChargingTime(3.0);
+        truckDto.setBattery(batteryDto);
+
+        when(truckRepository.findByTruckId(1L)).thenReturn(Optional.empty());
+
+        assertThrows(InvalidTruckException.class, () -> {
+            truckService.updateTruck(1L, truckDto);
+        });
+    }
+
+    @Test
     public void testGetTruck() {
         Truck truck = new Truck(1L, 5000.0, 20000.0, true, new Battery(1L, 500.0, 1000.0, 2.0));
         when(truckRepository.findByTruckId(1L)).thenReturn(Optional.of(truck));
@@ -116,8 +157,7 @@ public class TruckServiceImplTest {
 
     @Test
     public void testGetTruckNotFound() {
-        Optional<Truck> trucks = Optional.empty();
-        when(truckRepository.findByTruckId(1L)).thenReturn(trucks);
+        when(truckRepository.findByTruckId(1L)).thenReturn(Optional.empty());
 
         assertThrows(InvalidTruckException.class, () -> {
             truckService.getTruck(1L);
@@ -148,5 +188,14 @@ public class TruckServiceImplTest {
         assertNotNull(result);
         assertEquals(2, result.size());
         verify(truckRepository, times(1)).findAllActive();
+    }
+
+    @Test
+    public void testValidateTruckIdWithInvalidId() {
+        long invalidTruckId = -1L;
+
+        assertThrows(InvalidTruckException.class, () -> {
+            truckService.getTruck(invalidTruckId);
+        });
     }
 }

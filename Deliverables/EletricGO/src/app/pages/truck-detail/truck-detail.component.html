@@ -4,7 +4,7 @@
             <h2>{{ !id ? 'Create' : 'Edit' }} Truck {{ truck.truckId }}</h2>
             <div>
                 <label for="truckId" *ngIf="!id">Truck Id</label>
-                <input name="truckId" *ngIf="!id" [(ngModel)]="truck.truckId" readonly ngModel>
+                <input name="truckId" *ngIf="!id" [(ngModel)]="truck.truckId" [readonly]="id" ngModel>
 
                 <label for="tare">Tare</label>
                 <input name="tare" type="number" [(ngModel)]="truck.tare" required ngModel>
@@ -19,7 +19,7 @@
                 <div></div>
 
                 <label for="batteryId">Battery Id</label>
-                <input name="batteryId" type="number" [(ngModel)]="truck.battery.batteryId" readonly ngModel>
+                <input name="batteryId" type="number" [(ngModel)]="truck.battery.batteryId" [readonly]="id" ngModel>
 
                 <label for="maximumBattery">Maximum Battery</label>
                 <input name="maximumBattery" type="number"
