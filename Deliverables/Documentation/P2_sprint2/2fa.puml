@@ -1,0 +1,35 @@
+@startuml
+title 2FA (Two-Factor Authentication) - Sequence Diagram
+
+actor User
+participant AuthenticationController
+participant AuthenticationService
+participant TwoFactorAuthService
+participant GoogleAuthenticator
+participant UserExtensionRepository
+participant AuthenticationManager
+participant UserRepository
+participant JwtService
+participant TokenRepository
+
+
+
+User -> AuthenticationController : generate2FA()
+AuthenticationController -> TwoFactorAuthService : getQRBarcodeURL()
+TwoFactorAuthService -> UserExtensionRepository : getSecretKey()
+TwoFactorAuthService -> GoogleAuthenticator : createCredentials()
+TwoFactorAuthService -> UserExtensionRepository : saveUserCredentials()
+TwoFactorAuthService -> GoogleAuthenticator : getOtpAuthURL()
+
+
+User -> AuthenticationController : login()
+AuthenticationController -> TwoFactorAuthService : validateCode()
+TwoFactorAuthService -> GoogleAuthenticator : authorize()
+AuthenticationController -> AuthenticationService : authenticate()
+AuthenticationService -> AuthenticationManager : authenticate()
+AuthenticationService -> UserRepository : findByEmail()
+AuthenticationService -> JwtService : generateToken()
+AuthenticationService -> TokenRepository : revokeAllUserTokens()
+AuthenticationService -> TokenRepository : saveUserToken()
+
+@enduml

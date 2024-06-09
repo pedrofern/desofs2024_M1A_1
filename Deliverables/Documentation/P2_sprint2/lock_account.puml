@@ -1,0 +1,35 @@
+@startuml
+title Lock Account - Sequence Diagram
+
+actor User
+participant User
+participant AuthenticationController
+participant AuthenticationService
+participant AuthenticationManager
+participant UserRepository
+participant JwtService
+participant UserExtension
+
+User -> AuthenticationController : login()
+AuthenticationController -> AuthenticationService : authenticate()
+AuthenticationService -> AuthenticationManager : authenticate()
+AuthenticationService -> UserRepository : findByEmail()
+AuthenticationService -> JwtService : generateToken()
+AuthenticationService -> AuthenticationService : updateNumberOfRetries
+
+
+alt "If authentication passes" 
+    AuthenticationService -> UserExtension : resetRetries()
+    AuthenticationService -> User : Login successful
+else "if authentication fails"
+    AuthenticationService -> UserExtension : incrementRetries()
+    alt "If retries are less than n"
+        AuthenticationService -> User : Login failed
+    else "If retries are equal to n"
+        AuthenticationService -> UserRepository : lockUser()
+        AuthenticationService -> User : "Account locked!
+    end
+    AuthenticationService -> User : Login failed
+end
+
+@enduml

@@ -25,9 +25,15 @@
   - [Development Setup](#development-setup-1)
   - [Testing](#testing-1)
 - [Database](#database)
-
-
-// TODO - rever todo o documento e adaptar para o sprint 2 !!!!!!!!
+- [Aggregate Specifications](#aggregate-specifications)
+  - [Common](#common)
+    - [Backend](#backend-1)
+    - [Frontend](#frontend-1)
+  - [User Aggregate](#user-aggregate)
+  - [Warehouse Aggregate](#warehouse-aggregate)
+  - [Delivery Aggregate](#delivery-aggregate)
+  - [Truck Aggregate](#truck-aggregate)
+  - [Logistics Aggregate](#logistics-aggregate)
 
 ## Introduction
 
@@ -124,11 +130,11 @@ Deploy Images Release diagram:
   - GitHub tool enabled to keep dependencies up to date.
 - **Codacy Quality**: 
   - Enabled to monitor code quality.
-  - [![Codacy Badge](https://app.codacy.com/project/badge/Grade/65b4c2ec5835498eb2463147b77be122)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+  - [![Codacy Quality Badge](https://app.codacy.com/project/badge/Grade/65b4c2ec5835498eb2463147b77be122)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 - **Codacy Coverage**: 
   - Enabled to monitor code coverage. 
-  - [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/65b4c2ec5835498eb2463147b77be122)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+  - [![Codacy Coverage Badge](https://app.codacy.com/project/badge/Coverage/65b4c2ec5835498eb2463147b77be122)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 - **Deploy to Docker Hub**: 
   - Enabled to deploy Docker images to Docker Hub.
@@ -139,7 +145,7 @@ Deploy Images Release diagram:
 - **Dependabot**:
   - ![Dependabot](dependabot.png)
 - **GitHub Secrets**:
-  - ![GitHub Secrets](githubsecrets.png)  
+  - ![GitHub Secrets](github_secrets.png)  
 - **Codacy Quality and Coverage**:
   - ![Codacy](codacy.png)  
 - **Docker Hub**:
@@ -201,4 +207,58 @@ The backend is developed using Java and Spring Boot. It provides RESTful APIs fo
 
 The database is developed using PostgreSQL. It stores all the data related to the DESFOS application, including user data, warehouse information, delivery plans, truck data, and logistics operations.
 
+
+## Aggregate Specifications
+
+Many of security requirements are implemented in the backend, and the frontend is responsible for the user interface and user experience of the EletricGo application.
+
+Some of them are common to all components, but others are specific to each component.
+
+### Common
+
+The backend was the focus of the security requirements and the frontend was the focus of the user interface and user experience of the EletricGo application.
+
+#### Backend
+
+The structure of the backend was designed to ensure that the data is secure and that the APIs are protected from unauthorized access.
+
+> **We implemented user authentication and authorization, input validation, and data encryption to protect sensitive information, with many other security concerns.** 
+
+> **All of this was possible using interceptors for each request to the server.**
+
+#### Frontend
+
+Obviously, we had many security concerns in the frontend, such as ensuring that each logged-in user can only view their permitted information.
+
+Aldo, we have specific requirements for each component.
+
+
+### User Aggregate
+
+The user aggregate is responsible for managing user accounts and profiles. It is probably the most critical part of the application, as it deals with sensitive information such as user credentials and personal data.
+
+To solve this requirement and mitigate the risks, it was implemented 2FA (Two-Factor Authentication) and lock account after n failed login attempts.
+
+
+> **Lock account after n failed login attempts**
+
+![Lock account](lock_account.png)
+
+
+> **2FA (Two-Factor Authentication)**
+
+This requirement was implemented using the Google Authenticator app to generate a time-based one-time password (TOTP) for each user.
+
+![2FA](2fa.png)
+
+### Warehouse Aggregate
+
+
+### Delivery Aggregate
+
+
+### Truck Aggregate
+
+
+### Logistics Aggregate
 
