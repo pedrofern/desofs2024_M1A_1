@@ -18,3 +18,9 @@ COPY --from=build /app/dist/spa /usr/share/nginx/html
 
 # Copiar a configuração customizada do Nginx, se houver
 # COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expôr a porta padrão do Nginx
+EXPOSE 80
+
+# Comando para iniciar o Nginx
+CMD ["nginx", "-g", "daemon off;"]
