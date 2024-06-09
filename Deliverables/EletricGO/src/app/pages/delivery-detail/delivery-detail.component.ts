@@ -37,10 +37,15 @@ export class DeliveryDetailComponent implements OnInit {
     }
 
     getDelivery(): void {
-        this.id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-        if (this.id) {
-            this.deliveryService.getDelivery(this.id)
-                .subscribe(data => this.delivery = DeliveryMap.toModel(data));
+        const idParam = this.route.snapshot.paramMap.get('id');
+        if (idParam !== null) {
+            this.id = parseInt(idParam, 10);
+            if (this.id) {
+                this.deliveryService.getDelivery(this.id)
+                    .subscribe(data => this.delivery = DeliveryMap.toModel(data));
+            } else {
+                this.delivery = {} as IDelivery;
+            }
         } else {
             this.delivery = {} as IDelivery;
         }

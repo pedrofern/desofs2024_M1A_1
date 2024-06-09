@@ -10,6 +10,7 @@ import { IDelivery } from 'src/model/IDelivery';
 import { DeliveryMap } from 'src/mappers/DeliveryMap';
 import { GlobalService } from 'src/services/global.service';
 import { TokenService } from 'src/services/TokenService';
+import { IDeliveryDto } from 'src/dtos/delivery/IDeliveryDto';
 
 
 @Component({
@@ -28,12 +29,12 @@ export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
     totalRecords?: number;
 
     // Filter
-    filterDeliveryId?: number;
-    filterDeliveryDate?: string;
-    filterWeight?: number;
-    filterWarehouseId?: string;
+    filterDeliveryId!: number;
+    filterDeliveryDate!: string;
+    filterWeight!: number;
+    filterWarehouseId!: string;
 
-    filters: any = {
+    filters: IDeliveryDto = {
         deliveryId: this.filterDeliveryId,
         deliveryDate: this.filterDeliveryDate,
         weight: this.filterWeight,
@@ -85,12 +86,14 @@ export class DeliveriesComponent implements OnInit, OnDestroy, AfterViewInit {
 
     pageChanged(e: PageEvent): void {
         this.getDeliveries();
+        console.warn(e);
     }
 
     customSort(e: Sort): void {
         this.sort.direction = e.direction;
         this.sort.active = e.active;
         this.getDeliveries();
+        console.warn(e);
     }
 
     validateRole(): boolean {
