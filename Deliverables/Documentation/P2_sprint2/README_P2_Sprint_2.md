@@ -226,6 +226,13 @@ The structure of the backend was designed to ensure that the data is secure and 
 
 > **All of this was possible using interceptors for each request to the server.**
 
+Other security requirement implemented in the backend was monitoing and logging of all activities on the system, to detect and respond to suspicious activity.
+
+We implemented an interceptor witch has only the issue to persiste into the database all the requests, (user, date/time, endpoint) that are made to the server.
+
+![Monitoring](monitoring.png)
+
+
 #### Frontend
 
 Obviously, we had many security concerns in the frontend, such as ensuring that each logged-in user can only view their permitted information.

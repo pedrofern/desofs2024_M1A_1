@@ -1,0 +1,13 @@
+@startuml
+title Monitoring - Sequence Diagram
+
+
+participant Request
+participant MonitoringInterceptor
+participant MonitoringRepository
+
+Request <- MonitoringInterceptor : isIntercepted
+MonitoringInterceptor -> MonitoringRepository : save(URI, date/time, user)
+
+
+@enduml
