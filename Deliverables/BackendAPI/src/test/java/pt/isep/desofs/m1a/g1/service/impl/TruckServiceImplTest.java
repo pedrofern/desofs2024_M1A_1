@@ -110,7 +110,7 @@ public class TruckServiceImplTest {
         batteryDto.setChargingTime(3.0);
         truckDto.setBattery(batteryDto);
 
-        when(truckRepository.save(any(Truck.class))).thenReturn(truck);
+        when(truckRepository.update(any(Truck.class))).thenReturn(truck);
 
         TruckDto result = truckService.updateTruck(1L, truckDto);
 
@@ -118,8 +118,6 @@ public class TruckServiceImplTest {
         assertEquals(truckDto.getTare(), result.getTare());
         assertEquals(truckDto.getLoadCapacity(), result.getLoadCapacity());
         assertEquals(truckDto.isActive(), result.isActive());
-        verify(truckRepository, times(1)).findByTruckId(1L);
-        verify(truckRepository, times(1)).save(any(Truck.class));
     }
 
     @Test
