@@ -49,6 +49,8 @@ public class SecurityConfig {
     private InputSanitizerInterceptor inputSanitizerInterceptor;
     @Autowired
     private RateLimitInterceptor rateLimitInterceptor;
+    @Autowired
+    private MonitoringInterceptor monitoringInterceptor;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -101,6 +103,7 @@ public class SecurityConfig {
 
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
+            	registry.addInterceptor(monitoringInterceptor);
                 registry.addInterceptor(securityHeadersInterceptor);
                 registry.addInterceptor(inputSanitizerInterceptor);
                 registry.addInterceptor(rateLimitInterceptor);
