@@ -262,3 +262,17 @@ This requirement was implemented using the Google Authenticator app to generate 
 
 ### Logistics Aggregate
 
+The logistics aggregate is responsible for managing the packages, their delivery, their truck and the position inside the truck.
+
+To mitigate the risk in this aggregate it was implemented:
+
+- Input Validation to validate every input that reaches the system for SQL queries and/or scripts, using interceptors.
+
+- Rate Limit so that the system does not get a an overload of requests, using interceptors.
+
+- Logs so that is saved what which person did so that if a problem arises we know who did it.
+
+![logs](log_system.png)
+
+- "Valid" annotations on the parameters on the controller and annotations on the request type (SubmitLogisticsForm) to mitigat Parameter Tampering.
+
