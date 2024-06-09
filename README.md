@@ -9,5 +9,5 @@ Developed by:
  
 Documentation:
   - [P1](./Deliverables/Documentation/P1/README.md)
-  - [P2 - Sprint 1](./Deliverables/Documentation/P2_sprint1/README.md)
-  - [P2 - Sprint 2](./Deliverables/Documentation/P2_sprint2/README.md)
+  - [P2 - Sprint 1](./Deliverables/Documentation/P2_sprint1/README_P2_Sprint_1.md)
+  - [P2 - Sprint 2](./Deliverables/Documentation/P2_sprint2/README_P2_Sprint_2.md)
