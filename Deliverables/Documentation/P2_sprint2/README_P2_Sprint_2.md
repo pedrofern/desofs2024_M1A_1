@@ -128,6 +128,7 @@ Deploy Images Release diagram:
 
 - **Dependabot**:
   - GitHub tool enabled to keep dependencies up to date.
+
 - **Codacy Quality**:
   - Enabled to monitor code quality.
   - [![Codacy Quality Badge](https://app.codacy.com/project/badge/Grade/65b4c2ec5835498eb2463147b77be122)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
@@ -142,13 +143,20 @@ Deploy Images Release diagram:
 ### Tools Evidence
 
 - **Dependabot**:
-  - ![Dependabot](dependabot.png)
+
+![Dependabot](dependabot.png)
+
 - **GitHub Secrets**:
-  - ![GitHub Secrets](github_secrets.png)  
+
+![GitHub Secrets](github_secrets.png)  
+
 - **Codacy Quality and Coverage**:
-  - ![Codacy](codacy.png)  
+
+![Codacy](codacy.png)  
+
 - **Docker Hub**:
-  - ![Docker Hub](dockerhub.png)
+
+![Docker Hub](dockerhub.png)
 
 ## Frontend
 
