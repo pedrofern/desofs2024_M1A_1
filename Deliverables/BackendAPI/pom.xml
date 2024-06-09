@@ -176,7 +176,6 @@
 		</dependency>
 
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -194,7 +193,6 @@
                             <artifactId>lombok</artifactId>
                             <version>1.18.22</version>
                         </path>
-                        <!-- Mapper library to automate model transformations DTO: <-> Model -->
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
@@ -221,6 +219,19 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>pt.isep.desofs.m1a.g1.BackendApiApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>
