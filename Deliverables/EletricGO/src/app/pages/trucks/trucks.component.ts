@@ -1,13 +1,14 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Subject, takeUntil } from 'rxjs';
-import { TruckMap } from 'src/mappers/TruckMap';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatSort, Sort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {Subject, takeUntil} from 'rxjs';
+import {TruckMap} from 'src/mappers/TruckMap';
 import ITruck from 'src/model/ITruck';
-import { GlobalService } from 'src/services/global.service';
-import { TruckService } from 'src/services/truck.service';
+import {GlobalService} from 'src/services/global.service';
+import {TruckService} from 'src/services/truck.service';
+import {TokenService} from "../../../services/TokenService";
 
 @Component({
     selector: 'app-trucks',
@@ -49,7 +50,8 @@ export class TrucksComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         private truckService: TruckService,
         public dialog: MatDialog,
-        public global: GlobalService
+        public global: GlobalService,
+        public token: TokenService
     ) {
     }
 
@@ -101,6 +103,10 @@ export class TrucksComponent implements OnInit, OnDestroy, AfterViewInit {
         this.sort.direction = e.direction;
         this.sort.active = e.active;
         this.getTrucks();
+    }
+
+    validateRole(): boolean {
+        return this.token.getRole() === 'ADMIN' || this.token.getRole() === 'FLEET_MANAGER';
     }
 }
 
