@@ -274,5 +274,5 @@ To mitigate the risk in this aggregate it was implemented:
 
 ![logs](log_system.png)
 
-- "Valid" annotations on the parameters on the controller and annotations on the request type (SubmitLogisticsForm) to mitigat Parameter Tampering.
+- "Valid" annotations on the parameters on the controller and annotations on the request type (SubmitLogisticsForm) to mitigate Parameter Tampering.
 
